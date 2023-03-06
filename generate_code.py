@@ -1,7 +1,6 @@
 import re
 import common
 import error_code
-import function_phase_proc
 import if_phase_proc
 
 g_global_func = list()
@@ -18,6 +17,11 @@ errcode = error_code.err_class()
 
 
 def load_file(file_path):
+    """
+    Identify function and other items.
+    :param file_path:
+    :return:
+    """
     global_regular = r'FUNC *\(.+\n\{\n(?:[\t| +|/].*\n)+\}'
     local_func_regular = r'(?:static )*[a-z]+.+\)\n\{\n(?:[\t| +|/].*\n)+\}'
     struct_regular = r'typedef struct *\n* *\{ *\n(?: +.+?;\n)+?\} *\S+?;'
@@ -64,6 +68,12 @@ def load_file(file_path):
 
 
 def local_func_proc(input_func_list, output_info_list: list):
+    """
+    Main function process the function.
+    :param input_func_list:
+    :param output_info_list:
+    :return:
+    """
     ret = errcode.ok
     while True:
         if len(input_func_list) == 0:
@@ -73,7 +83,7 @@ def local_func_proc(input_func_list, output_info_list: list):
             if_phase_list = if_phase_proc.if_phase(fun_idx)
             if_phase_num = len(if_phase_list)
             if_idx = 0
-            task_list = common.pack_func_info(fun_idx)
+            task_list = common.pack_func_info(fun_idx)  # Package valid information in a function
             for task in task_list:
                 info = common.property_map(task)
                 if info != 'if':

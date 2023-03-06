@@ -2,8 +2,9 @@ import re
 
 memcpy_regular = r'[\(void\)]*memcpy *\(&*(\S+?),\n* *&*(\S+?),\n*.+\);'
 memset_regular = r'[\(void\)]* *memset\(&*(\S+?),\n*.+?, *\n*.+?\);'
-get_single_value_regular = r'[\(void\)]*(\S+?)\(&*(\S+)\);'
-common_function_regular = r'[\(void\)]*([\w]+?)\(.*?\);'
+get_value_func_regular = r'[\(void\)]*(\S+?)\(&(\S+)\);'
+trans_value_func_regular = r'[\(void\)]*(\S+?)\((\S+)\);'
+common_function_regular = r'[\(void\)]* *([\w]+?)\(.*?\);'
 point_function_regular = r'\( *\* *(\w+)\)\(&*.+\)'
 
 
@@ -21,9 +22,16 @@ def memset_func(input_str: str):
 
 
 def get_value_func(input_str: str):
-    func_name = re.search(get_single_value_regular, input_str).group(1)
-    obj_name = re.search(get_single_value_regular, input_str).group(2)
+    func_name = re.search(get_value_func_regular, input_str).group(1)
+    obj_name = re.search(get_value_func_regular, input_str).group(2)
     res = 'Call the function ' + str(func_name) + ' for get the value of ' + str(obj_name)
+    return res
+
+
+def trans_value_func(input_str: str):
+    func_name = re.search(trans_value_func_regular, input_str).group(1)
+    obj_name = re.search(trans_value_func_regular, input_str).group(2)
+    res = 'Call the function ' + str(func_name) + ' and transmit the ' + str(obj_name) + ' to it'
     return res
 
 
@@ -42,7 +50,7 @@ def func_process(func_phase: str):
             if re.match(memset_regular, func_phase) is not None:
                 res = memset_func(func_phase)
                 break
-            if re.match(get_single_value_regular, func_phase) is not None:
+            if re.match(get_value_func_regular, func_phase) is not None:
                 res = get_value_func(func_phase)
                 break
             if re.match(common_function_regular, func_phase) is not None:
@@ -68,5 +76,3 @@ def point_func_proc(input_str: str):
             func_list[index] = new_info
     res = '\n'.join(func_list)
     return res
-
-

@@ -155,7 +155,7 @@ def phase_check(input_str: str):
     do_regular = r'do *\{|\} *while *\((.+?\));'
     switch_regular = r'switch *\(.+?\)\n* *\{'
     while_regular = r'while *\(.+?\)'
-    set_value_regular = r'([\w|\.|\-|\>|\[|\]|\*]+?) *[=|\||&]{1,2} *([\S| ]+?);|(\S+) *\+\+;'
+    set_value_regular = r'([\w\.->\[\]\*]+?) *[=|&+-]{1,2} *([\S ]+?);|(\S+) *\+\+;'
     func_regular = r'[\(void\)]*(?:[\w]+?)\(.*?\);|\( *\* *\w+\)\(&*.+\);'
     return_regular = r'return +.+?;'
     break_regular = r'break *;'
