@@ -14,6 +14,8 @@ g_content_list = list()
 class gui_op(code_generate.Ui_MainWindow):
     def display_info(self, file_path, mode_op='load'):
         ret, name_list, content_list, num_list = generate_code.get_code_info(file_path, mode=mode_op)
+        g_name_list.clear()
+        g_content_list.clear()
         g_name_list.extend(name_list)
         g_content_list.extend(content_list)
         if ret == err.ok:
@@ -88,6 +90,11 @@ class gui_op(code_generate.Ui_MainWindow):
             self.struct_items.clear()
             self.enum_items.clear()
             self.macro_items.clear()
+            self.func_disp.clear()
+            self.gloabal_disp.clear()
+            self.struct_disp.clear()
+            self.enum_disp.clear()
+            self.macro_disp.clear()
             self.mention.setText(ret)
             break
         op_lock.release()
@@ -114,7 +121,7 @@ class gui_op(code_generate.Ui_MainWindow):
     def event_disp_struct(self):
         self.mention.setText(err.waiting)
         op_lock.acquire()
-        name = self.func_items.currentItem().text()
+        name = self.struct_items.currentItem().text()
         while True:
             if g_name_list[2].count(name) != 0:
                 index = g_name_list[2].index(name)
@@ -122,7 +129,7 @@ class gui_op(code_generate.Ui_MainWindow):
             else:
                 self.mention.setText(err.no_record)
                 break
-            self.struct_disp.toPlainText(content)
+            self.struct_disp.setPlainText(content)
             self.mention.setText(err.ok)
             break
         op_lock.release()
@@ -130,7 +137,7 @@ class gui_op(code_generate.Ui_MainWindow):
     def event_disp_enum(self):
         self.mention.setText(err.waiting)
         op_lock.acquire()
-        name = self.func_items.currentItem().text()
+        name = self.enum_items.currentItem().text()
         while True:
             if g_name_list[3].count(name) != 0:
                 index = g_name_list[3].index(name)
@@ -138,7 +145,7 @@ class gui_op(code_generate.Ui_MainWindow):
             else:
                 self.mention.setText(err.no_record)
                 break
-            self.enum_disp.toPlainText(content)
+            self.enum_disp.setPlainText(content)
             self.mention.setText(err.ok)
             break
         op_lock.release()
@@ -146,7 +153,7 @@ class gui_op(code_generate.Ui_MainWindow):
     def event_disp_macro(self):
         self.mention.setText(err.waiting)
         op_lock.acquire()
-        name = self.func_items.currentItem().text()
+        name = self.macro_items.currentItem().text()
         while True:
             if g_name_list[4].count(name) != 0:
                 index = g_name_list[4].index(name)
@@ -154,7 +161,7 @@ class gui_op(code_generate.Ui_MainWindow):
             else:
                 self.mention.setText(err.no_record)
                 break
-            self.macro_disp.toPlainText(content)
+            self.macro_disp.setPlainText(content)
             self.mention.setText(err.ok)
             break
         op_lock.release()
@@ -162,7 +169,7 @@ class gui_op(code_generate.Ui_MainWindow):
     def event_disp_global_var(self):
         self.mention.setText(err.waiting)
         op_lock.acquire()
-        name = self.func_items.currentItem().text()
+        name = self.global_items.currentItem().text()
         while True:
             if g_name_list[5].count(name) != 0:
                 index = g_name_list[5].index(name)
@@ -170,7 +177,7 @@ class gui_op(code_generate.Ui_MainWindow):
             else:
                 self.mention.setText(err.no_record)
                 break
-            self.gloabal_disp.toPlainText(content)
+            self.gloabal_disp.setPlainText(content)
             self.mention.setText(err.ok)
             break
         op_lock.release()
@@ -184,10 +191,6 @@ class gui_op(code_generate.Ui_MainWindow):
         th = threading.Thread(target=self.event_load)
         th.start()
 
-    def th_clear(self):
-        th = threading.Thread(target=self.event_clear_info)
-        th.start()
-
     #  trigger--------------------------------------------------------------------------------
     def trigger_load_file(self):
         self.select_bt.clicked.connect(self.th_load_file)
@@ -196,19 +199,19 @@ class gui_op(code_generate.Ui_MainWindow):
         self.load_bt.clicked.connect(self.th_load)
 
     def trigger_clear(self):
-        self.clear_bt.clicked.connect(self.th_clear)
+        self.clear_bt.clicked.connect(self.event_clear_info)
 
     def trigger_disp_func(self):
         self.func_items.clicked.connect(self.event_disp_func)
 
     def trigger_disp_struct(self):
-        self.func_items.clicked.connect(self.event_disp_struct)
+        self.struct_items.clicked.connect(self.event_disp_struct)
 
     def trigger_disp_enum(self):
-        self.func_items.clicked.connect(self.event_disp_enum)
+        self.enum_items.clicked.connect(self.event_disp_enum)
 
     def trigger_disp_macro(self):
-        self.func_items.clicked.connect(self.event_disp_macro)
+        self.macro_items.clicked.connect(self.event_disp_macro)
 
     def trigger_disp_global_var(self):
-        self.func_items.clicked.connect(self.event_disp_global_var)
+        self.global_items.clicked.connect(self.event_disp_global_var)

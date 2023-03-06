@@ -53,6 +53,23 @@ def tab_to_space(func_list: list, scale=4):
     return func_list
 
 
+def func_format_proc(func_list: list) -> str:
+    """
+
+    :param func_list:
+    :return:
+    """
+    comment_regular = r'/\*.+|/\*.+'
+    for line in func_list:
+        comment_phase = re.search(comment_regular, line)
+        if comment_phase is not None:
+            re.sub(comment_regular, '', line)
+    func_code = '\n'.join(func_list)
+    func_code = function_phase_proc.point_func_proc(func_code)
+    func_code = func_code + '\nEND'
+    return func_code
+
+
 def span_depth(input_str: str, scale=4):
     space_num = 0
     idx = 0
@@ -65,6 +82,16 @@ def span_depth(input_str: str, scale=4):
 
 def get_global_func_names(global_func_list: list):
     name_list = list()
+    func_name_regular = r'FUNC *\(.+\) *(\S+)\('
+    for func_idx in global_func_list:
+        first_line = func_idx.split('\n')[0]
+        func_head = first_line.strip()
+        func_get = re.search(func_name_regular, func_head)
+        if func_get is not None:
+            func_name = func_get.group(1)
+        else:
+            func_name = ''
+        name_list.append(func_name)
     return name_list
 
 

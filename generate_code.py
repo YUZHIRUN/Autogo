@@ -18,7 +18,7 @@ errcode = error_code.err_class()
 
 
 def load_file(file_path):
-    global_regular = r'FUNC\(.+\n\{\n(?:[\t| +|/].*\n)+\}'
+    global_regular = r'FUNC *\(.+\n\{\n(?:[\t| +|/].*\n)+\}'
     local_func_regular = r'(?:static )*[a-z]+.+\)\n\{\n(?:[\t| +|/].*\n)+\}'
     struct_regular = r'typedef struct *\n* *\{ *\n(?: +.+?;\n)+?\} *\S+?;'
     enum_regular = r'typedef enum *\n* *\{ *\n(?: +.+?,*?\n)+?\} *\S+?;'
@@ -91,9 +91,7 @@ def local_func_proc(input_func_list, output_info_list: list):
                         break
             if ret != errcode.ok:
                 break
-            func_code = '\n'.join(info_list)
-            func_code = function_phase_proc.point_func_proc(func_code)
-            func_code = func_code + '\nEND'
+            func_code = common.func_format_proc(info_list)
             output_info_list.append(func_code)
         break
     return ret
