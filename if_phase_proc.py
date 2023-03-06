@@ -43,7 +43,7 @@ def if_process(if_phases: str):
 
 def if_phase(input_phase: str):
     if_list = list()
-    if_regular = r'(?:[else|else ]*if *\(.+\)\n* *\{)|(?:[else|else ]*if *\(.+\n(?:.+\n)*? *\{)|else\n* *\{'
+    if_regular = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else *\n* *\{'
     phase = re.search(if_regular, input_phase)
     if phase is not None:
         if_list = re.findall(if_regular, input_phase)

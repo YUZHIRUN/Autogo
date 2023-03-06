@@ -523,6 +523,9 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
+      </property>
       <property name="readOnly">
        <bool>false</bool>
       </property>
@@ -568,6 +571,9 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
       </property>
       <property name="readOnly">
        <bool>false</bool>
@@ -642,6 +648,9 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
       </property>
       <property name="readOnly">
        <bool>false</bool>
@@ -722,6 +731,9 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
       </property>
       <property name="readOnly">
        <bool>false</bool>
@@ -820,6 +832,9 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
       </property>
       <property name="readOnly">
        <bool>false</bool>

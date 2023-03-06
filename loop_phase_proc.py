@@ -33,14 +33,14 @@ def while_phase_proc(input_phase: str):
 
 def do_phase_proc(input_phase: str):
     do_regular = r'do *\{*'
-    while_regular = r'\} *while *\((.+?\));'
+    while_regular = r'\} *while *\((.+?)\);'
     do_phase = re.search(do_regular, input_phase)
     while_regular = re.search(while_regular, input_phase)
     if do_phase is not None:
         res = 'DO'
     elif while_regular is not None:
         do_condition = while_regular.group(1)
-        res = 'IF ' + str(do_condition) + 'THEN continue ELSE break'
+        res = 'IF ' + str(do_condition) + ' THEN continue ELSE break'
     else:
         res = ''
     return res
