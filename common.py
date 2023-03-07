@@ -5,6 +5,25 @@ import loop_phase_proc
 import other_phase_proc
 
 
+def file_useless_info_del(content_str: str, tab_scale=4):
+    comment_regular_1 = r'//.*'
+    comment_regular_2 = r'/\*.*\*/'
+    comment_regular_3 = r'/\*.+\n.*?\*/'
+    comment_regular_4 = r' */\*.*\n(.+\n)+?.*\*/'
+    res = del_line_sign(content_str)
+    if re.search(comment_regular_1, res) is not None:
+        res = re.sub(comment_regular_1, '', res)
+    if re.search(comment_regular_2, res) is not None:
+        res = re.sub(comment_regular_2, '', res)
+    if re.search(comment_regular_3, res) is not None:
+        res = re.sub(comment_regular_3, '', res)
+    if re.search(comment_regular_4, res) is not None:
+        res = re.sub(comment_regular_4, '', res)
+    res = del_line_sign(res)
+    res = res.expandtabs(tabsize=tab_scale)
+    return res
+
+
 def str_index_rep(input_str: str, obj_s, mode='f'):
     res = None
     while True:
@@ -97,7 +116,7 @@ def get_global_func_names(global_func_list: list):
 
 def get_local_func_names(local_func_list: list):
     name_list = list()
-    func_name_regular = r'\w+ +\**(\w+) *\('
+    func_name_regular = r'\w+\** +\** *(\w+) *\('
     for func_idx in local_func_list:
         first_line = func_idx.split('\n')[0]
         func_head = first_line.strip()

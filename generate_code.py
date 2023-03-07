@@ -23,16 +23,16 @@ def load_file(file_path):
     :return:
     """
     global_regular = r'FUNC *\(.+\n\{\n(?:[\t| +|/].*\n)+\}'
-    local_func_regular = r'(?:static )*[a-z]+.+\)\n\{\n(?:[\t| +|/].*\n)+\}'
-    struct_regular = r'typedef struct *\n* *\{ *\n(?: +.+?;\n)+?\} *\S+?;'
-    enum_regular = r'typedef enum *\n* *\{ *\n(?: +.+?,*?\n)+?\} *\S+?;'
-    macro_regular = r'#define +(?:.+?) +(?:\S+)'
+    local_func_regular = r'(?:static )*[\w]+.+\)\n\{[ \t]*\n(?:[\t /]+.*\n)+\}'
+    struct_regular = r'typedef struct *\n* *\{[ \t]*\n(?:[ \t]+.*?\n)+?\} *\S+?;'
+    enum_regular = r'typedef enum *\n* *\{[ \t]*\n(?:[ \t]+.*?,*?\n)+?\} *\S+?;'
+    macro_regular = r'#define[\t ]+(?:.+?)[ \t]+(?:\S+)'
     global_var_regular = r'(?:\w+) +(?:g_\S+) *= *(?:.+?);'
     ret = errcode.ok
     while True:
         with open(file_path, mode='r', encoding='UTF-8') as file_obj:
             file_content = file_obj.read()
-            file_content = common.del_line_sign(file_content)  # delete the \n
+            file_content = common.file_useless_info_del(file_content)  # delete the \n
             global_func = re.search(global_regular, file_content)
             local_func = re.search(local_func_regular, file_content)
             structs = re.search(struct_regular, file_content)
