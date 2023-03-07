@@ -1,5 +1,8 @@
 import re
+import regular_expression
 import common
+
+regular = regular_expression.RegularClass()
 
 
 def if_condition_pro(input_str: str):
@@ -43,10 +46,9 @@ def if_process(if_phases: str):
 
 def if_phase(input_phase: str):
     if_list = list()
-    if_regular = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else *\n* *\{'
-    phase = re.search(if_regular, input_phase)
+    phase = re.search(regular.get_if_info, input_phase)
     if phase is not None:
-        if_list = re.findall(if_regular, input_phase)
+        if_list = re.findall(regular.get_if_info, input_phase)
         if_phase_num = len(if_list)
         for idx in range(if_phase_num):
             if_list[idx] = if_process(if_list[idx])

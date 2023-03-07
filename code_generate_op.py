@@ -12,10 +12,19 @@ g_content_list = list()
 
 
 class gui_op(code_generate.Ui_MainWindow):
+
+    def clear_disp(self):
+        self.func_items.clear()
+        self.struct_items.clear()
+        self.enum_items.clear()
+        self.macro_items.clear()
+        self.global_var_num.clear()
+
     def display_info(self, file_path, mode_op='load'):
         ret, name_list, content_list, num_list = generate_code.get_code_info(file_path, mode=mode_op)
         g_name_list.clear()
         g_content_list.clear()
+        self.clear_disp()
         g_name_list.extend(name_list)
         g_content_list.extend(content_list)
         if ret == err.ok:

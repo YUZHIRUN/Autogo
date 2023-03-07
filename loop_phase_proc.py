@@ -1,17 +1,18 @@
 import re
+import regular_expression
+
+regular = regular_expression.RegularClass()
 
 
 def for_phase_proc(input_str):
-    for_regular = r'for *\((.+?);(.+?);(.+?)\)'
-    condition_regular = r'([\w|\.|-|>|\[|\]|\*]+?) *[>|<|=]{1,2} *([\S| ]+?);'
-    if re.search(for_regular, input_str) is not None:
-        start_condition = re.search(for_regular, input_str).group(1) + ';'
-        end_condition = re.search(for_regular, input_str).group(2) + ';'
+    if re.search(regular.get_for_info, input_str) is not None:
+        start_condition = re.search(regular.get_for_condition, input_str).group(1) + ';'
+        end_condition = re.search(regular.get_for_condition, input_str).group(2) + ';'
         # loop_condition = re.search(for_regular, input_str).group(3)
         try:
-            variable_name = re.search(condition_regular, start_condition).group(1)
-            start_value = re.search(condition_regular, start_condition).group(2)
-            end_value = re.search(condition_regular, end_condition).group(2)
+            variable_name = re.search(regular.get_for_condition, start_condition).group(1)
+            start_value = re.search(regular.get_for_condition, start_condition).group(2)
+            end_value = re.search(regular.get_for_condition, end_condition).group(2)
             res = 'FOR ' + str(variable_name) + ' from ' + str(start_value) + ' to ' + str(end_value)
         except Exception:
             res = ''
@@ -21,8 +22,7 @@ def for_phase_proc(input_str):
 
 
 def while_phase_proc(input_phase: str):
-    while_regular = r'while *\((.+?)\)'
-    phase = re.search(while_regular, input_phase)
+    phase = re.search(regular.get_while_info, input_phase)
     if phase is not None:
         condition = phase.group(1)
         res = 'WHILE ' + str(condition) + ' THEN continue ELSE break'
@@ -32,10 +32,8 @@ def while_phase_proc(input_phase: str):
 
 
 def do_phase_proc(input_phase: str):
-    do_regular = r'do *\{*'
-    while_regular = r'\} *while *\((.+?)\);'
-    do_phase = re.search(do_regular, input_phase)
-    while_regular = re.search(while_regular, input_phase)
+    do_phase = re.search(regular.get_do_info, input_phase)
+    while_regular = re.search(regular.get_while_of_do_info, input_phase)
     if do_phase is not None:
         res = 'DO'
     elif while_regular is not None:
