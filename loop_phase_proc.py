@@ -44,4 +44,3 @@ def do_phase_proc(input_phase: str):
     else:
         res = ''
     return res
-

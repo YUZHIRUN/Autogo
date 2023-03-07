@@ -64,15 +64,15 @@ def func_process(func_phase: str):
     return res
 
 
-def point_func_proc(input_str: str):
-    func_list = input_str.split('\n')
-    for line_idx in func_list:
+def point_func_proc(func_line: list):
+    for line_idx in func_line:
         point_func = re.search(point_function_regular, line_idx)
         if point_func is not None:
             point = point_func.group(1)
             info = 'The value obtained by the function ' + str(point)
             new_info = re.sub(point_function_regular, info, line_idx)
-            index = func_list.index(line_idx)
-            func_list[index] = new_info
-    res = '\n'.join(func_list)
+            index = func_line.index(line_idx)
+            func_line[index] = new_info
+    res = '\n'.join(func_line)
+    res = res + '\nEND'
     return res

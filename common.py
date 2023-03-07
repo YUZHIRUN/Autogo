@@ -1,24 +1,22 @@
 import re
-
+import regular_expression
 import function_phase_proc
 import loop_phase_proc
 import other_phase_proc
 
+regular = regular_expression.RegularClass()
+
 
 def file_useless_info_del(content_str: str, tab_scale=4):
-    comment_regular_1 = r'//.*'
-    comment_regular_2 = r'/\*.*\*/'
-    comment_regular_3 = r'/\*.+\n.*?\*/'
-    comment_regular_4 = r' */\*.*\n(.+\n)+?.*\*/'
     res = del_line_sign(content_str)
-    if re.search(comment_regular_1, res) is not None:
-        res = re.sub(comment_regular_1, '', res)
-    if re.search(comment_regular_2, res) is not None:
-        res = re.sub(comment_regular_2, '', res)
-    if re.search(comment_regular_3, res) is not None:
-        res = re.sub(comment_regular_3, '', res)
-    if re.search(comment_regular_4, res) is not None:
-        res = re.sub(comment_regular_4, '', res)
+    if re.search(regular.comment_1, res) is not None:
+        res = re.sub(regular.comment_1, '', res)
+    if re.search(regular.comment_2, res) is not None:
+        res = re.sub(regular.comment_2, '', res)
+    if re.search(regular.comment_3, res) is not None:
+        res = re.sub(regular.comment_3, '', res)
+    if re.search(regular.comment_4, res) is not None:
+        res = re.sub(regular.comment_4, '', res)
     res = del_line_sign(res)
     res = res.expandtabs(tabsize=tab_scale)
     return res
@@ -48,12 +46,11 @@ def del_line_sign(obj_str: str):
     :param obj_str:
     :return:
     """
-    new_line_regular = r'\n+'
-    res = re.sub(new_line_regular, '\n', obj_str)
+    res = re.sub(regular.new_line, '\n', obj_str)
     return res
 
 
-def del_line_plus(obj_str: str):
+def func_useless_del(obj_str: str):
     tab_proc = obj_str.expandtabs(tabsize=4)
     phase_list = tab_proc.split('\n')
     phase_num = len(phase_list)
@@ -72,23 +69,6 @@ def tab_to_space(func_list: list, scale=4):
     return func_list
 
 
-def func_format_proc(func_list: list) -> str:
-    """
-
-    :param func_list:
-    :return:
-    """
-    comment_regular = r'/\*.+|/\*.+'
-    for line in func_list:
-        comment_phase = re.search(comment_regular, line)
-        if comment_phase is not None:
-            re.sub(comment_regular, '', line)
-    func_code = '\n'.join(func_list)
-    func_code = function_phase_proc.point_func_proc(func_code)
-    func_code = func_code + '\nEND'
-    return func_code
-
-
 def span_depth(input_str: str, scale=4):
     space_num = 0
     idx = 0
@@ -101,11 +81,10 @@ def span_depth(input_str: str, scale=4):
 
 def get_global_func_names(global_func_list: list):
     name_list = list()
-    func_name_regular = r'FUNC *\(.+\) *(\S+)\('
     for func_idx in global_func_list:
         first_line = func_idx.split('\n')[0]
         func_head = first_line.strip()
-        func_get = re.search(func_name_regular, func_head)
+        func_get = re.search(regular.global_func_name, func_head)
         if func_get is not None:
             func_name = func_get.group(1)
         else:
@@ -116,11 +95,10 @@ def get_global_func_names(global_func_list: list):
 
 def get_local_func_names(local_func_list: list):
     name_list = list()
-    func_name_regular = r'\w+\** +\** *(\w+) *\('
     for func_idx in local_func_list:
         first_line = func_idx.split('\n')[0]
         func_head = first_line.strip()
-        func_get = re.search(func_name_regular, func_head)
+        func_get = re.search(regular.local_func_name, func_head)
         if func_get is not None:
             func_name = func_get.group(1)
         else:
@@ -147,9 +125,8 @@ def get_enum_names(enum_list: list):
 
 def get_macro_names(macro_list: list):
     name_list = list()
-    regular = r'#define +(.+?) +(?:\S+)'
     for macro_idx in macro_list:
-        macro = re.search(regular, macro_idx)
+        macro = re.search(regular.macro_name, macro_idx)
         if macro is not None:
             name = macro.group(1)
             name_list.append(name)
@@ -158,9 +135,8 @@ def get_macro_names(macro_list: list):
 
 def get_global_var_names(global_var_list: list):
     name_list = list()
-    regular = r'(?:\w+) +(g_\S+) *= *(?:.+?);'
     for var_idx in global_var_list:
-        var = re.search(regular, var_idx)
+        var = re.search(regular.global_var_name, var_idx)
         if var is not None:
             name = var.group(1)
             name_list.append(name)
@@ -169,44 +145,35 @@ def get_global_var_names(global_var_list: list):
 
 def phase_check(input_str: str):
     phase_property = None
-    if_regular = r'if *\(.+?\)|else.*'
-    for_regular = r'for *\(.+?;.+?;.+?\)'
-    do_regular = r'do *\{|\} *while *\((.+?\));'
-    switch_regular = r'switch *\(.+?\)\n* *\{'
-    while_regular = r'while *\(.+?\)'
-    set_value_regular = r'([\w\.->\[\]\*]+?) *[=|&+-]{1,2} *([\S ]+?);|(\S+) *\+\+;'
-    func_regular = r'[\(void\)]*(?:[\w]+?)\(.*?\);|\( *\* *\w+\)\(&*.+\);'
-    return_regular = r'return +.+?;'
-    break_regular = r'break *;'
     wait_check_str = input_str.strip()
     while True:
         if wait_check_str.find('/') == 0:
             break
-        if re.match(break_regular, wait_check_str) is not None:
+        if re.match(regular.break_re, wait_check_str) is not None:
             phase_property = 'break'
             break
-        if re.match(if_regular, wait_check_str) is not None:
+        if re.match(regular.if_re, wait_check_str) is not None:
             phase_property = 'if'
             break
-        if re.match(for_regular, wait_check_str) is not None:
+        if re.match(regular.for_re, wait_check_str) is not None:
             phase_property = 'for'
             break
-        if re.match(while_regular, wait_check_str) is not None and input_str.count('}') == 0:
+        if re.match(regular.while_re, wait_check_str) is not None and input_str.count('}') == 0:
             phase_property = 'while'
             break
-        if re.match(do_regular, wait_check_str) is not None or wait_check_str == 'do':
+        if re.match(regular.do_re, wait_check_str) is not None or wait_check_str == 'do':
             phase_property = 'do'
             break
-        if re.match(switch_regular, wait_check_str) is not None:
+        if re.match(regular.switch_re, wait_check_str) is not None:
             phase_property = 'switch'
             break
-        if re.match(return_regular, wait_check_str) is not None:
+        if re.match(regular.return_re, wait_check_str) is not None:
             phase_property = 'return'
             break
-        if re.search(set_value_regular, wait_check_str) is not None:
+        if re.search(regular.set_value_re, wait_check_str) is not None:
             phase_property = 'set_value'
             break
-        if re.search(func_regular, wait_check_str) is not None:
+        if re.search(regular.func_re, wait_check_str) is not None:
             phase_property = 'function'
             break
         break

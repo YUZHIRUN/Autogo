@@ -1,8 +1,11 @@
 import re
 import common
 import error_code
+import function_phase_proc
 import if_phase_proc
+import regular_expression
 
+regular = regular_expression.RegularClass()
 g_global_func = list()
 g_local_func = list()
 g_struct_list = list()
@@ -22,12 +25,12 @@ def load_file(file_path):
     :param file_path:
     :return:
     """
-    global_regular = r'FUNC *\(.+\n\{\n(?:[\t| +|/].*\n)+\}'
-    local_func_regular = r'(?:static )*[\w]+.+\)\n\{[ \t]*\n(?:[\t /]+.*\n)+\}'
-    struct_regular = r'typedef struct *\n* *\{[ \t]*\n(?:[ \t]+.*?\n)+?\} *\S+?;'
-    enum_regular = r'typedef enum *\n* *\{[ \t]*\n(?:[ \t]+.*?,*?\n)+?\} *\S+?;'
-    macro_regular = r'#define[\t ]+(?:.+?)[ \t]+(?:\S+)'
-    global_var_regular = r'(?:\w+) +(?:g_\S+) *= *(?:.+?);'
+    global_regular = regular.global_func
+    local_func_regular = regular.local_func
+    struct_regular = regular.struct
+    enum_regular = regular.enum
+    macro_regular = regular.macro
+    global_var_regular = regular.global_var
     ret = errcode.ok
     while True:
         with open(file_path, mode='r', encoding='UTF-8') as file_obj:
@@ -101,7 +104,7 @@ def local_func_proc(input_func_list, output_info_list: list):
                         break
             if ret != errcode.ok:
                 break
-            func_code = common.func_format_proc(info_list)
+            func_code = function_phase_proc.point_func_proc(info_list)
             output_info_list.append(func_code)
         break
     return ret
