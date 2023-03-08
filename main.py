@@ -2,6 +2,7 @@ import sys
 import code_generate_op
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main_window = QMainWindow()

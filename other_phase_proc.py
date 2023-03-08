@@ -14,9 +14,10 @@ def set_value_phase_proc(input_phase: str):
             res = 'Set ' + str(variable_name) + ' to ' + str(variable_name) + ' ' + str(first_sign) + ' ' + str(value)
         else:
             res = 'Set ' + str(variable_name) + ' to ' + str(value)
-    elif re.search(regular.get_set_plus_plus_info, input_phase) is not None:
-        variable_name = re.search(regular.get_set_plus_plus_info, input_phase).group(1)
-        res = str(variable_name) + ' = ' + str(variable_name) + ' + 1'
+    elif re.search(regular.get_set_special_value_info, input_phase) is not None:
+        variable_name = re.search(regular.get_set_special_value_info, input_phase).group(1)
+        sign = re.search(regular.get_set_special_value_info, input_phase).group(2)
+        res = 'Set ' + str(variable_name) + ' = ' + str(variable_name) + ' ' + str(sign) + ' 1'
     else:
         res = ''
     return res

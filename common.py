@@ -170,10 +170,10 @@ def phase_check(input_str: str):
         if re.match(regular.return_re, wait_check_str) is not None:
             phase_property = 'return'
             break
-        if re.search(regular.set_value_re, wait_check_str) is not None:
+        if re.match(regular.set_value_re, wait_check_str) is not None:
             phase_property = 'set_value'
             break
-        if re.search(regular.func_re, wait_check_str) is not None:
+        if re.match(regular.func_re, wait_check_str) is not None:
             phase_property = 'function'
             break
         break

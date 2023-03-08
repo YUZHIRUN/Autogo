@@ -6,9 +6,8 @@ regular = regular_expression.RegularClass()
 
 def for_phase_proc(input_str):
     if re.search(regular.get_for_info, input_str) is not None:
-        start_condition = re.search(regular.get_for_condition, input_str).group(1) + ';'
-        end_condition = re.search(regular.get_for_condition, input_str).group(2) + ';'
-        # loop_condition = re.search(for_regular, input_str).group(3)
+        start_condition = str(re.search(regular.get_for_info, input_str).group(1)) + ';'
+        end_condition = str(re.search(regular.get_for_info, input_str).group(2)) + ';'
         try:
             variable_name = re.search(regular.get_for_condition, start_condition).group(1)
             start_value = re.search(regular.get_for_condition, start_condition).group(2)

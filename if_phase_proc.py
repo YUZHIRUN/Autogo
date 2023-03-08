@@ -29,8 +29,8 @@ def if_process(if_phases: str):
     then_rep = if_rep.replace('{', '\nTHEN')
     sign_rep = then_rep.replace('&&', '\nAND ')
     sign_rep = sign_rep.replace('||', '\nOR ')
-    equal_rep = sign_rep.replace('==', 'equal to')
-    not_equal_rep = equal_rep.replace('!=', 'not equal to')
+    equal_rep = sign_rep.replace('==', ' equal to ')
+    not_equal_rep = equal_rep.replace('!=', ' not equal to ')
     if_phase_1 = common.func_useless_del(not_equal_rep)
     if if_phase_1.count('(') != 0 and if_phase_1.count(')') != 0:
         f_bracket_del = common.str_index_rep(if_phase_1, '(', mode='f')
