@@ -2,7 +2,7 @@ class RegularClass:
     def __init__(self):
         # function regular
         self.global_func = r'FUNC *\(.+\n *\{ *\n(?: +.*\n)+ *\}|FUNC *\(.+\n *\{ *\n *\}'
-        self.local_func = r'[\w*]+ +[*\w]+ *\([^\n{}]+\n(?: +[^{}]+\n)*?\{ *\n(?: +.*?\n)+\}'
+        self.local_func = r'[\w*]+ *\** +[*\w]+ *\([^\n{}]+\n(?: +[^{}]+\n)*?\{ *\n(?: +.*?\n)+\}'
         self.struct = r'typedef struct *\n* *\{ *\n(?: +.*?\n)+?\} *\S+?;'
         self.enum = r'typedef enum *\n* *\{ *\n(?: +.*?,*?\n)+?\} *\S+?;'
         self.macro = r'#define +(?:.+?) +(?:\S+)'
@@ -27,7 +27,7 @@ class RegularClass:
         self.switch_re = r'switch *\(.+?\)\n* *\{'
         self.while_re = r'while *\(.+?\)'
         self.set_value_re = r'(?:[^\n,;|&]+) *[|=&\+-]*= *(?:[\S| ]+?);|(\S+) *[+-]{2} *;'
-        self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|\( *\* *\w+\)\(&*.+\);'
+        self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|\( *\* *\w+\)\(.*\);'
         self.return_re = r'return +.+?;'
         self.break_re = r'break *;'
 
@@ -38,17 +38,17 @@ class RegularClass:
         self.get_do_info = r'do *\{*'
         self.get_while_of_do_info = r'\} *while *\((.+?)\);'
         self.get_if_info = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else *\n* *\{'
-        self.get_set_value_info = r'([\w\.->\[\]\*]+?) *([=|&+-]?=) *([\S| ]+?);'
+        self.get_set_value_info = r'([\w\.\->\[\]\*]+?) *([=|&+-]?=) *([\S| ]+?);'
         self.get_set_special_value_info = r'(\S+) *([+-]){2} *;'
         self.get_return_info = r'return +(.+?);'
 
         # function class regular
-        self.memcpy = r'[\(void\)]*memcpy *\(&*(\S+?),\n* *&*(\S+?),\n*.+\);'
-        self.memset = r'[\(void\)]* *memset\(&*(\S+?),\n*.+?, *\n*.+?\);'
+        self.memcpy = r'memcpy *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
+        self.memset = r'memset *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
         self.func_get_value = r'[\(void\)]*(\w\S+?)\( *&([^\,\n;]+)\);'
         self.func_trans_value = r'[\(void\)]*(\w\S+?)\(([^\n,;]+)\);'
         self.common_func = r'[\(void\)]* *([\w]+?)\(.*?\);'
-        self.point_func = r'\( *\* *(\w+)\)\(&*.+\)'
+        self.point_func = r'\( *\*( *\w+)\)\([^\n=]*\)'
 
         # other regular
         self.special_sign = r'([+-])='

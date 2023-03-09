@@ -37,6 +37,12 @@ def common_func(input_str: str):
     return res
 
 
+def common_point_func(input_str: str):
+    func_name = re.search(regular.point_func, input_str).group(1)
+    res = 'Call the function ' + str(func_name)
+    return res
+
+
 def func_process(func_phase: str):
     while True:
         try:
@@ -55,6 +61,8 @@ def func_process(func_phase: str):
             if re.match(regular.common_func, func_phase) is not None:
                 res = common_func(func_phase)
                 break
+            if re.match(regular.point_func, func_phase) is not None:
+                res = common_point_func(func_phase)
             else:
                 res = ''
         except Exception:
