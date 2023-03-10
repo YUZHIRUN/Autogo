@@ -35,3 +35,20 @@ def return_phase_proc(input_phase: str):
     else:
         res = ''
     return res
+
+
+def switch_phase_proc(input_phase: str):
+    switch_phase = re.search(regular.switch, input_phase)
+    case_phase = re.search(regular.case, input_phase)
+    default_phase = re.search(regular.default, input_phase)
+    if switch_phase is not None:
+        switch_name = switch_phase.group(1)
+        res = 'SWITCH: ' + switch_name
+    elif case_phase is not None:
+        case_name = case_phase.group(1)
+        res = 'CASE: ' + case_name
+    elif default_phase is not None:
+        res = 'DEFAULT: '
+    else:
+        res = ''
+    return res

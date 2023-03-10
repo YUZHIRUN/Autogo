@@ -48,8 +48,9 @@ def load_file(file_path):
                 g_global_func.extend(func_list)
             if local_func is not None:
                 func_list = re.findall(local_func_regular, file_content)
-                func_list = common.tab_to_space(func_list)
-                g_local_func.extend(func_list)
+                for func_idx in func_list:
+                    if func_idx.count('FUNC') == 0:
+                        g_local_func.append(func_idx)
             if structs is not None:
                 struct_list = re.findall(struct_regular, file_content)
                 struct_list = common.tab_to_space(struct_list)
@@ -104,7 +105,7 @@ def local_func_proc(input_func_list, output_info_list: list):
                         break
             if ret != errcode.ok:
                 break
-            func_code = function_phase_proc.point_func_proc(info_list)
+            func_code = function_phase_proc.last_func_callback_proc(info_list)
             output_info_list.append(func_code)
         break
     return ret

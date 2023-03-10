@@ -15,7 +15,7 @@ class RegularClass:
         self.comment_4 = r' */\*.*\n(.+\n)+?.*\*/'
 
         # get names regular
-        self.global_func_name = r'FUNC *\(.+\) *(\S+)\('
+        self.global_func_name = r'FUNC *\(.+\) *(\S+?)\('
         self.local_func_name = r'\w+\** +\** *(\w+) *\('
         self.macro_name = r'#define +(.+?) +(?:\S+)'
         self.global_var_name = r'(?:\w+) +(g_\S+) *= *(?:.+?);'
@@ -24,10 +24,10 @@ class RegularClass:
         self.if_re = r'if *\(.+?\)|else.*'
         self.for_re = r'for *\(.+?;.+?;.+?\)'
         self.do_re = r'do *\{|\} *while *\((.+?\));'
-        self.switch_re = r'switch *\(.+?\)\n* *\{'
+        self.switch_re = r'switch *\(([\w\(\)]+)\)|case +([\w\(\)]+):|default *:'
         self.while_re = r'while *\(.+?\)'
         self.set_value_re = r'(?:[^\n,;|&]+) *[|=&\+-]*= *(?:[\S| ]+?);|(\S+) *[+-]{2} *;'
-        self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|\( *\* *\w+\)\(.*\);'
+        self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|(?:\(void\))* *\( *\* *\w+\)\(.*\);'
         self.return_re = r'return +.+?;'
         self.break_re = r'break *;'
 
@@ -45,11 +45,20 @@ class RegularClass:
         # function class regular
         self.memcpy = r'memcpy *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
         self.memset = r'memset *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
-        self.func_get_value = r'[\(void\)]*(\w\S+?)\( *&([^\,\n;]+)\);'
-        self.func_trans_value = r'[\(void\)]*(\w\S+?)\(([^\n,;]+)\);'
-        self.common_func = r'[\(void\)]* *([\w]+?)\(.*?\);'
-        self.point_func = r'\( *\*( *\w+)\)\([^\n=]*\)'
+        self.func_get_value = r'(?:\(void\))* *(\w[^\n\(\)]+?)\( *&([^\,\n;]+)\);'
+        self.func_trans_value = r'(?:\(void\))* *(\w[^\n\(\)]+?)\(([^\n,;\(\)]+)\);'
+        self.common_func = r'(?:\(void\))* *([\w]+?)\(.*?\);'
+
+        # switch phase class regular
+        self.switch = r'switch *\(([\w\(\)]+)\)'
+        self.case = r'case +([\w\(\)]+):'
+        self.default = r'default *:'
+
+        # last function callback regular
+        self.condition_func = r'(\w+?)\(.+\)'
+        self.point_func = r'(?:\(void\))* *\( *\*( *\w+)\)\([^\n=]*\)'
 
         # other regular
+        self.compile_macro = r'#ifn?(?:def)?.*\n(?:.+\n)+? *#endif|#ifn?def.*\n.*?#endif'
         self.special_sign = r'([+-])='
         self.new_line = r'\n+'

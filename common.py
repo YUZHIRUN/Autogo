@@ -9,6 +9,7 @@ regular = regular_expression.RegularClass()
 
 def file_useless_info_del(content_str: str, tab_scale=4):
     res = del_line_sign(content_str)
+    res = res.expandtabs(tabsize=tab_scale)
     if re.search(regular.comment_1, res) is not None:
         res = re.sub(regular.comment_1, '', res)
     if re.search(regular.comment_2, res) is not None:
@@ -17,8 +18,9 @@ def file_useless_info_del(content_str: str, tab_scale=4):
         res = re.sub(regular.comment_3, '', res)
     if re.search(regular.comment_4, res) is not None:
         res = re.sub(regular.comment_4, '', res)
+    if re.search(regular.compile_macro, res) is not None:
+        res = re.sub(regular.compile_macro, '', res)
     res = del_line_sign(res)
-    res = res.expandtabs(tabsize=tab_scale)
     return res
 
 
@@ -228,7 +230,8 @@ def property_map(task: dict):
         res = loop_phase_proc.do_phase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'switch':
-        pass
+        res = other_phase_proc.switch_phase_proc(task['content'])
+        res = depth_set(res, task['depth'])
     if task['prop'] == 'return':
         res = other_phase_proc.return_phase_proc(task['content'])
         res = depth_set(res, task['depth'])
