@@ -18,6 +18,7 @@ def file_useless_info_del(content_str: str, tab_scale=4):
         res = re.sub(regular.comment_3, '', res)
     if re.search(regular.comment_4, res) is not None:
         res = re.sub(regular.comment_4, '', res)
+    res = del_line_sign(res)
     if re.search(regular.compile_macro, res) is not None:
         res = re.sub(regular.compile_macro, '', res)
     res = del_line_sign(res)

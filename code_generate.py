@@ -515,7 +515,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "CodeGenerate"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "CodeAnalyser"))
         self.groupBox.setTitle(_translate("MainWindow", "Discription"))
         self.label_8.setText(_translate("MainWindow", "          This tool is used for the statistical work of the key information of C code and generates the corresponding pseudo-code for each function."))
         self.label_9.setText(_translate("MainWindow", "Developer:yuzhirun Version:1.0"))

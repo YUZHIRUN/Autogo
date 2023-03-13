@@ -65,7 +65,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>CodeGenerate</string>
+   <string>CodeAnalyser</string>
   </property>
   <property name="windowIcon">
    <iconset>

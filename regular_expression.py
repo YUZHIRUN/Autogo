@@ -2,7 +2,8 @@ class RegularClass:
     def __init__(self):
         # function regular
         self.global_func = r'FUNC *\(.+\n *\{ *\n(?: +.*\n)+ *\}|FUNC *\(.+\n *\{ *\n *\}'
-        self.local_func = r'[\w*]+ *\** +[*\w]+ *\([^\n{}]+\n(?: +[^{}]+\n)*?\{ *\n(?: +.*?\n)+\}'
+        # self.local_func = r'[\w*]+ *\** +[*\w]+ *\([^\n{}]+\n(?: +[^{}]+\n)*?\{ *\n(?: +.*?\n)+\}'
+        self.local_func = r'[\w\*]+ *\** +[\*\w]+ *\([^{}]+\n\{ *\n(?: .+\n)+\}'
         self.struct = r'typedef struct *\n* *\{ *\n(?: +.*?\n)+?\} *\S+?;'
         self.enum = r'typedef enum *\n* *\{ *\n(?: +.*?,*?\n)+?\} *\S+?;'
         self.macro = r'#define +(?:.+?) +(?:\S+)'
@@ -59,6 +60,6 @@ class RegularClass:
         self.point_func = r'(?:\(void\))* *\( *\*( *\w+)\)\([^\n=]*\)'
 
         # other regular
-        self.compile_macro = r'#ifn?(?:def)?.*\n(?:.+\n)+? *#endif|#ifn?def.*\n.*?#endif'
+        self.compile_macro = r'\#ifn?(?:def)?.*\n(?:.+\n)+? *\#endif|\#ifn?def.*\n.*?'
         self.special_sign = r'([+-])='
         self.new_line = r'\n+'
