@@ -19,7 +19,7 @@ g_local_code_list = list()
 errcode = error_code.err_class()
 
 
-def load_file(file_path):
+def load_file(file_path: str):
     """
     Identify function and other items.
     :param file_path:
@@ -32,10 +32,14 @@ def load_file(file_path):
     macro_regular = regular.macro
     global_var_regular = regular.global_var
     ret = errcode.ok
+    if file_path.endswith('.c'):
+        file_type = '.c'
+    else:
+        file_type = '.h'
     while True:
         with open(file_path, mode='r', encoding='UTF-8') as file_obj:
             file_content = file_obj.read()
-            file_content = common.file_useless_info_del(file_content)  # delete the \n
+            file_content = common.file_useless_info_del(file_content, mode=file_type)  # delete the \n
             global_func = re.search(global_regular, file_content)
             local_func = re.search(local_func_regular, file_content)
             structs = re.search(struct_regular, file_content)
@@ -49,7 +53,8 @@ def load_file(file_path):
             if local_func is not None:
                 func_list = re.findall(local_func_regular, file_content)
                 for func_idx in func_list:
-                    if func_idx.count('FUNC') == 0:
+                    func_head = func_idx.split('\n')[0]
+                    if func_head.count('FUNC') == 0:
                         g_local_func.append(func_idx)
             if structs is not None:
                 struct_list = re.findall(struct_regular, file_content)
@@ -71,14 +76,18 @@ def load_file(file_path):
     return ret
 
 
-def local_func_proc(input_func_list, output_info_list: list):
+def local_func_proc(input_func_list, output_info_list: list, mode='local'):
     """
     Main function process the function.
+    :param mode:
     :param input_func_list:
     :param output_info_list:
     :return:
     """
-    ret = errcode.ok
+    if mode == 'local' or mode == 'global':
+        ret = errcode.ok
+    else:
+        ret = errcode.file_err
     while True:
         if len(input_func_list) == 0:
             break
@@ -101,7 +110,11 @@ def local_func_proc(input_func_list, output_info_list: list):
                             ret = errcode.file_err
                             break
                     except IndexError:
-                        ret = errcode.if_err
+                        if mode == 'global':
+                            func_name = common.get_global_func_name(fun_idx)
+                        else:
+                            func_name = common.get_local_func_name(fun_idx)
+                        ret = errcode.if_err + ' error function: ' + func_name
                         break
             if ret != errcode.ok:
                 break
@@ -112,7 +125,7 @@ def local_func_proc(input_func_list, output_info_list: list):
 
 
 def global_func_proc(input_func_list, output_info_list):
-    ret = local_func_proc(input_func_list, output_info_list)
+    ret = local_func_proc(input_func_list, output_info_list, mode='global')
     return ret
 
 

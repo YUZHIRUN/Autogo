@@ -7,7 +7,7 @@ import other_phase_proc
 regular = regular_expression.RegularClass()
 
 
-def file_useless_info_del(content_str: str, tab_scale=4):
+def file_useless_info_del(content_str: str, tab_scale=4, mode='.c'):
     res = del_line_sign(content_str)
     res = res.expandtabs(tabsize=tab_scale)
     if re.search(regular.comment_1, res) is not None:
@@ -19,9 +19,10 @@ def file_useless_info_del(content_str: str, tab_scale=4):
     if re.search(regular.comment_4, res) is not None:
         res = re.sub(regular.comment_4, '', res)
     res = del_line_sign(res)
-    if re.search(regular.compile_macro, res) is not None:
-        res = re.sub(regular.compile_macro, '', res)
-    res = del_line_sign(res)
+    if mode == '.c':
+        if re.search(regular.compile_macro, res) is not None:
+            res = re.sub(regular.compile_macro, '', res)
+        res = del_line_sign(res)
     return res
 
 
@@ -82,16 +83,32 @@ def span_depth(input_str: str, scale=4):
     return depth
 
 
+def get_local_func_name(func_str: str):
+    first_line = func_str.split('\n')[0]
+    func_head = first_line.strip()
+    func_get = re.search(regular.local_func_name, func_head)
+    if func_get is not None:
+        func_name = func_get.group(1)
+    else:
+        func_name = ''
+    return func_name
+
+
+def get_global_func_name(func_str: str):
+    first_line = func_str.split('\n')[0]
+    func_head = first_line.strip()
+    func_get = re.search(regular.global_func_name, func_head)
+    if func_get is not None:
+        func_name = func_get.group(1)
+    else:
+        func_name = ''
+    return func_name
+
+
 def get_global_func_names(global_func_list: list):
     name_list = list()
     for func_idx in global_func_list:
-        first_line = func_idx.split('\n')[0]
-        func_head = first_line.strip()
-        func_get = re.search(regular.global_func_name, func_head)
-        if func_get is not None:
-            func_name = func_get.group(1)
-        else:
-            func_name = ''
+        func_name = get_global_func_name(func_idx)
         name_list.append(func_name)
     return name_list
 
@@ -99,13 +116,7 @@ def get_global_func_names(global_func_list: list):
 def get_local_func_names(local_func_list: list):
     name_list = list()
     for func_idx in local_func_list:
-        first_line = func_idx.split('\n')[0]
-        func_head = first_line.strip()
-        func_get = re.search(regular.local_func_name, func_head)
-        if func_get is not None:
-            func_name = func_get.group(1)
-        else:
-            func_name = ''
+        func_name = get_local_func_name(func_idx)
         name_list.append(func_name)
     return name_list
 
