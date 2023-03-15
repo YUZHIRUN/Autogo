@@ -2,8 +2,7 @@ class RegularClass:
     def __init__(self):
         # function regular
         self.global_func = r'FUNC *\(.+\n *\{ *\n(?: +.*\n)+ *\}|FUNC *\(.+\n *\{ *\n *\}'
-        # self.local_func = r'[\w*]+ *\** +[*\w]+ *\([^\n{}]+\n(?: +[^{}]+\n)*?\{ *\n(?: +.*?\n)+\}'
-        self.local_func = r'[\w\*]+ *\** +[\*\w]+ *\([^{}]+\n\{ *\n(?: .+\n)+\}'
+        self.local_func = r'[\w\*]+ *\** +[\*\w]+ *\([^{};\#]+\n\{ *\n(?: .*\n)+\}'
         self.struct = r'typedef struct *\n* *\{ *\n(?: +.*?\n)+?\} *\S+?;'
         self.enum = r'typedef enum *\n* *\{ *\n(?: +.*?,*?\n)+?\} *\S+?;'
         self.macro = r'#define +(?:.+?) +(?:\S+)'
@@ -38,7 +37,7 @@ class RegularClass:
         self.get_while_info = r'while *\((.+?)\)'
         self.get_do_info = r'do *\{*'
         self.get_while_of_do_info = r'\} *while *\((.+?)\);'
-        self.get_if_info = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else *\n* *\{'
+        self.get_if_info = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else[^\{\(\)\}]*\{'
         self.get_set_value_info = r'([\w\.\->\[\]\*]+?) *([=|&+-]?=) *([\S| ]+?);'
         self.get_set_special_value_info = r'(\S+) *([+-]){2} *;'
         self.get_return_info = r'return +(.+?);'
@@ -60,6 +59,6 @@ class RegularClass:
         self.point_func = r'(?:\(void\))* *\( *\*( *\w+)\)\([^\n=]*\)'
 
         # other regular
-        self.compile_macro = r'\#ifn?(?:def)?.*\n(?:.+\n)+? *\#endif|\#ifn?def.*\n.*?'
+        self.compile_macro = r'\#ifn?(?:def)?.*\n(?:.+\n)+? *\#endif|\#ifn?def.*\n\#endif.+'
         self.special_sign = r'([+-])='
         self.new_line = r'\n+'

@@ -46,10 +46,10 @@ def common_point_func(input_str: str):
 def func_process(func_phase: str):
     while True:
         try:
-            if re.match(regular.memcpy, func_phase) is not None:
+            if re.search(regular.memcpy, func_phase) is not None:
                 res = memcpy_func(func_phase)
                 break
-            if re.match(regular.memset, func_phase) is not None:
+            if re.search(regular.memset, func_phase) is not None:
                 res = memset_func(func_phase)
                 break
             if re.match(regular.func_get_value, func_phase) is not None:

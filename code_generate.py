@@ -483,7 +483,7 @@ class Ui_MainWindow(object):
         self.macro_items.setObjectName("macro_items")
         self.tabWidget.addTab(self.macro, "")
         self.mention = QtWidgets.QLabel(self.centralwidget)
-        self.mention.setGeometry(QtCore.QRect(560, 830, 240, 28))
+        self.mention.setGeometry(QtCore.QRect(78, 832, 711, 28))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(12)
@@ -497,7 +497,7 @@ class Ui_MainWindow(object):
         self.mention.setText("")
         self.mention.setObjectName("mention")
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
-        self.label_11.setGeometry(QtCore.QRect(500, 830, 61, 30))
+        self.label_11.setGeometry(QtCore.QRect(10, 830, 61, 30))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(13)
@@ -560,4 +560,4 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\';\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.macro), _translate("MainWindow", "Macro Definition"))
-        self.label_11.setText(_translate("MainWindow", "Status:"))
+        self.label_11.setText(_translate("MainWindow", "Prompt:"))

@@ -1,6 +1,6 @@
 class err_class:
     def __init__(self):
-        self.ok = 'Success!'
+        self.ok = 'Successful operation!'
         self.file_err = 'C file error!'
         self.waiting = 'Please waiting...'
         self.no_file = 'Please input a file!'
