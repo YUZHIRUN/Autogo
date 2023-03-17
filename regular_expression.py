@@ -3,8 +3,8 @@ class RegularClass:
         # function regular
         self.global_func = r'FUNC *\(.+\n *\{ *\n(?: +.*\n)+ *\}|FUNC *\(.+\n *\{ *\n *\}'
         self.local_func = r'[\w\*]+ *\** +[\*\w]+ *\([^{};\#]+\n\{ *\n(?: .*\n)+\}'
-        self.struct = r'typedef struct *\n* *\{ *\n(?: +.*?\n)+?\} *\S+?;'
-        self.enum = r'typedef enum *\n* *\{ *\n(?: +.*?,*?\n)+?\} *\S+?;'
+        self.struct = r'typedef +struct *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
+        self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.macro = r'#define +(?:.+?) +(?:\S+)'
         self.global_var = r'(?:\w+) +(?:g_\S+) *= *(?:.+?);'
 
@@ -22,7 +22,7 @@ class RegularClass:
 
         # phase check regular
         self.if_re = r'if *\(.+?\)|else.*'
-        self.for_re = r'for *\(.+?;.+?;.+?\)'
+        self.for_re = r'for *\(.+\)'
         self.do_re = r'do *\{|\} *while *\((.+?\));'
         self.switch_re = r'switch *\(([\w\(\)]+)\)|case +([\w\(\)]+):|default *:'
         self.while_re = r'while *\(.+?\)'
@@ -30,15 +30,16 @@ class RegularClass:
         self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|(?:\(void\))* *\( *\* *\w+\)\(.*\);'
         self.return_re = r'return +.+?;'
         self.break_re = r'break *;'
+        self.continue_re = r'continue *;'
 
         # get information regular
         self.get_for_info = r'for *\((.+?);(.+?);(.+?)\)'
-        self.get_for_condition = r'([\w|\.|-|>|\[|\]|\*]+?) *[>|<|=]{1,2} *([\S| ]+?);'
+        self.get_for_condition = r'([\w|\.|-|>|\[|\]|\*]+?) *[><=!]{1,2} *([\S| ]+?);'
         self.get_while_info = r'while *\((.+?)\)'
         self.get_do_info = r'do *\{*'
         self.get_while_of_do_info = r'\} *while *\((.+?)\);'
         self.get_if_info = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else[^\{\(\)\}]*\{'
-        self.get_set_value_info = r'([\w\.\->\[\]\*]+?) *([=|&+-]?=) *([\S| ]+?);'
+        self.get_set_value_info = r'([^\n,;|&=+ ]+?) *([=|&+-]?=) *([\S| ]+?);'
         self.get_set_special_value_info = r'(\S+) *([+-]){2} *;'
         self.get_return_info = r'return +(.+?);'
 
@@ -55,7 +56,7 @@ class RegularClass:
         self.default = r'default *:'
 
         # last function callback regular
-        self.condition_func = r'(\w+?)\(.+\)'
+        self.condition_func = r'(\w+?)\(.+\)(?!\n)'
         self.point_func = r'(?:\(void\))* *\( *\*( *\w+)\)\([^\n=]*\)'
 
         # other regular

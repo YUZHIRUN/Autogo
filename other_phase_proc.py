@@ -19,12 +19,17 @@ def set_value_phase_proc(input_phase: str):
         sign = re.search(regular.get_set_special_value_info, input_phase).group(2)
         res = 'Set ' + str(variable_name) + ' = ' + str(variable_name) + ' ' + str(sign) + ' 1'
     else:
-        res = ''
+        # res = ''
+        res = input_phase
     return res
 
 
 def break_phase_proc():
     return 'BREAK'
+
+
+def continue_phase_proc():
+    return 'CONTINUE'
 
 
 def return_phase_proc(input_phase: str):
@@ -33,7 +38,7 @@ def return_phase_proc(input_phase: str):
         return_content = return_phase.group(1)
         res = 'RETURN ' + str(return_content)
     else:
-        res = ''
+        res = input_phase
     return res
 
 
@@ -50,5 +55,5 @@ def switch_phase_proc(input_phase: str):
     elif default_phase is not None:
         res = 'DEFAULT: '
     else:
-        res = ''
+        res = input_phase
     return res

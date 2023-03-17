@@ -76,7 +76,7 @@ def point_func_proc(func_line: list):
         point_func = re.search(regular.point_func, line_idx)
         if point_func is not None:
             point = point_func.group(1)
-            info = 'The value obtained by the function ' + str(point)
+            info = ' the value obtained by the function ' + str(point)
             new_info = re.sub(regular.point_func, info, line_idx)
             index = func_line.index(line_idx)
             func_line[index] = new_info
@@ -89,12 +89,12 @@ def last_func_callback_proc(func_line_list: list):
         condition_func = re.search(regular.condition_func, func_line_idx)
         if condition_func is not None:
             condition_name: str = condition_func.group(1)
-            if condition_name.count('IF') == 0 and condition_name.count('sizeof') == 0 and condition_name.count('OR') == 0 and condition_name.count('AND') == 0:
-                info = 'The result of the function ' + condition_name
+            if condition_name.count('IF') == 0 and condition_name.count('sizeof') == 0 and condition_name.count(
+                    'OR') == 0 and condition_name.count('AND') == 0:
+                info = 'the result of the function ' + condition_name
                 new_info = re.sub(regular.condition_func, info, func_line_idx)
                 index = func_list.index(func_line_idx)
                 func_list[index] = new_info
     res = '\n'.join(func_list)
     res = res + '\nEND'
     return res
-

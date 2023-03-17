@@ -54,8 +54,8 @@ def del_line_sign(obj_str: str):
     return res
 
 
-def func_useless_del(obj_str: str):
-    tab_proc = obj_str.expandtabs(tabsize=4)
+def func_useless_del(obj_str: str, tab_scale=4):
+    tab_proc = obj_str.expandtabs(tabsize=tab_scale)
     phase_list = tab_proc.split('\n')
     phase_num = len(phase_list)
     for phase_idx in range(phase_num):
@@ -166,6 +166,9 @@ def phase_check(input_str: str):
         if re.match(regular.break_re, wait_check_str) is not None:
             phase_property = 'break'
             break
+        if re.match(regular.continue_re, wait_check_str) is not None:
+            phase_property = 'continue'
+            break
         if re.match(regular.if_re, wait_check_str) is not None:
             phase_property = 'if'
             break
@@ -229,6 +232,9 @@ def property_map(task: dict):
     res = ''
     if task['prop'] == 'break':
         res = other_phase_proc.break_phase_proc()
+        res = depth_set(res, task['depth'])
+    if task['prop'] == 'continue':
+        res = other_phase_proc.continue_phase_proc()
         res = depth_set(res, task['depth'])
     if task['prop'] == 'if':
         res = 'if'

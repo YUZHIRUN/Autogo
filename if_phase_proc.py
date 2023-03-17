@@ -6,8 +6,8 @@ regular = regular_expression.RegularClass()
 
 
 def if_condition_pro(input_str: str):
-    process_str = input_str.replace('\n', '\n&')
-    content_list = process_str.split('&')
+    process_str = input_str.replace('\n', '\n@')
+    content_list = process_str.split('@')
     line_num = len(content_list)
     line_idx = 0
     while line_idx < line_num:
