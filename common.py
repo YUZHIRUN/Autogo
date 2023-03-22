@@ -5,11 +5,20 @@ import loop_phase_proc
 import other_phase_proc
 
 regular = regular_expression.RegularClass()
+g_tab_scale = 4
 
 
-def file_useless_info_del(content_str: str, tab_scale=4, mode='.c'):
+def get_tab_scale(file_content: str):
+    global g_tab_scale
+    if re.search(regular.tab_scale, file_content) is not None:
+        g_tab_scale = 2
+    else:
+        g_tab_scale = 4
+
+
+def file_useless_info_del(content_str: str, mode='.c'):
     res = del_line_sign(content_str)
-    res = res.expandtabs(tabsize=tab_scale)
+    res = res.expandtabs(tabsize=g_tab_scale)
     if re.search(regular.comment_1, res) is not None:
         res = re.sub(regular.comment_1, '', res)
     if re.search(regular.comment_2, res) is not None:
@@ -54,8 +63,8 @@ def del_line_sign(obj_str: str):
     return res
 
 
-def func_useless_del(obj_str: str, tab_scale=4):
-    tab_proc = obj_str.expandtabs(tabsize=tab_scale)
+def func_useless_del(obj_str: str):
+    tab_proc = obj_str.expandtabs(tabsize=g_tab_scale)
     phase_list = tab_proc.split('\n')
     phase_num = len(phase_list)
     for phase_idx in range(phase_num):
@@ -66,20 +75,20 @@ def func_useless_del(obj_str: str, tab_scale=4):
     return res
 
 
-def tab_to_space(func_list: list, scale=4):
-    func_num = len(func_list)
-    for idx in range(func_num):
-        func_list[idx] = func_list[idx].expandtabs(tabsize=scale)
-    return func_list
+# def tab_to_space(func_list: list, scale=g_tab_scale):
+#     func_num = len(func_list)
+#     for idx in range(func_num):
+#         func_list[idx] = func_list[idx].expandtabs(tabsize=scale)
+#     return func_list
 
 
-def span_depth(input_str: str, scale=4):
+def span_depth(input_str: str):
     space_num = 0
     idx = 0
     while input_str[idx] == ' ':
         space_num = space_num + 1
         idx = idx + 1
-    depth = int(idx / scale)
+    depth = int(idx / g_tab_scale)
     return depth
 
 

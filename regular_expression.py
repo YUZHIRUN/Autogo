@@ -39,7 +39,7 @@ class RegularClass:
         self.get_do_info = r'do *\{*'
         self.get_while_of_do_info = r'\} *while *\((.+?)\);'
         self.get_if_info = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else[^\{\(\)\}]*\{'
-        self.get_set_value_info = r'([^\n,;|&=+ ]+?) *([=|&+-]?=) *([\S| ]+?);'
+        self.get_set_value_info = r'([^\n,;|&=+ ]+?) *([\^=|&+-]?=) *([\S| ]+?);'
         self.get_set_special_value_info = r'(\S+) *([+-]){2} *;'
         self.get_return_info = r'return +(.+?);'
 
@@ -60,6 +60,31 @@ class RegularClass:
         self.point_func = r'(?:\(void\))* *\( *\*( *\w+)\)\([^\n=]*\)'
 
         # other regular
+        self.tab_scale = r'[;\{\)]\n {2}[^ ]'
         self.compile_macro = r'\#ifn?(?:def)?.*\n(?:.+\n)+? *\#endif|\#ifn?def.*\n\#endif.+'
-        self.special_sign = r'([+-])='
+        self.special_sign = r'([+-^&|])='
         self.new_line = r'\n+'
+
+        # variable definition regular
+        self.variable = r''
+
+
+class variables_class:
+    def __init__(self):
+        self.uint8 = 'u8_'
+        self.sint8 = 'i8_'
+        self.uint16 = 'u16_'
+        self.sint16 = 'i16_'
+        self.uint32 = 'u32_'
+        self.uint64 = 'u64_'
+        self.sint64 = 'i64_'
+        self.float32 = 'f32_'
+        self.float = 'f32_'
+        self.double = 'd64_'
+        self.float64 = 'd64_'
+        self.pointer = 'p4_'
+        self.boolean = 'bool_'
+        self.arr = 'a_'
+        self.struct = 'ST'
+        self.enum = 'E_'
+        self.union = 'UN_'

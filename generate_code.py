@@ -39,6 +39,7 @@ def load_file(file_path: str):
     while True:
         with open(file_path, mode='r', encoding='UTF-8') as file_obj:
             file_content = file_obj.read()
+            common.get_tab_scale(file_content)
             file_content = common.file_useless_info_del(file_content, mode=file_type)  # delete the \n
             global_func = re.search(global_regular, file_content)
             local_func = re.search(local_func_regular, file_content)
@@ -48,7 +49,7 @@ def load_file(file_path: str):
             global_var = re.search(global_var_regular, file_content)
             if global_func is not None:
                 func_list = re.findall(global_regular, file_content)
-                func_list = common.tab_to_space(func_list)
+                # func_list = common.tab_to_space(func_list)
                 g_global_func.extend(func_list)
             if local_func is not None:
                 func_list = re.findall(local_func_regular, file_content)
@@ -58,19 +59,19 @@ def load_file(file_path: str):
                         g_local_func.append(func_idx)
             if structs is not None:
                 struct_list = re.findall(struct_regular, file_content)
-                struct_list = common.tab_to_space(struct_list)
+                # struct_list = common.tab_to_space(struct_list)
                 g_struct_list.extend(struct_list)
             if enums is not None:
                 enums_list = re.findall(enum_regular, file_content)
-                enums_list = common.tab_to_space(enums_list)
+                # enums_list = common.tab_to_space(enums_list)
                 g_enum_list.extend(enums_list)
             if macros is not None:
                 macros_list = re.findall(macro_regular, file_content)
-                macros_list = common.tab_to_space(macros_list)
+                # macros_list = common.tab_to_space(macros_list)
                 g_macro_list.extend(macros_list)
             if global_var is not None:
                 global_var_list = re.findall(global_var_regular, file_content)
-                global_var_list = common.tab_to_space(global_var_list)
+                # global_var_list = common.tab_to_space(global_var_list)
                 g_global_var_list.extend(global_var_list)
         break
     return ret

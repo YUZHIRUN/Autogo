@@ -68,8 +68,8 @@
    <string>CodeAnalyser</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>source/dev_ico.ico</normaloff>source/dev_ico.ico</iconset>
+   <iconset resource="icon.qrc">
+    <normaloff>:/ico/source/dev_ico.ico</normaloff>:/ico/source/dev_ico.ico</iconset>
   </property>
   <property name="autoFillBackground">
    <bool>true</bool>
@@ -1149,6 +1149,24 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="other_function">
+     <attribute name="title">
+      <string>other function</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>180</y>
+        <width>221</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>RENAMED!</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QLabel" name="mention">
     <property name="geometry">
@@ -1204,6 +1222,8 @@ p, li { white-space: pre-wrap; }
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="icon.qrc"/>
+ </resources>
  <connections/>
 </ui>
