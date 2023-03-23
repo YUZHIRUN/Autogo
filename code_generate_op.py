@@ -2,6 +2,7 @@ import code_generate
 import generate_code
 import error_code
 import threading
+import rename
 from tkinter import filedialog
 
 err = error_code.err_class()
@@ -192,7 +193,17 @@ class gui_op(code_generate.Ui_MainWindow):
         op_lock.release()
 
     def event_rename(self):
-        pass
+        self.mention.setText(err.waiting)
+        op_lock.acquire()
+        file_path = self.file_path.text()
+        while True:
+            if err.void_check(file_path) is True:
+                self.mention.setText(err.no_file)
+                break
+            ret = rename.rename_proc(file_path)
+            self.mention.setText(ret)
+            break
+        op_lock.release()
 
     # threading-------------------------------------------------------------------------------
     def th_load_file(self):
@@ -233,4 +244,4 @@ class gui_op(code_generate.Ui_MainWindow):
         self.global_items.clicked.connect(self.event_disp_global_var)
 
     def trigger_rename(self):
-        pass
+        self.rename.clicked.connect(self.th_rename)

@@ -66,7 +66,11 @@ class RegularClass:
         self.new_line = r'\n+'
 
         # variable definition regular
-        self.variable = r''
+        self.variable1 = r'\w+\** +\**(?:[\w\[\]]+)(?: *= *[\w\{\}]+)* *;(?![^ \n])'
+        self.variable2 = r'\w+\** +(?:[\*\w\[\]]+,)+[^\n\(\),]+;(?![^ \n])'
+
+        self.get_variable1 = r'(\w+)\** +\**([\w\[\]]+)(?: *= *[\w\{\}]+)* *;(?![^ \n])'
+        self.get_variable2 = r'(\w+)\** +(?:[\*\w\[\]]+,)+[^\n\(\),]+;(?![^ \n])'
 
 
 class variables_class:
@@ -82,9 +86,9 @@ class variables_class:
         self.float = 'f32_'
         self.double = 'd64_'
         self.float64 = 'd64_'
-        self.pointer = 'p4_'
+        self.pointer = 'p_'
         self.boolean = 'bool_'
         self.arr = 'a_'
-        self.struct = 'ST'
+        self.struct = 'ST_'
         self.enum = 'E_'
         self.union = 'UN_'

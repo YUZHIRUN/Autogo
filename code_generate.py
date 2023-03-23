@@ -484,9 +484,9 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.macro, "")
         self.other_function = QtWidgets.QWidget()
         self.other_function.setObjectName("other_function")
-        self.pushButton = QtWidgets.QPushButton(self.other_function)
-        self.pushButton.setGeometry(QtCore.QRect(280, 180, 221, 91))
-        self.pushButton.setObjectName("pushButton")
+        self.rename = QtWidgets.QPushButton(self.other_function)
+        self.rename.setGeometry(QtCore.QRect(280, 180, 221, 91))
+        self.rename.setObjectName("rename")
         self.tabWidget.addTab(self.other_function, "")
         self.mention = QtWidgets.QLabel(self.centralwidget)
         self.mention.setGeometry(QtCore.QRect(78, 832, 711, 28))
@@ -566,7 +566,7 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\';\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.macro), _translate("MainWindow", "Macro Definition"))
-        self.pushButton.setText(_translate("MainWindow", "RENAMED!"))
+        self.rename.setText(_translate("MainWindow", "RENAMED!"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.other_function), _translate("MainWindow", "other function"))
         self.label_11.setText(_translate("MainWindow", "Prompt:"))
 import icon_rc

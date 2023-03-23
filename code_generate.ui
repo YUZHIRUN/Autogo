@@ -1153,7 +1153,7 @@ p, li { white-space: pre-wrap; }
      <attribute name="title">
       <string>other function</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="rename">
       <property name="geometry">
        <rect>
         <x>280</x>
