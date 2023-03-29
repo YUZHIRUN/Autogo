@@ -146,6 +146,11 @@ def get_enum_names(enum_list: list):
     return name_list
 
 
+def get_union_names(union_list: list):
+    name_list = get_struct_names(union_list)
+    return name_list
+
+
 def get_macro_names(macro_list: list):
     name_list = list()
     for macro_idx in macro_list:
