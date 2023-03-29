@@ -67,11 +67,14 @@ class RegularClass:
         self.new_line = r'\n+'
 
         # variable definition regular
-        self.variable1 = r'\w+\** +\**(?:[\w\[\]]+)(?: *= *[\w\{\}]+)* *;(?![^ \n])'
-        self.variable2 = r'\w+\** +(?:[\*\w\[\]]+,)+[^\n\(\),]+;(?![^ \n])'
+        # self.variable1 = r'\w+\** +\**(?:[\w\[\]]+)(?: *= *[\w\{\}]+)* *;(?![^ \n])'
+        self.variable = r'\w+\** +\**(?:[\w\[\]]+)(?: *= *[\w\{\}]+)* *[;,\)](?![^ \n])'
+        # self.variable2 = r'\w+\** +(?:[\*\w\[\]]+,)+[^\n\(\),]+;(?![^ \n])'
+        self.params = r'\w+\** +\**(?:[\w]+) *[,\)](?![^ \n])'
 
-        self.get_variable1 = r'(\w+)\** +\**([\w\[\]]+)(?: *= *[\w\{\}]+)* *;(?![^ \n])'
-        self.get_variable2 = r'(\w+)\** +(?:[\*\w\[\]]+,)+[^\n\(\),]+;(?![^ \n])'
+        self.get_variable = r'(\w+)\** +\**([\w\[\]]+)(?: *= *[\w\{\}]+)* *[;,\)](?![^ \n])'
+        # self.get_variable2 = r'(\w+)\** +(?:[\*\w\[\]]+,)+[^\n\(\),]+;(?![^ \n])'
+        self.get_params = r'(\w+)\** +\**([\w]+) *[,\)](?![^ \n])'
 
     def any_find(self, input_str: str):
         re1 = r'(?<!\w)'
@@ -99,6 +102,9 @@ class variables_class:
         self.struct = 'st'
         self.enum = 'e'
         self.union = 'un'
+        self.def_struct = 'ST'
+        self.def_enum = 'E'
+        self.def_union = 'UN'
         self.link = '_'
 
     def is_ptr(self, input_str: str):
