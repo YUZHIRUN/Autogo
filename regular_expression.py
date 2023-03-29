@@ -5,6 +5,7 @@ class RegularClass:
         self.local_func = r'[\w\*]+ *\** +[\*\w]+ *\([^{};\#]+\n\{ *\n(?: .*\n)+\}'
         self.struct = r'typedef +struct *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
+        self.union = r'typedef +union *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.macro = r'#define +(?:.+?) +(?:\S+)'
         self.global_var = r'(?:\w+) +(?:g_\S+) *= *(?:.+?);'
 
@@ -72,23 +73,48 @@ class RegularClass:
         self.get_variable1 = r'(\w+)\** +\**([\w\[\]]+)(?: *= *[\w\{\}]+)* *;(?![^ \n])'
         self.get_variable2 = r'(\w+)\** +(?:[\*\w\[\]]+,)+[^\n\(\),]+;(?![^ \n])'
 
+    def any_find(self, input_str: str):
+        re1 = r'(?<!\w)'
+        re2 = r'(?!\w)'
+        res = re1 + input_str + re2
+        return res
+
 
 class variables_class:
     def __init__(self):
-        self.uint8 = 'u8_'
-        self.sint8 = 'i8_'
-        self.uint16 = 'u16_'
-        self.sint16 = 'i16_'
-        self.uint32 = 'u32_'
-        self.uint64 = 'u64_'
-        self.sint64 = 'i64_'
-        self.float32 = 'f32_'
-        self.float = 'f32_'
-        self.double = 'd64_'
-        self.float64 = 'd64_'
-        self.pointer = 'p_'
-        self.boolean = 'bool_'
-        self.arr = 'a_'
-        self.struct = 'ST_'
-        self.enum = 'E_'
-        self.union = 'UN_'
+        self.uint8 = 'u8'
+        self.sint8 = 'i8'
+        self.uint16 = 'u16'
+        self.sint16 = 'i16'
+        self.uint32 = 'u32'
+        self.uint64 = 'u64'
+        self.sint64 = 'i64'
+        self.float32 = 'f32'
+        self.float = 'f32'
+        self.double = 'd64'
+        self.float64 = 'd64'
+        self.pointer = 'p'
+        self.boolean = 'bool'
+        self.arr = 'a'
+        self.struct = 'st'
+        self.enum = 'e'
+        self.union = 'un'
+        self.link = '_'
+
+    def is_ptr(self, input_str: str):
+        if input_str.count('*') == 0:
+            return False
+        else:
+            return True
+
+    def is_array(self, input_str: str):
+        if input_str.count('[') != 0 and input_str.count(']') != 0:
+            return True
+        else:
+            return False
+
+    def has_add_pre(self, compare_pre, obj: str):
+        if obj.count(compare_pre) != 0:
+            return True
+        else:
+            return False

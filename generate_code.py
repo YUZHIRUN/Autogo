@@ -6,6 +6,9 @@ import if_phase_proc
 import regular_expression
 
 regular = regular_expression.RegularClass()
+g_file_content = ''
+g_file_type = '.c'
+
 g_global_func = list()
 g_local_func = list()
 g_struct_list = list()
@@ -32,15 +35,17 @@ def load_file(file_path: str):
     macro_regular = regular.macro
     global_var_regular = regular.global_var
     ret = errcode.ok
+    global g_file_content, g_file_type
     if file_path.endswith('.c'):
-        file_type = '.c'
+        g_file_type = '.c'
     else:
-        file_type = '.h'
+        g_file_type = '.h'
     while True:
         with open(file_path, mode='r', encoding='UTF-8') as file_obj:
-            file_content = file_obj.read()
+            g_file_content = file_obj.read()
+            file_content = g_file_content
             common.get_tab_scale(file_content)
-            file_content = common.file_useless_info_del(file_content, mode=file_type)  # delete the \n
+            file_content = common.file_useless_info_del(file_content, mode=g_file_type)  # delete the \n
             global_func = re.search(global_regular, file_content)
             local_func = re.search(local_func_regular, file_content)
             structs = re.search(struct_regular, file_content)
