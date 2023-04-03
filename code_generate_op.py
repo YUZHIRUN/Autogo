@@ -2,7 +2,6 @@ import code_generate
 import generate_code
 import error_code
 import threading
-import rename
 from tkinter import filedialog
 
 err = error_code.err_class()

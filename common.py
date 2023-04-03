@@ -75,13 +75,6 @@ def func_useless_del(obj_str: str):
     return res
 
 
-# def tab_to_space(func_list: list, scale=g_tab_scale):
-#     func_num = len(func_list)
-#     for idx in range(func_num):
-#         func_list[idx] = func_list[idx].expandtabs(tabsize=scale)
-#     return func_list
-
-
 def span_depth(input_str: str):
     space_num = 0
     idx = 0
