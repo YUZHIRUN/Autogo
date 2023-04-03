@@ -13,7 +13,6 @@ widget_obj.trigger_th_load()
 widget_obj.trigger_clear()
 
 widget_obj.trigger_disp_func()
-widget_obj.trigger_rename()
 widget_obj.trigger_disp_struct()
 widget_obj.trigger_disp_enum()
 widget_obj.trigger_disp_macro()

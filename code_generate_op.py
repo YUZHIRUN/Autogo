@@ -213,10 +213,6 @@ class gui_op(code_generate.Ui_MainWindow):
         th = threading.Thread(target=self.event_load)
         th.start()
 
-    def th_rename(self):
-        th = threading.Thread(target=self.event_rename)
-        th.start()
-
     #  trigger--------------------------------------------------------------------------------
     def trigger_load_file(self):
         self.select_bt.clicked.connect(self.th_load_file)
@@ -241,6 +237,3 @@ class gui_op(code_generate.Ui_MainWindow):
 
     def trigger_disp_global_var(self):
         self.global_items.clicked.connect(self.event_disp_global_var)
-
-    def trigger_rename(self):
-        self.rename.clicked.connect(self.th_rename)

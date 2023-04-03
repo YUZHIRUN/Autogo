@@ -69,7 +69,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="icon.qrc">
-    <normaloff>:/ico/source/dev_ico.ico</normaloff>:/ico/source/dev_ico.ico</iconset>
+    <normaloff>:/ico/.imgs/analyzer.ico</normaloff>:/ico/.imgs/analyzer.ico</iconset>
   </property>
   <property name="autoFillBackground">
    <bool>true</bool>
@@ -1146,24 +1146,6 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="other_function">
-     <attribute name="title">
-      <string>other function</string>
-     </attribute>
-     <widget class="QPushButton" name="rename">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>180</y>
-        <width>221</width>
-        <height>91</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RENAMED!</string>
       </property>
      </widget>
     </widget>
