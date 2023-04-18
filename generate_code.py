@@ -38,7 +38,7 @@ def load_file(file_path: str):
     else:
         file_type = '.h'
     while True:
-        with open(file_path, mode='r', encoding='UTF-8') as file_obj:
+        with open(file_path, mode='r', encoding='utf-8') as file_obj:
             file_content = file_obj.read()
             common.get_tab_scale(file_content)
             file_content = common.file_useless_info_del(file_content, mode=file_type)  # delete the \n
