@@ -1,5 +1,5 @@
 <RCC>
   <qresource prefix="ico">
-    <file>.imgs/analyzer.ico</file>
+    <file>.imgs/CodeAnalyzer.ico</file>
   </qresource>
 </RCC>

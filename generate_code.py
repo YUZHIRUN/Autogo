@@ -9,11 +9,14 @@ regular = regular_expression.RegularClass()
 
 g_global_func = list()
 g_local_func = list()
+# g_func_list = list()
+g_global_var_list = list()
+g_macro_list = list()
 g_struct_list = list()
 g_enum_list = list()
-g_macro_list = list()
-g_global_var_list = list()
+g_union_list = list()
 
+# g_func_code_list = list()
 g_global_code_list = list()
 g_local_code_list = list()
 
@@ -30,6 +33,7 @@ def load_file(file_path: str):
     local_func_regular = regular.local_func
     struct_regular = regular.struct
     enum_regular = regular.enum
+    union_regular = regular.union
     macro_regular = regular.macro
     global_var_regular = regular.global_var
     ret = errcode.ok
@@ -48,6 +52,7 @@ def load_file(file_path: str):
             enums = re.search(enum_regular, file_content)
             macros = re.search(macro_regular, file_content)
             global_var = re.search(global_var_regular, file_content)
+            unions = re.search(union_regular, file_content)
             if global_func is not None:
                 func_list = re.findall(global_regular, file_content)
                 g_global_func.extend(func_list)
@@ -69,6 +74,9 @@ def load_file(file_path: str):
             if global_var is not None:
                 global_var_list = re.findall(global_var_regular, file_content)
                 g_global_var_list.extend(global_var_list)
+            if unions is not None:
+                union_list = re.findall(union_regular, file_content)
+                g_union_list.extend(union_list)
         break
     return ret
 
@@ -146,11 +154,11 @@ def get_code_info(file_path, mode='load'):
             if ret != errcode.ok:
                 break
         # num-----------------------------------------------------
-        global_func_num = len(g_global_func)
-        local_func_num = len(g_local_func)
+        func_num = len(g_global_func) + len(g_local_func)
         struct_num = len(g_struct_list)
         enum_num = len(g_enum_list)
         macro_num = len(g_macro_list)
+        union_num = len(g_union_list)
         global_var_num = len(g_global_var_list)
         # name-----------------------------------------------------
         global_func_names = common.get_global_func_names(g_global_func)
@@ -159,30 +167,33 @@ def get_code_info(file_path, mode='load'):
         enum_names = common.get_enum_names(g_enum_list)
         macro_names = common.get_macro_names(g_macro_list)
         global_var_names = common.get_global_var_names(g_global_var_list)
+        union_names = common.get_union_names(g_union_list)
         # function process---------------------------------------------
         ret = fill_function_info()
         if ret != errcode.ok:
             break
-        ret_list.append(g_global_code_list)
-        ret_list.append(g_local_code_list)
-        ret_list.append(g_struct_list)
-        ret_list.append(g_enum_list)
-        ret_list.append(g_macro_list)
-        ret_list.append(g_global_var_list)
-
         ret_name_list.append(global_func_names)
         ret_name_list.append(local_func_names)
+        ret_name_list.append(global_var_names)
+        ret_name_list.append(macro_names)
         ret_name_list.append(struct_names)
         ret_name_list.append(enum_names)
-        ret_name_list.append(macro_names)
-        ret_name_list.append(global_var_names)
+        ret_name_list.append(union_names)
 
-        ret_num_list.append(global_func_num)
-        ret_num_list.append(local_func_num)
+        ret_list.append(g_global_code_list)
+        ret_list.append(g_local_code_list)
+        ret_list.append(g_global_var_list)
+        ret_list.append(g_macro_list)
+        ret_list.append(g_struct_list)
+        ret_list.append(g_enum_list)
+        ret_list.append(g_union_list)
+
+        ret_num_list.append(func_num)
+        ret_num_list.append(global_var_num)
+        ret_num_list.append(macro_num)
         ret_num_list.append(struct_num)
         ret_num_list.append(enum_num)
-        ret_num_list.append(macro_num)
-        ret_num_list.append(global_var_num)
+        ret_num_list.append(union_num)
         break
     return ret, ret_name_list, ret_list, ret_num_list
 
