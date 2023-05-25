@@ -28,12 +28,12 @@ class gui_op(code_generate.Ui_MainWindow):
         g_name_list.extend(name_list)
         g_content_list.extend(content_list)
         if ret == err.ok:
-            self.global_func_num.setText(str(num_list[0]))
-            self.local_func_num.setText(str(num_list[1]))
-            self.struct_num.setText(str(num_list[2]))
-            self.enum_num.setText(str(num_list[3]))
-            self.macro_num.setText(str(num_list[4]))
-            self.global_var_num.setText(str(num_list[5]))
+            self.func_num.setText(str(num_list[0]))
+            self.global_var_num.setText(str(num_list[1]))
+            self.macro_num.setText(str(num_list[2]))
+            self.struct_num.setText(str(num_list[3]))
+            self.enum_num.setText(str(num_list[4]))
+            self.union_num.setText(str(num_list[5]))
             if len(name_list[0]) != 0:
                 for name_idx in name_list[0]:
                     self.func_items.addItem(name_idx)
@@ -42,16 +42,19 @@ class gui_op(code_generate.Ui_MainWindow):
                     self.func_items.addItem(name_idx)
             if len(name_list[2]) != 0:
                 for name_idx in name_list[2]:
-                    self.struct_items.addItem(name_idx)
+                    self.global_items.addItem(name_idx)
             if len(name_list[3]) != 0:
                 for name_idx in name_list[3]:
-                    self.enum_items.addItem(name_idx)
+                    self.macro_items.addItem(name_idx)
             if len(name_list[4]) != 0:
                 for name_idx in name_list[4]:
-                    self.macro_items.addItem(name_idx)
+                    self.struct_items.addItem(name_idx)
             if len(name_list[5]) != 0:
                 for name_idx in name_list[5]:
-                    self.global_items.addItem(name_idx)
+                    self.enum_items.addItem(name_idx)
+            if len(name_list[6]) != 0:
+                for name_idx in name_list[6]:
+                    self.union_item.addItem(name_idx)
         return ret
 
     # event-----------------------------------------------------------------------------------
@@ -127,14 +130,46 @@ class gui_op(code_generate.Ui_MainWindow):
             break
         op_lock.release()
 
+    def event_disp_global_var(self):
+        self.mention.setText(err.waiting)
+        op_lock.acquire()
+        name = self.global_items.currentItem().text()
+        while True:
+            if g_name_list[2].count(name) != 0:
+                index = g_name_list[2].index(name)
+                content = g_content_list[2][index]
+            else:
+                self.mention.setText(err.no_record)
+                break
+            self.gloabal_disp.setPlainText(content)
+            self.mention.setText(err.ok)
+            break
+        op_lock.release()
+
+    def event_disp_macro(self):
+        self.mention.setText(err.waiting)
+        op_lock.acquire()
+        name = self.macro_items.currentItem().text()
+        while True:
+            if g_name_list[3].count(name) != 0:
+                index = g_name_list[3].index(name)
+                content = g_content_list[3][index]
+            else:
+                self.mention.setText(err.no_record)
+                break
+            self.macro_disp.setPlainText(content)
+            self.mention.setText(err.ok)
+            break
+        op_lock.release()
+
     def event_disp_struct(self):
         self.mention.setText(err.waiting)
         op_lock.acquire()
         name = self.struct_items.currentItem().text()
         while True:
-            if g_name_list[2].count(name) != 0:
-                index = g_name_list[2].index(name)
-                content = g_content_list[2][index]
+            if g_name_list[4].count(name) != 0:
+                index = g_name_list[4].index(name)
+                content = g_content_list[4][index]
             else:
                 self.mention.setText(err.no_record)
                 break
@@ -148,9 +183,9 @@ class gui_op(code_generate.Ui_MainWindow):
         op_lock.acquire()
         name = self.enum_items.currentItem().text()
         while True:
-            if g_name_list[3].count(name) != 0:
-                index = g_name_list[3].index(name)
-                content = g_content_list[3][index]
+            if g_name_list[5].count(name) != 0:
+                index = g_name_list[5].index(name)
+                content = g_content_list[5][index]
             else:
                 self.mention.setText(err.no_record)
                 break
@@ -159,48 +194,19 @@ class gui_op(code_generate.Ui_MainWindow):
             break
         op_lock.release()
 
-    def event_disp_macro(self):
+    def event_disp_union(self):
         self.mention.setText(err.waiting)
         op_lock.acquire()
-        name = self.macro_items.currentItem().text()
+        name = self.enum_items.currentItem().text()
         while True:
-            if g_name_list[4].count(name) != 0:
-                index = g_name_list[4].index(name)
-                content = g_content_list[4][index]
+            if g_name_list[6].count(name) != 0:
+                index = g_name_list[6].index(name)
+                content = g_content_list[6][index]
             else:
                 self.mention.setText(err.no_record)
                 break
-            self.macro_disp.setPlainText(content)
+            self.enum_disp.setPlainText(content)
             self.mention.setText(err.ok)
-            break
-        op_lock.release()
-
-    def event_disp_global_var(self):
-        self.mention.setText(err.waiting)
-        op_lock.acquire()
-        name = self.global_items.currentItem().text()
-        while True:
-            if g_name_list[5].count(name) != 0:
-                index = g_name_list[5].index(name)
-                content = g_content_list[5][index]
-            else:
-                self.mention.setText(err.no_record)
-                break
-            self.gloabal_disp.setPlainText(content)
-            self.mention.setText(err.ok)
-            break
-        op_lock.release()
-
-    def event_rename(self):
-        self.mention.setText(err.waiting)
-        op_lock.acquire()
-        file_path = self.file_path.text()
-        while True:
-            if err.void_check(file_path) is True:
-                self.mention.setText(err.no_file)
-                break
-            ret = rename.rename_proc(file_path)
-            self.mention.setText(ret)
             break
         op_lock.release()
 
