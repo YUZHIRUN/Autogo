@@ -129,7 +129,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Developer:yuzhirun Version:1.0</string>
+          <string>Developer:yuzhirun Version:2.0</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

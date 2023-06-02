@@ -23,6 +23,13 @@ def set_value_phase_proc(input_phase: str):
         res = input_phase
     return res
 
+def define_var_phase_proc(input_phase: str):
+    if re.search(regular.get_define_var, input_phase) is not None:
+        var_name = re.search(regular.get_define_var, input_phase).group(1)
+        res = 'Define variable ' + str(var_name)
+    else:
+        res = ''
+    return res
 
 def break_phase_proc():
     return 'BREAK'

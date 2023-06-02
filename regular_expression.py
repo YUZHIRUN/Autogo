@@ -6,7 +6,7 @@ class RegularClass:
         self.struct = r'typedef +struct *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.union = r'typedef +union *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
-        self.macro = r'#define +(?:.+?) +(?:\S+)'
+        self.macro = r'# *define +(?:.+?) +(?:\S+)'
         self.global_var = r'(?:\w+) +(?:g_\S+) *= *(?:.+?);'
 
         # comment regular
@@ -18,9 +18,10 @@ class RegularClass:
         # get names regular
         self.global_func_name = r'FUNC *\(.+\) *(\S+?)\('
         self.local_func_name = r'\w+\** +\** *(\w+) *\('
-        self.macro_name = r'#define +(.+?) +(?:\S+)'
+        self.macro_name = r'# *define +(.+?) +(?:\S+)'
         self.global_var_name = r'(?:\w+) +(g_\S+) *= *(?:.+?);'
 
+        # phase check regular
         # phase check regular
         self.if_re = r'if *\(.+?\)|else.*'
         self.for_re = r'for *\(.+\)'
@@ -28,6 +29,7 @@ class RegularClass:
         self.switch_re = r'switch *\(([\w\(\)]+)\)|case +([\w\(\)]+):|default *:'
         self.while_re = r'while *\(.+?\)'
         self.set_value_re = r'(?:[^\n,;|&]+) *[|=&\+-]*= *(?:[\S| ]+?);|(\S+) *[+-]{2} *;'
+        self.define_var_re = r'\w+ +(?:[\w, \[\]]+) *;'
         self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|(?:\(void\))* *\( *\* *\w+\)\(.*\);'
         self.return_re = r'return +.+?;'
         self.break_re = r'break *;'
@@ -43,6 +45,7 @@ class RegularClass:
         self.get_set_value_info = r'([^\n,;|&=+ ]+?) *([\^=|&+-]?=) *([\S| ]+?);'
         self.get_set_special_value_info = r'(\S+) *([+-]){2} *;'
         self.get_return_info = r'return +(.+?);'
+        self.get_define_var = r'\w+ +([\w, \[\]]+) *;'
 
         # function class regular
         self.memcpy = r'memcpy *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
@@ -57,11 +60,13 @@ class RegularClass:
         self.default = r'default *:'
 
         # last function callback regular
-        self.condition_func = r'(\w+?)\(.+\)(?!\n)'
+        self.last_func = r'(?:\w+?)\(.*\)(?!\n)'
+        self.get_last_func = r'(\w+?)\(.*\)(?!\n)'
         self.point_func = r'(?:\(void\))* *\( *\*( *\w+)\)\([^\n=]*\)'
 
         # other regular
-        self.tab_scale = r'[;\{\)]\n {2}[^ ]'
+        # self.tab_scale = r'[;\{\)]\n {2}[^ ]'
         self.compile_macro = r'\#ifn?(?:def)?.*\n(?:.+\n)+? *\#endif|\#ifn?def.*\n\#endif.+'
         self.special_sign = r'([+-^&|])='
         self.new_line = r'\n+'
+        self.var_class = r'\(.int\d+\)|\(boolean\)'

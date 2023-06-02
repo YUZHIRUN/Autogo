@@ -102,11 +102,13 @@ class gui_op(code_generate.Ui_MainWindow):
             self.struct_items.clear()
             self.enum_items.clear()
             self.macro_items.clear()
+            self.union_item.clear()
             self.func_disp.clear()
             self.gloabal_disp.clear()
             self.struct_disp.clear()
             self.enum_disp.clear()
             self.macro_disp.clear()
+            self.union_disp.clear()
             self.mention.setText(ret)
             break
         op_lock.release()
@@ -197,7 +199,7 @@ class gui_op(code_generate.Ui_MainWindow):
     def event_disp_union(self):
         self.mention.setText(err.waiting)
         op_lock.acquire()
-        name = self.enum_items.currentItem().text()
+        name = self.union_item.currentItem().text()
         while True:
             if g_name_list[6].count(name) != 0:
                 index = g_name_list[6].index(name)
@@ -205,7 +207,7 @@ class gui_op(code_generate.Ui_MainWindow):
             else:
                 self.mention.setText(err.no_record)
                 break
-            self.enum_disp.setPlainText(content)
+            self.union_disp.setPlainText(content)
             self.mention.setText(err.ok)
             break
         op_lock.release()
@@ -243,3 +245,6 @@ class gui_op(code_generate.Ui_MainWindow):
 
     def trigger_disp_global_var(self):
         self.global_items.clicked.connect(self.event_disp_global_var)
+
+    def trigger_disp_union(self):
+        self.union_item.clicked.connect(self.event_disp_union)

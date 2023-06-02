@@ -8,12 +8,12 @@ regular = regular_expression.RegularClass()
 g_tab_scale = 4
 
 
-def get_tab_scale(file_content: str):
-    global g_tab_scale
-    if re.search(regular.tab_scale, file_content) is not None:
-        g_tab_scale = 2
-    else:
-        g_tab_scale = 4
+# def get_tab_scale(file_content: str):
+#     global g_tab_scale
+#     if re.search(regular.tab_scale, file_content) is not None:
+#         g_tab_scale = 2
+#     else:
+#         g_tab_scale = 4
 
 
 def file_useless_info_del(content_str: str, mode='.c'):
@@ -197,6 +197,9 @@ def phase_check(input_str: str):
         if re.match(regular.set_value_re, wait_check_str) is not None:
             phase_property = 'set_value'
             break
+        if re.match(regular.define_var_re, wait_check_str) is not None:
+            phase_property = 'define_var'
+            break
         if re.match(regular.func_re, wait_check_str) is not None:
             phase_property = 'function'
             break
@@ -262,6 +265,9 @@ def property_map(task: dict):
         res = depth_set(res, task['depth'])
     if task['prop'] == 'set_value':
         res = other_phase_proc.set_value_phase_proc(task['content'])
+        res = depth_set(res, task['depth'])
+    if task['prop'] == 'define_var':
+        res = other_phase_proc.define_var_phase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'function':
         res = function_phase_proc.func_process(task['content'])

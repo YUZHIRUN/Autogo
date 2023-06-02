@@ -13,10 +13,11 @@ widget_obj.trigger_th_load()
 widget_obj.trigger_clear()
 
 widget_obj.trigger_disp_func()
+widget_obj.trigger_disp_global_var()
+widget_obj.trigger_disp_macro()
 widget_obj.trigger_disp_struct()
 widget_obj.trigger_disp_enum()
-widget_obj.trigger_disp_macro()
-widget_obj.trigger_disp_global_var()
+widget_obj.trigger_disp_union()
 
 main_window.show()
 sys.exit(app.exec_())

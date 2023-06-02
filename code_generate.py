@@ -722,7 +722,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "CodeAnalyser"))
         self.groupBox.setTitle(_translate("MainWindow", "Discription"))
         self.label_8.setText(_translate("MainWindow", "          This tool is used for the statistical work of the key information of C code and generates the corresponding pseudo-code for each function."))
-        self.label_9.setText(_translate("MainWindow", "Developer:yuzhirun Version:1.0"))
+        self.label_9.setText(_translate("MainWindow", "Developer:yuzhirun Version:2.0"))
         self.groupBox_3.setTitle(_translate("MainWindow", "Discover"))
         self.label.setText(_translate("MainWindow", "Input file:"))
         self.select_bt.setText(_translate("MainWindow", "Select"))
