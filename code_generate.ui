@@ -799,7 +799,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="Function">
        <attribute name="title">
@@ -1334,6 +1334,24 @@ p, li { white-space: pre-wrap; }
          </layout>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="automatic">
+       <attribute name="title">
+        <string>Automation</string>
+       </attribute>
+       <widget class="QPushButton" name="auto_bt">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>230</y>
+          <width>291</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Auto Generate!</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>

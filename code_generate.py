@@ -676,6 +676,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_24.addWidget(self.union_disp)
         self.horizontalLayout_25.addLayout(self.horizontalLayout_24)
         self.tabWidget.addTab(self.tab, "")
+        self.automatic = QtWidgets.QWidget()
+        self.automatic.setObjectName("automatic")
+        self.auto_bt = QtWidgets.QPushButton(self.automatic)
+        self.auto_bt.setGeometry(QtCore.QRect(260, 230, 291, 91))
+        self.auto_bt.setObjectName("auto_bt")
+        self.tabWidget.addTab(self.automatic, "")
         self.verticalLayout_3.addWidget(self.tabWidget)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setContentsMargins(-1, 3, 9, 3)
@@ -714,7 +720,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(6)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -770,5 +776,7 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\';\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Union"))
+        self.auto_bt.setText(_translate("MainWindow", "Auto Generate!"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.automatic), _translate("MainWindow", "Automation"))
         self.label_11.setText(_translate("MainWindow", "Prompt:"))
 import icon_rc

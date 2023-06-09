@@ -1,3 +1,4 @@
+import autogo
 import code_generate
 import generate_code
 import error_code
@@ -212,6 +213,10 @@ class gui_op(code_generate.Ui_MainWindow):
             break
         op_lock.release()
 
+    def event_auto_go(self):
+        autogo.auto_go_program()
+        print('Auto go ready!')
+
     # threading-------------------------------------------------------------------------------
     def th_load_file(self):
         th = threading.Thread(target=self.event_select_file)
@@ -219,6 +224,10 @@ class gui_op(code_generate.Ui_MainWindow):
 
     def th_load(self):
         th = threading.Thread(target=self.event_load)
+        th.start()
+
+    def th_auto_go(self):
+        th = threading.Thread(target=self.event_auto_go)
         th.start()
 
     #  trigger--------------------------------------------------------------------------------
@@ -248,3 +257,6 @@ class gui_op(code_generate.Ui_MainWindow):
 
     def trigger_disp_union(self):
         self.union_item.clicked.connect(self.event_disp_union)
+
+    def trigger_auto_go(self):
+        self.auto_bt.clicked.connect(self.th_auto_go)

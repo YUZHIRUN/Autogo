@@ -147,7 +147,7 @@ def get_union_names(union_list: list):
 def get_macro_names(macro_list: list):
     name_list = list()
     for macro_idx in macro_list:
-        macro = re.search(regular.macro_name, macro_idx)
+        macro = re.search(regular.get_macro_name, macro_idx)
         if macro is not None:
             name = macro.group(1)
             name_list.append(name)

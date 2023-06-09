@@ -7,6 +7,7 @@ import regular_expression
 
 regular = regular_expression.RegularClass()
 
+g_file_name = ''
 g_global_func = list()
 g_local_func = list()
 # g_func_list = list()
@@ -15,6 +16,7 @@ g_macro_list = list()
 g_struct_list = list()
 g_enum_list = list()
 g_union_list = list()
+g_include_list = list()
 
 # g_func_code_list = list()
 g_global_code_list = list()
@@ -29,6 +31,7 @@ def load_file(file_path: str):
     :param file_path:
     :return:
     """
+    global g_file_name
     global_regular = regular.global_func
     local_func_regular = regular.local_func
     struct_regular = regular.struct
@@ -36,11 +39,13 @@ def load_file(file_path: str):
     union_regular = regular.union
     macro_regular = regular.macro
     global_var_regular = regular.global_var
+    include_regular = regular.include_file
     ret = errcode.ok
     if file_path.endswith('.c'):
         file_type = '.c'
     else:
         file_type = '.h'
+    g_file_name = file_path.split('/')[-1]
     while True:
         with open(file_path, mode='r', encoding='utf-8') as file_obj:
             file_content = file_obj.read()
@@ -53,6 +58,7 @@ def load_file(file_path: str):
             macros = re.search(macro_regular, file_content)
             global_var = re.search(global_var_regular, file_content)
             unions = re.search(union_regular, file_content)
+            include_file = re.search(include_regular, file_content)
             if global_func is not None:
                 func_list = re.findall(global_regular, file_content)
                 g_global_func.extend(func_list)
@@ -77,6 +83,9 @@ def load_file(file_path: str):
             if unions is not None:
                 union_list = re.findall(union_regular, file_content)
                 g_union_list.extend(union_list)
+            if include_file is not None:
+                include_list = re.findall(include_regular, file_content)
+                g_include_list.extend(include_list)
         break
     return ret
 
@@ -208,3 +217,4 @@ def clear_info():
     g_macro_list.clear()
     g_global_var_list.clear()
     g_union_list.clear()
+    g_include_list.clear()

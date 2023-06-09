@@ -7,6 +7,7 @@ class err_class:
         self.no_record = 'Information cannot be queried.'
         self.if_err = 'if phase error!'
         self.regular_err = 'regular expression error!'
+        self.cfg_err = 'Configuration file error!'
 
     def void_check(self, input_str: str):
         if input_str == '' or input_str is None:
