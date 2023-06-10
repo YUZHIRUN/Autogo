@@ -83,9 +83,10 @@ def load_file(file_path: str):
             if unions is not None:
                 union_list = re.findall(union_regular, file_content)
                 g_union_list.extend(union_list)
-            if include_file is not None:
-                include_list = re.findall(include_regular, file_content)
-                g_include_list.extend(include_list)
+            if file_type == '.c':
+                if include_file is not None:
+                    include_list = re.findall(include_regular, file_content)
+                    g_include_list.extend(include_list)
         break
     return ret
 

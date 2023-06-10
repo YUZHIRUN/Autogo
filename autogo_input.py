@@ -45,6 +45,16 @@ def get_names():
     res_dict['union_names'] = union_names
     return res_dict
 
+def detail_pro(func_type='local', func_idx=0):
+    g_locals = generate_code.g_local_code_list
+    g_globals = generate_code.g_global_code_list
+    if func_type == 'local':
+        res_content = g_locals[func_idx]
+    else:
+        res_content = g_globals[func_idx]
+    return res_content
+
+
 
 def include_pro():
     global g_include_item

@@ -2,5 +2,6 @@
   "user": "SH2210002",
   "password": "Yzr971120@",
   "browser": "chrome",
-  "link": "http://172.16.200.236:8080/cb/tracker/291867?view_id=-2"
+  "link": "http://172.16.200.236:8080/cb/tracker/291867?view_id=-2",
+  "visible": "True"
 }

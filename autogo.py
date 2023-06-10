@@ -20,10 +20,10 @@ g_user = ''
 g_key = ''
 g_browser = ''
 g_link = ''
-g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x2', 'global_var': 'x2', 'union': 'x2'}
+g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'global_var': 'x3', 'union': 'x3'}
 
 err = error_code.err_class()
-WAIT_TIME = 10
+WAIT_TIME = 30
 
 # enums
 information = 0
@@ -40,7 +40,7 @@ def get_chrome_driver():
         driver = webdriver.Chrome(service=Service('chromedriver.exe'))
     else:
         from selenium.webdriver.edge.service import Service
-        driver = webdriver.Chrome(service=Service('msedgedriver.exe'))
+        driver = webdriver.Edge(service=Service('msedgedriver.exe'))
     driver.get(g_link)
 
 
@@ -117,6 +117,7 @@ def double_click(xpath: str):
 
 def click(xpath: str):
     driver.find_element(By.XPATH, value=xpath).click()
+    # driver.execute_script('arguments[0].click();', driver.find_element(By.XPATH, xpath))
     wait_loading()
 
 
@@ -144,10 +145,11 @@ def select_item(xpath: str, content: str):
 
 def wait_item_load(xpath: str):
     locator = (By.XPATH, xpath)
-    WebDriverWait(driver, 10).until(ec.presence_of_element_located(locator))
+    WebDriverWait(driver, WAIT_TIME).until(ec.presence_of_element_located(locator))
 
 
 def input_save():
+    move_to_element(g_xpath.input_title)
     driver.find_element(By.XPATH, value=g_xpath.input_title).send_keys(Keys.CONTROL, 's')
     wait_loading()
 
@@ -312,124 +314,339 @@ def get_now_coor(base_coor: str, active):
 
 
 def include_process():
-    click(g_xpath.input_content)
-    include_info = ['File Name']
-    include_description = ['Description']
-    include_info.extend(autogo_input.g_include_item)
-    include_len = len(include_info)
-    tab_fmt = str(include_len) + g_table_type['include']
-    tab_process(tab_fmt)
-    row_idx = 1
-    for include_item in include_info:
-        col_idx = 1
-        tab_input = str(row_idx) + 'x' + str(col_idx)
-        input_xpath = get_tab_input_xpath(tab_input)
-        click(input_xpath)
-        send_key(input_xpath, include_item)
-        row_idx = row_idx + 1
-    row_idx = 1
-    for des_item in include_description:
-        col_idx = 2
-        tab_input = str(row_idx) + 'x' + str(col_idx)
-        input_xpath = get_tab_input_xpath(tab_input)
-        click(input_xpath)
-        send_key(input_xpath, des_item)
-        row_idx = row_idx + 1
-    set_tab_head_color(tab_fmt)
+    include_num = len(autogo_input.g_include_item)
+    while True:
+        if include_num == 0:
+            break
+        click(g_xpath.input_content)
+        include_info = ['File Name']
+        include_description = ['Description']
+        include_info.extend(autogo_input.g_include_item)
+        include_len = len(include_info)
+        tab_fmt = str(include_len) + g_table_type['include']
+        tab_process(tab_fmt)
+        row_idx = 1
+        for include_item in include_info:
+            col_idx = 1
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, include_item)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for des_item in include_description:
+            col_idx = 2
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, des_item)
+            row_idx = row_idx + 1
+        set_tab_head_color(tab_fmt)
+        break
 
 
 def macro_process():
+    macro_len = len(autogo_input.g_macro[0])
+    while True:
+        if macro_len == 0:
+            break
+        click(g_xpath.input_content)
+        macro_names = ['Macro Name']
+        descriptions = ['Description']
+        macro_vars = ['Value']
+        macro_names.extend(autogo_input.g_macro[0])
+        macro_vars.extend(autogo_input.g_macro[1])
+        macro_len = len(macro_names)
+        tab_fmt = str(macro_len) + g_table_type['macro']
+        tab_process(tab_fmt)
+        row_idx = 1
+        for macro_item in macro_names:
+            col_idx = 1
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, macro_item)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for des_item in descriptions:
+            col_idx = 2
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, des_item)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for macro_var in macro_vars:
+            col_idx = 3
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, macro_var)
+            row_idx = row_idx + 1
+        set_tab_head_color(tab_fmt)
+        break
+
+
+def enum_item_process(enum_prop: str, xpath: list):
+    enum_len = len(autogo_input.g_enum[0])
+    while True:
+        if enum_len == 0:
+            break
+        click(g_xpath.input_content)
+        enum_idx = int(enum_prop.replace('enum', ''))
+        enum_members = ['Member']
+        enum_vals = ['Values']
+        descriptions = ['Description']
+        enum_members.extend(autogo_input.g_enum[1][enum_idx])
+        enum_vals.extend(autogo_input.g_enum[2][enum_idx])
+        enum_len = len(enum_members)
+        tab_fmt = str(enum_len) + g_table_type['enum']
+        tab_process(tab_fmt)
+        row_idx = 1
+        for en_member in enum_members:
+            col_idx = 1
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, en_member)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for des_item in descriptions:
+            col_idx = 2
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, des_item)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for en_val in enum_vals:
+            col_idx = 3
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, en_val)
+            row_idx = row_idx + 1
+        set_tab_head_color(tab_fmt)
+        input_save()
+        click(xpath[1])
+        select_object_type(object_type[information])
+        click(xpath[1])
+        break
+
+
+def struct_item_process(struct_prop, xpath: list):
+    st_num = len(autogo_input.g_struct[0])
+    while True:
+        if st_num == 0:
+            break
+        click(g_xpath.input_content)
+        st_idx = int(struct_prop.replace('struct', ''))
+        st_members = ['Member']
+        st_types = ['Type']
+        descriptions = ['Description']
+        st_members.extend(autogo_input.g_struct[2][st_idx])
+        st_types.extend(autogo_input.g_struct[1][st_idx])
+        st_len = len(st_members)
+        tab_fmt = str(st_len) + g_table_type['struct']
+        tab_process(tab_fmt)
+        row_idx = 1
+        for st_member in st_members:
+            col_idx = 1
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, st_member)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for st_type in st_types:
+            col_idx = 2
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, st_type)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for des_item in descriptions:
+            col_idx = 3
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, des_item)
+            row_idx = row_idx + 1
+        set_tab_head_color(tab_fmt)
+        input_save()
+        click(xpath[1])
+        select_object_type(object_type[information])
+        click(xpath[1])
+        break
+
+
+def union_item_process(union_prop, xpath: list):
+    un_num = len(autogo_input.g_union[0])
+    while True:
+        if un_num == 0:
+            break
+        click(g_xpath.input_content)
+        un_idx = int(union_prop.replace('union', ''))
+        un_members = ['Member']
+        un_types = ['Type']
+        descriptions = ['Description']
+        un_members.extend(autogo_input.g_union[2][un_idx])
+        un_types.extend(autogo_input.g_union[1][un_idx])
+        un_len = len(un_members)
+        tab_fmt = str(un_len) + g_table_type['union']
+        tab_process(tab_fmt)
+        row_idx = 1
+        for un_member in un_members:
+            col_idx = 1
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, un_member)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for un_type in un_types:
+            col_idx = 2
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, un_type)
+            row_idx = row_idx + 1
+        row_idx = 1
+        for des_item in descriptions:
+            col_idx = 3
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, des_item)
+            row_idx = row_idx + 1
+        set_tab_head_color(tab_fmt)
+        input_save()
+        click(xpath[1])
+        select_object_type(object_type[information])
+        click(xpath[1])
+        break
+
+
+def detail_process(func_type, func_name):
+    if func_type == 'local':
+        local_func_list = autogo_input.g_local_func
+        try:
+            obj_func_idx = local_func_list.index(func_name)
+            func_content = autogo_input.detail_pro(func_type, obj_func_idx)
+        except Exception:
+            func_content = ''
+    else:
+        global_func_list = autogo_input.g_global_func
+        try:
+            obj_func_idx = global_func_list.index(func_name)
+            func_content = autogo_input.detail_pro(func_type, obj_func_idx)
+        except Exception:
+            func_content = ''
     click(g_xpath.input_content)
-    macro_names = ['Macro Name']
-    descriptions = ['Description']
-    macro_vars = ['Value']
-    macro_names.extend(autogo_input.g_macro[0])
-    macro_vars.extend(autogo_input.g_macro[1])
-    macro_len = len(macro_names)
-    tab_fmt = str(macro_len) + g_table_type['macro']
-    tab_process(tab_fmt)
-    row_idx = 1
-    for macro_item in macro_names:
-        col_idx = 1
-        tab_input = str(row_idx) + 'x' + str(col_idx)
-        input_xpath = get_tab_input_xpath(tab_input)
-        click(input_xpath)
-        send_key(input_xpath, macro_item)
-        row_idx = row_idx + 1
-    row_idx = 1
-    for des_item in descriptions:
-        col_idx = 2
-        tab_input = str(row_idx) + 'x' + str(col_idx)
-        input_xpath = get_tab_input_xpath(tab_input)
-        click(input_xpath)
-        send_key(input_xpath, des_item)
-        row_idx = row_idx + 1
-    row_idx = 1
-    for macro_var in macro_vars:
-        col_idx = 3
-        tab_input = str(row_idx) + 'x' + str(col_idx)
-        input_xpath = get_tab_input_xpath(tab_input)
-        click(input_xpath)
-        send_key(input_xpath, macro_var)
-        row_idx = row_idx + 1
-    set_tab_head_color(tab_fmt)
+    send_key(g_xpath.input_content, func_content)
 
 
-def enum_item_process(enum_prop: str, xpath):
-    enum_idx = int(enum_prop.replace('enum', ''))
-    enum_members = ['Member']
-    enum_vals = ['Values']
-    descriptions = ['Description']
-    enum_members.extend(autogo_input.g_enum[1][enum_idx])
-    enum_vals.extend(autogo_input.g_enum[2][enum_idx])
-    enum_len = len(enum_members)
-    tab_fmt = str(enum_len) + g_table_type['enum']
-    tab_process(tab_fmt)
-    row_idx = 1
-    for macro_item in enum_members:
-        col_idx = 1
-        tab_input = str(row_idx) + 'x' + str(col_idx)
-        input_xpath = get_tab_input_xpath(tab_input)
-        click(input_xpath)
-        send_key(input_xpath, macro_item)
-        row_idx = row_idx + 1
-    row_idx = 1
-    for des_item in descriptions:
-        col_idx = 2
-        tab_input = str(row_idx) + 'x' + str(col_idx)
-        input_xpath = get_tab_input_xpath(tab_input)
-        click(input_xpath)
-        send_key(input_xpath, des_item)
-        row_idx = row_idx + 1
-    row_idx = 1
-    for macro_var in enum_vals:
-        col_idx = 3
-        tab_input = str(row_idx) + 'x' + str(col_idx)
-        input_xpath = get_tab_input_xpath(tab_input)
-        click(input_xpath)
-        send_key(input_xpath, macro_var)
-        row_idx = row_idx + 1
-    set_tab_head_color(tab_fmt)
-    input_save()
-    # # select type
-    select_object_type(object_type[information])
-    click(xpath)
+def func_item_process(base_position: str, func_name, func_type, current_coor):
+    build_new_item(position=(base_position, current_coor), title=func_name, item_type=object_type[folder])
+    interaction_data_coor = get_now_coor(current_coor, 'inner')
+    build_new_item(position=(current_coor, interaction_data_coor), title='Interaction data',
+                   item_type=object_type[folder])
+    input_coor = get_now_coor(interaction_data_coor, 'inner')
+    build_new_item(position=(interaction_data_coor, input_coor), title='Input', item_type=object_type[information],
+                   content='input')
+    output_coor = get_now_coor(input_coor, 'after')
+    build_new_item((interaction_data_coor, output_coor), title='Output', item_type=object_type[information],
+                   content='output')
+    return_coor = get_now_coor(output_coor, 'after')
+    build_new_item(position=(interaction_data_coor, return_coor), title='Return', item_type=object_type[information],
+                   content='return')
+    unit_var_coor = get_now_coor(interaction_data_coor, 'after')
+    build_new_item((current_coor, unit_var_coor), title='Unit Variables', item_type=object_type[information],
+                   content='unit_var')
+    dynamic_coor = get_now_coor(unit_var_coor, 'after')
+    build_new_item(position=(current_coor, dynamic_coor), title='Call Relationship', item_type=object_type[information],
+                   content='func_dynamic')
+    flow_chart_coor = get_now_coor(dynamic_coor, 'after')
+    build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
+                   content='flow_chart')
+    detail_coor = get_now_coor(flow_chart_coor, 'after')
+    build_new_item(position=(current_coor, detail_coor), title='Detailed Description', item_type=object_type[function],
+                   content=(func_type + '@detail@' + func_name))
 
 
 def enum_process(base_position: str):
     enum_items = autogo_input.g_enum[0]
     enum_items_len = len(enum_items)
-    for enum_items_idx in range(enum_items_len):
-        item_name = enum_items[enum_items_idx] + '(enum)'
-        content = 'enum' + str(enum_items_idx)
-        build_new_item(position=base_position, title=item_name, item_type=object_type[information], content=content)
+    current_coor = get_now_coor(base_position, 'inner')
+    if enum_items_len != 0:
+        for enum_items_idx in range(enum_items_len):
+            item_name = enum_items[enum_items_idx] + '(enum)'
+            content = 'enum' + str(enum_items_idx)
+            build_new_item(position=(base_position, current_coor), title=item_name, item_type=object_type[information],
+                           content=content)
+            current_coor = get_now_coor(current_coor, 'after')
+        return current_coor
+    else:
+        return current_coor
 
 
-def build_new_item(position, title: str, item_type=object_type[function], content: str = None):
-    xpath = get_destination_xpath(position)
+def struct_process(base_position: str, current_coor):
+    struct_items = autogo_input.g_struct[0]
+    st_item_len = len(struct_items)
+    current_item_coor = current_coor
+    if st_item_len != 0:
+        for st_item_idx in range(st_item_len):
+            item_name = struct_items[st_item_idx] + '(struct)'
+            content = 'struct' + str(st_item_idx)
+            build_new_item(position=(base_position, current_item_coor), title=item_name,
+                           item_type=object_type[information], content=content)
+            current_item_coor = get_now_coor(current_item_coor, 'after')
+        return current_item_coor
+    else:
+        return current_coor
+
+
+def union_process(base_position: str, current_coor):
+    union_item = autogo_input.g_union[0]
+    un_item_len = len(union_item)
+    current_item_coor = current_coor
+    if un_item_len != 0:
+        for un_item_idx in range(un_item_len):
+            item_name = union_item[un_item_idx] + '(union)'
+            content = 'union' + str(un_item_idx)
+            build_new_item(position=(base_position, current_item_coor), title=item_name,
+                           item_type=object_type[information], content=content)
+            current_item_coor = get_now_coor(current_item_coor, 'after')
+    else:
+        pass
+
+
+def func_process(base_position, func_type='local'):
+    fun_coor = get_now_coor(base_position, 'inner')
+    if func_type == 'local':
+        func_items = autogo_input.g_local_func
+        func_num = len(func_items)
+        obj_current_coor = fun_coor
+    else:
+        func_items = autogo_input.g_global_func
+        func_num = len(func_items)
+        obj_current_coor = fun_coor
+    if func_num != 0:
+        for func_idx in range(func_num):
+            func_name = func_items[func_idx]
+            func_item_process(base_position, func_name, func_type, obj_current_coor)
+            obj_current_coor = get_now_coor(obj_current_coor, 'after')
+
+
+def build_new_item(position: tuple, title: str, item_type=object_type[function], content: str = None):
+    xpath = get_destination_xpath(position[0])
+    end_xpath = get_destination_xpath(position[1])
+    xpath_list = [xpath, end_xpath]
     wait_loading()
     time.sleep(0.5)
-    click(xpath)
+    # click(xpath)
+    move_to_element(xpath)
     context_click(xpath)
     click(g_xpath.insert_new_child)
     input_title(title)
@@ -441,23 +658,40 @@ def build_new_item(position, title: str, item_type=object_type[function], conten
         elif content == 'macro':
             macro_process()
         elif content.count('enum') != 0:
-            enum_item_process(content, xpath)
+            enum_item_process(content, xpath_list)
             break
-        elif content == 'struct':
-            pass
-        elif content == 'union':
-            pass
+        elif content.count('struct') != 0:
+            struct_item_process(content, xpath_list)
+            break
+        elif content.count('union'):
+            union_item_process(content, xpath_list)
+            break
         elif content == 'global_var':
             pass
+        elif content == 'dynamic':
+            pass
+        elif content == 'input':
+            pass
+        elif content == 'output':
+            pass
+        elif content == 'return':
+            pass
+        elif content == 'unit_var':
+            pass
+        elif content == 'func_dynamic':
+            pass
+        elif content == 'flow_chart':
+            pass
+        elif content.count('detail') != 0:
+            content_info = content.split('@')
+            func_type = content_info[0]
+            func_name = content_info[2]
+            detail_process(func_type, func_name)
         input_save()
-        # # select type
+        click(end_xpath)
         select_object_type(item_type)
-        click(xpath)
+        click(end_xpath)
         break
-
-
-def single_func_proc():
-    pass
 
 
 def auto_go_active(component: str):
@@ -477,22 +711,51 @@ def auto_go_active(component: str):
         open_fold_xpath(coordination)
 
         component_coor = get_now_coor(coordination, 'inner')
-        build_new_item(position=coordination, title=component, item_type=object_type[folder])
+        build_new_item(position=(coordination, component_coor), title=component, item_type=object_type[folder])
         c_file_fold_coor = get_now_coor(component_coor, 'inner')
-        build_new_item(position=component_coor, title=c_file_name, item_type=object_type[folder])
-        include_coor = get_now_coor(c_file_fold_coor, 'inner')
-        build_new_item(position=c_file_fold_coor, item_type=object_type[information], title='Include',
+        build_new_item(position=(component_coor, c_file_fold_coor), title=c_file_name, item_type=object_type[folder])
+        component_design_coor = get_now_coor(c_file_fold_coor, 'inner')
+        build_new_item(position=(c_file_fold_coor, component_design_coor), item_type=object_type[information],
+                       title='Component Design Constraints')
+        head_file_coor = get_now_coor(component_design_coor, 'after')
+        build_new_item(position=(c_file_fold_coor, head_file_coor), title='Header Files',
+                       item_type=object_type[information],
                        content='include')
-        macro_coor = get_now_coor(include_coor, 'after')
-        build_new_item(position=c_file_fold_coor, title='Macros and Constants', item_type=object_type[information],
+        component_def_coor = get_now_coor(head_file_coor, 'after')
+        build_new_item(position=(c_file_fold_coor, component_def_coor), title='Component Definitions',
+                       item_type=object_type[folder])
+        macro_folder_coor = get_now_coor(component_def_coor, 'inner')
+        build_new_item(position=(component_def_coor, macro_folder_coor), title='Component Macro Definitions ',
+                       item_type=object_type[folder])
+        macro_coor = get_now_coor(macro_folder_coor, 'inner')
+        build_new_item(position=(macro_folder_coor, macro_coor), title='List of Component Macro',
+                       item_type=object_type[information],
                        content='macro')
-        component_type_coor = get_now_coor(macro_coor, 'after')
-        build_new_item(position=c_file_fold_coor, item_type=object_type[folder], title='Component Type Declarations')
-        enum_process(component_type_coor)
-
+        component_type_coor = get_now_coor(macro_folder_coor, 'after')
+        build_new_item(position=(component_def_coor, component_type_coor), title='Component Type Declarations',
+                       item_type=object_type[folder])
+        enum_current_coor = enum_process(component_type_coor)
+        struct_current_coor = struct_process(component_type_coor, enum_current_coor)
+        union_process(component_type_coor, struct_current_coor)
+        dynamic_behavior_coor = get_now_coor(component_def_coor, 'after')
+        build_new_item(position=(c_file_fold_coor, dynamic_behavior_coor), title='Dynamic Behavior',
+                       item_type=object_type[folder])
+        dynamic_detail_coor = get_now_coor(dynamic_behavior_coor, 'inner')
+        build_new_item(position=(dynamic_behavior_coor, dynamic_detail_coor), title='Dynamic Behavior Detail',
+                       item_type=object_type[information], content='dynamic')
+        sw_func_coor = get_now_coor(dynamic_behavior_coor, 'after')
+        build_new_item(position=(c_file_fold_coor, sw_func_coor), title='Software Functions',
+                       item_type=object_type[folder])
+        local_func_coor = get_now_coor(sw_func_coor, 'inner')
+        build_new_item((sw_func_coor, local_func_coor), 'Local Functions ', object_type[folder])
+        func_process(local_func_coor, func_type='local')
+        global_func_coor = get_now_coor(local_func_coor, 'after')
+        build_new_item(position=(sw_func_coor, global_func_coor), title='Global Functions', item_type=object_type[folder])
+        func_process(global_func_coor, func_type='global')
         end = time.time()
         print('time: ', end - start)
-        time.sleep(5)
+        # time.sleep(5)
+        input('Auto go is testing...')
         driver.close()
         break
         # print(driver.page_source)
