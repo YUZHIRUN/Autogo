@@ -26,7 +26,8 @@ def set_value_phase_proc(input_phase: str):
 def define_var_phase_proc(input_phase: str):
     if re.search(regular.get_define_var, input_phase) is not None:
         var_name = re.search(regular.get_define_var, input_phase).group(1)
-        res = 'Define variable ' + str(var_name)
+        var_type = re.search(regular.get_define_type, input_phase).group(1)
+        res = 'Define variable ' + str(var_name) + ', which type is ' + var_type
     else:
         res = ''
     return res

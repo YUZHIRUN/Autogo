@@ -42,7 +42,10 @@ def do_phase_proc(input_phase: str):
         res = 'DO'
     elif while_regular is not None:
         do_condition = while_regular.group(1)
-        res = 'WHILE IF ' + str(do_condition) + ' THEN continue ELSE break'
+        if do_condition == 'FALSE':
+            res = 'DO WHILE LOOP to break'
+        else:
+            res = '(LOOP) IF condition ' + str(do_condition) + ' is TRUE to continue loop ELSE break'
     else:
         res = ''
     return res

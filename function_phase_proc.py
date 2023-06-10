@@ -94,7 +94,7 @@ def last_func_callback_proc(func_line_list: list):
     for func_line_idx in func_list:
         condition_func = re.search(regular.last_func, func_line_idx)
         condition_funcs = re.findall(regular.last_func, func_line_idx)
-        if condition_func is not None and (func_line_idx.count('IF') != 0 or func_line_idx.count('Set') != 0):
+        if condition_func is not None and (func_line_idx.startswith('IF') is True or func_line_idx.startswith('Set') is True):
             condition_name: str = re.search(regular.get_last_func, func_line_idx).group(1)
             if condition_name.count('IF') == 0 and condition_name.count('sizeof') == 0 and condition_name.count(
                     'OR') == 0 and condition_name.count('AND') == 0:
