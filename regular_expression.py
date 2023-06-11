@@ -6,7 +6,7 @@ class RegularClass:
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.union = r'typedef +union *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.macro = r'# *define +(?:.+?) +(?:.+)'
-        self.global_var = r'(?:static)* *(?:\w+) +(?:g_[\w\[\]\*]+).+;'
+        self.global_var = r'(?:static)* *(?:[\w\*]+) +(?:g_[\w\[\]\*]+).*[;{]'
 
         # struct
         self.struct = r'typedef +struct *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
@@ -24,8 +24,8 @@ class RegularClass:
         # get names regular
         self.global_func_name = r'FUNC *\(.+\) *(\S+?)\('
         self.local_func_name = r'\w+\** +\** *(\w+) *\('
-        self.global_var_name = r'(?:static)* *(?:\w+) +(g_[\w\[\]\*]+).+;'
-        self.global_var_type = r'(?:static)* *(\w+) +(?:g_[\w\[\]\*]+).+'
+        self.global_var_name = r'(?:static)* *(?:[\w\*]+) +(g_[\w\[\]\*]+).*[;{]'
+        self.global_var_type = r'(?:static)* *([\w\*]+) +(?:g_[\w\[\]\*]+).*[;{]'
         self.include_file = r'# *include +(?:.+?(?:"|>))'
 
         # phase check regular
@@ -35,7 +35,7 @@ class RegularClass:
         self.switch_re = r'switch *\(([^\n\{}]+)\)|case +([^\n\{}]+):|default *:'
         self.while_re = r'while *\(.+?\)'
         self.set_value_re = r'(?:[^\n,;|&]+) *[|=&\+-]*= *(?:[\S| ]+?);|(\S+) *[+-]{2} *;'
-        self.define_var_re = r'\w+ +(?:[\w, \[\]]+) *;'
+        self.define_var_re = r'[\w\*]+ +(?:[\w, \[\]\*]+) *;'
         self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|(?:\(void\))* *\( *\* *\w+\)\(.*\);'
         self.return_re = r'return +.+?;'
         self.break_re = r'break *;'
@@ -51,11 +51,19 @@ class RegularClass:
         self.get_set_value_info = r'([^\n,;|&=+ ]+?) *([\^=|&+-]?=) *([\S| ]+?);'
         self.get_set_special_value_info = r'(\S+) *([+-]){2} *;'
         self.get_return_info = r'return +(.+?);'
-        self.get_define_var = r'\w+ +([\w, \[\]]+) *;'
-        self.get_define_type = r'(\w+) +(?:[\w, \[\]]+) *;'
+        self.get_return_type = r'([\w\*]+) +(\*?@).+;'
+        self.get_head_info = r'\((.+)\)'
+        self.get_define_var = r'[\w\*]+ +([\*\w, \[\]]+) *;'
+        self.get_define_type = r'([\w\*]+) +(?:[\*\w, \[\]]+) *;'
         self.get_include_file = r'# *include +(.+?(?:"|>))'
         self.get_macro_name = r'# *define +(.+?) +(?:.+)'
+        self.get_global_func_info = r'FUNC\( *(\w+) *, *\w+ *\) *(\w+)\((.+)\)'
+        self.global_func_params = r'[\w\*]+ [\w\*]+,|P\d[A-Z]+\((?:[\w\*]+),.+?\) *(?:[\w\*]+)|void'
+        self.global_func_params_0 = r'void'
+        self.global_func_params_1 = r'P\d[A-Z]+\(([\w\*]+),.+?\) *([\w\*]+)'
+        self.global_func_params_2 = r'([\w\*]+ +[\w\*]+)'
         self.macro_value = r'# *define +(?:.+?) +(.+)'
+        self.get_param_info = r'([\w\*]+) +([\w\*]+)'
 
         # function class regular
         self.memcpy = r'memcpy *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
@@ -104,7 +112,8 @@ class Xpath:
         self.draft = '//*[text()="Draft"]'
         self.paint_button = '//*[@id="toolbarContainer"]/div/button[4]/i'
         # table
-        self.insert_table = '//*[@class="fr-popup fr-desktop fr-ltr cb-custom-popup fr-active"]/div[1]/button[1]/i'
+        # self.insert_table = '//*[@class="fr-popup fr-desktop fr-ltr cb-custom-popup fr-active"]/div[1]/button[1]/i'
+        self.insert_table = r'//span[text()="Insert Table"]/../i[1]'
         self.table_init_div = r'//*[@class="fr-select-table-size"]/span[1]/span[1]'
         self.tab_xpath = r'//*[@class="fr-select-table-size"]/span[$]/span[1]'
         self.tab_content = r'//*[@class="editable new-item description-container editor-wrapper wysiwyg"]/div[2]/div/div/table[1]/tbody[1]/tr[$0]/td[$1]'
@@ -112,6 +121,9 @@ class Xpath:
         self.add_row_select = r'//a[text()="Insert row below"]'
         self.add_col_bt = r'//span[text()="Remove Table"]/../../button[3]'
         self.add_col_select = r'//a[text()="Insert column after"]'
+
+        self.merge_bt = r'//span[text()="Remove Table"]/../../button[4]'
+        self.select_merge = r'//a[text()="Merge cells"]'
 
         self.set_color_bt = r'//span[text()="Remove Table"]/../../button[5]'
         self.color_gray = r'//span[contains(text(), "Color #CCCCCC")]/..'

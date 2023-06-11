@@ -1,3 +1,5 @@
+import json
+import os
 import autogo
 import code_generate
 import generate_code
@@ -13,6 +15,15 @@ g_content_list = list()
 
 
 class gui_op(code_generate.Ui_MainWindow):
+
+    def loading_dis(self):
+        self.load_dis.setMaximum(0)
+        self.load_dis.setMinimum(0)
+
+    def load_over(self):
+        self.load_dis.setMaximum(0)
+        self.load_dis.setMinimum(100)
+        self.load_dis.setValue(0)
 
     def clear_disp(self):
         self.func_items.clear()
@@ -214,8 +225,42 @@ class gui_op(code_generate.Ui_MainWindow):
         op_lock.release()
 
     def event_auto_go(self):
-        autogo.auto_go_program()
-        print('Auto go ready!')
+        self.mention.setText(err.autogo_wait)
+        op_lock.acquire()
+        self.loading_dis()
+        if os.path.exists('.config/config.json') is True:
+            with open('.config/config.json') as cfg_obj:
+                config = json.load(cfg_obj)
+        else:
+            user_id = self.user_id.text()
+            user_key = self.user_key.text()
+            base_coor = self.base_coor.text()
+            obj_link = self.obj_url.text()
+            browser = self.browser.currentText()
+            visible = self.visible_bt.isChecked()
+            config = {'user_id': user_id, 'user_key': user_key, 'base_coor': base_coor, 'link': obj_link,
+                      'browser': browser, 'visible': visible}
+        while True:
+            if err.void_check(config['user_id']) is True:
+                self.mention.setText(err.no_id)
+                break
+            if err.void_check(config['user_key']) is True:
+                self.mention.setText(err.no_key)
+                break
+            if err.void_check(config['base_coor']) is True:
+                self.mention.setText(err.no_base_folder)
+                break
+            if err.void_check(config['link']) is True:
+                self.mention.setText(err.no_url)
+                break
+            if os.path.exists('.config/config.json') is False:
+                with open('.config/config.json', 'w') as obj:
+                    json.dump(config, obj)
+            res = autogo.auto_go_program(config)
+            self.mention.setText(res)
+            break
+        self.load_over()
+        op_lock.release()
 
     # threading-------------------------------------------------------------------------------
     def th_load_file(self):

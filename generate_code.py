@@ -22,6 +22,9 @@ g_include_list = list()
 g_global_code_list = list()
 g_local_code_list = list()
 
+g_local_func_names = list()
+g_global_func_names = list()
+
 errcode = error_code.err_class()
 
 
@@ -173,6 +176,8 @@ def get_code_info(file_path, mode='load'):
         # name-----------------------------------------------------
         global_func_names = common.get_global_func_names(g_global_func)
         local_func_names = common.get_local_func_names(g_local_func)
+        g_local_func_names.extend(local_func_names)
+        g_global_func_names.extend(global_func_names)
         struct_names = common.get_struct_names(g_struct_list)
         enum_names = common.get_enum_names(g_enum_list)
         macro_names = common.get_macro_names(g_macro_list)
@@ -219,3 +224,5 @@ def clear_info():
     g_global_var_list.clear()
     g_union_list.clear()
     g_include_list.clear()
+    g_local_func_names.clear()
+    g_global_func_names.clear()

@@ -4,6 +4,7 @@ import autogo_input
 import re
 from selenium.webdriver.support.wait import WebDriverWait
 
+import common
 import generate_code
 import regular_expression
 from selenium.webdriver import Keys
@@ -13,6 +14,7 @@ from selenium.webdriver.support.select import Select
 import error_code
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.common import exceptions as driver_err, WebDriverException
 
 g_xpath = regular_expression.Xpath()
 regular = regular_expression.RegularClass()
@@ -20,7 +22,10 @@ g_user = ''
 g_key = ''
 g_browser = ''
 g_link = ''
-g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'global_var': 'x3', 'union': 'x3'}
+g_visible = True
+g_base_coor = ''
+g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'global_var': 'x4', 'union': 'x3',
+                'input': 'x4', 'output': 'x4', 'return': 'x3', 'unit_var': 'x6', 'func_dynamic': '6x7'}
 
 err = error_code.err_class()
 WAIT_TIME = 30
@@ -36,29 +41,45 @@ def get_chrome_driver():
     global driver
     if g_browser == 'chrome' or g_browser == 'Chrome':
         from selenium.webdriver.chrome.service import Service
-        # option = webdriver.chrome.
-        driver = webdriver.Chrome(service=Service('chromedriver.exe'))
+        if g_visible is False:
+            option = webdriver.ChromeOptions()
+            option.add_argument('--headless')
+            driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
+        else:
+            driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'))
     else:
         from selenium.webdriver.edge.service import Service
-        driver = webdriver.Edge(service=Service('msedgedriver.exe'))
+        if g_visible is False:
+            option = webdriver.EdgeOptions()
+            option.add_argument('--headless')
+            driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
+        else:
+            driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'))
     driver.get(g_link)
 
 
-def get_cfg():
+def base_coor_check(base_coor: str):
+    res = True
+    base_coor_list = base_coor.split('.')
+    for e in base_coor_list:
+        if e.isdigit() is False:
+            res = False
+    return res
+
+
+def get_cfg(config):
     res = err.ok
-    global g_user, g_key, g_browser, g_link
-    with open('config.json', mode='r') as cfg_obj:
-        cfg: dict = json.load(cfg_obj)
-        cfg_key_list = list(cfg.keys())
-        if cfg_key_list.count('user') != 0 and cfg_key_list.count('password') != 0 and cfg_key_list.count(
-                'browser') != 0 and cfg_key_list.count('link') != 0:
-            g_user = cfg['user']
-            g_key = cfg['password']
-            g_browser = cfg['browser']
-            g_link = cfg['link']
-        else:
-            res = err.cfg_err
-    get_chrome_driver()
+    global g_user, g_key, g_browser, g_link, g_visible, g_base_coor
+    g_user = str(config['user_id'])
+    g_key = str(config['user_key'])
+    g_base_coor = str(config['base_coor'])
+    g_link = str(config['link'])
+    g_browser = str(config['browser'])
+    g_visible = config['visible']
+    if base_coor_check(g_base_coor) is False:
+        res = err.base_coor_err
+    else:
+        get_chrome_driver()
     return res
 
 
@@ -93,8 +114,6 @@ def open_fold_xpath(coordinate: str):
     for xpath in xpath_list:
         driver.find_element(By.XPATH, value=xpath).click()
     wait_loading()
-    # destination_folder_xpath = xpath_list[-1][:-1] + 'a'
-    # return destination_folder_xpath
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -199,6 +218,22 @@ def tab_button_init(table_format: str):
         init = init + 1
 
 
+def merge_unit_tab(start_fmt: str, end_fmt: str):
+    start_row = start_fmt.split('x')[0]
+    start_col = start_fmt.split('x')[1]
+    end_row = end_fmt.split('x')[0]
+    end_col = end_fmt.split('x')[1]
+    start_xpath = g_xpath.tab_content.replace('$0', str(start_row))
+    start_xpath = start_xpath.replace('$1', str(start_col))
+    end_xpath = g_xpath.tab_content.replace('$0', str(end_row))
+    end_xpath = end_xpath.replace('$1', str(end_col))
+    start_ele = driver.find_element(By.XPATH, value=start_xpath)
+    end_ele = driver.find_element(By.XPATH, value=end_xpath)
+    ActionChains(driver).drag_and_drop(start_ele, end_ele).perform()
+    click(g_xpath.merge_bt)
+    click(g_xpath.select_merge)
+
+
 def get_tab_input_xpath(tab_fmt: str):
     tab_fmt_list = tab_fmt.split('x')
     row = tab_fmt_list[0]
@@ -208,11 +243,17 @@ def get_tab_input_xpath(tab_fmt: str):
     return res
 
 
-def set_tab_head_color(tab_fmt):
+def set_tab_head_color(tab_fmt, col_skip=None):
+    if col_skip is None:
+        col_skip = []
     col = tab_fmt.split('x')[1]
     row_idx = 1
     col_idx = 1
     for i in range(int(col)):
+        if len(col_skip) != 0:
+            if col_skip.count(col_idx) != 0:
+                col_idx = col_idx + 1
+                continue
         set_tab_xpath = g_xpath.tab_content.replace('$0', str(row_idx))
         set_tab_xpath = set_tab_xpath.replace('$1', str(col_idx))
         click(set_tab_xpath)
@@ -297,6 +338,19 @@ def tab_process(table_format: str):
         click(table_end_xpath)
 
 
+def fill_tab_content(tab_content: list):
+    col_idx = 1
+    for content in tab_content:
+        row_idx = 1
+        for item in content:
+            tab_input = str(row_idx) + 'x' + str(col_idx)
+            input_xpath = get_tab_input_xpath(tab_input)
+            click(input_xpath)
+            send_key(input_xpath, item)
+            row_idx = row_idx + 1
+        col_idx = col_idx + 1
+
+
 def get_now_coor(base_coor: str, active):
     if active == 'inner':
         res = base_coor + '.1'
@@ -313,6 +367,40 @@ def get_now_coor(base_coor: str, active):
     return res
 
 
+def func_item_build_process(base_position: str, func_name, func_type, current_coor):
+    func_info = func_type + '@' + func_name
+    build_new_item(position=(base_position, current_coor), title=func_name, item_type=object_type[folder],
+                   content=func_info)
+    interaction_data_coor = get_now_coor(current_coor, 'inner')
+    build_new_item(position=(current_coor, interaction_data_coor), title='Interaction data',
+                   item_type=object_type[folder])
+    input_coor = get_now_coor(interaction_data_coor, 'inner')
+    build_new_item(position=(interaction_data_coor, input_coor), title='Input', item_type=object_type[information],
+                   content=('input@' + func_info))
+    output_coor = get_now_coor(input_coor, 'after')
+    build_new_item((interaction_data_coor, output_coor), title='Output', item_type=object_type[information],
+                   content=('output@' + func_info))
+    return_coor = get_now_coor(output_coor, 'after')
+    build_new_item(position=(interaction_data_coor, return_coor), title='Return', item_type=object_type[information],
+                   content='return@' + func_info)
+    unit_var_coor = get_now_coor(interaction_data_coor, 'after')
+    build_new_item((current_coor, unit_var_coor), title='Unit Variables', item_type=object_type[information],
+                   content=('unit_var@' + func_info))
+    dynamic_coor = get_now_coor(unit_var_coor, 'after')
+    build_new_item(position=(current_coor, dynamic_coor), title='Call Relationship', item_type=object_type[information],
+                   content=('func_dynamic@' + func_info))
+    flow_chart_coor = get_now_coor(dynamic_coor, 'after')
+    build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
+                   content='flow_chart')
+    detail_folder_coor = get_now_coor(flow_chart_coor, 'after')
+    build_new_item(position=(current_coor, detail_folder_coor), title='Function Logic Description',
+                   item_type=object_type[information])
+    detail_coor = get_now_coor(detail_folder_coor, 'inner')
+    build_new_item(position=(detail_folder_coor, detail_coor), title='Detailed Description',
+                   item_type=object_type[function],
+                   content=('detail@' + func_info))
+
+
 def include_process():
     include_num = len(autogo_input.g_include_item)
     while True:
@@ -322,25 +410,13 @@ def include_process():
         include_info = ['File Name']
         include_description = ['Description']
         include_info.extend(autogo_input.g_include_item)
+        tab_content = list()
+        tab_content.append(include_info)
+        tab_content.append(include_description)
         include_len = len(include_info)
         tab_fmt = str(include_len) + g_table_type['include']
         tab_process(tab_fmt)
-        row_idx = 1
-        for include_item in include_info:
-            col_idx = 1
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, include_item)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for des_item in include_description:
-            col_idx = 2
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, des_item)
-            row_idx = row_idx + 1
+        fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
         break
 
@@ -356,33 +432,15 @@ def macro_process():
         macro_vars = ['Value']
         macro_names.extend(autogo_input.g_macro[0])
         macro_vars.extend(autogo_input.g_macro[1])
+        tab_content = list()
+        tab_content.append(macro_names)
+        tab_content.append(descriptions)
+        tab_content.append(macro_vars)
+
         macro_len = len(macro_names)
         tab_fmt = str(macro_len) + g_table_type['macro']
         tab_process(tab_fmt)
-        row_idx = 1
-        for macro_item in macro_names:
-            col_idx = 1
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, macro_item)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for des_item in descriptions:
-            col_idx = 2
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, des_item)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for macro_var in macro_vars:
-            col_idx = 3
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, macro_var)
-            row_idx = row_idx + 1
+        fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
         break
 
@@ -399,33 +457,14 @@ def enum_item_process(enum_prop: str, xpath: list):
         descriptions = ['Description']
         enum_members.extend(autogo_input.g_enum[1][enum_idx])
         enum_vals.extend(autogo_input.g_enum[2][enum_idx])
+        tab_content = list()
+        tab_content.append(enum_members)
+        tab_content.append(descriptions)
+        tab_content.append(enum_vals)
         enum_len = len(enum_members)
         tab_fmt = str(enum_len) + g_table_type['enum']
         tab_process(tab_fmt)
-        row_idx = 1
-        for en_member in enum_members:
-            col_idx = 1
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, en_member)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for des_item in descriptions:
-            col_idx = 2
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, des_item)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for en_val in enum_vals:
-            col_idx = 3
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, en_val)
-            row_idx = row_idx + 1
+        fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
         input_save()
         click(xpath[1])
@@ -446,33 +485,15 @@ def struct_item_process(struct_prop, xpath: list):
         descriptions = ['Description']
         st_members.extend(autogo_input.g_struct[2][st_idx])
         st_types.extend(autogo_input.g_struct[1][st_idx])
+        tab_content = list()
+        tab_content.append(st_members)
+        tab_content.append(descriptions)
+        tab_content.append(st_types)
+
         st_len = len(st_members)
         tab_fmt = str(st_len) + g_table_type['struct']
         tab_process(tab_fmt)
-        row_idx = 1
-        for st_member in st_members:
-            col_idx = 1
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, st_member)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for st_type in st_types:
-            col_idx = 2
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, st_type)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for des_item in descriptions:
-            col_idx = 3
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, des_item)
-            row_idx = row_idx + 1
+        fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
         input_save()
         click(xpath[1])
@@ -486,40 +507,22 @@ def union_item_process(union_prop, xpath: list):
     while True:
         if un_num == 0:
             break
-        click(g_xpath.input_content)
         un_idx = int(union_prop.replace('union', ''))
         un_members = ['Member']
         un_types = ['Type']
         descriptions = ['Description']
         un_members.extend(autogo_input.g_union[2][un_idx])
         un_types.extend(autogo_input.g_union[1][un_idx])
+        tab_content = list()
+        tab_content.append(un_members)
+        tab_content.append(un_types)
+        tab_content.append(descriptions)
         un_len = len(un_members)
         tab_fmt = str(un_len) + g_table_type['union']
+        # operate
+        click(g_xpath.input_content)
         tab_process(tab_fmt)
-        row_idx = 1
-        for un_member in un_members:
-            col_idx = 1
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, un_member)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for un_type in un_types:
-            col_idx = 2
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, un_type)
-            row_idx = row_idx + 1
-        row_idx = 1
-        for des_item in descriptions:
-            col_idx = 3
-            tab_input = str(row_idx) + 'x' + str(col_idx)
-            input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, des_item)
-            row_idx = row_idx + 1
+        fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
         input_save()
         click(xpath[1])
@@ -528,7 +531,36 @@ def union_item_process(union_prop, xpath: list):
         break
 
 
-def detail_process(func_type, func_name):
+def global_var_item_process():
+    var_names = ['Global Variable']
+    var_types = ['Data Type']
+    var_init_vals = ['Initial Value']
+    des = ['Description']
+    var_names.extend(autogo_input.g_global_var[0])
+    var_types.extend(autogo_input.g_global_var[1])
+    var_len = len(autogo_input.g_global_var[0])
+    content_len = len(var_names)
+    while True:
+        if var_len == 0:
+            break
+        tab_fmt = str(content_len) + g_table_type['global_var']
+        tab_content = list()
+        tab_content.append(var_names)
+        tab_content.append(var_types)
+        tab_content.append(var_init_vals)
+        tab_content.append(des)
+        click(g_xpath.input_content)
+        tab_process(tab_fmt)
+        fill_tab_content(tab_content)
+        set_tab_head_color(tab_fmt)
+        break
+
+
+def detail_process(content: str):
+    content_info = content.replace('detail@', '')
+    content_info = content_info.split('@')
+    func_type = content_info[0]
+    func_name = content_info[1]
     if func_type == 'local':
         local_func_list = autogo_input.g_local_func
         try:
@@ -547,35 +579,7 @@ def detail_process(func_type, func_name):
     send_key(g_xpath.input_content, func_content)
 
 
-def func_item_process(base_position: str, func_name, func_type, current_coor):
-    build_new_item(position=(base_position, current_coor), title=func_name, item_type=object_type[folder])
-    interaction_data_coor = get_now_coor(current_coor, 'inner')
-    build_new_item(position=(current_coor, interaction_data_coor), title='Interaction data',
-                   item_type=object_type[folder])
-    input_coor = get_now_coor(interaction_data_coor, 'inner')
-    build_new_item(position=(interaction_data_coor, input_coor), title='Input', item_type=object_type[information],
-                   content='input')
-    output_coor = get_now_coor(input_coor, 'after')
-    build_new_item((interaction_data_coor, output_coor), title='Output', item_type=object_type[information],
-                   content='output')
-    return_coor = get_now_coor(output_coor, 'after')
-    build_new_item(position=(interaction_data_coor, return_coor), title='Return', item_type=object_type[information],
-                   content='return')
-    unit_var_coor = get_now_coor(interaction_data_coor, 'after')
-    build_new_item((current_coor, unit_var_coor), title='Unit Variables', item_type=object_type[information],
-                   content='unit_var')
-    dynamic_coor = get_now_coor(unit_var_coor, 'after')
-    build_new_item(position=(current_coor, dynamic_coor), title='Call Relationship', item_type=object_type[information],
-                   content='func_dynamic')
-    flow_chart_coor = get_now_coor(dynamic_coor, 'after')
-    build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
-                   content='flow_chart')
-    detail_coor = get_now_coor(flow_chart_coor, 'after')
-    build_new_item(position=(current_coor, detail_coor), title='Detailed Description', item_type=object_type[function],
-                   content=(func_type + '@detail@' + func_name))
-
-
-def enum_process(base_position: str):
+def enum_build_process(base_position: str):
     enum_items = autogo_input.g_enum[0]
     enum_items_len = len(enum_items)
     current_coor = get_now_coor(base_position, 'inner')
@@ -591,7 +595,7 @@ def enum_process(base_position: str):
         return current_coor
 
 
-def struct_process(base_position: str, current_coor):
+def struct_build_process(base_position: str, current_coor):
     struct_items = autogo_input.g_struct[0]
     st_item_len = len(struct_items)
     current_item_coor = current_coor
@@ -607,7 +611,7 @@ def struct_process(base_position: str, current_coor):
         return current_coor
 
 
-def union_process(base_position: str, current_coor):
+def union_build_process(base_position: str, current_coor):
     union_item = autogo_input.g_union[0]
     un_item_len = len(union_item)
     current_item_coor = current_coor
@@ -622,6 +626,216 @@ def union_process(base_position: str, current_coor):
         pass
 
 
+def func_build_process(content: str):
+    func_type = content.split('@')[0]
+    func_name = content.split('@')[1]
+    if func_type == 'local':
+        func_names = generate_code.g_local_func_names
+        try:
+            func_idx = func_names.index(func_name)
+        except Exception:
+            func_idx = 0
+        prototype = autogo_input.g_local_func_prototype[func_idx]
+    else:
+        func_names = generate_code.g_global_func_names
+        try:
+            func_idx = func_names.index(func_name)
+        except Exception:
+            func_idx = 0
+        prototype = autogo_input.g_global_func_prototype[func_idx]
+    fill_info = "Prototype: " + prototype
+    click(g_xpath.input_content)
+    send_key(g_xpath.input_content, fill_info)
+
+
+def input_process(content: str):
+    func_info = content.replace('input@', '')
+    func_type = func_info.split('@')[0]
+    func_name = func_info.split('@')[1]
+    param_list = autogo_input.get_func_param(func_name, func_type)
+    param_mode = param_list[0]
+    param_len = len(param_mode)
+    param_types = list()
+    param_members = list()
+    for idx in range(param_len):
+        if param_mode[idx] == 'input':
+            param_type = param_list[1][idx]
+            param_member = param_list[2][idx]
+            param_types.append(param_type)
+            param_members.append(param_member)
+    input_item_len = len(param_types)
+    if input_item_len != 0:
+        name_list = ['Name']
+        type_list = ['Type']
+        scope_list = ['Scope']
+        description = ['Description']
+        tab_content = list()
+        name_list.extend(param_members)
+        type_list.extend(param_types)
+        tab_content.append(name_list)
+        tab_content.append(type_list)
+        tab_content.append(scope_list)
+        tab_content.append(description)
+        tab_fmt = str(len(name_list)) + g_table_type['input']
+        click(g_xpath.input_content)
+        tab_process(tab_fmt)
+        fill_tab_content(tab_content)
+        set_tab_head_color(tab_fmt)
+    else:
+        click(g_xpath.input_content)
+        send_key(g_xpath.input_content, 'None')
+
+
+def output_process(content: str):
+    func_info = content.replace('output@', '')
+    func_type = func_info.split('@')[0]
+    func_name = func_info.split('@')[1]
+    param_list = autogo_input.get_func_param(func_name, func_type)
+    param_mode = param_list[0]
+    param_len = len(param_mode)
+    param_types = list()
+    param_members = list()
+    for idx in range(param_len):
+        if param_mode[idx] == 'output':
+            param_type = param_list[1][idx]
+            param_member = param_list[2][idx]
+            param_types.append(param_type)
+            param_members.append(param_member)
+    output_item_len = len(param_types)
+    if output_item_len != 0:
+        name_list = ['Name']
+        type_list = ['Type']
+        scope_list = ['Scope']
+        description = ['Description']
+        tab_content = list()
+        name_list.extend(param_members)
+        type_list.extend(param_types)
+        tab_content.append(name_list)
+        tab_content.append(type_list)
+        tab_content.append(scope_list)
+        tab_content.append(description)
+        tab_fmt = str(len(name_list)) + g_table_type['output']
+        click(g_xpath.input_content)
+        tab_process(tab_fmt)
+        fill_tab_content(tab_content)
+        set_tab_head_color(tab_fmt)
+    else:
+        click(g_xpath.input_content)
+        send_key(g_xpath.input_content, 'None')
+
+
+def return_item_process(content: str):
+    func_info = content.replace('return@', '')
+    func_type = func_info.split('@')[0]
+    func_name = func_info.split('@')[1]
+    return_info = autogo_input.return_info_process(func_name, func_type)
+    if return_info != 'None':
+        return_type = return_info.split('@')[0]
+        return_var = return_info.split('@')[1]
+        return_names = ['Name']
+        return_types = ['Type']
+        return_des = ['Description']
+        return_names.append(return_var)
+        return_types.append(return_type)
+        tab_content = list()
+        tab_content.append(return_names)
+        tab_content.append(return_types)
+        tab_content.append(return_des)
+        tab_fmt = '2' + g_table_type['return']
+        click(g_xpath.input_content)
+        tab_process(tab_fmt)
+        fill_tab_content(tab_content)
+        set_tab_head_color(tab_fmt)
+    else:
+        click(g_xpath.input_content)
+        send_key(g_xpath.input_content, 'None')
+
+
+def unit_var_item_process(content: str):
+    func_info = content.replace('unit_var@', '')
+    func_type = func_info.split('@')[0]
+    func_name = func_info.split('@')[1]
+    unit_type_info, unit_name_info = autogo_input.get_unit_var(func_name, func_type)
+    unit_len = len(unit_name_info)
+    if unit_len != 0:
+        unit_names = ['Variable Name']
+        unit_types = ['Variable Type']
+        unit_ranges = ['Range']
+        unit_init = ['Initial Value']
+        des = ['Description']
+        unit_source = ['Source']
+        unit_names.extend(unit_name_info)
+        unit_types.extend(unit_type_info)
+        tab_fmt = str(len(unit_names)) + g_table_type['unit_var']
+        tab_content = list()
+        tab_content.append(unit_names)
+        tab_content.append(unit_types)
+        tab_content.append(unit_ranges)
+        tab_content.append(unit_init)
+        tab_content.append(des)
+        tab_content.append(unit_source)
+        click(g_xpath.input_content)
+        tab_process(tab_fmt)
+        fill_tab_content(tab_content)
+        set_tab_head_color(tab_fmt)
+
+
+def func_dynamic_item_process(content):
+    func_info = content.replace('func_dynamic@', '')
+    func_type = func_info.split('@')[0]
+    func_name = func_info.split('@')[1]
+    called_items = ['Called Functions']
+    called_sources = ['Called Source']
+    black_0 = []
+    func_proto = ['Function Prototype']
+    black_1 = []
+    calling_items = ['Calling Functions']
+    calling_sources = ['Calling Source']
+    func_proto_item = autogo_input.get_func_prototype(func_name, func_type)
+    func_proto.append(func_proto_item)
+    tab_fmt = g_table_type['func_dynamic']
+    tab_content = list()
+    tab_content.append(called_items)
+    tab_content.append(called_sources)
+    tab_content.append(black_0)
+    tab_content.append(func_proto)
+    tab_content.append(black_1)
+    tab_content.append(calling_items)
+    tab_content.append(calling_sources)
+    click(g_xpath.input_content)
+    tab_process(tab_fmt)
+    fill_tab_content(tab_content)
+    set_tab_head_color(tab_fmt, col_skip=[3, 5])
+    merge_unit_tab('1x5', '6x5')
+    merge_unit_tab('2x4', '6x4')
+    merge_unit_tab('1x3', '6x3')
+
+
+# def autogo_test():
+#     called_items = ['Called Functions']
+#     called_sources = ['Called Source']
+#     black_0 = []
+#     func_proto = ['Function Prototype']
+#     black_1 = []
+#     calling_items = ['Calling Functions']
+#     calling_sources = ['Calling Source']
+#     tab_fmt = g_table_type['func_dynamic']
+#     tab_content = list()
+#     tab_content.append(called_items)
+#     tab_content.append(called_sources)
+#     tab_content.append(black_0)
+#     tab_content.append(func_proto)
+#     tab_content.append(black_1)
+#     tab_content.append(calling_items)
+#     tab_content.append(calling_sources)
+#     click(g_xpath.input_content)
+#     tab_process(tab_fmt)
+#     fill_tab_content(tab_content)
+#     set_tab_head_color(tab_fmt, col_skip=[3, 5])
+#     merge_unit_tab('1x5', '6x5')
+#     merge_unit_tab('2x4', '6x4')
+#     merge_unit_tab('1x3', '6x3')
+
 def func_process(base_position, func_type='local'):
     fun_coor = get_now_coor(base_position, 'inner')
     if func_type == 'local':
@@ -635,7 +849,7 @@ def func_process(base_position, func_type='local'):
     if func_num != 0:
         for func_idx in range(func_num):
             func_name = func_items[func_idx]
-            func_item_process(base_position, func_name, func_type, obj_current_coor)
+            func_item_build_process(base_position, func_name, func_type, obj_current_coor)
             obj_current_coor = get_now_coor(obj_current_coor, 'after')
 
 
@@ -666,27 +880,29 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
         elif content.count('union'):
             union_item_process(content, xpath_list)
             break
+        elif content.startswith('local@') is True or content.startswith('global@') is True:
+            func_build_process(content)
         elif content == 'global_var':
-            pass
+            global_var_item_process()
         elif content == 'dynamic':
             pass
-        elif content == 'input':
-            pass
-        elif content == 'output':
-            pass
-        elif content == 'return':
-            pass
-        elif content == 'unit_var':
-            pass
-        elif content == 'func_dynamic':
-            pass
+        elif content.startswith('input@') is True:
+            input_process(content)
+        elif content.startswith('output@') is True:
+            output_process(content)
+        elif content.startswith('return@') is True:
+            return_item_process(content)
+        elif content.startswith('unit_var@') is True:
+            unit_var_item_process(content)
+        elif content.startswith('func_dynamic@') is True:
+            func_dynamic_item_process(content)
         elif content == 'flow_chart':
             pass
-        elif content.count('detail') != 0:
-            content_info = content.split('@')
-            func_type = content_info[0]
-            func_name = content_info[2]
-            detail_process(func_type, func_name)
+        elif content.startswith('detail@') != 0:
+            detail_process(content)
+        elif content == 'test':
+            # autogo_test()
+            pass
         input_save()
         click(end_xpath)
         select_object_type(item_type)
@@ -694,11 +910,12 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
         break
 
 
-def auto_go_active(component: str):
+def auto_go_active(component: str, config: dict):
     start = time.time()
-    res = get_cfg()
+    res = get_cfg(config)
+    global g_base_coor
     c_file_name = component + '.c'
-    coordination = '23'  # test
+    coordination = g_base_coor
     while True:
         if res != err.ok:
             break
@@ -709,7 +926,6 @@ def auto_go_active(component: str):
         driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
         wait_loading()
         open_fold_xpath(coordination)
-
         component_coor = get_now_coor(coordination, 'inner')
         build_new_item(position=(coordination, component_coor), title=component, item_type=object_type[folder])
         c_file_fold_coor = get_now_coor(component_coor, 'inner')
@@ -734,9 +950,17 @@ def auto_go_active(component: str):
         component_type_coor = get_now_coor(macro_folder_coor, 'after')
         build_new_item(position=(component_def_coor, component_type_coor), title='Component Type Declarations',
                        item_type=object_type[folder])
-        enum_current_coor = enum_process(component_type_coor)
-        struct_current_coor = struct_process(component_type_coor, enum_current_coor)
-        union_process(component_type_coor, struct_current_coor)
+        enum_current_coor = enum_build_process(component_type_coor)
+        struct_current_coor = struct_build_process(component_type_coor, enum_current_coor)
+        union_build_process(component_type_coor, struct_current_coor)
+        # --------------------------------------------------------------------------------------------------------------
+        component_var_def_coor = get_now_coor(component_type_coor, 'after')
+        build_new_item(position=(component_def_coor, component_var_def_coor), title='Component Variable Definitions',
+                       item_type=object_type[folder])
+        global_var_coor = get_now_coor(component_var_def_coor, 'inner')
+        build_new_item(position=(component_var_def_coor, global_var_coor), title='Global Variable Definitions',
+                       item_type=object_type[information], content='global_var')
+        # --------------------------------------------------------------------------------------------------------------
         dynamic_behavior_coor = get_now_coor(component_def_coor, 'after')
         build_new_item(position=(c_file_fold_coor, dynamic_behavior_coor), title='Dynamic Behavior',
                        item_type=object_type[folder])
@@ -746,11 +970,13 @@ def auto_go_active(component: str):
         sw_func_coor = get_now_coor(dynamic_behavior_coor, 'after')
         build_new_item(position=(c_file_fold_coor, sw_func_coor), title='Software Functions',
                        item_type=object_type[folder])
+        # sw_func_coor = coordination
         local_func_coor = get_now_coor(sw_func_coor, 'inner')
         build_new_item((sw_func_coor, local_func_coor), 'Local Functions ', object_type[folder])
         func_process(local_func_coor, func_type='local')
         global_func_coor = get_now_coor(local_func_coor, 'after')
-        build_new_item(position=(sw_func_coor, global_func_coor), title='Global Functions', item_type=object_type[folder])
+        build_new_item(position=(sw_func_coor, global_func_coor), title='Global Functions',
+                       item_type=object_type[folder])
         func_process(global_func_coor, func_type='global')
         end = time.time()
         print('time: ', end - start)
@@ -758,11 +984,19 @@ def auto_go_active(component: str):
         input('Auto go is testing...')
         driver.close()
         break
-        # print(driver.page_source)
+    return res
+    # print(driver.page_source)
 
 
-def auto_go_program():
-    component_name = generate_code.g_file_name.split('.')[0]
-    autogo_input.get_information()
-    auto_go_active(component_name)
-    # auto_go_active()
+def auto_go_program(config: dict):
+    res = err.ok
+    while True:
+        component_name = generate_code.g_file_name.split('.')[0]
+        autogo_input.get_information()
+        try:
+            res = auto_go_active(component_name, config)
+        except WebDriverException:
+            res = err.driver_interrupt
+            break
+        break
+    return res
