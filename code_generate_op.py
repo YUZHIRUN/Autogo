@@ -1,5 +1,7 @@
 import json
 import os
+import time
+
 import autogo
 import code_generate
 import generate_code
@@ -17,7 +19,16 @@ g_content_list = list()
 
 class gui_op(code_generate.Ui_MainWindow):
     def __init__(self):
-        self.timer = QTimer(self)
+        self.timer = QTimer()
+        self.load_status = False
+        self.timer.timeout.connect(self.event_timer_operate)
+
+    def event_timer_operate(self):
+        if self.load_status is False:
+            self.loading_dis()
+        else:
+            self.load_over()
+            self.timer.stop()
 
     def loading_dis(self):
         self.load_dis.setMaximum(0)
@@ -229,7 +240,7 @@ class gui_op(code_generate.Ui_MainWindow):
 
     def event_auto_go(self):
         self.mention.setText(err.autogo_wait)
-        # self.loading_dis()
+        self.load_status = False
         op_lock.acquire()
         while True:
             if os.path.exists('.config/config.json') is True and (
@@ -240,7 +251,8 @@ class gui_op(code_generate.Ui_MainWindow):
                     config = json.load(cfg_obj)
                     self.user_id.setText(config['user_id'])
                     self.user_key.setText(config['user_key'])
-                    self.base_coor.setText(config['base_coor'])
+                    self.base_coor.setText(config['base folder'])
+                    self.obj_folder.setText(config['object folder'])
                     self.obj_url.setText(config['link'])
                     self.browser.setCurrentText(config['browser'])
                     if config['visible'] is True:
@@ -252,31 +264,38 @@ class gui_op(code_generate.Ui_MainWindow):
             user_id = self.user_id.text()
             user_key = self.user_key.text()
             base_coor = self.base_coor.text()
+            obj_coor = self.obj_folder.text()
             obj_link = self.obj_url.text()
             browser = self.browser.currentText()
             visible = self.visible_bt.isChecked()
-            config = {'user_id': user_id, 'user_key': user_key, 'base_coor': base_coor, 'link': obj_link,
+            config = {'user_id': user_id, 'user_key': user_key, 'base folder': base_coor, 'object folder': obj_coor,
+                      'link': obj_link,
                       'browser': browser, 'visible': visible}
-
             if err.void_check(config['user_id']) is True:
                 self.mention.setText(err.no_id)
                 break
             if err.void_check(config['user_key']) is True:
                 self.mention.setText(err.no_key)
                 break
-            if err.void_check(config['base_coor']) is True:
+            if err.void_check(config['base folder']) is True:
                 self.mention.setText(err.no_base_folder)
+                break
+            if err.void_check(config['object folder']) is True:
+                self.mention.setText(err.no_obj_folder)
                 break
             if err.void_check(config['link']) is True:
                 self.mention.setText(err.no_url)
                 break
             with open('.config/config.json', 'w') as obj:
                 json.dump(config, obj)
+            start_time = time.time()
             res = autogo.auto_go_program(config)
-            self.mention.setText(res)
+            end_time = time.time()
+            time_consume = str(round(int(end_time - start_time) / 60, 1))
+            self.mention.setText(res + ' Time: ' + time_consume + '(min)')
             break
         op_lock.release()
-        # self.load_over()
+        self.load_status = True
 
     # threading-------------------------------------------------------------------------------
     def th_load_file(self):
@@ -288,6 +307,7 @@ class gui_op(code_generate.Ui_MainWindow):
         th.start()
 
     def th_auto_go(self):
+        self.timer.start(100)
         th = threading.Thread(target=self.event_auto_go)
         th.start()
 
@@ -295,7 +315,7 @@ class gui_op(code_generate.Ui_MainWindow):
     def trigger_load_file(self):
         self.select_bt.clicked.connect(self.th_load_file)
 
-    def trigger_th_load(self):
+    def trigger_load(self):
         self.load_bt.clicked.connect(self.th_load)
 
     def trigger_clear(self):

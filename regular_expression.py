@@ -103,6 +103,7 @@ class Xpath:
         self.copy = r'/html/body/ul/li[20]/a'
         self.insert_new_child = r'//*[contains(text(), "Insert a new Child Item (Ctrl + Insert)")]'
         self.new_item_after = r'//*[contains(text(), "Insert a new Item after this (Ctrl + Enter)")]'
+        self.delete_item = r'//*[@class="vakata-context jstree-contextmenu jstree-default-contextmenu"]//a[text()="Delete…"]'
         self.input_content = r'//*[@class="editable new-item description-container editor-wrapper wysiwyg"]/div[2]/div/div'
         self.input_title = r'//*[@class="editable new-item description-container editor-wrapper wysiwyg"]/div/div/input'
         self.draft = '//*[text()="Draft"]'

@@ -11,9 +11,11 @@ class err_class:
         self.no_id = 'Please input user id!'
         self.no_key = 'Please input password!'
         self.no_base_folder = 'Please input base folder!'
+        self.no_obj_folder = 'Please input object folder!'
         self.base_coor_err = 'Base folder format is error!'
         self.no_url = 'Please input object url!'
         self.autogo_wait = 'AutoGo is running...'
+        self.no_load = 'Please load a file!'
 
         self.driver_interrupt = 'Browser interrupt!'
 

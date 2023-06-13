@@ -24,11 +24,12 @@ g_browser = ''
 g_link = ''
 g_visible = True
 g_base_coor = ''
+g_obj_coor = ''
 g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'global_var': 'x4', 'union': 'x3',
                 'input': 'x4', 'output': 'x4', 'return': 'x3', 'unit_var': 'x6', 'func_dynamic': '6x7'}
 
 err = error_code.err_class()
-WAIT_TIME = 30
+WAIT_TIME = 15
 
 # enums
 information = 0
@@ -44,18 +45,45 @@ def get_chrome_driver():
         if g_visible is False:
             option = webdriver.ChromeOptions()
             option.add_argument('--headless')
+            option.add_argument('--ignore-ssl-errors')
+            option.add_argument('--ignore-certificate-errors')
             driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
         else:
-            driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'))
+            option = webdriver.ChromeOptions()
+            option.add_argument('--ignore-certificate-errors')
+            option.add_argument('--ignore-ssl-errors')
+            driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
     else:
         from selenium.webdriver.edge.service import Service
         if g_visible is False:
             option = webdriver.EdgeOptions()
             option.add_argument('--headless')
+            option.add_argument('--ignore-ssl-errors')
+            option.add_argument('--ignore-certificate-errors')
             driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
         else:
-            driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'))
+            option = webdriver.EdgeOptions()
+            option.add_argument('--ignore-certificate-errors')
+            option.add_argument('--ignore-ssl-errors')
+            driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
     driver.get(g_link)
+
+
+def get_cfg(config):
+    res = err.ok
+    global g_user, g_key, g_browser, g_link, g_visible, g_base_coor, g_obj_coor
+    g_user = str(config['user_id'])
+    g_key = str(config['user_key'])
+    g_base_coor = str(config['base folder'])
+    g_link = str(config['link'])
+    g_browser = str(config['browser'])
+    g_visible = config['visible']
+    g_obj_coor = config['object folder']
+    if base_coor_check(g_base_coor) is False:
+        res = err.base_coor_err
+    else:
+        get_chrome_driver()
+    return res
 
 
 def base_coor_check(base_coor: str):
@@ -65,23 +93,6 @@ def base_coor_check(base_coor: str):
         if e.isdigit() is False:
             res = False
     return res
-
-
-def get_cfg(config):
-    res = err.ok
-    global g_user, g_key, g_browser, g_link, g_visible, g_base_coor
-    g_user = str(config['user_id'])
-    g_key = str(config['user_key'])
-    g_base_coor = str(config['base_coor'])
-    g_link = str(config['link'])
-    g_browser = str(config['browser'])
-    g_visible = config['visible']
-    if base_coor_check(g_base_coor) is False:
-        res = err.base_coor_err
-    else:
-        get_chrome_driver()
-    return res
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 def get_xpath_index(fold_index: str):
@@ -136,7 +147,6 @@ def double_click(xpath: str):
 
 def click(xpath: str):
     driver.find_element(By.XPATH, value=xpath).click()
-    # driver.execute_script('arguments[0].click();', driver.find_element(By.XPATH, xpath))
     wait_loading()
 
 
@@ -911,7 +921,6 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
 
 
 def auto_go_active(component: str, config: dict):
-    start = time.time()
     res = get_cfg(config)
     global g_base_coor
     c_file_name = component + '.c'
@@ -926,7 +935,7 @@ def auto_go_active(component: str, config: dict):
         driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
         wait_loading()
         open_fold_xpath(coordination)
-        component_coor = get_now_coor(coordination, 'inner')
+        component_coor = g_obj_coor
         build_new_item(position=(coordination, component_coor), title=component, item_type=object_type[folder])
         c_file_fold_coor = get_now_coor(component_coor, 'inner')
         build_new_item(position=(component_coor, c_file_fold_coor), title=c_file_name, item_type=object_type[folder])
@@ -978,10 +987,6 @@ def auto_go_active(component: str, config: dict):
         build_new_item(position=(sw_func_coor, global_func_coor), title='Global Functions',
                        item_type=object_type[folder])
         func_process(global_func_coor, func_type='global')
-        end = time.time()
-        print('time: ', end - start)
-        # time.sleep(5)
-        input('Auto go is testing...')
         driver.close()
         break
     return res
@@ -989,9 +994,11 @@ def auto_go_active(component: str, config: dict):
 
 
 def auto_go_program(config: dict):
-    res = err.ok
     while True:
         component_name = generate_code.g_file_name.split('.')[0]
+        if err.void_check(component_name) is True:
+            res = err.no_load
+            break
         autogo_input.get_information()
         try:
             res = auto_go_active(component_name, config)

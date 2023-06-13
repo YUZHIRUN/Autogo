@@ -1827,10 +1827,10 @@ p, li { white-space: pre-wrap; }
               <widget class="QPushButton" name="auto_bt">
                <property name="geometry">
                 <rect>
-                 <x>423</x>
+                 <x>584</x>
                  <y>67</y>
-                 <width>147</width>
-                 <height>31</height>
+                 <width>140</width>
+                 <height>27</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1949,7 +1949,64 @@ p, li { white-space: pre-wrap; }
                 <rect>
                  <x>160</x>
                  <y>70</y>
-                 <width>171</width>
+                 <width>144</width>
+                 <height>26</height>
+                </rect>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Microsoft YaHei</family>
+                 <pointsize>11</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. 23.2.1.5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+              </widget>
+              <widget class="QLabel" name="label_21">
+               <property name="geometry">
+                <rect>
+                 <x>322</x>
+                 <y>70</y>
+                 <width>101</width>
+                 <height>26</height>
+                </rect>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Calibri</family>
+                 <pointsize>13</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                 <kerning>true</kerning>
+                </font>
+               </property>
+               <property name="text">
+                <string>Object Folder:</string>
+               </property>
+              </widget>
+              <widget class="QLineEdit" name="obj_folder">
+               <property name="geometry">
+                <rect>
+                 <x>426</x>
+                 <y>70</y>
+                 <width>144</width>
                  <height>26</height>
                 </rect>
                </property>
