@@ -995,7 +995,7 @@ def auto_go_program(config: dict):
         autogo_input.get_information()
         try:
             res = auto_go_active(component_name, config)
-        except WebDriverException:
+        except (WebDriverException, Exception):
             res = err.driver_interrupt
             break
         break

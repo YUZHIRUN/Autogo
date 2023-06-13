@@ -63,6 +63,24 @@ def del_line_sign(obj_str: str):
     return res
 
 
+def del_line_and_space(obj_str: str):
+    """
+    delete \n
+    :param obj_str:
+    :return:
+    """
+    res = re.sub(regular.new_line_space, '\n', obj_str)
+    return res
+
+
+def st_en_un_del_useless(obj_list):
+    res_list = list()
+    for e in obj_list:
+        e = del_line_and_space(e)
+        res_list.append(e)
+    return res_list
+
+
 def func_useless_del(obj_str: str):
     tab_proc = obj_str.expandtabs(tabsize=g_tab_scale)
     phase_list = tab_proc.split('\n')

@@ -6,6 +6,7 @@ import generate_code
 import error_code
 import threading
 from tkinter import filedialog
+from PyQt5.QtCore import QTimer
 
 err = error_code.err_class()
 op_lock = threading.Lock()
@@ -15,6 +16,8 @@ g_content_list = list()
 
 
 class gui_op(code_generate.Ui_MainWindow):
+    def __init__(self):
+        self.timer = QTimer(self)
 
     def loading_dis(self):
         self.load_dis.setMaximum(0)
@@ -226,12 +229,26 @@ class gui_op(code_generate.Ui_MainWindow):
 
     def event_auto_go(self):
         self.mention.setText(err.autogo_wait)
+        # self.loading_dis()
         op_lock.acquire()
-        self.loading_dis()
-        if os.path.exists('.config/config.json') is True:
-            with open('.config/config.json') as cfg_obj:
-                config = json.load(cfg_obj)
-        else:
+        while True:
+            if os.path.exists('.config/config.json') is True and (
+                    err.void_check(self.user_id.text()) is True or err.void_check(
+                self.user_key.text()) is True or err.void_check(self.obj_url.text()) is True or err.void_check(
+                self.base_coor.text()) is True):
+                with open('.config/config.json') as cfg_obj:
+                    config = json.load(cfg_obj)
+                    self.user_id.setText(config['user_id'])
+                    self.user_key.setText(config['user_key'])
+                    self.base_coor.setText(config['base_coor'])
+                    self.obj_url.setText(config['link'])
+                    self.browser.setCurrentText(config['browser'])
+                    if config['visible'] is True:
+                        self.visible_bt.setChecked(True)
+                    else:
+                        self.visible_bt.setChecked(False)
+                self.mention.setText(err.ok)
+                break
             user_id = self.user_id.text()
             user_key = self.user_key.text()
             base_coor = self.base_coor.text()
@@ -240,7 +257,7 @@ class gui_op(code_generate.Ui_MainWindow):
             visible = self.visible_bt.isChecked()
             config = {'user_id': user_id, 'user_key': user_key, 'base_coor': base_coor, 'link': obj_link,
                       'browser': browser, 'visible': visible}
-        while True:
+
             if err.void_check(config['user_id']) is True:
                 self.mention.setText(err.no_id)
                 break
@@ -253,14 +270,13 @@ class gui_op(code_generate.Ui_MainWindow):
             if err.void_check(config['link']) is True:
                 self.mention.setText(err.no_url)
                 break
-            if os.path.exists('.config/config.json') is False:
-                with open('.config/config.json', 'w') as obj:
-                    json.dump(config, obj)
+            with open('.config/config.json', 'w') as obj:
+                json.dump(config, obj)
             res = autogo.auto_go_program(config)
             self.mention.setText(res)
             break
-        self.load_over()
         op_lock.release()
+        # self.load_over()
 
     # threading-------------------------------------------------------------------------------
     def th_load_file(self):

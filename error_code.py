@@ -13,7 +13,7 @@ class err_class:
         self.no_base_folder = 'Please input base folder!'
         self.base_coor_err = 'Base folder format is error!'
         self.no_url = 'Please input object url!'
-        self.autogo_wait = 'AutoGo is running!'
+        self.autogo_wait = 'AutoGo is running...'
 
         self.driver_interrupt = 'Browser interrupt!'
 

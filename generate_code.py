@@ -73,9 +73,11 @@ def load_file(file_path: str):
                         g_local_func.append(func_idx)
             if structs is not None:
                 struct_list = re.findall(struct_regular, file_content)
+                struct_list = common.st_en_un_del_useless(struct_list)
                 g_struct_list.extend(struct_list)
             if enums is not None:
                 enums_list = re.findall(enum_regular, file_content)
+                enums_list = common.st_en_un_del_useless(enums_list)
                 g_enum_list.extend(enums_list)
             if macros is not None:
                 macros_list = re.findall(macro_regular, file_content)
@@ -85,6 +87,7 @@ def load_file(file_path: str):
                 g_global_var_list.extend(global_var_list)
             if unions is not None:
                 union_list = re.findall(union_regular, file_content)
+                union_list = common.st_en_un_del_useless(union_list)
                 g_union_list.extend(union_list)
             if file_type == '.c':
                 if include_file is not None:
