@@ -14,6 +14,7 @@ class err_class:
         self.no_obj_folder = 'Please input object folder!'
         self.base_coor_err = 'Base folder format is error!'
         self.no_url = 'Please input object url!'
+        self.no_moderator = 'Please input moderator Id!'
         self.autogo_wait = 'AutoGo is running...'
         self.no_load = 'Please load a file!'
 

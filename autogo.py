@@ -1,10 +1,7 @@
-import json
 import time
 import autogo_input
 import re
 from selenium.webdriver.support.wait import WebDriverWait
-
-import common
 import generate_code
 import regular_expression
 from selenium.webdriver import Keys
@@ -74,10 +71,10 @@ def get_cfg(config):
     global g_user, g_key, g_browser, g_link, g_visible, g_base_coor, g_obj_coor
     g_user = str(config['user_id'])
     g_key = str(config['user_key'])
-    g_base_coor = str(config['base folder'])
-    g_link = str(config['link'])
     g_browser = str(config['browser'])
+    g_link = str(config['link'])
     g_visible = config['visible']
+    g_base_coor = config['base folder']
     g_obj_coor = config['object folder']
     if base_coor_check(g_base_coor) is False:
         res = err.base_coor_err
@@ -404,7 +401,7 @@ def func_item_build_process(base_position: str, func_name, func_type, current_co
                    content='flow_chart')
     detail_folder_coor = get_now_coor(flow_chart_coor, 'after')
     build_new_item(position=(current_coor, detail_folder_coor), title='Function Logic Description',
-                   item_type=object_type[information])
+                   item_type=object_type[folder])
     detail_coor = get_now_coor(detail_folder_coor, 'inner')
     build_new_item(position=(detail_folder_coor, detail_coor), title='Detailed Description',
                    item_type=object_type[function],

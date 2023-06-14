@@ -11,6 +11,7 @@ widget_obj.setupUi(main_window)
 widget_obj.trigger_load_file()
 widget_obj.trigger_load()
 widget_obj.trigger_auto_go()
+widget_obj.trigger_review()
 widget_obj.trigger_clear()
 
 widget_obj.trigger_disp_func()

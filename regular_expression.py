@@ -93,6 +93,10 @@ class RegularClass:
 
 class Xpath:
     def __init__(self):
+        self.user_id = r'//*[@id="user"]'
+        self.password = r'//*[@id="password"]'
+        self.register = r'//*[@id="loginForm"]/div/div[2]/input'
+
         self.base_item = r'/html/body/div[3]/div/form/div[2]/div[2]/div[2]/ul/li/ul'
         self.items = r'/html/body/div[3]/div/form/div[2]/div[2]/div[2]'
         self.origin_folder = r'/html/body/div[3]/div/form/div[2]/div[2]/div[2]/ul/li/i'
@@ -123,5 +127,36 @@ class Xpath:
 
         self.set_color_bt = r'//span[text()="Remove Table"]/../../button[5]'
         self.color_gray = r'//span[contains(text(), "Color #CCCCCC")]/..'
+        # review
+        self.review_name = r'/html/body/div[3]/div/div[1]/table/tbody/tr/td[2]/span'
+        self.review_info = r'//*[@class="viewsMenu"]/a[3]'
+        self.review_start_time = r'//*[@class="propertyTable"]/tbody/tr/td[2]/div/span'
+        self.review_end_time = r'//*[@class="propertyTable"]/tbody/tr[4]/td[2]/span'
+        self.review_new_item = r'//a[@title="Create a new item of this type."]/img'
+        self.chose_moderator = r'//span[@title="Choose Review Moderator"]/a'
+        self.search_moderator = r'//*[@id="ITEMFILTER"]'
+        self.search_frame_name = r'inlinedPopupIframe'
+        self.search_bt = r'//*[@id="searchButton"]'
+        self.chose_bt = r'//*[@id="selectedUserIds1"]'
+        self.search_confirm_bt = r'//*[@id="selectAssignedUsersForm"]/div[3]/input[1]'
+        self.review_obj_type = r'//select[@id="dynamicChoice_references_1001"]'
+        self.review_link_select = r'//*[@class="urlFieldQuery"]/div/table/tbody/tr/td[2]/span/a'
+        self.review_link_label = r'//*[@id="customWikiLinkTabPane-tab"]'
+        self.review_link_input = r'//*[@id="wikiLink"]'
+        self.insert_link_bt = r'/html/body/div[1]/div[2]/input[1]'
+        self.review_select_area = r'//*[@id="dynamicChoice_references_14"]'
+        self.review_start_data = r'//*[text()="Review Start Date:"]/../../td[2]/input'
+        self.review_end_data = r'//*[text()="Review Start Date:"]/../../td[4]/input'
+        self.review_summary_input = r'//*[@id="summary"]'
+        # review close
+        self.close_get_link = r'//*[@class="propertyTable inlineEditEnabled"]/tbody/tr[5]/td[2]/span/a'
+        self.close_feed_back = r'//a[@data-actionmenukey="feedback"]'
+        self.feed_back_options = r'//*[@id="commentFilter"]'
+        self.close_edit = r'//a[@title="Edit (Alt + E)"]/img'
+        self.close_question = r'//*[text()="Num_RF_Question:"]/../../td[2]/input'
+        self.close_problem = r'//*[text()="Num_RF_Problem:"]/../../td[2]/input'
+        self.close_propose = r'//*[text()="Num_RF_Proposed Change:"]/../../td[2]/input'
+        self.close_save = r'//input[@title="Save (Ctrl + S)"]'
+
 
 

@@ -1,7 +1,6 @@
 import json
 import os
 import time
-
 import autogo
 import code_generate
 import generate_code
@@ -9,6 +8,8 @@ import error_code
 import threading
 from tkinter import filedialog
 from PyQt5.QtCore import QTimer
+
+import review_record
 
 err = error_code.err_class()
 op_lock = threading.Lock()
@@ -243,12 +244,18 @@ class gui_op(code_generate.Ui_MainWindow):
         self.load_status = False
         op_lock.acquire()
         while True:
-            if os.path.exists('.config/config.json') is True and (
+            if os.path.exists('.config/detail_config.json') is True and (
                     err.void_check(self.user_id.text()) is True or err.void_check(
                 self.user_key.text()) is True or err.void_check(self.obj_url.text()) is True or err.void_check(
                 self.base_coor.text()) is True):
-                with open('.config/config.json') as cfg_obj:
+                with open('.config/detail_config.json') as cfg_obj:
                     config = json.load(cfg_obj)
+                    self.user_id.clear()
+                    self.user_key.clear()
+                    self.base_coor.clear()
+                    self.obj_folder.clear()
+                    self.obj_url.clear()
+
                     self.user_id.setText(config['user_id'])
                     self.user_key.setText(config['user_key'])
                     self.base_coor.setText(config['base folder'])
@@ -286,13 +293,74 @@ class gui_op(code_generate.Ui_MainWindow):
             if err.void_check(config['link']) is True:
                 self.mention.setText(err.no_url)
                 break
-            with open('.config/config.json', 'w') as obj:
+            with open('.config/detail_config.json', 'w') as obj:
                 json.dump(config, obj)
             start_time = time.time()
             res = autogo.auto_go_program(config)
             end_time = time.time()
             time_consume = str(round(int(end_time - start_time) / 60, 1))
             self.mention.setText(res + ' Time: ' + time_consume + '(min)')
+            break
+        op_lock.release()
+        self.load_status = True
+
+    def event_review(self):
+        self.mention.setText(err.autogo_wait)
+        self.load_status = False
+        op_lock.acquire()
+        while True:
+            if os.path.exists('.config/review_config.json') is True and (
+                    err.void_check(self.user_id.text()) is True or err.void_check(
+                self.user_key.text()) is True or err.void_check(self.review_link.text()) is True or err.void_check(
+                self.moderator_id.text()) is True):
+                with open('.config/review_config.json') as cfg_obj:
+                    config = json.load(cfg_obj)
+                    self.user_id.clear()
+                    self.user_key.clear()
+                    self.review_link.clear()
+                    self.moderator_id.clear()
+
+                    self.user_id.setText(config['user_id'])
+                    self.user_key.setText(config['user_key'])
+                    self.review_link.setText(config['link'])
+                    self.moderator_id.setText(config['moderator id'])
+                    self.review_type.setCurrentText(config['review area'])
+                    self.browser.setCurrentText(config['browser'])
+                    if config['visible'] is True:
+                        self.visible_bt.setChecked(True)
+                    else:
+                        self.visible_bt.setChecked(False)
+                self.mention.setText(err.ok)
+                break
+            # comment information
+            user_id = self.user_id.text()
+            user_key = self.user_key.text()
+            browser = self.browser.currentText()
+            visible = self.visible_bt.isChecked()
+
+            mode = self.review_mode.currentText()
+            moderator_id = self.moderator_id.text()
+            review_type = self.review_type.currentText()
+            link = self.review_link.text()
+
+            config = {'user_id': user_id, 'user_key': user_key, 'browser': browser, 'visible': visible, 'mode': mode,
+                      'moderator id': moderator_id, 'review area': review_type, 'link': link}
+            if err.void_check(config['user_id']) is True:
+                self.mention.setText(err.no_id)
+                break
+            if err.void_check(config['user_key']) is True:
+                self.mention.setText(err.no_key)
+                break
+            if err.void_check(config['link']) is True:
+                self.mention.setText(err.no_url)
+                break
+            if err.void_check(config['moderator id']) is True:
+                self.mention.setText(err.no_moderator)
+                break
+            with open('.config/review_config.json', 'w') as obj:
+                json.dump(config, obj)
+            res = review_record.review_program(config)
+            self.mention.setText(res)
             break
         op_lock.release()
         self.load_status = True
@@ -309,6 +377,11 @@ class gui_op(code_generate.Ui_MainWindow):
     def th_auto_go(self):
         self.timer.start(100)
         th = threading.Thread(target=self.event_auto_go)
+        th.start()
+
+    def th_review(self):
+        self.timer.start(100)
+        th = threading.Thread(target=self.event_review)
         th.start()
 
     #  trigger--------------------------------------------------------------------------------
@@ -341,3 +414,6 @@ class gui_op(code_generate.Ui_MainWindow):
 
     def trigger_auto_go(self):
         self.auto_bt.clicked.connect(self.th_auto_go)
+
+    def trigger_review(self):
+        self.record_bt.clicked.connect(self.th_review)
