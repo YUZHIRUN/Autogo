@@ -181,14 +181,15 @@ def union_proc(union_names: list):
 
 
 def global_var_proc(var_names):
-    global_var_types = list()
-    for var in generate_code.g_global_var_list:
-        try:
-            var_type = re.search(regular.global_var_type, var).group(1)
-        except Exception:
-            var_type = 'None'
-        global_var_types.append(var_type)
-    g_global_var.append(var_names)
+    global_var_types = common.get_global_var_types(generate_code.g_global_var_list)
+    global_var_names = var_names
+    var_len = len(global_var_names)
+    for var_idx in range(var_len):
+        if global_var_names[var_idx].count('*') != 0 or global_var_types[var_idx].count('*') != 0:
+            global_var_names[var_idx] = global_var_names[var_idx].replace('*', '')
+            global_var_types[var_idx] = global_var_types[var_idx].replace('*', '')
+            global_var_types[var_idx] = global_var_types[var_idx] + '*'
+    g_global_var.append(global_var_names)
     g_global_var.append(global_var_types)
 
 

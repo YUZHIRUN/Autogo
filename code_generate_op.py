@@ -296,6 +296,8 @@ class gui_op(code_generate.Ui_MainWindow):
             with open('.config/detail_config.json', 'w') as obj:
                 json.dump(config, obj)
             start_time = time.time()
+            # th = threading.Thread(target=autogo.auto_go_program, args=(config, ))
+            # th.start()
             res = autogo.auto_go_program(config)
             end_time = time.time()
             time_consume = str(round(int(end_time - start_time) / 60, 1))

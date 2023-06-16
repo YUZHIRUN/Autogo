@@ -790,7 +790,7 @@ def func_dynamic_item_process(content):
     called_items = ['Called Functions']
     called_sources = ['Called Source']
     # black_0 = []
-    func_proto = ['Function Prototype']
+    func_proto = ['Function Name']
     # black_1 = []
     calling_items = ['Calling Functions']
     calling_sources = ['Calling Source']

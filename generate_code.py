@@ -65,12 +65,14 @@ def load_file(file_path: str):
             if global_func is not None:
                 func_list = re.findall(global_regular, file_content)
                 g_global_func.extend(func_list)
+                file_content = re.sub(global_regular, '', file_content)
             if local_func is not None:
                 func_list = re.findall(local_func_regular, file_content)
                 for func_idx in func_list:
                     func_head = func_idx.split('\n')[0]
                     if func_head.count('FUNC') == 0:
                         g_local_func.append(func_idx)
+                file_content = re.sub(local_func_regular, '', file_content)
             if structs is not None:
                 struct_list = re.findall(struct_regular, file_content)
                 struct_list = common.st_en_un_del_useless(struct_list)

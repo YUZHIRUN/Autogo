@@ -15,6 +15,11 @@ g_tab_scale = 4
 #     else:
 #         g_tab_scale = 4
 
+def pse_code_type_clear(input_str: str):
+    data_type = ['(uint8)', '(uint16)', '(uint32)', '(sint8)', '(sint16)', '(boolean)', '(float32)', '(float64)',
+                 '(char)', '()']
+    pass
+
 
 def file_useless_info_del(content_str: str, mode='.c'):
     res = del_line_sign(content_str)
@@ -120,6 +125,14 @@ def span_depth(input_str: str):
     return depth
 
 
+def global_var_data_clear(var_list: list):
+    res_list = list()
+    for g_var in var_list:
+        g_var = file_useless_info_del(g_var)
+        res_list.append(g_var)
+    return res_list
+
+
 def get_local_func_name(func_str: str):
     first_line = func_str.split('\n')[0]
     func_head = first_line.strip()
@@ -192,11 +205,25 @@ def get_macro_names(macro_list: list):
 def get_global_var_names(global_var_list: list):
     name_list = list()
     for var_idx in global_var_list:
-        var = re.search(regular.global_var_name, var_idx)
+        var = re.search(regular.global_var_type_name, var_idx)
         if var is not None:
-            name = var.group(1)
-            name_list.append(name)
+            name = var.group(2)
+        else:
+            name = 'None'
+        name_list.append(name)
     return name_list
+
+
+def get_global_var_types(global_var_list: list):
+    type_list = list()
+    for var_idx in global_var_list:
+        var = re.search(regular.global_var_type_name, var_idx)
+        if var is not None:
+            var_type = var.group(1)
+        else:
+            var_type = 'None'
+        type_list.append(var_type)
+    return type_list
 
 
 def phase_check(input_str: str):

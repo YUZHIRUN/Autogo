@@ -6,8 +6,8 @@ class RegularClass:
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.union = r'typedef +union *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.macro = r'# *define +(?:.+?) +(?:.+)'
-        self.global_var = r'(?:static)* *(?:[\w\*]+) +(?:g_[\w\[\]\*]+).*[;{]'
-        # self.global_var = r'(?:static)* *([\w\* ]+) +(g_[\w\[\]]+) *;|(?:static)* *([\w\* ]+) +(g_[\w\[\]]+) *= *[^;]+;'
+        # self.global_var = r'(?:static)* *(?:[\w\*]+) +(?:g_[\w\[\]\*]+).*[;{]'
+        self.global_var = r'(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *;|(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *= *[^;]+;'
         # struct
         self.struct = r'typedef +struct *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.struct_head = r'(?:.|\n)+?\{ *\n'
@@ -24,8 +24,7 @@ class RegularClass:
         # get names regular
         self.global_func_name = r'FUNC *\(.+\) *(\S+?)\('
         self.local_func_name = r'[\w\*]+ +([\w\*]+) *\('
-        self.global_var_name = r'(?:static)* *(?:[\w\*]+) +(g_[\w\[\]\*]+).*[;{]'
-        self.global_var_type = r'(?:static)* *([\w\*]+) +(?:g_[\w\[\]\*]+).*[;{]'
+        self.global_var_type_name = r'(?:static)* *([\w\* ]+) +(g_[\w]+).*'
         self.include_file = r'# *include +(?:.+?(?:"|>))'
 
         # phase check regular
