@@ -65,7 +65,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>CodeAnalyser</string>
+   <string>Autogo</string>
   </property>
   <property name="windowIcon">
    <iconset resource="icon.qrc">
@@ -799,7 +799,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="Function">
        <attribute name="title">
@@ -1343,7 +1343,7 @@ p, li { white-space: pre-wrap; }
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>AutoGo tools</string>
+        <string>Autogo tools</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_29">
         <item>
@@ -1364,7 +1364,7 @@ p, li { white-space: pre-wrap; }
               </font>
              </property>
              <property name="title">
-              <string>AutoGo</string>
+              <string>Autogo</string>
              </property>
              <widget class="QLabel" name="label_17">
               <property name="geometry">
@@ -1494,7 +1494,7 @@ p, li { white-space: pre-wrap; }
                <rect>
                 <x>481</x>
                 <y>26</y>
-                <width>171</width>
+                <width>111</width>
                 <height>24</height>
                </rect>
               </property>
@@ -1595,7 +1595,7 @@ p, li { white-space: pre-wrap; }
                 </rect>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Browser&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select review mode&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="whatsThis">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1713,7 +1713,7 @@ p, li { white-space: pre-wrap; }
                 </font>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select a description config file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Autogo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="autoFillBackground">
                 <bool>true</bool>
@@ -1804,6 +1804,9 @@ p, li { white-space: pre-wrap; }
                  <bold>false</bold>
                 </font>
                </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select moderator id&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1853,7 +1856,7 @@ p, li { white-space: pre-wrap; }
                 </rect>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Browser&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select review area&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="whatsThis">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2022,6 +2025,9 @@ p, li { white-space: pre-wrap; }
                  <italic>true</italic>
                  <bold>false</bold>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Autogo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
                 <string>Start</string>

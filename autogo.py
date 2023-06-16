@@ -11,7 +11,8 @@ from selenium.webdriver.support.select import Select
 import error_code
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.common import exceptions as driver_err, WebDriverException
+from selenium.common import WebDriverException
+from selenium.common import exceptions as driver_err
 
 g_xpath = regular_expression.Xpath()
 regular = regular_expression.RegularClass()
@@ -23,7 +24,7 @@ g_visible = True
 g_base_coor = ''
 g_obj_coor = ''
 g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'global_var': 'x4', 'union': 'x3',
-                'input': 'x4', 'output': 'x4', 'return': 'x3', 'unit_var': 'x6', 'func_dynamic': '6x7'}
+                'input': 'x4', 'output': 'x4', 'return': 'x3', 'unit_var': 'x6', 'func_dynamic': '6x5'}
 
 err = error_code.err_class()
 WAIT_TIME = 15
@@ -121,7 +122,6 @@ def open_fold_xpath(coordinate: str):
         xpath_list.append(origin_xpath)
     for xpath in xpath_list:
         driver.find_element(By.XPATH, value=xpath).click()
-    wait_loading()
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -134,17 +134,14 @@ def wait_loading():
 
 def context_click(xpath: str):
     ActionChains(driver).context_click(driver.find_element(By.XPATH, value=xpath)).perform()
-    wait_loading()
 
 
 def double_click(xpath: str):
     ActionChains(driver).double_click(driver.find_element(By.XPATH, value=xpath)).perform()
-    wait_loading()
 
 
 def click(xpath: str):
     driver.find_element(By.XPATH, value=xpath).click()
-    wait_loading()
 
 
 def move_to_element(xpath: str):
@@ -153,7 +150,6 @@ def move_to_element(xpath: str):
 
 def send_key(xpath: str, content: str):
     driver.find_element(By.XPATH, value=xpath).send_keys(content)
-    wait_loading()
 
 
 def move_mouse_to(xpath: str):
@@ -166,7 +162,6 @@ def input_title(content: str):
 
 def select_item(xpath: str, content: str):
     Select(driver.find_element(By.XPATH, value=xpath)).select_by_visible_text(content)
-    wait_loading()
 
 
 def wait_item_load(xpath: str):
@@ -177,8 +172,6 @@ def wait_item_load(xpath: str):
 def input_save():
     move_to_element(g_xpath.input_title)
     driver.find_element(By.XPATH, value=g_xpath.input_title).send_keys(Keys.CONTROL, 's')
-    wait_loading()
-
 
 # -----------------------------------------------browser operate--------------------------------------------------------
 
@@ -466,8 +459,8 @@ def enum_item_process(enum_prop: str, xpath: list):
         enum_vals.extend(autogo_input.g_enum[2][enum_idx])
         tab_content = list()
         tab_content.append(enum_members)
-        tab_content.append(descriptions)
         tab_content.append(enum_vals)
+        tab_content.append(descriptions)
         enum_len = len(enum_members)
         tab_fmt = str(enum_len) + g_table_type['enum']
         tab_process(tab_fmt)
@@ -494,8 +487,8 @@ def struct_item_process(struct_prop, xpath: list):
         st_types.extend(autogo_input.g_struct[1][st_idx])
         tab_content = list()
         tab_content.append(st_members)
-        tab_content.append(descriptions)
         tab_content.append(st_types)
+        tab_content.append(descriptions)
 
         st_len = len(st_members)
         tab_fmt = str(st_len) + g_table_type['struct']
@@ -785,6 +778,9 @@ def unit_var_item_process(content: str):
         tab_process(tab_fmt)
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
+    else:
+        click(g_xpath.input_content)
+        send_key(g_xpath.input_content, 'None')
 
 
 def func_dynamic_item_process(content):
@@ -793,55 +789,41 @@ def func_dynamic_item_process(content):
     func_name = func_info.split('@')[1]
     called_items = ['Called Functions']
     called_sources = ['Called Source']
-    black_0 = []
+    # black_0 = []
     func_proto = ['Function Prototype']
-    black_1 = []
+    # black_1 = []
     calling_items = ['Calling Functions']
     calling_sources = ['Calling Source']
-    func_proto_item = autogo_input.get_func_prototype(func_name, func_type)
-    func_proto.append(func_proto_item)
+    func_proto.append(func_name)
     tab_fmt = g_table_type['func_dynamic']
     tab_content = list()
     tab_content.append(called_items)
     tab_content.append(called_sources)
-    tab_content.append(black_0)
+    # tab_content.append(black_0)
     tab_content.append(func_proto)
-    tab_content.append(black_1)
+    # tab_content.append(black_1)
     tab_content.append(calling_items)
     tab_content.append(calling_sources)
     click(g_xpath.input_content)
     tab_process(tab_fmt)
     fill_tab_content(tab_content)
-    set_tab_head_color(tab_fmt, col_skip=[3, 5])
-    merge_unit_tab('1x5', '6x5')
-    merge_unit_tab('2x4', '6x4')
-    merge_unit_tab('1x3', '6x3')
+    set_tab_head_color(tab_fmt)
+    merge_unit_tab('2x3', '6x3')
 
 
+# def check_element(xpath: str):
+#     locator = (By.XPATH, xpath)
+#     try:
+#         res = WebDriverWait(driver, 3).until(ec.presence_of_element_located(locator))
+#     except driver_err.TimeoutException:
+#         res = False
+#     return res
+#
 # def autogo_test():
-#     called_items = ['Called Functions']
-#     called_sources = ['Called Source']
-#     black_0 = []
-#     func_proto = ['Function Prototype']
-#     black_1 = []
-#     calling_items = ['Calling Functions']
-#     calling_sources = ['Calling Source']
-#     tab_fmt = g_table_type['func_dynamic']
-#     tab_content = list()
-#     tab_content.append(called_items)
-#     tab_content.append(called_sources)
-#     tab_content.append(black_0)
-#     tab_content.append(func_proto)
-#     tab_content.append(black_1)
-#     tab_content.append(calling_items)
-#     tab_content.append(calling_sources)
-#     click(g_xpath.input_content)
-#     tab_process(tab_fmt)
-#     fill_tab_content(tab_content)
-#     set_tab_head_color(tab_fmt, col_skip=[3, 5])
-#     merge_unit_tab('1x5', '6x5')
-#     merge_unit_tab('2x4', '6x4')
-#     merge_unit_tab('1x3', '6x3')
+#     coor = '24'
+#     xpath = get_destination_xpath(coor)
+#     res = check_element(xpath)
+#     return res
 
 def func_process(base_position, func_type='local'):
     fun_coor = get_now_coor(base_position, 'inner')
@@ -864,9 +846,7 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
     xpath = get_destination_xpath(position[0])
     end_xpath = get_destination_xpath(position[1])
     xpath_list = [xpath, end_xpath]
-    wait_loading()
     time.sleep(0.5)
-    # click(xpath)
     move_to_element(xpath)
     context_click(xpath)
     click(g_xpath.insert_new_child)
@@ -985,9 +965,9 @@ def auto_go_active(component: str, config: dict):
                        item_type=object_type[folder])
         func_process(global_func_coor, func_type='global')
         driver.close()
+        # print(autogo_test())
         break
     return res
-    # print(driver.page_source)
 
 
 def auto_go_program(config: dict):
@@ -1004,3 +984,4 @@ def auto_go_program(config: dict):
             break
         break
     return res
+

@@ -2,15 +2,15 @@ class RegularClass:
     def __init__(self):
         # function regular
         self.global_func = r'FUNC *\(.+\n *\{ *\n(?: +.*\n)+ *\}|FUNC *\(.+\n *\{ *\n *\}'
-        self.local_func = r'[\w\*]+ *\** +[\*\w]+ *\([^{};\#]+\n\{ *\n(?: .*\n)+\}'
+        self.local_func = r'[\w\*]+ +[\*\w]+ *\([^{};\#]+\n\{ *\n(?: .*\n)+\}'
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.union = r'typedef +union *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.macro = r'# *define +(?:.+?) +(?:.+)'
         self.global_var = r'(?:static)* *(?:[\w\*]+) +(?:g_[\w\[\]\*]+).*[;{]'
-
+        # self.global_var = r'(?:static)* *([\w\* ]+) +(g_[\w\[\]]+) *;|(?:static)* *([\w\* ]+) +(g_[\w\[\]]+) *= *[^;]+;'
         # struct
         self.struct = r'typedef +struct *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
-        self.struct_head = r'(?:.|\n)+?\{\n'
+        self.struct_head = r'(?:.|\n)+?\{ *\n'
         self.struct_tail = r'\n *\}.+\n*'
 
         # comment regular
@@ -23,7 +23,7 @@ class RegularClass:
 
         # get names regular
         self.global_func_name = r'FUNC *\(.+\) *(\S+?)\('
-        self.local_func_name = r'\w+\** +\** *(\w+) *\('
+        self.local_func_name = r'[\w\*]+ +([\w\*]+) *\('
         self.global_var_name = r'(?:static)* *(?:[\w\*]+) +(g_[\w\[\]\*]+).*[;{]'
         self.global_var_type = r'(?:static)* *([\w\*]+) +(?:g_[\w\[\]\*]+).*[;{]'
         self.include_file = r'# *include +(?:.+?(?:"|>))'
@@ -34,8 +34,9 @@ class RegularClass:
         self.do_re = r'do *\{|\} *while *\((.+?\));'
         self.switch_re = r'switch *\(([^\n\{}]+)\)|case +([^\n\{}]+):|default *:'
         self.while_re = r'while *\(.+?\)'
-        self.set_value_re = r'(?:[^\n,;|&]+) *[|=&\+-]*= *(?:[\S| ]+?);|(\S+) *[+-]{2} *;'
-        self.define_var_re = r'[\w\*]+ +(?:[\w, \[\]\*]+) *;'
+        self.set_value_re = r' *(?:[^\n,;|&=+]+?) *(?:[\^=|&+-]?=) *(?:.+?);|(\S+) *[+-]{2} *;'
+        self.define_var_re = r'(?:volatile|const)* *(?:[\w\*]+) +(?:[\w, \[\]\*]+) *;'
+        self.define_var_init = r'(?:(?:volatile|const|\*)* *[\w\*]+) +(?:[\w\*-<>\[\]]+) *= *(?:.+);'
         self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|(?:\(void\))* *\( *\* *\w+\)\(.*\);'
         self.return_re = r'return +.+?;'
         self.break_re = r'break *;'
@@ -48,22 +49,23 @@ class RegularClass:
         self.get_do_info = r'do *\{*'
         self.get_while_of_do_info = r'\} *while *\((.+?)\);'
         self.get_if_info = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else[^\{\(\)\}]*\{'
-        self.get_set_value_info = r'([^\n,;|&=+ ]+?) *([\^=|&+-]?=) *([\S| ]+?);'
+        self.get_set_value_info = r' *([^\n,;|&=+]+?) *([\^=|&+-]?=) *(.+?);'
         self.get_set_special_value_info = r'(\S+) *([+-]){2} *;'
         self.get_return_info = r'return +(.+?);'
         self.get_return_type = r'([\w\*]+) +(\*?@).+;'
         self.get_head_info = r'\((.+)\)'
-        self.get_define_var = r'[\w\*]+ +([\*\w, \[\]]+) *;'
-        self.get_define_type = r'([\w\*]+) +(?:[\*\w, \[\]]+) *;'
+        self.get_define_var = r'(?:volatile|const)* *(?:[\w\*]+) +([\w, \[\]\*]+) *;'
+        self.get_define_type = r'((?:volatile|const)* *[\w\*]+) +(?:[\w, \[\]\*]+) *;'
+        self.get_define_init_info = r'((?:volatile|const|\*)* *[\w\*]+) +([\w\*-<>\[\]]+) *= *(.+);'
         self.get_include_file = r'# *include +(.+?(?:"|>))'
         self.get_macro_name = r'# *define +(.+?) +(?:.+)'
         self.get_global_func_info = r'FUNC\( *(\w+) *, *\w+ *\) *(\w+)\((.+)\)'
-        self.global_func_params = r'[\w\*]+ [\w\*]+,|P\d[A-Z]+\((?:[\w\*]+),.+?\) *(?:[\w\*]+)|void'
+        self.global_func_params = r'[\w\*]+ [\w\*]+|P\d[A-Z]+\((?:[\w\*]+),.+?\) *(?:[\w\*]+)|void'
         self.global_func_params_0 = r'void'
         self.global_func_params_1 = r'P\d[A-Z]+\(([\w\*]+),.+?\) *([\w\*]+)'
         self.global_func_params_2 = r'([\w\*]+ +[\w\*]+)'
         self.macro_value = r'# *define +(?:.+?) +(.+)'
-        self.get_param_info = r'([\w\*]+) +([\w\*]+)'
+        self.get_param_info = r'((?:const|volatile)* *[\w\*]+) +([\w\*]+)'
 
         # function class regular
         self.memcpy = r'memcpy *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
@@ -87,6 +89,7 @@ class RegularClass:
         self.compile_macro = r'\#ifn?(?:def)?.*\n(?:.+\n)+? *\#endif|\#ifn?def.*\n\#endif.+'
         self.special_sign = r'([+-^&|])='
         self.new_line = r'\n+'
+        self.pointer_space = r' +\* +'
         self.new_line_space = r'\n+ *\n+'
         self.var_class = r'\(.int\d+\)|\(boolean\)'
         self.li_coor = r'li\[(\d+)\]'

@@ -27,11 +27,17 @@ def file_useless_info_del(content_str: str, mode='.c'):
         res = re.sub(regular.comment_3, '', res)
     if re.search(regular.comment_4, res) is not None:
         res = re.sub(regular.comment_4, '', res)
+    res = pointer_space_proc(res)
     res = del_line_sign(res)
     if mode == '.c':
         if re.search(regular.compile_macro, res) is not None:
             res = re.sub(regular.compile_macro, '', res)
         res = del_line_sign(res)
+    return res
+
+
+def pointer_space_proc(content_str: str):
+    res = re.sub(regular.pointer_space, ' *', content_str)
     return res
 
 
@@ -60,6 +66,17 @@ def del_line_sign(obj_str: str):
     :return:
     """
     res = re.sub(regular.new_line, '\n', obj_str)
+    return res
+
+
+def clear_number_sign(input_str: str):
+    res = input_str.strip()
+    res = res.replace('UL', '')
+    res = res.replace('ul', '')
+    res = res.replace('Ul', '')
+    res = res.replace('uL', '')
+    res = res.replace('U', '')
+    res = res.replace('u', '')
     return res
 
 
@@ -212,6 +229,9 @@ def phase_check(input_str: str):
         if re.match(regular.return_re, wait_check_str) is not None:
             phase_property = 'return'
             break
+        if re.match(regular.define_var_init, wait_check_str) is not None:
+            phase_property = 'define_var_init'
+            break
         if re.match(regular.set_value_re, wait_check_str) is not None:
             phase_property = 'set_value'
             break
@@ -280,6 +300,9 @@ def property_map(task: dict):
         res = depth_set(res, task['depth'])
     if task['prop'] == 'return':
         res = other_phase_proc.return_phase_proc(task['content'])
+        res = depth_set(res, task['depth'])
+    if task['prop'] == 'define_var_init':
+        res = other_phase_proc.define_var_init_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'set_value':
         res = other_phase_proc.set_value_phase_proc(task['content'])

@@ -134,6 +134,7 @@ def enum_proc(enum_names: list):
                 line_item = 'None'
             get_item_val = re.search(regular.en_item, enum_line).group(3)
             if get_item_val is not None:
+                get_item_val = common.clear_number_sign(str(get_item_val))
                 if str(get_item_val).count('x') != 0 or str(get_item_val).count('X') != 0:
                     item_val = str(int(get_item_val, 16))
                 else:
@@ -257,7 +258,7 @@ def get_func_param(func_name, func_type='local'):
     return res_list
 
 
-def return_info_process(func_name, func_type='local'):
+def return_info_process(func_name: str, func_type='local'):
     """
     Get return type
     :param func_name:
@@ -271,6 +272,7 @@ def return_info_process(func_name, func_type='local'):
             func_idx = function_names.index(func_name)
         except Exception:
             func_idx = 0
+        prototype = g_local_func_prototype[func_idx]
     else:
         functions = generate_code.g_global_func
         function_names = generate_code.g_global_func_names
@@ -278,22 +280,17 @@ def return_info_process(func_name, func_type='local'):
             func_idx = function_names.index(func_name)
         except Exception:
             func_idx = 0
+        prototype = g_global_func_prototype[func_idx]
     function_content = functions[func_idx]
     return_info = re.search(regular.get_return_info, function_content)
     if return_info is not None:
         return_var = return_info.group(1)
-        return_var = return_var.strip()
-        return_type_re = regular.get_return_type.replace('@', str(return_var))
-        return_type_search = re.search(return_type_re, function_content)
-        if return_type_search is not None:
-            return_type = str(return_type_search.group(1))
-            return_var = str(return_type_search.group(2))
-            if return_type.count('*') != 0 or return_var.count('*') != 0:
-                return_var = return_var.replace('*', '')
-                return_type = return_type.replace('*', '')
-                return_type = return_type + '*'
-        else:
-            return_type = 'None'
+        return_var = str(return_var).strip()
+        return_type = str(prototype).split(' ')[0]
+        if return_type.count('*') != 0 or func_name.count('*') != 0:
+            return_var = return_var.replace('*', '')
+            return_type = return_type.replace('*', '')
+            return_type = return_type + '*'
         return_info = str(return_type) + '@' + str(return_var)
     else:
         return_info = 'None'
@@ -333,7 +330,7 @@ def get_global_func_prototype():
             param_res = '(' + ', '.join(params) + ')'
             prototype = str(return_type) + ' ' + func_name + param_res
         else:
-            prototype = str(return_type) + ' ' + func_name + '()'
+            prototype = str(return_type) + ' ' + func_name + '(None)'
         g_global_func_prototype.append(prototype)
 
 

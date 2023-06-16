@@ -25,9 +25,30 @@ def set_value_phase_proc(input_phase: str):
 
 def define_var_phase_proc(input_phase: str):
     if re.search(regular.get_define_var, input_phase) is not None:
-        var_name = re.search(regular.get_define_var, input_phase).group(1)
-        var_type = re.search(regular.get_define_type, input_phase).group(1)
+        var_name = str(re.search(regular.get_define_var, input_phase).group(1))
+        var_type = str(re.search(regular.get_define_type, input_phase).group(1))
+        if str(var_name).count('*') != 0 or str(var_type).count('*') != 0:
+            var_name = var_name.replace('*', '')
+            var_type = var_type.replace('*', '')
+            var_type = var_type + '*'
         res = 'Define variable ' + str(var_name) + ', which type is ' + var_type
+    else:
+        res = ''
+    return res
+
+def define_var_init_proc(input_phase: str):
+    if re.search(regular.get_define_init_info, input_phase) is not None:
+        var_type = str(re.search(regular.get_define_init_info, input_phase).group(1))
+        var_name = str(re.search(regular.get_define_init_info, input_phase).group(2))
+        var_init_val = str(re.search(regular.get_define_init_info, input_phase).group(3))
+        if var_type.count('*') != 0 or var_name.count('*') != 0:
+            var_name = var_name.replace('*', '')
+            var_type = var_type.replace('*', '')
+            var_type = var_type + '*'
+        res = 'Define variable @var_name, which type is @var_type, and initialize it to @var_init_val'
+        res = res.replace('@var_name', var_name)
+        res = res.replace('@var_type', var_type)
+        res = res.replace('@var_init_val', var_init_val)
     else:
         res = ''
     return res
