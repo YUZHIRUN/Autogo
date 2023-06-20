@@ -258,11 +258,11 @@ def close_program(config):
 
 def review_program(config):
     res = err.ok
-    try:
-        if config['mode'] == 'Build':
-            record_program(config)
-        else:
-            close_program(config)
-    except (WebDriverException, Exception):
-        res = err.driver_interrupt
+    # try:
+    if config['mode'] == 'Build':
+        record_program(config)
+    else:
+        close_program(config)
+    # except (WebDriverException, Exception):
+    #     res = err.driver_interrupt
     return res

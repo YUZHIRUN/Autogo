@@ -84,7 +84,7 @@ class gui_op(code_generate.Ui_MainWindow):
                     self.union_item.addItem(name_idx)
         return ret
 
-    # event-----------------------------------------------------------------------------------
+    # region event
     def event_select_file(self):
         self.mention.setText(err.waiting)
         op_lock.acquire()
@@ -367,6 +367,7 @@ class gui_op(code_generate.Ui_MainWindow):
         op_lock.release()
         self.load_status = True
 
+    # endregion event
     # threading-------------------------------------------------------------------------------
     def th_load_file(self):
         th = threading.Thread(target=self.event_select_file)

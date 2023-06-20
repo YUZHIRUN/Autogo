@@ -1,7 +1,14 @@
 import sys
 import code_generate_op
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
+QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+# QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
+
+# QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+# QGuiApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
+# QGuiApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
 app = QApplication(sys.argv)
 main_window = QMainWindow()
 
