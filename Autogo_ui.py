@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(968, 653)
+        MainWindow.resize(992, 616)
         MainWindow.setMinimumSize(QtCore.QSize(0, 616))
         MainWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
         icon = QtGui.QIcon()
@@ -25,8 +25,9 @@ class Ui_MainWindow(object):
 "}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.stack_first = QtWidgets.QStackedWidget(self.centralwidget)
-        self.stack_first.setGeometry(QtCore.QRect(9, 9, 950, 598))
         self.stack_first.setStyleSheet("")
         self.stack_first.setObjectName("stack_first")
         self.register_page = QtWidgets.QWidget()
@@ -39,6 +40,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
         self.groupBox.setSizePolicy(sizePolicy)
+        self.groupBox.setMinimumSize(QtCore.QSize(0, 139))
         self.groupBox.setMaximumSize(QtCore.QSize(16777215, 122))
         font = QtGui.QFont()
         font.setFamily("Calibri")
@@ -66,9 +68,13 @@ class Ui_MainWindow(object):
 "")
         self.groupBox.setFlat(False)
         self.groupBox.setObjectName("groupBox")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.groupBox)
+        self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.groupBox)
+        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setContentsMargins(6, 7, -1, -1)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label_8 = QtWidgets.QLabel(self.groupBox)
+        self.label_8.setMinimumSize(QtCore.QSize(0, 52))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
@@ -81,6 +87,7 @@ class Ui_MainWindow(object):
         self.label_8.setObjectName("label_8")
         self.verticalLayout_2.addWidget(self.label_8)
         self.label_9 = QtWidgets.QLabel(self.groupBox)
+        self.label_9.setMinimumSize(QtCore.QSize(0, 18))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
@@ -91,14 +98,16 @@ class Ui_MainWindow(object):
         self.label_9.setFont(font)
         self.label_9.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_9.setObjectName("label_9")
-        self.verticalLayout_2.addWidget(self.label_9, 0, QtCore.Qt.AlignBottom)
+        self.verticalLayout_2.addWidget(self.label_9)
         self.label = QtWidgets.QLabel(self.groupBox)
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
-        self.verticalLayout_2.addWidget(self.label, 0, QtCore.Qt.AlignRight|QtCore.Qt.AlignTop)
+        self.verticalLayout_2.addWidget(self.label)
+        self.horizontalLayout_9.addLayout(self.verticalLayout_2)
         self.verticalLayout_3.addWidget(self.groupBox)
         self.groupBox_2 = QtWidgets.QGroupBox(self.register_page)
         font = QtGui.QFont()
@@ -153,8 +162,8 @@ class Ui_MainWindow(object):
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
-"}\n"
-"")
+"background-color: rgb(238, 246, 255);\n"
+"}")
         self.user_id.setText("")
         self.user_id.setObjectName("user_id")
         self.horizontalLayout.addWidget(self.user_id)
@@ -181,8 +190,8 @@ class Ui_MainWindow(object):
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
-"}\n"
-"")
+"background-color: rgb(238, 246, 255);\n"
+"}")
         self.user_key.setEchoMode(QtWidgets.QLineEdit.Password)
         self.user_key.setObjectName("user_key")
         self.horizontalLayout_2.addWidget(self.user_key)
@@ -209,14 +218,18 @@ class Ui_MainWindow(object):
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
+"background-color: rgb(238, 246, 255);\n"
 "}\n"
 "QComboBox::drop-down {\n"
-"\n"
-"border: 0px solid rgb(170, 170, 170);\n"
-"\n"
-"    \n"
+"border: 0px solid rgb(170, 170, 170);    \n"
 "}\n"
-"")
+"QComboBox QAbstractItemView {\n"
+"outline: 0px solid gray;\n"
+"border:0px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:2px 4px;\n"
+"background-color: rgb(238, 246, 255);\n"
+"}")
         self.browser.setIconSize(QtCore.QSize(0, 0))
         self.browser.setDuplicatesEnabled(False)
         self.browser.setObjectName("browser")
@@ -224,10 +237,10 @@ class Ui_MainWindow(object):
         self.browser.addItem("")
         self.horizontalLayout_3.addWidget(self.browser)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem3)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_4.setContentsMargins(370, -1, 340, -1)
+        self.horizontalLayout_4.setContentsMargins(370, -1, 350, -1)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.log_in_bt = QtWidgets.QPushButton(self.groupBox_2)
         self.log_in_bt.setMinimumSize(QtCore.QSize(0, 31))
@@ -236,9 +249,9 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         self.log_in_bt.setFont(font)
         self.log_in_bt.setStyleSheet("QPushButton {\n"
-"border:1px groove gray;\n"
-"border-radius:5px;\n"
-"padding:1px 4px;\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
+"padding:2px 4px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(170, 170, 255,80);\n"
@@ -256,63 +269,131 @@ class Ui_MainWindow(object):
         self.log_in_bt.setObjectName("log_in_bt")
         self.horizontalLayout_4.addWidget(self.log_in_bt)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 150, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 143, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem4)
         self.verticalLayout_3.addWidget(self.groupBox_2)
         self.stack_first.addWidget(self.register_page)
         self.tool_page = QtWidgets.QWidget()
         self.tool_page.setObjectName("tool_page")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.tool_page)
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.listWidget = QtWidgets.QListWidget(self.tool_page)
+        self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.tool_page)
+        self.horizontalLayout_8.setObjectName("horizontalLayout_8")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_4.setContentsMargins(8, 14, 1, -1)
+        self.verticalLayout_4.setSpacing(14)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.tool_item = QtWidgets.QListWidget(self.tool_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy)
-        self.listWidget.setMaximumSize(QtCore.QSize(180, 16777215))
+        sizePolicy.setHeightForWidth(self.tool_item.sizePolicy().hasHeightForWidth())
+        self.tool_item.setSizePolicy(sizePolicy)
+        self.tool_item.setMinimumSize(QtCore.QSize(206, 0))
+        self.tool_item.setMaximumSize(QtCore.QSize(180, 16777215))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.listWidget.setFont(font)
-        self.listWidget.setStyleSheet("QListWidget {\n"
+        self.tool_item.setFont(font)
+        self.tool_item.setStyleSheet("QListWidget {\n"
 "border:1px groove rgba(85, 170, 255, 80);\n"
 "border-radius:10px;\n"
-"padding:2px 4px;\n"
+"outline:0px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0.523682, x2:1, y2:0.551182, stop:0 rgba(204, 229, 255, 238), stop:1 rgba(255, 255, 255, 255));\n"
 "\n"
 "}\n"
+"QListWidget::item{\n"
+"margin:20px;\n"
+"padding:2px 4px;\n"
+"border:1px groove rgba(85, 170, 255, 80);\n"
+"border-radius:10px;\n"
+"}\n"
+"QListWidget::item:hover{\n"
+"    background-color: rgba(190, 227, 255,200);\n"
+"}\n"
+"QListWidget::item:selected{\n"
+"    border-width:0;\n"
+"    background-color: rgba(190, 227, 255,255);\n"
+"}\n"
+"QListWidget::item::selected:active{\n"
+"    border: 0px solid gray;\n"
+"    \n"
+"}\n"
+"\n"
 "\n"
 "")
-        self.listWidget.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.listWidget.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.listWidget.setLineWidth(0)
-        self.listWidget.setIconSize(QtCore.QSize(25, 25))
-        self.listWidget.setTextElideMode(QtCore.Qt.ElideLeft)
-        self.listWidget.setFlow(QtWidgets.QListView.TopToBottom)
-        self.listWidget.setGridSize(QtCore.QSize(50, 58))
-        self.listWidget.setViewMode(QtWidgets.QListView.ListMode)
-        self.listWidget.setModelColumn(0)
-        self.listWidget.setObjectName("listWidget")
+        self.tool_item.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.tool_item.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.tool_item.setLineWidth(0)
+        self.tool_item.setAutoScrollMargin(20)
+        self.tool_item.setIconSize(QtCore.QSize(25, 25))
+        self.tool_item.setTextElideMode(QtCore.Qt.ElideLeft)
+        self.tool_item.setFlow(QtWidgets.QListView.TopToBottom)
+        self.tool_item.setLayoutMode(QtWidgets.QListView.SinglePass)
+        self.tool_item.setGridSize(QtCore.QSize(62, 68))
+        self.tool_item.setObjectName("tool_item")
         item = QtWidgets.QListWidgetItem()
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/ico/.imgs/analyzer.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon2)
-        self.listWidget.addItem(item)
+        self.tool_item.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(":/ico/.imgs/autogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon3)
-        self.listWidget.addItem(item)
+        self.tool_item.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/ico/.imgs/review.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon4)
-        self.listWidget.addItem(item)
-        self.horizontalLayout_5.addWidget(self.listWidget)
+        self.tool_item.addItem(item)
+        self.verticalLayout_4.addWidget(self.tool_item)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setContentsMargins(-1, -1, -1, 7)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        spacerItem5 = QtWidgets.QSpacerItem(30, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem5)
+        self.back_bt = QtWidgets.QPushButton(self.tool_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.back_bt.sizePolicy().hasHeightForWidth())
+        self.back_bt.setSizePolicy(sizePolicy)
+        self.back_bt.setMinimumSize(QtCore.QSize(100, 28))
+        self.back_bt.setSizeIncrement(QtCore.QSize(0, 0))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.back_bt.setFont(font)
+        self.back_bt.setAutoFillBackground(False)
+        self.back_bt.setStyleSheet("QPushButton {\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:10px;\n"
+"padding:2px 4px;\n"
+"    background-color: rgb(241, 248, 255);\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgba(170, 170, 255,80);\n"
+"}\n"
+"QPushButton:pressed {\n"
+" background-color: rgba(170, 170, 255,225);\n"
+"}")
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/ico/.imgs/退出.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.back_bt.setIcon(icon5)
+        self.back_bt.setAutoDefault(False)
+        self.back_bt.setDefault(False)
+        self.back_bt.setFlat(False)
+        self.back_bt.setObjectName("back_bt")
+        self.horizontalLayout_5.addWidget(self.back_bt)
+        spacerItem6 = QtWidgets.QSpacerItem(30, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem6)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_5)
+        self.horizontalLayout_8.addLayout(self.verticalLayout_4)
         self.stack_second = QtWidgets.QStackedWidget(self.tool_page)
         self.stack_second.setStyleSheet("QPushButton {\n"
 "border:1px groove gray;\n"
@@ -331,6 +412,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.code_analyzer_page)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.groupBox_3 = QtWidgets.QGroupBox(self.code_analyzer_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox_3.sizePolicy().hasHeightForWidth())
+        self.groupBox_3.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
@@ -373,16 +459,17 @@ class Ui_MainWindow(object):
         self.label_6.setObjectName("label_6")
         self.horizontalLayout_6.addWidget(self.label_6)
         self.file_path = QtWidgets.QLineEdit(self.groupBox_3)
-        self.file_path.setMinimumSize(QtCore.QSize(0, 23))
+        self.file_path.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Calibri")
+        font.setPointSize(10)
         self.file_path.setFont(font)
         self.file_path.setStyleSheet("QLineEdit {\n"
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
-"}\n"
-"")
+"background-color: rgb(238, 246, 255);\n"
+"}")
         self.file_path.setText("")
         self.file_path.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.file_path.setDragEnabled(True)
@@ -406,10 +493,9 @@ class Ui_MainWindow(object):
         self.select_bt.setFont(font)
         self.select_bt.setAutoFillBackground(False)
         self.select_bt.setStyleSheet("QPushButton {\n"
-"border:1px groove gray;\n"
-"border-radius:5px;\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
 "padding:2px 4px;\n"
-"    background-color: rgb(241, 248, 255);\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(170, 170, 255,80);\n"
@@ -439,10 +525,9 @@ class Ui_MainWindow(object):
         self.load_bt.setFont(font)
         self.load_bt.setAutoFillBackground(False)
         self.load_bt.setStyleSheet("QPushButton {\n"
-"border:1px groove gray;\n"
-"border-radius:5px;\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
 "padding:2px 4px;\n"
-"    background-color: rgb(241, 248, 255);\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(170, 170, 255,80);\n"
@@ -472,10 +557,9 @@ class Ui_MainWindow(object):
         self.clear_bt.setFont(font)
         self.clear_bt.setAutoFillBackground(False)
         self.clear_bt.setStyleSheet("QPushButton {\n"
-"border:1px groove gray;\n"
-"border-radius:5px;\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
 "padding:2px 4px;\n"
-"    background-color: rgb(241, 248, 255);\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(170, 170, 255,80);\n"
@@ -714,7 +798,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setBaseSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(10)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(True)
         font.setWeight(50)
@@ -727,9 +811,11 @@ class Ui_MainWindow(object):
 "left:10px\n"
 "}\n"
 "QTabBar::tab{\n"
-"    background-color: rgb(210, 232, 254);\n"
+"background-color: rgb(210, 232, 254);\n"
 "}\n"
-"")
+"QTabBar::tab:pressed {\n"
+" background-color: rgba(170, 170, 255,225);\n"
+"}")
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Triangular)
         self.tabWidget.setObjectName("tabWidget")
         self.Function_2 = QtWidgets.QWidget()
@@ -738,57 +824,57 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
         self.horizontalLayout_18 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_18.setObjectName("horizontalLayout_18")
-        self.func_items_2 = QtWidgets.QListWidget(self.Function_2)
+        self.func_items = QtWidgets.QListWidget(self.Function_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.func_items_2.sizePolicy().hasHeightForWidth())
-        self.func_items_2.setSizePolicy(sizePolicy)
-        self.func_items_2.setMinimumSize(QtCore.QSize(256, 0))
+        sizePolicy.setHeightForWidth(self.func_items.sizePolicy().hasHeightForWidth())
+        self.func_items.setSizePolicy(sizePolicy)
+        self.func_items.setMinimumSize(QtCore.QSize(256, 0))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.func_items_2.setFont(font)
-        self.func_items_2.setStyleSheet("QListWidget {\n"
+        self.func_items.setFont(font)
+        self.func_items.setStyleSheet("QListWidget {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.func_items_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.func_items_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.func_items_2.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.func_items_2.setObjectName("func_items_2")
-        self.horizontalLayout_18.addWidget(self.func_items_2)
-        self.func_disp_2 = QtWidgets.QTextEdit(self.Function_2)
+        self.func_items.setFrameShape(QtWidgets.QFrame.Box)
+        self.func_items.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.func_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.func_items.setObjectName("func_items")
+        self.horizontalLayout_18.addWidget(self.func_items)
+        self.func_disp = QtWidgets.QTextEdit(self.Function_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.func_disp_2.sizePolicy().hasHeightForWidth())
-        self.func_disp_2.setSizePolicy(sizePolicy)
-        self.func_disp_2.setMaximumSize(QtCore.QSize(16777211, 16777215))
+        sizePolicy.setHeightForWidth(self.func_disp.sizePolicy().hasHeightForWidth())
+        self.func_disp.setSizePolicy(sizePolicy)
+        self.func_disp.setMaximumSize(QtCore.QSize(16777211, 16777215))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.func_disp_2.setFont(font)
-        self.func_disp_2.setStyleSheet("QTextEdit {\n"
+        self.func_disp.setFont(font)
+        self.func_disp.setStyleSheet("QTextEdit {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.func_disp_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.func_disp_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.func_disp_2.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-        self.func_disp_2.setReadOnly(False)
-        self.func_disp_2.setMarkdown("")
-        self.func_disp_2.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
-        self.func_disp_2.setObjectName("func_disp_2")
-        self.horizontalLayout_18.addWidget(self.func_disp_2)
+        self.func_disp.setFrameShape(QtWidgets.QFrame.Box)
+        self.func_disp.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.func_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.func_disp.setReadOnly(False)
+        self.func_disp.setMarkdown("")
+        self.func_disp.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.func_disp.setObjectName("func_disp")
+        self.horizontalLayout_18.addWidget(self.func_disp)
         self.horizontalLayout_17.addLayout(self.horizontalLayout_18)
         self.tabWidget.addTab(self.Function_2, "")
         self.global_variable_2 = QtWidgets.QWidget()
@@ -797,50 +883,50 @@ class Ui_MainWindow(object):
         self.horizontalLayout_19.setObjectName("horizontalLayout_19")
         self.horizontalLayout_20 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_20.setObjectName("horizontalLayout_20")
-        self.global_items_2 = QtWidgets.QListWidget(self.global_variable_2)
+        self.global_items = QtWidgets.QListWidget(self.global_variable_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.global_items_2.sizePolicy().hasHeightForWidth())
-        self.global_items_2.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.global_items.sizePolicy().hasHeightForWidth())
+        self.global_items.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.global_items_2.setFont(font)
-        self.global_items_2.setStyleSheet("QListWidget {\n"
+        self.global_items.setFont(font)
+        self.global_items.setStyleSheet("QListWidget {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.global_items_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.global_items_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.global_items_2.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.global_items_2.setObjectName("global_items_2")
-        self.horizontalLayout_20.addWidget(self.global_items_2)
-        self.gloabal_disp_2 = QtWidgets.QTextEdit(self.global_variable_2)
+        self.global_items.setFrameShape(QtWidgets.QFrame.Box)
+        self.global_items.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.global_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.global_items.setObjectName("global_items")
+        self.horizontalLayout_20.addWidget(self.global_items)
+        self.gloabal_disp = QtWidgets.QTextEdit(self.global_variable_2)
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.gloabal_disp_2.setFont(font)
-        self.gloabal_disp_2.setStyleSheet("QTextEdit {\n"
+        self.gloabal_disp.setFont(font)
+        self.gloabal_disp.setStyleSheet("QTextEdit {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.gloabal_disp_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.gloabal_disp_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.gloabal_disp_2.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-        self.gloabal_disp_2.setReadOnly(False)
-        self.gloabal_disp_2.setMarkdown("")
-        self.gloabal_disp_2.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
-        self.gloabal_disp_2.setObjectName("gloabal_disp_2")
-        self.horizontalLayout_20.addWidget(self.gloabal_disp_2)
+        self.gloabal_disp.setFrameShape(QtWidgets.QFrame.Box)
+        self.gloabal_disp.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.gloabal_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.gloabal_disp.setReadOnly(False)
+        self.gloabal_disp.setMarkdown("")
+        self.gloabal_disp.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.gloabal_disp.setObjectName("gloabal_disp")
+        self.horizontalLayout_20.addWidget(self.gloabal_disp)
         self.horizontalLayout_19.addLayout(self.horizontalLayout_20)
         self.tabWidget.addTab(self.global_variable_2, "")
         self.macro_2 = QtWidgets.QWidget()
@@ -849,54 +935,54 @@ class Ui_MainWindow(object):
         self.horizontalLayout_21.setObjectName("horizontalLayout_21")
         self.horizontalLayout_22 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_22.setObjectName("horizontalLayout_22")
-        self.macro_items_2 = QtWidgets.QListWidget(self.macro_2)
+        self.macro_items = QtWidgets.QListWidget(self.macro_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.macro_items_2.sizePolicy().hasHeightForWidth())
-        self.macro_items_2.setSizePolicy(sizePolicy)
-        self.macro_items_2.setMinimumSize(QtCore.QSize(0, 0))
-        self.macro_items_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        sizePolicy.setHeightForWidth(self.macro_items.sizePolicy().hasHeightForWidth())
+        self.macro_items.setSizePolicy(sizePolicy)
+        self.macro_items.setMinimumSize(QtCore.QSize(0, 0))
+        self.macro_items.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.macro_items_2.setFont(font)
-        self.macro_items_2.setStyleSheet("QListWidget {\n"
+        self.macro_items.setFont(font)
+        self.macro_items.setStyleSheet("QListWidget {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.macro_items_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.macro_items_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.macro_items_2.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.macro_items_2.setObjectName("macro_items_2")
-        self.horizontalLayout_22.addWidget(self.macro_items_2)
-        self.macro_disp_2 = QtWidgets.QTextEdit(self.macro_2)
-        self.macro_disp_2.setMinimumSize(QtCore.QSize(0, 0))
-        self.macro_disp_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.macro_items.setFrameShape(QtWidgets.QFrame.Box)
+        self.macro_items.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.macro_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.macro_items.setObjectName("macro_items")
+        self.horizontalLayout_22.addWidget(self.macro_items)
+        self.macro_disp = QtWidgets.QTextEdit(self.macro_2)
+        self.macro_disp.setMinimumSize(QtCore.QSize(0, 0))
+        self.macro_disp.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.macro_disp_2.setFont(font)
-        self.macro_disp_2.setStyleSheet("QTextEdit {\n"
+        self.macro_disp.setFont(font)
+        self.macro_disp.setStyleSheet("QTextEdit {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.macro_disp_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.macro_disp_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.macro_disp_2.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-        self.macro_disp_2.setReadOnly(False)
-        self.macro_disp_2.setMarkdown("")
-        self.macro_disp_2.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
-        self.macro_disp_2.setObjectName("macro_disp_2")
-        self.horizontalLayout_22.addWidget(self.macro_disp_2)
+        self.macro_disp.setFrameShape(QtWidgets.QFrame.Box)
+        self.macro_disp.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.macro_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.macro_disp.setReadOnly(False)
+        self.macro_disp.setMarkdown("")
+        self.macro_disp.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.macro_disp.setObjectName("macro_disp")
+        self.horizontalLayout_22.addWidget(self.macro_disp)
         self.horizontalLayout_21.addLayout(self.horizontalLayout_22)
         self.tabWidget.addTab(self.macro_2, "")
         self.struct_3 = QtWidgets.QWidget()
@@ -905,50 +991,50 @@ class Ui_MainWindow(object):
         self.horizontalLayout_23.setObjectName("horizontalLayout_23")
         self.horizontalLayout_26 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_26.setObjectName("horizontalLayout_26")
-        self.struct_items_2 = QtWidgets.QListWidget(self.struct_3)
+        self.struct_items = QtWidgets.QListWidget(self.struct_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.struct_items_2.sizePolicy().hasHeightForWidth())
-        self.struct_items_2.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.struct_items.sizePolicy().hasHeightForWidth())
+        self.struct_items.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.struct_items_2.setFont(font)
-        self.struct_items_2.setStyleSheet("QListWidget {\n"
+        self.struct_items.setFont(font)
+        self.struct_items.setStyleSheet("QListWidget {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.struct_items_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.struct_items_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.struct_items_2.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.struct_items_2.setObjectName("struct_items_2")
-        self.horizontalLayout_26.addWidget(self.struct_items_2)
-        self.struct_disp_2 = QtWidgets.QTextEdit(self.struct_3)
+        self.struct_items.setFrameShape(QtWidgets.QFrame.Box)
+        self.struct_items.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.struct_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.struct_items.setObjectName("struct_items")
+        self.horizontalLayout_26.addWidget(self.struct_items)
+        self.struct_disp = QtWidgets.QTextEdit(self.struct_3)
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.struct_disp_2.setFont(font)
-        self.struct_disp_2.setStyleSheet("QTextEdit {\n"
+        self.struct_disp.setFont(font)
+        self.struct_disp.setStyleSheet("QTextEdit {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.struct_disp_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.struct_disp_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.struct_disp_2.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-        self.struct_disp_2.setReadOnly(False)
-        self.struct_disp_2.setMarkdown("")
-        self.struct_disp_2.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
-        self.struct_disp_2.setObjectName("struct_disp_2")
-        self.horizontalLayout_26.addWidget(self.struct_disp_2)
+        self.struct_disp.setFrameShape(QtWidgets.QFrame.Box)
+        self.struct_disp.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.struct_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.struct_disp.setReadOnly(False)
+        self.struct_disp.setMarkdown("")
+        self.struct_disp.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.struct_disp.setObjectName("struct_disp")
+        self.horizontalLayout_26.addWidget(self.struct_disp)
         self.horizontalLayout_23.addLayout(self.horizontalLayout_26)
         self.tabWidget.addTab(self.struct_3, "")
         self.enum_3 = QtWidgets.QWidget()
@@ -957,53 +1043,53 @@ class Ui_MainWindow(object):
         self.horizontalLayout_27.setObjectName("horizontalLayout_27")
         self.horizontalLayout_28 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_28.setObjectName("horizontalLayout_28")
-        self.enum_items_2 = QtWidgets.QListWidget(self.enum_3)
+        self.enum_items = QtWidgets.QListWidget(self.enum_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.enum_items_2.sizePolicy().hasHeightForWidth())
-        self.enum_items_2.setSizePolicy(sizePolicy)
-        self.enum_items_2.setMinimumSize(QtCore.QSize(0, 0))
-        self.enum_items_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        sizePolicy.setHeightForWidth(self.enum_items.sizePolicy().hasHeightForWidth())
+        self.enum_items.setSizePolicy(sizePolicy)
+        self.enum_items.setMinimumSize(QtCore.QSize(0, 0))
+        self.enum_items.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.enum_items_2.setFont(font)
-        self.enum_items_2.setStyleSheet("QListWidget {\n"
+        self.enum_items.setFont(font)
+        self.enum_items.setStyleSheet("QListWidget {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.enum_items_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.enum_items_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.enum_items_2.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.enum_items_2.setObjectName("enum_items_2")
-        self.horizontalLayout_28.addWidget(self.enum_items_2)
-        self.enum_disp_2 = QtWidgets.QTextEdit(self.enum_3)
-        self.enum_disp_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.enum_items.setFrameShape(QtWidgets.QFrame.Box)
+        self.enum_items.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.enum_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.enum_items.setObjectName("enum_items")
+        self.horizontalLayout_28.addWidget(self.enum_items)
+        self.enum_disp = QtWidgets.QTextEdit(self.enum_3)
+        self.enum_disp.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.enum_disp_2.setFont(font)
-        self.enum_disp_2.setStyleSheet("QTextEdit {\n"
+        self.enum_disp.setFont(font)
+        self.enum_disp.setStyleSheet("QTextEdit {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.enum_disp_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.enum_disp_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.enum_disp_2.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-        self.enum_disp_2.setReadOnly(False)
-        self.enum_disp_2.setMarkdown("")
-        self.enum_disp_2.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
-        self.enum_disp_2.setObjectName("enum_disp_2")
-        self.horizontalLayout_28.addWidget(self.enum_disp_2)
+        self.enum_disp.setFrameShape(QtWidgets.QFrame.Box)
+        self.enum_disp.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.enum_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.enum_disp.setReadOnly(False)
+        self.enum_disp.setMarkdown("")
+        self.enum_disp.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.enum_disp.setObjectName("enum_disp")
+        self.horizontalLayout_28.addWidget(self.enum_disp)
         self.horizontalLayout_27.addLayout(self.horizontalLayout_28)
         self.tabWidget.addTab(self.enum_3, "")
         self.tab_2 = QtWidgets.QWidget()
@@ -1012,57 +1098,58 @@ class Ui_MainWindow(object):
         self.horizontalLayout_29.setObjectName("horizontalLayout_29")
         self.horizontalLayout_30 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_30.setObjectName("horizontalLayout_30")
-        self.union_item_2 = QtWidgets.QListWidget(self.tab_2)
+        self.union_item = QtWidgets.QListWidget(self.tab_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.union_item_2.sizePolicy().hasHeightForWidth())
-        self.union_item_2.setSizePolicy(sizePolicy)
-        self.union_item_2.setMinimumSize(QtCore.QSize(0, 0))
-        self.union_item_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        sizePolicy.setHeightForWidth(self.union_item.sizePolicy().hasHeightForWidth())
+        self.union_item.setSizePolicy(sizePolicy)
+        self.union_item.setMinimumSize(QtCore.QSize(0, 0))
+        self.union_item.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.union_item_2.setFont(font)
-        self.union_item_2.setStyleSheet("QListWidget {\n"
+        self.union_item.setFont(font)
+        self.union_item.setStyleSheet("QListWidget {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.union_item_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.union_item_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.union_item_2.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.union_item_2.setObjectName("union_item_2")
-        self.horizontalLayout_30.addWidget(self.union_item_2)
-        self.union_disp_2 = QtWidgets.QTextEdit(self.tab_2)
-        self.union_disp_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.union_item.setFrameShape(QtWidgets.QFrame.Box)
+        self.union_item.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.union_item.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.union_item.setObjectName("union_item")
+        self.horizontalLayout_30.addWidget(self.union_item)
+        self.union_disp = QtWidgets.QTextEdit(self.tab_2)
+        self.union_disp.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.union_disp_2.setFont(font)
-        self.union_disp_2.setStyleSheet("QTextEdit {\n"
+        self.union_disp.setFont(font)
+        self.union_disp.setStyleSheet("QTextEdit {\n"
 "border:1px solid rgb(241, 248, 255);\n"
 "border-radius:10px;\n"
 "background-color: rgb(241, 248, 255);\n"
 "}")
-        self.union_disp_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.union_disp_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.union_disp_2.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-        self.union_disp_2.setReadOnly(False)
-        self.union_disp_2.setMarkdown("")
-        self.union_disp_2.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
-        self.union_disp_2.setObjectName("union_disp_2")
-        self.horizontalLayout_30.addWidget(self.union_disp_2)
+        self.union_disp.setFrameShape(QtWidgets.QFrame.Box)
+        self.union_disp.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.union_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.union_disp.setReadOnly(False)
+        self.union_disp.setMarkdown("")
+        self.union_disp.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.union_disp.setObjectName("union_disp")
+        self.horizontalLayout_30.addWidget(self.union_disp)
         self.horizontalLayout_29.addLayout(self.horizontalLayout_30)
         self.tabWidget.addTab(self.tab_2, "")
         self.verticalLayout_6.addWidget(self.tabWidget)
         self.horizontalLayout_31 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_31.setContentsMargins(11, 6, 8, 5)
         self.horizontalLayout_31.setObjectName("horizontalLayout_31")
         self.label_14 = QtWidgets.QLabel(self.code_analyzer_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
@@ -1080,27 +1167,33 @@ class Ui_MainWindow(object):
         self.label_14.setFont(font)
         self.label_14.setObjectName("label_14")
         self.horizontalLayout_31.addWidget(self.label_14)
-        self.func_num_2 = QtWidgets.QLabel(self.code_analyzer_page)
+        self.code_analyzer_mention = QtWidgets.QLabel(self.code_analyzer_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.func_num_2.sizePolicy().hasHeightForWidth())
-        self.func_num_2.setSizePolicy(sizePolicy)
-        self.func_num_2.setMinimumSize(QtCore.QSize(0, 23))
+        sizePolicy.setHeightForWidth(self.code_analyzer_mention.sizePolicy().hasHeightForWidth())
+        self.code_analyzer_mention.setSizePolicy(sizePolicy)
+        self.code_analyzer_mention.setMinimumSize(QtCore.QSize(0, 25))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
-        self.func_num_2.setFont(font)
-        self.func_num_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.func_num_2.setText("")
-        self.func_num_2.setObjectName("func_num_2")
-        self.horizontalLayout_31.addWidget(self.func_num_2)
+        self.code_analyzer_mention.setFont(font)
+        self.code_analyzer_mention.setStyleSheet("QLabel{\n"
+"background-color: rgb(248, 251, 255);\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:2px 4px;\n"
+"}")
+        self.code_analyzer_mention.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.code_analyzer_mention.setText("")
+        self.code_analyzer_mention.setObjectName("code_analyzer_mention")
+        self.horizontalLayout_31.addWidget(self.code_analyzer_mention)
         self.verticalLayout_6.addLayout(self.horizontalLayout_31)
         self.stack_second.addWidget(self.code_analyzer_page)
         self.SWDD_tool_page = QtWidgets.QWidget()
         self.SWDD_tool_page.setObjectName("SWDD_tool_page")
-        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.SWDD_tool_page)
-        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.SWDD_tool_page)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
         self.groupBox_4 = QtWidgets.QGroupBox(self.SWDD_tool_page)
         self.groupBox_4.setMinimumSize(QtCore.QSize(0, 130))
         font = QtGui.QFont()
@@ -1129,25 +1222,65 @@ class Ui_MainWindow(object):
 "")
         self.groupBox_4.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.groupBox_4.setObjectName("groupBox_4")
+        self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.groupBox_4)
+        self.verticalLayout_13.setObjectName("verticalLayout_13")
+        self.horizontalLayout_10 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_10.setObjectName("horizontalLayout_10")
+        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_10.addItem(spacerItem7)
+        self.verticalLayout_12 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_12.setObjectName("verticalLayout_12")
+        spacerItem8 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_12.addItem(spacerItem8)
         self.label_16 = QtWidgets.QLabel(self.groupBox_4)
-        self.label_16.setGeometry(QtCore.QRect(50, 26, 671, 81))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
-        font.setBold(True)
+        font.setBold(False)
         font.setItalic(True)
-        font.setWeight(75)
+        font.setWeight(50)
         self.label_16.setFont(font)
         self.label_16.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label_16.setWordWrap(True)
         self.label_16.setObjectName("label_16")
-        self.verticalLayout_7.addWidget(self.groupBox_4)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_7.addItem(spacerItem5)
+        self.verticalLayout_12.addWidget(self.label_16)
+        self.horizontalLayout_10.addLayout(self.verticalLayout_12)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_10.addItem(spacerItem9)
+        self.verticalLayout_13.addLayout(self.horizontalLayout_10)
+        self.verticalLayout_8.addWidget(self.groupBox_4)
+        self.groupBox_8 = QtWidgets.QGroupBox(self.SWDD_tool_page)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setItalic(True)
+        self.groupBox_8.setFont(font)
+        self.groupBox_8.setStyleSheet("QGroupBox{\n"
+"border:1px solid rgb(166, 166, 166);\n"
+"border-radius:5px;\n"
+"margin:10px\n"
+"}\n"
+"QGroupBox:title {\n"
+"subcontrol-origin: margin;\n"
+"subcontrol-position:top left;\n"
+"padding-left: 10px;\n"
+"padding-right:10px;\n"
+"}\n"
+"QGroupBox:title {\n"
+"left:20;\n"
+"}\n"
+"\n"
+"\n"
+"")
+        self.groupBox_8.setObjectName("groupBox_8")
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.groupBox_8)
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        spacerItem10 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_7.addItem(spacerItem10)
         self.horizontalLayout_34 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_34.setContentsMargins(100, -1, 100, -1)
         self.horizontalLayout_34.setObjectName("horizontalLayout_34")
-        self.label_15 = QtWidgets.QLabel(self.SWDD_tool_page)
+        self.label_15 = QtWidgets.QLabel(self.groupBox_8)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -1163,81 +1296,41 @@ class Ui_MainWindow(object):
         self.label_15.setFont(font)
         self.label_15.setObjectName("label_15")
         self.horizontalLayout_34.addWidget(self.label_15)
-        self.review_obj_url = QtWidgets.QLineEdit(self.SWDD_tool_page)
+        self.swdd_url = QtWidgets.QLineEdit(self.groupBox_8)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.review_obj_url.sizePolicy().hasHeightForWidth())
-        self.review_obj_url.setSizePolicy(sizePolicy)
-        self.review_obj_url.setMinimumSize(QtCore.QSize(395, 0))
-        self.review_obj_url.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        sizePolicy.setHeightForWidth(self.swdd_url.sizePolicy().hasHeightForWidth())
+        self.swdd_url.setSizePolicy(sizePolicy)
+        self.swdd_url.setMinimumSize(QtCore.QSize(395, 0))
+        self.swdd_url.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei")
-        font.setPointSize(11)
+        font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(False)
         font.setWeight(50)
         font.setStrikeOut(False)
-        self.review_obj_url.setFont(font)
-        self.review_obj_url.setStyleSheet("QLineEdit {\n"
+        self.swdd_url.setFont(font)
+        self.swdd_url.setStyleSheet("QLineEdit {\n"
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
-"}\n"
-"")
-        self.review_obj_url.setText("")
-        self.review_obj_url.setEchoMode(QtWidgets.QLineEdit.Normal)
-        self.review_obj_url.setReadOnly(False)
-        self.review_obj_url.setObjectName("review_obj_url")
-        self.horizontalLayout_34.addWidget(self.review_obj_url)
+"background-color: rgb(238, 246, 255);\n"
+"}")
+        self.swdd_url.setText("")
+        self.swdd_url.setEchoMode(QtWidgets.QLineEdit.Normal)
+        self.swdd_url.setReadOnly(False)
+        self.swdd_url.setObjectName("swdd_url")
+        self.horizontalLayout_34.addWidget(self.swdd_url)
         self.verticalLayout_7.addLayout(self.horizontalLayout_34)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_7.addItem(spacerItem6)
-        self.horizontalLayout_33 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_33.setContentsMargins(170, -1, 198, 7)
-        self.horizontalLayout_33.setObjectName("horizontalLayout_33")
-        self.label_20 = QtWidgets.QLabel(self.SWDD_tool_page)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_20.sizePolicy().hasHeightForWidth())
-        self.label_20.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setItalic(True)
-        font.setWeight(50)
-        font.setKerning(True)
-        self.label_20.setFont(font)
-        self.label_20.setObjectName("label_20")
-        self.horizontalLayout_33.addWidget(self.label_20)
-        self.base_coor = QtWidgets.QLineEdit(self.SWDD_tool_page)
-        font = QtGui.QFont()
-        font.setFamily("Microsoft YaHei")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.base_coor.setFont(font)
-        self.base_coor.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"")
-        self.base_coor.setText("")
-        self.base_coor.setReadOnly(False)
-        self.base_coor.setObjectName("base_coor")
-        self.horizontalLayout_33.addWidget(self.base_coor)
-        self.verticalLayout_7.addLayout(self.horizontalLayout_33)
-        spacerItem7 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_7.addItem(spacerItem7)
+        spacerItem11 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_7.addItem(spacerItem11)
         self.horizontalLayout_32 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_32.setContentsMargins(159, -1, 199, 14)
+        self.horizontalLayout_32.setContentsMargins(159, 0, 199, 19)
         self.horizontalLayout_32.setObjectName("horizontalLayout_32")
-        self.label_21 = QtWidgets.QLabel(self.SWDD_tool_page)
+        self.label_21 = QtWidgets.QLabel(self.groupBox_8)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -1253,10 +1346,10 @@ class Ui_MainWindow(object):
         self.label_21.setFont(font)
         self.label_21.setObjectName("label_21")
         self.horizontalLayout_32.addWidget(self.label_21)
-        self.obj_folder = QtWidgets.QLineEdit(self.SWDD_tool_page)
+        self.obj_folder = QtWidgets.QLineEdit(self.groupBox_8)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei")
-        font.setPointSize(11)
+        font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1265,27 +1358,63 @@ class Ui_MainWindow(object):
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
-"}\n"
-"")
+"background-color: rgb(238, 246, 255);\n"
+"}")
         self.obj_folder.setText("")
         self.obj_folder.setReadOnly(False)
         self.obj_folder.setObjectName("obj_folder")
         self.horizontalLayout_32.addWidget(self.obj_folder)
         self.verticalLayout_7.addLayout(self.horizontalLayout_32)
-        spacerItem8 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_7.addItem(spacerItem8)
+        self.horizontalLayout_33 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_33.setContentsMargins(170, 3, 198, 12)
+        self.horizontalLayout_33.setObjectName("horizontalLayout_33")
+        self.label_20 = QtWidgets.QLabel(self.groupBox_8)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_20.sizePolicy().hasHeightForWidth())
+        self.label_20.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        font.setKerning(True)
+        self.label_20.setFont(font)
+        self.label_20.setObjectName("label_20")
+        self.horizontalLayout_33.addWidget(self.label_20)
+        self.base_coor = QtWidgets.QLineEdit(self.groupBox_8)
+        font = QtGui.QFont()
+        font.setFamily("Microsoft YaHei")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.base_coor.setFont(font)
+        self.base_coor.setStyleSheet("QLineEdit {\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:2px 4px;\n"
+"background-color: rgb(238, 246, 255);\n"
+"}")
+        self.base_coor.setText("")
+        self.base_coor.setReadOnly(False)
+        self.base_coor.setObjectName("base_coor")
+        self.horizontalLayout_33.addWidget(self.base_coor)
+        self.verticalLayout_7.addLayout(self.horizontalLayout_33)
         self.horizontalLayout_35 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_35.setContentsMargins(-1, -1, -1, 8)
         self.horizontalLayout_35.setObjectName("horizontalLayout_35")
-        spacerItem9 = QtWidgets.QSpacerItem(297, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_35.addItem(spacerItem9)
-        self.auto_bt = QtWidgets.QPushButton(self.SWDD_tool_page)
+        spacerItem12 = QtWidgets.QSpacerItem(287, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_35.addItem(spacerItem12)
+        self.auto_bt = QtWidgets.QPushButton(self.groupBox_8)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.auto_bt.sizePolicy().hasHeightForWidth())
         self.auto_bt.setSizePolicy(sizePolicy)
-        self.auto_bt.setMinimumSize(QtCore.QSize(0, 34))
+        self.auto_bt.setMinimumSize(QtCore.QSize(0, 30))
         self.auto_bt.setMaximumSize(QtCore.QSize(16777215, 27))
         font = QtGui.QFont()
         font.setFamily("Calibri")
@@ -1295,10 +1424,9 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.auto_bt.setFont(font)
         self.auto_bt.setStyleSheet("QPushButton {\n"
-"border:1px groove gray;\n"
-"border-radius:5px;\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
 "padding:2px 4px;\n"
-"    background-color: rgb(241, 248, 255);\n"
 "}\n"
 "QPushButton:hover {\n"
 "background-color: rgba(170, 170, 255,80);\n"
@@ -1308,12 +1436,14 @@ class Ui_MainWindow(object):
 "}")
         self.auto_bt.setObjectName("auto_bt")
         self.horizontalLayout_35.addWidget(self.auto_bt)
-        spacerItem10 = QtWidgets.QSpacerItem(255, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_35.addItem(spacerItem10)
+        spacerItem13 = QtWidgets.QSpacerItem(245, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_35.addItem(spacerItem13)
         self.verticalLayout_7.addLayout(self.horizontalLayout_35)
-        spacerItem11 = QtWidgets.QSpacerItem(20, 130, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_7.addItem(spacerItem11)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 117, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_7.addItem(spacerItem14)
+        self.verticalLayout_8.addWidget(self.groupBox_8)
         self.horizontalLayout_36 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_36.setContentsMargins(10, -1, 10, -1)
         self.horizontalLayout_36.setObjectName("horizontalLayout_36")
         self.swdd_progress = QtWidgets.QProgressBar(self.SWDD_tool_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -1322,7 +1452,20 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.swdd_progress.sizePolicy().hasHeightForWidth())
         self.swdd_progress.setSizePolicy(sizePolicy)
         self.swdd_progress.setMinimumSize(QtCore.QSize(200, 27))
-        self.swdd_progress.setStyleSheet("")
+        self.swdd_progress.setStyleSheet("QProgressBar {\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:1px 2px;\n"
+"background-color: rgb(248, 251, 255);\n"
+"}\n"
+"\n"
+"QProgressBar:chunk {\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:1px 2px;\n"
+"    background-color: qlineargradient(spread:reflect, x1:0.557, y1:0.602045, x2:0.198591, y2:0.603, stop:0 rgba(94, 255, 164, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"}")
+        self.swdd_progress.setMaximum(100)
         self.swdd_progress.setProperty("value", 0)
         self.swdd_progress.setTextVisible(False)
         self.swdd_progress.setObjectName("swdd_progress")
@@ -1354,16 +1497,22 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.swdd_mention.setFont(font)
+        self.swdd_mention.setStyleSheet("QLabel{\n"
+"background-color: rgb(248, 251, 255);\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:2px 4px;\n"
+"}")
         self.swdd_mention.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.swdd_mention.setText("")
         self.swdd_mention.setObjectName("swdd_mention")
         self.horizontalLayout_36.addWidget(self.swdd_mention)
-        self.verticalLayout_7.addLayout(self.horizontalLayout_36)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_36)
         self.stack_second.addWidget(self.SWDD_tool_page)
         self.Review_tool_page = QtWidgets.QWidget()
         self.Review_tool_page.setObjectName("Review_tool_page")
-        self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.Review_tool_page)
-        self.verticalLayout_12.setObjectName("verticalLayout_12")
+        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.Review_tool_page)
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
         self.groupBox_5 = QtWidgets.QGroupBox(self.Review_tool_page)
         self.groupBox_5.setMinimumSize(QtCore.QSize(0, 130))
         font = QtGui.QFont()
@@ -1393,19 +1542,33 @@ class Ui_MainWindow(object):
 "")
         self.groupBox_5.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.groupBox_5.setObjectName("groupBox_5")
+        self.horizontalLayout_12 = QtWidgets.QHBoxLayout(self.groupBox_5)
+        self.horizontalLayout_12.setObjectName("horizontalLayout_12")
+        self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_11.setObjectName("horizontalLayout_11")
+        spacerItem15 = QtWidgets.QSpacerItem(12, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem15)
+        self.verticalLayout_14 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_14.setObjectName("verticalLayout_14")
+        spacerItem16 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_14.addItem(spacerItem16)
         self.label_18 = QtWidgets.QLabel(self.groupBox_5)
-        self.label_18.setGeometry(QtCore.QRect(42, 30, 671, 81))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
-        font.setBold(True)
+        font.setBold(False)
         font.setItalic(True)
-        font.setWeight(75)
+        font.setWeight(50)
         self.label_18.setFont(font)
         self.label_18.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label_18.setWordWrap(True)
         self.label_18.setObjectName("label_18")
-        self.verticalLayout_12.addWidget(self.groupBox_5)
+        self.verticalLayout_14.addWidget(self.label_18)
+        self.horizontalLayout_11.addLayout(self.verticalLayout_14)
+        spacerItem17 = QtWidgets.QSpacerItem(15, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem17)
+        self.horizontalLayout_12.addLayout(self.horizontalLayout_11)
+        self.verticalLayout_11.addWidget(self.groupBox_5)
         self.groupBox_6 = QtWidgets.QGroupBox(self.Review_tool_page)
         font = QtGui.QFont()
         font.setFamily("Calibri")
@@ -1434,6 +1597,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.groupBox_6)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.horizontalLayout_39 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_39.setContentsMargins(35, -1, 35, -1)
+        self.horizontalLayout_39.setSpacing(13)
         self.horizontalLayout_39.setObjectName("horizontalLayout_39")
         self.label_19 = QtWidgets.QLabel(self.groupBox_6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
@@ -1452,10 +1617,10 @@ class Ui_MainWindow(object):
         self.label_19.setObjectName("label_19")
         self.horizontalLayout_39.addWidget(self.label_19)
         self.review_link = QtWidgets.QLineEdit(self.groupBox_6)
-        self.review_link.setMinimumSize(QtCore.QSize(0, 0))
+        self.review_link.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(11)
+        font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1464,6 +1629,7 @@ class Ui_MainWindow(object):
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
+"    background-color: rgb(238, 246, 255);\n"
 "}\n"
 "")
         self.review_link.setText("")
@@ -1473,6 +1639,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_39.addWidget(self.review_link)
         self.verticalLayout_10.addLayout(self.horizontalLayout_39)
         self.horizontalLayout_40 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_40.setContentsMargins(35, -1, 35, -1)
         self.horizontalLayout_40.setObjectName("horizontalLayout_40")
         self.label_23 = QtWidgets.QLabel(self.groupBox_6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
@@ -1496,10 +1663,10 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.moderator_id.sizePolicy().hasHeightForWidth())
         self.moderator_id.setSizePolicy(sizePolicy)
-        self.moderator_id.setMinimumSize(QtCore.QSize(0, 0))
+        self.moderator_id.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(11)
+        font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1508,6 +1675,7 @@ class Ui_MainWindow(object):
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
+"    background-color: rgb(238, 246, 255);\n"
 "}\n"
 "")
         self.moderator_id.setText("")
@@ -1537,7 +1705,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.review_type.sizePolicy().hasHeightForWidth())
         self.review_type.setSizePolicy(sizePolicy)
-        self.review_type.setMinimumSize(QtCore.QSize(0, 25))
+        self.review_type.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
@@ -1547,14 +1715,18 @@ class Ui_MainWindow(object):
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
+"background-color: rgb(238, 246, 255);\n"
 "}\n"
 "QComboBox::drop-down {\n"
-"\n"
-"border: 0px solid rgb(170, 170, 170);\n"
-"\n"
-"    \n"
+"border: 0px solid rgb(170, 170, 170);    \n"
 "}\n"
-"")
+"QComboBox QAbstractItemView {\n"
+"outline: 0px solid gray;\n"
+"border:0px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:2px 4px;\n"
+"background-color: rgb(238, 246, 255);\n"
+"}")
         self.review_type.setMaxVisibleItems(20)
         self.review_type.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToMinimumContentsLength)
         self.review_type.setObjectName("review_type")
@@ -1576,7 +1748,54 @@ class Ui_MainWindow(object):
         self.review_type.addItem("")
         self.horizontalLayout_40.addWidget(self.review_type)
         self.verticalLayout_10.addLayout(self.horizontalLayout_40)
-        self.verticalLayout_12.addWidget(self.groupBox_6)
+        self.horizontalLayout_43 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_43.setContentsMargins(-1, -1, -1, 5)
+        self.horizontalLayout_43.setObjectName("horizontalLayout_43")
+        spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_43.addItem(spacerItem18)
+        self.review_build_bt = QtWidgets.QPushButton(self.groupBox_6)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.review_build_bt.sizePolicy().hasHeightForWidth())
+        self.review_build_bt.setSizePolicy(sizePolicy)
+        self.review_build_bt.setMinimumSize(QtCore.QSize(166, 28))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        self.review_build_bt.setPalette(palette)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.review_build_bt.setFont(font)
+        self.review_build_bt.setAutoFillBackground(False)
+        self.review_build_bt.setStyleSheet("QPushButton {\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
+"padding:2px 4px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgba(170, 170, 255,80);\n"
+"}\n"
+"QPushButton:pressed {\n"
+" background-color: rgba(170, 170, 255,225);\n"
+"}")
+        self.review_build_bt.setObjectName("review_build_bt")
+        self.horizontalLayout_43.addWidget(self.review_build_bt)
+        spacerItem19 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_43.addItem(spacerItem19)
+        self.verticalLayout_10.addLayout(self.horizontalLayout_43)
+        self.verticalLayout_11.addWidget(self.groupBox_6)
         self.groupBox_7 = QtWidgets.QGroupBox(self.Review_tool_page)
         font = QtGui.QFont()
         font.setFamily("Calibri")
@@ -1602,8 +1821,8 @@ class Ui_MainWindow(object):
 "\n"
 "")
         self.groupBox_7.setObjectName("groupBox_7")
-        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.groupBox_7)
-        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.groupBox_7)
+        self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.horizontalLayout_41 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_41.setContentsMargins(80, -1, 80, -1)
         self.horizontalLayout_41.setObjectName("horizontalLayout_41")
@@ -1624,10 +1843,10 @@ class Ui_MainWindow(object):
         self.label_22.setObjectName("label_22")
         self.horizontalLayout_41.addWidget(self.label_22)
         self.close_link = QtWidgets.QLineEdit(self.groupBox_7)
-        self.close_link.setMinimumSize(QtCore.QSize(0, 0))
+        self.close_link.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(11)
+        font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1636,6 +1855,7 @@ class Ui_MainWindow(object):
 "border:1px solid rgb(176, 221, 255);\n"
 "border-radius:5px;\n"
 "padding:2px 4px;\n"
+"    background-color: rgb(238, 246, 255);\n"
 "}\n"
 "")
         self.close_link.setText("")
@@ -1643,20 +1863,19 @@ class Ui_MainWindow(object):
         self.close_link.setReadOnly(False)
         self.close_link.setObjectName("close_link")
         self.horizontalLayout_41.addWidget(self.close_link)
-        self.verticalLayout_11.addLayout(self.horizontalLayout_41)
-        self.verticalLayout_12.addWidget(self.groupBox_7)
-        self.horizontalLayout_43 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_43.setContentsMargins(-1, -1, -1, 50)
-        self.horizontalLayout_43.setObjectName("horizontalLayout_43")
-        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_43.addItem(spacerItem12)
-        self.review_bt = QtWidgets.QPushButton(self.Review_tool_page)
+        self.verticalLayout_9.addLayout(self.horizontalLayout_41)
+        self.horizontalLayout_44 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_44.setContentsMargins(-1, -1, -1, 7)
+        self.horizontalLayout_44.setObjectName("horizontalLayout_44")
+        spacerItem20 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_44.addItem(spacerItem20)
+        self.review_close_bt = QtWidgets.QPushButton(self.groupBox_7)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.review_bt.sizePolicy().hasHeightForWidth())
-        self.review_bt.setSizePolicy(sizePolicy)
-        self.review_bt.setMinimumSize(QtCore.QSize(166, 33))
+        sizePolicy.setHeightForWidth(self.review_close_bt.sizePolicy().hasHeightForWidth())
+        self.review_close_bt.setSizePolicy(sizePolicy)
+        self.review_close_bt.setMinimumSize(QtCore.QSize(166, 28))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -1667,18 +1886,18 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
-        self.review_bt.setPalette(palette)
+        self.review_close_bt.setPalette(palette)
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(True)
         font.setWeight(50)
-        self.review_bt.setFont(font)
-        self.review_bt.setAutoFillBackground(False)
-        self.review_bt.setStyleSheet("QPushButton {\n"
-"border:1px groove gray;\n"
-"border-radius:5px;\n"
+        self.review_close_bt.setFont(font)
+        self.review_close_bt.setAutoFillBackground(False)
+        self.review_close_bt.setStyleSheet("QPushButton {\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
 "padding:2px 4px;\n"
 "}\n"
 "QPushButton:hover {\n"
@@ -1687,12 +1906,14 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " background-color: rgba(170, 170, 255,225);\n"
 "}")
-        self.review_bt.setObjectName("review_bt")
-        self.horizontalLayout_43.addWidget(self.review_bt)
-        spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_43.addItem(spacerItem13)
-        self.verticalLayout_12.addLayout(self.horizontalLayout_43)
+        self.review_close_bt.setObjectName("review_close_bt")
+        self.horizontalLayout_44.addWidget(self.review_close_bt)
+        spacerItem21 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_44.addItem(spacerItem21)
+        self.verticalLayout_9.addLayout(self.horizontalLayout_44)
+        self.verticalLayout_11.addWidget(self.groupBox_7)
         self.horizontalLayout_42 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_42.setContentsMargins(10, -1, 10, -1)
         self.horizontalLayout_42.setObjectName("horizontalLayout_42")
         self.review_progress = QtWidgets.QProgressBar(self.Review_tool_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -1701,6 +1922,19 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.review_progress.sizePolicy().hasHeightForWidth())
         self.review_progress.setSizePolicy(sizePolicy)
         self.review_progress.setMinimumSize(QtCore.QSize(200, 27))
+        self.review_progress.setStyleSheet("QProgressBar {\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:1px 2px;\n"
+"background-color: rgb(248, 251, 255);\n"
+"}\n"
+"\n"
+"QProgressBar:chunk {\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:1px 2px;\n"
+"    background-color: qlineargradient(spread:reflect, x1:0.557, y1:0.602045, x2:0.198591, y2:0.603, stop:0 rgba(94, 255, 164, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"}")
         self.review_progress.setProperty("value", 0)
         self.review_progress.setTextVisible(False)
         self.review_progress.setObjectName("review_progress")
@@ -1732,42 +1966,50 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.review_mention.setFont(font)
+        self.review_mention.setStyleSheet("QLabel{\n"
+"background-color: rgb(248, 251, 255);\n"
+"border:1px solid rgb(176, 221, 255);\n"
+"border-radius:5px;\n"
+"padding:2px 4px;\n"
+"}")
         self.review_mention.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.review_mention.setText("")
         self.review_mention.setObjectName("review_mention")
         self.horizontalLayout_42.addWidget(self.review_mention)
-        self.verticalLayout_12.addLayout(self.horizontalLayout_42)
+        self.verticalLayout_11.addLayout(self.horizontalLayout_42)
         self.stack_second.addWidget(self.Review_tool_page)
-        self.horizontalLayout_5.addWidget(self.stack_second)
+        self.horizontalLayout_8.addWidget(self.stack_second)
         self.stack_first.addWidget(self.tool_page)
+        self.horizontalLayout_7.addWidget(self.stack_first)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
         self.stack_first.setCurrentIndex(0)
         self.stack_second.setCurrentIndex(0)
-        self.tabWidget.setCurrentIndex(5)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Autogo"))
         self.groupBox.setTitle(_translate("MainWindow", "About"))
-        self.label_8.setText(_translate("MainWindow", "Autogo tool provides C source code to pseudocode conversion capabilities, and automatic interaction with software detailed design and review records on codebeamer."))
+        self.label_8.setText(_translate("MainWindow", "            Autogo tool provides C source code to pseudocode conversion capabilities, and automatic interaction with software detailed design and review records on codebeamer."))
         self.label_9.setText(_translate("MainWindow", "Developer: Zhirun.Yu "))
-        self.label.setText(_translate("MainWindow", "Version:3.0"))
+        self.label.setText(_translate("MainWindow", "Version:3.0 "))
         self.groupBox_2.setTitle(_translate("MainWindow", "User information"))
         self.browser.setItemText(0, _translate("MainWindow", "Chrome"))
         self.browser.setItemText(1, _translate("MainWindow", "Edge"))
         self.log_in_bt.setText(_translate("MainWindow", "Go on"))
-        __sortingEnabled = self.listWidget.isSortingEnabled()
-        self.listWidget.setSortingEnabled(False)
-        item = self.listWidget.item(0)
+        __sortingEnabled = self.tool_item.isSortingEnabled()
+        self.tool_item.setSortingEnabled(False)
+        item = self.tool_item.item(0)
         item.setText(_translate("MainWindow", "Code Analyzer"))
-        item = self.listWidget.item(1)
-        item.setText(_translate("MainWindow", "SWDD tool"))
-        item = self.listWidget.item(2)
+        item = self.tool_item.item(1)
+        item.setText(_translate("MainWindow", "SWDD Tool"))
+        item = self.tool_item.item(2)
         item.setText(_translate("MainWindow", "Review Record"))
-        self.listWidget.setSortingEnabled(__sortingEnabled)
+        self.tool_item.setSortingEnabled(__sortingEnabled)
+        self.back_bt.setText(_translate("MainWindow", "Back"))
         self.groupBox_3.setTitle(_translate("MainWindow", "File Information"))
         self.label_6.setText(_translate("MainWindow", "Source File:"))
         self.select_bt.setText(_translate("MainWindow", "Select"))
@@ -1779,41 +2021,41 @@ class Ui_MainWindow(object):
         self.label_11.setText(_translate("MainWindow", "Struct:"))
         self.label_12.setText(_translate("MainWindow", "Enum:"))
         self.label_13.setText(_translate("MainWindow", "Union:"))
-        self.func_disp_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.func_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Function_2), _translate("MainWindow", "Function"))
-        self.gloabal_disp_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.gloabal_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\';\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.global_variable_2), _translate("MainWindow", "Global Variable"))
-        self.macro_disp_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.macro_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\';\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.macro_2), _translate("MainWindow", "Macro Definition"))
-        self.struct_disp_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.struct_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\';\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.struct_3), _translate("MainWindow", "Struct"))
-        self.enum_disp_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.enum_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\';\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.enum_3), _translate("MainWindow", "Enum"))
-        self.union_disp_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.union_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Union"))
         self.label_14.setText(_translate("MainWindow", "Prompt:"))
         self.groupBox_4.setTitle(_translate("MainWindow", "Description"))
@@ -1821,11 +2063,12 @@ class Ui_MainWindow(object):
 "1.Object URL Enter the detailed link.\n"
 "2.Base Folder Enter the ID of the parent folder.\n"
 "3.Object Folder Enter the ID of the generated subfolder."))
+        self.groupBox_8.setTitle(_translate("MainWindow", "Generate SWDD"))
         self.label_15.setText(_translate("MainWindow", "Object URL:"))
-        self.label_20.setText(_translate("MainWindow", "Base Folder:"))
-        self.base_coor.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. 23.2.1.5</p></body></html>"))
         self.label_21.setText(_translate("MainWindow", "Object Folder:"))
         self.obj_folder.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. 23.2.1.5</p></body></html>"))
+        self.label_20.setText(_translate("MainWindow", "Base Folder:"))
+        self.base_coor.setToolTip(_translate("MainWindow", "<html><head/><body><p>e.g. 23.2.1.5</p></body></html>"))
         self.auto_bt.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
         self.auto_bt.setText(_translate("MainWindow", "Start"))
         self.auto_bt.setShortcut(_translate("MainWindow", "Return"))
@@ -1855,9 +2098,11 @@ class Ui_MainWindow(object):
         self.review_type.setItemText(13, _translate("MainWindow", "SYS.4 SYS Integration Test Specifications"))
         self.review_type.setItemText(14, _translate("MainWindow", "SYS.5 SYS Qualification Test Specifications"))
         self.review_type.setItemText(15, _translate("MainWindow", "Others"))
+        self.review_build_bt.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
+        self.review_build_bt.setText(_translate("MainWindow", "Start"))
         self.groupBox_7.setTitle(_translate("MainWindow", "Review Record Close"))
         self.label_22.setText(_translate("MainWindow", "Record URL:"))
-        self.review_bt.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
-        self.review_bt.setText(_translate("MainWindow", "Start"))
+        self.review_close_bt.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
+        self.review_close_bt.setText(_translate("MainWindow", "Start"))
         self.label_39.setText(_translate("MainWindow", "Prompt:"))
 import icon_rc

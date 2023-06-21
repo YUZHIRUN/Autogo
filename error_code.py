@@ -1,6 +1,6 @@
 class err_class:
     def __init__(self):
-        self.ok = 'Successful operation!'
+        self.ok = 'Autogo operate successful!'
         self.file_err = 'C file error!'
         self.waiting = 'Please waiting...'
         self.no_file = 'Please input a file!'
@@ -15,8 +15,12 @@ class err_class:
         self.base_coor_err = 'Base folder format is error!'
         self.no_url = 'Please input object url!'
         self.no_moderator = 'Please input moderator Id!'
-        self.autogo_wait = 'AutoGo is running...'
+        self.autogo_swdd_wait = 'Autogo is building SWDD...'
+        self.record_build_wait = 'Autogo is building review record...'
+        self.record_close_wait = 'Autogo is closing review record...'
         self.no_load = 'Please load a file!'
+        self.user_info_err = 'Please check your user id or password!'
+        self.password_err = 'Please check your password!'
 
         self.driver_interrupt = 'Browser interrupt!'
 

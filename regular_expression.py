@@ -159,6 +159,11 @@ class Xpath:
         self.close_problem = r'//*[text()="Num_RF_Problem:"]/../../td[2]/input'
         self.close_propose = r'//*[text()="Num_RF_Proposed Change:"]/../../td[2]/input'
         self.close_save = r'//input[@title="Save (Ctrl + S)"]'
+        self.submit_close = r'//div[@id="item-transitions"]/a'
+
+        self.user_check_err = r'//li[text()="Invalid user credentials!"]'
+        self.user_check_ok = r'//a[text()="Reports"]'
+
 
 
 

@@ -1,4 +1,6 @@
 import datetime
+import json
+import os
 
 from selenium.common import WebDriverException
 from selenium.webdriver import ActionChains
@@ -18,7 +20,8 @@ g_browser = ''
 g_visible = True
 g_moderator_id = ''
 g_review_type = ''
-g_link = ''
+g_record_link = ''
+g_close_link = ''
 
 g_mode = ''
 WAIT_TIME = 15
@@ -28,39 +31,42 @@ err = error_code.err_class()
 g_xpath = regular_expression.Xpath()
 
 
-def get_chrome_driver():
+def get_chrome_driver(mode):
     global driver
     if g_browser == 'chrome' or g_browser == 'Chrome':
         from selenium.webdriver.chrome.service import Service
-        if g_visible is False:
-            option = webdriver.ChromeOptions()
-            option.add_argument('--headless')
-            option.add_argument('--ignore-ssl-errors')
-            option.add_argument('--ignore-certificate-errors')
-            option.add_experimental_option('detach', True)
-            driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
-        else:
-            option = webdriver.ChromeOptions()
-            option.add_experimental_option('detach', True)
-            option.add_argument('--ignore-certificate-errors')
-            option.add_argument('--ignore-ssl-errors')
-            driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
+        # if g_visible is False:
+        #     option = webdriver.ChromeOptions()
+        #     option.add_argument('--headless')
+        #     option.add_argument('--ignore-ssl-errors')
+        #     option.add_argument('--ignore-certificate-errors')
+        #     option.add_experimental_option('detach', True)
+        #     driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
+        # else:
+        option = webdriver.ChromeOptions()
+        option.add_experimental_option('detach', True)
+        option.add_argument('--ignore-certificate-errors')
+        option.add_argument('--ignore-ssl-errors')
+        driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
     else:
         from selenium.webdriver.edge.service import Service
-        if g_visible is False:
-            option = webdriver.EdgeOptions()
-            option.add_argument('--headless')
-            option.add_argument('--ignore-ssl-errors')
-            option.add_argument('--ignore-certificate-errors')
-            option.add_experimental_option('detach', True)
-            driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
-        else:
-            option = webdriver.EdgeOptions()
-            option.add_argument('--ignore-certificate-errors')
-            option.add_argument('--ignore-ssl-errors')
-            option.add_experimental_option('detach', True)
-            driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
-    driver.get(g_link)
+        # if g_visible is False:
+        #     option = webdriver.EdgeOptions()
+        #     option.add_argument('--headless')
+        #     option.add_argument('--ignore-ssl-errors')
+        #     option.add_argument('--ignore-certificate-errors')
+        #     option.add_experimental_option('detach', True)
+        #     driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
+        # else:
+        option = webdriver.EdgeOptions()
+        option.add_argument('--ignore-certificate-errors')
+        option.add_argument('--ignore-ssl-errors')
+        option.add_experimental_option('detach', True)
+        driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
+    if mode == 'build':
+        driver.get(g_record_link)
+    else:
+        driver.get(g_close_link)
 
 
 # -----------------------------------------------browser operate--------------------------------------------------------
@@ -131,17 +137,23 @@ def switch_back():
 
 
 # -----------------------------------------------browser operate--------------------------------------------------------
-def get_cfg(config):
-    global g_user_id, g_user_key, g_browser, g_link, g_visible, g_mode, g_moderator_id, g_review_type
-    g_user_id = str(config['user_id'])
-    g_user_key = str(config['user_key'])
-    g_browser = str(config['browser'])
-    g_visible = config['visible']
-    g_moderator_id = config['moderator id']
-    g_review_type = config['review area']
-    g_mode = config['mode']
-    g_link = str(config['link'])
-    get_chrome_driver()
+def get_cfg(config, mode='build'):
+    global g_user_id, g_user_key, g_browser
+    if mode == 'build':
+        global g_record_link, g_moderator_id, g_review_type
+        g_user_id = str(config['user id'])
+        g_user_key = str(config['user key'])
+        g_browser = str(config['browser'])
+        g_moderator_id = config['moderator id']
+        g_review_type = config['review area']
+        g_record_link = str(config['record link'])
+    else:
+        global g_close_link
+        g_user_id = str(config['user id'])
+        g_user_key = str(config['user key'])
+        g_browser = str(config['browser'])
+        g_close_link = str(config['close link'])
+    get_chrome_driver(mode)
 
 
 def time_get(input_time: str):
@@ -171,8 +183,18 @@ def time_get(input_time: str):
 
 
 def record_program(config):
+    res = err.ok
     get_cfg(config)
     while True:
+        with open('.private/_record_link.json', 'r') as cfg_obj:
+            cfg = json.load(cfg_obj)
+            if os.path.exists('.private/_record_link.json') is False:
+                res = err.cfg_err
+                break
+            if err.void_check(cfg['record link']) is True:
+                res = err.cfg_err
+                break
+            record_link = cfg['record link']
         # register
         driver.maximize_window()
         send_key(g_xpath.user_id, g_user_id)
@@ -186,7 +208,7 @@ def record_program(config):
         start_data = time_get(start_data)
         end_data = get_text(g_xpath.review_end_time)
         end_data = time_get(end_data)
-        driver.get('http://172.16.200.236:8080/cb/tracker/6353925?view_id=-2')
+        driver.get(record_link)
         click(g_xpath.review_new_item)
         click(g_xpath.chose_moderator)
         wait_loading()
@@ -200,7 +222,7 @@ def record_program(config):
         click(g_xpath.review_link_select)
         switch_frame('inlinedPopupIframe')
         click(g_xpath.review_link_label)
-        send_key(g_xpath.review_link_input, g_link)
+        send_key(g_xpath.review_link_input, g_record_link)
         click(g_xpath.insert_link_bt)
         switch_back()
         select_item(g_xpath.review_select_area, g_review_type)
@@ -208,6 +230,7 @@ def record_program(config):
         send_key(g_xpath.review_end_data, end_data)
         send_key(g_xpath.review_summary_input, review_name)
         break
+    return res
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -232,7 +255,7 @@ def get_info_num(input_list):
 
 
 def close_program(config):
-    get_cfg(config)
+    get_cfg(config, mode='close')
     # register
     driver.maximize_window()
     send_key(g_xpath.user_id, g_user_id)
@@ -255,14 +278,15 @@ def close_program(config):
     clear_content(g_xpath.close_propose)
     send_key(g_xpath.close_propose, propose_num)
     click(g_xpath.close_save)
+    click(g_xpath.submit_close)
 
 def review_program(config):
     res = err.ok
-    # try:
-    if config['mode'] == 'Build':
-        record_program(config)
-    else:
-        close_program(config)
-    # except (WebDriverException, Exception):
-    #     res = err.driver_interrupt
+    try:
+        if config['mode'] == 'build':
+            res = record_program(config)
+        else:
+            close_program(config)
+    except (WebDriverException, Exception):
+        res = err.driver_interrupt
     return res

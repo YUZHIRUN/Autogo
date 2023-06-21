@@ -20,7 +20,6 @@ g_user = ''
 g_key = ''
 g_browser = ''
 g_link = ''
-g_visible = True
 g_base_coor = ''
 g_obj_coor = ''
 g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'global_var': 'x4', 'union': 'x3',
@@ -40,41 +39,40 @@ def get_chrome_driver():
     global driver
     if g_browser == 'chrome' or g_browser == 'Chrome':
         from selenium.webdriver.chrome.service import Service
-        if g_visible is False:
-            option = webdriver.ChromeOptions()
-            option.add_argument('--headless')
-            option.add_argument('--ignore-ssl-errors')
-            option.add_argument('--ignore-certificate-errors')
-            driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
-        else:
-            option = webdriver.ChromeOptions()
-            option.add_argument('--ignore-certificate-errors')
-            option.add_argument('--ignore-ssl-errors')
-            driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
+        # if g_visible is False:
+        #     option = webdriver.ChromeOptions()
+        #     option.add_argument('--headless')
+        #     option.add_argument('--ignore-ssl-errors')
+        #     option.add_argument('--ignore-certificate-errors')
+        #     driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
+        # else:
+        option = webdriver.ChromeOptions()
+        option.add_argument('--ignore-certificate-errors')
+        option.add_argument('--ignore-ssl-errors')
+        driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
     else:
         from selenium.webdriver.edge.service import Service
-        if g_visible is False:
-            option = webdriver.EdgeOptions()
-            option.add_argument('--headless')
-            option.add_argument('--ignore-ssl-errors')
-            option.add_argument('--ignore-certificate-errors')
-            driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
-        else:
-            option = webdriver.EdgeOptions()
-            option.add_argument('--ignore-certificate-errors')
-            option.add_argument('--ignore-ssl-errors')
-            driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
+        # if g_visible is False:
+        #     option = webdriver.EdgeOptions()
+        #     option.add_argument('--headless')
+        #     option.add_argument('--ignore-ssl-errors')
+        #     option.add_argument('--ignore-certificate-errors')
+        #     driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
+        # else:
+        option = webdriver.EdgeOptions()
+        option.add_argument('--ignore-certificate-errors')
+        option.add_argument('--ignore-ssl-errors')
+        driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
     driver.get(g_link)
 
 
 def get_cfg(config):
     res = err.ok
-    global g_user, g_key, g_browser, g_link, g_visible, g_base_coor, g_obj_coor
-    g_user = str(config['user_id'])
-    g_key = str(config['user_key'])
+    global g_user, g_key, g_browser, g_link, g_base_coor, g_obj_coor
+    g_user = str(config['user id'])
+    g_key = str(config['user key'])
     g_browser = str(config['browser'])
     g_link = str(config['link'])
-    g_visible = config['visible']
     g_base_coor = config['base folder']
     g_obj_coor = config['object folder']
     if base_coor_check(g_base_coor) is False:
