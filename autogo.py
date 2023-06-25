@@ -432,8 +432,8 @@ def macro_process():
         macro_vars.extend(autogo_input.g_macro[1])
         tab_content = list()
         tab_content.append(macro_names)
-        tab_content.append(descriptions)
         tab_content.append(macro_vars)
+        tab_content.append(descriptions)
 
         macro_len = len(macro_names)
         tab_fmt = str(macro_len) + g_table_type['macro']

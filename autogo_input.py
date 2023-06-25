@@ -97,13 +97,19 @@ def struct_proc(struct_names: list):
         for st_line in struct_item:
             st_line = st_line.strip()
             try:
-                line_type = re.search(regular.st_item, st_line).group(1)
+                line_type = str(re.search(regular.st_item, st_line).group(1))
+                line_type = line_type.strip()
             except Exception:
                 line_type = 'None'
             try:
-                line_var = re.search(regular.st_item, st_line).group(2)
+                line_var = str(re.search(regular.st_item, st_line).group(2))
+                line_var = line_var.strip()
             except Exception:
                 line_var = 'None'
+            if line_type.count('*') != 0 or line_var.count('*') != 0:
+                line_var = line_var.replace('*', '')
+                line_type = line_type.replace('*', '')
+                line_type = line_type + '*'
             types.append(line_type)
             variables.append(line_var)
         struct_types.append(types)

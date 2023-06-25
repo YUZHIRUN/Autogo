@@ -14,11 +14,12 @@ class RegularClass:
         self.struct_tail = r'\n *\}.+\n*'
 
         # comment regular
-        self.comment_1 = r'//.*'
+        self.comment_1 = r'//[^:\n]+|// *(?=\n)'
         self.comment_2 = r'/\*.*\*/'
         self.comment_3 = r'/\*.+\n.*?\*/'
         self.comment_4 = r' */\*.*\n(.+\n)+?.*\*/'
-        self.st_item = r'([\w\*]+) +([\w\[\]\*]+);'
+        # self.st_item = r'([\w\*]+) +([\w\[\]\*]+);'
+        self.st_item = r'((?:struct|const|volatile| )*(?:[\w\*]+)) +([\w\[\]\*]+);'
         self.en_item = r'(\w+) *,?( *= *(\w+))*'
 
         # get names regular
@@ -123,7 +124,6 @@ class Xpath:
         self.add_row_select = r'//a[text()="Insert row below"]'
         self.add_col_bt = r'//span[text()="Remove Table"]/../../button[3]'
         self.add_col_select = r'//a[text()="Insert column after"]'
-
         self.merge_bt = r'//span[text()="Remove Table"]/../../button[4]'
         self.select_merge = r'//a[text()="Merge cells"]'
 
