@@ -293,8 +293,9 @@ def return_info_process(func_name: str, func_type='local'):
     if return_info is not None:
         return_var = return_info.group(1)
         return_var = str(return_var).strip()
+        prototype_head = re.sub(regular.proto_del_bracket, '', prototype)
         return_type = str(prototype).split(' ')[0]
-        if return_type.count('*') != 0 or func_name.count('*') != 0:
+        if return_type.count('*') != 0 or prototype_head.count('*') != 0:
             return_var = return_var.replace('*', '')
             return_type = return_type.replace('*', '')
             return_type = return_type + '*'

@@ -12,6 +12,7 @@ g_global_func = list()
 g_local_func = list()
 # g_func_list = list()
 g_global_var_list = list()
+g_point_func_list = list()
 g_macro_list = list()
 g_struct_list = list()
 g_enum_list = list()
@@ -62,6 +63,7 @@ def load_file(file_path: str):
             global_var = re.search(global_var_regular, file_content)
             unions = re.search(union_regular, file_content)
             include_file = re.search(include_regular, file_content)
+            point_funcs = re.search(regular.point_func_declare, file_content)
             if global_func is not None:
                 func_list = re.findall(global_regular, file_content)
                 g_global_func.extend(func_list)
@@ -73,6 +75,9 @@ def load_file(file_path: str):
                     if func_head.count('FUNC') == 0:
                         g_local_func.append(func_idx)
                 file_content = re.sub(local_func_regular, '', file_content)
+            if point_funcs is not None:
+                point_funcs_declare = re.findall(regular.point_func_declare, file_content)
+                g_point_func_list.extend(point_funcs_declare)
             if structs is not None:
                 struct_list = re.findall(struct_regular, file_content)
                 struct_list = common.st_en_un_del_useless(struct_list)

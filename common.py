@@ -141,6 +141,8 @@ def get_local_func_name(func_str: str):
         func_name = func_get.group(1)
     else:
         func_name = ''
+    func_name = func_name.replace('*', '')
+    func_name = func_name.strip()
     return func_name
 
 
@@ -152,6 +154,8 @@ def get_global_func_name(func_str: str):
         func_name = func_get.group(1)
     else:
         func_name = ''
+    func_name = func_name.replace('*', '')
+    func_name = func_name.strip()
     return func_name
 
 

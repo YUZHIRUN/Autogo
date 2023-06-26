@@ -15,7 +15,7 @@ class err_class:
         self.base_coor_err = 'Base folder format is error!'
         self.no_url = 'Please input object url!'
         self.no_moderator = 'Please input moderator Id!'
-        self.autogo_swdd_wait = 'Autogo is building SWDD...'
+        self.autogo_swdd_wait = 'Autogo is building software detail design...'
         self.record_build_wait = 'Autogo is building review record...'
         self.record_close_wait = 'Autogo is closing review record...'
         self.no_load = 'Please load a file!'

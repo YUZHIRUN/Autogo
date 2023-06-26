@@ -27,7 +27,7 @@ g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'g
 
 err = error_code.err_class()
 WAIT_TIME = 15
-
+# driver = None
 # enums
 information = 0
 folder = 1
@@ -149,7 +149,6 @@ def move_to_element(xpath: str):
 def send_key(xpath: str, content: str):
     driver.find_element(By.XPATH, value=xpath).send_keys(content)
 
-
 def move_mouse_to(xpath: str):
     ActionChains(driver).move_to_element(to_element=driver.find_element(By.XPATH, value=xpath)).perform()
 
@@ -196,6 +195,26 @@ def select_object_type(item_type):
     double_click(g_xpath.object_type)
     select_item(g_xpath.object_type_select, item_type)
 
+def input_req_category(content):
+    click(g_xpath.req_category)
+    double_click(g_xpath.req_category)
+    send_key(g_xpath.req_category_input, content)
+    time.sleep(0.5)
+    driver.find_element(By.XPATH, value=g_xpath.req_category_input).send_keys(Keys.ENTER)
+    driver.find_element(By.XPATH, value=g_xpath.req_category_input).send_keys(Keys.ENTER)
+    wait_item_load(g_xpath.have_been_saved)
+
+def input_special_verification(content):
+    double_click(g_xpath.special_verification)
+    send_key(g_xpath.special_verification_input, content)
+    driver.find_element(By.XPATH, value=g_xpath.special_verification_input).send_keys(Keys.CONTROL, 's')
+    wait_item_load(g_xpath.have_been_saved)
+
+def select_ver_approach(approach):
+    wait_item_load(g_xpath.verification_approach)
+    time.sleep(0.5)
+    double_click(g_xpath.verification_approach)
+    select_item(g_xpath.object_type_select, approach)
 
 def get_table_end_xpath(table_formate: str):
     start_fmt = int(table_formate.split('x')[0])
@@ -554,7 +573,7 @@ def global_var_item_process():
         break
 
 
-def detail_process(content: str):
+def detail_process(content: str, xpath_list):
     content_info = content.replace('detail@', '')
     content_info = content_info.split('@')
     func_type = content_info[0]
@@ -575,6 +594,15 @@ def detail_process(content: str):
             func_content = ''
     click(g_xpath.input_content)
     send_key(g_xpath.input_content, func_content)
+    input_save()
+    click(xpath_list[1])
+    select_object_type(object_type[function])
+    input_req_category('Functional')
+    input_special_verification('Check the correctness of the logic according to the corresponding requirements.')
+    wait_item_load(g_xpath.verification_approach)
+    select_ver_approach('SW Unit Test')
+    wait_item_load(xpath_list[1])
+    click(xpath_list[1])
 
 
 def enum_build_process(base_position: str):
@@ -817,11 +845,16 @@ def func_dynamic_item_process(content):
 #         res = False
 #     return res
 #
-# def autogo_test():
-#     coor = '24'
-#     xpath = get_destination_xpath(coor)
-#     res = check_element(xpath)
-#     return res
+# def autogo_test(xpath_list):
+#     input_save()
+#     click(xpath_list[1])
+#     select_object_type(object_type[function])
+#     input_req_category('Functional')
+#     input_special_verification('abcd')
+#     wait_item_load(g_xpath.verification_approach)
+#     select_ver_approach('SW Unit Test')
+#     wait_item_load(xpath_list[1])
+#     click(xpath_list[1])
 
 def func_process(base_position, func_type='local'):
     fun_coor = get_now_coor(base_position, 'inner')
@@ -884,9 +917,10 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
         elif content == 'flow_chart':
             pass
         elif content.startswith('detail@') != 0:
-            detail_process(content)
+            detail_process(content, xpath_list)
+            break
         elif content == 'test':
-            # autogo_test()
+            # autogo_test(xpath_list)
             pass
         input_save()
         click(end_xpath)
@@ -911,6 +945,9 @@ def auto_go_active(component: str, config: dict):
         wait_loading()
         open_fold_xpath(coordination)
         component_coor = g_obj_coor
+
+        # build_new_item(position=(coordination, component_coor), title=component, item_type=object_type[folder], content='test')
+
         build_new_item(position=(coordination, component_coor), title=component, item_type=object_type[folder])
         c_file_fold_coor = get_now_coor(component_coor, 'inner')
         build_new_item(position=(component_coor, c_file_fold_coor), title=c_file_name, item_type=object_type[folder])
@@ -963,7 +1000,6 @@ def auto_go_active(component: str, config: dict):
                        item_type=object_type[folder])
         func_process(global_func_coor, func_type='global')
         driver.close()
-        # print(autogo_test())
         break
     return res
 
@@ -975,11 +1011,12 @@ def auto_go_program(config: dict):
             res = err.no_load
             break
         autogo_input.get_information()
-        try:
-            res = auto_go_active(component_name, config)
-        except (WebDriverException, Exception):
-            res = err.driver_interrupt
-            break
+        # try:
+        #     res = auto_go_active(component_name, config)
+        # except (WebDriverException, Exception):
+        #     res = err.driver_interrupt
+        #     break
+        res = auto_go_active(component_name, config)
         break
     return res
 

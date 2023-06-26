@@ -1,6 +1,7 @@
 class RegularClass:
     def __init__(self):
         # function regular
+        self.point_func_declare = r'(?:static) *\w+(?:\( *\*\w+\)) *\(.+?\).+?&(?:\w+);'
         self.global_func = r'FUNC *\(.+\n *\{ *\n(?: +.*\n)+ *\}|FUNC *\(.+\n *\{ *\n *\}'
         self.local_func = r'[\w\*]+ +[\*\w]+ *\([^{};\#]+\n\{ *\n(?: .*\n)+\}'
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
@@ -36,7 +37,7 @@ class RegularClass:
         self.while_re = r'while *\(.+?\)'
         self.set_value_re = r' *(?:[^\n,;|&=+]+?) *(?:[\^=|&+-]?=) *(?:.+?);|(\S+) *[+-]{2} *;'
         self.define_var_re = r'(?:volatile|const)* *(?:[\w\*]+) +(?:[\w, \[\]\*]+) *;'
-        self.define_var_init = r'(?:(?:volatile|const|\*)* *[\w\*]+) +(?:[\w\*-<>\[\]]+) *= *(?:.+);'
+        self.define_var_init = r'(?:(?:volatile|const|\*)* *[\w\*]+) +(?:[\w\*\-<>\[\]]+) *= *(?:.+);'
         self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|(?:\(void\))* *\( *\* *\w+\)\(.*\);'
         self.return_re = r'return +.+?;'
         self.break_re = r'break *;'
@@ -66,6 +67,7 @@ class RegularClass:
         self.global_func_params_2 = r'([\w\*]+ +[\w\*]+)'
         self.macro_value = r'# *define +(?:.+?) +(.+)'
         self.get_param_info = r'((?:const|volatile)* *[\w\*]+) +([\w\*]+)'
+        self.get_point_func_info = r'(?:static) *\w+(\( *\*\w+\)) *\(.+?\).+?&(\w+);'
 
         # function class regular
         self.memcpy = r'memcpy *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
@@ -80,9 +82,10 @@ class RegularClass:
         self.default = r'default *:'
 
         # last function callback regular
-        self.last_func = r'(?:\w+?)\(.*\)(?!\n)'
-        self.get_last_func = r'(\w+?)\(.*\)(?!\n)'
+        self.last_func = r'[\w\*]+\(.+\)'
+        self.get_last_func_name = r'([\w\*]+)\(.+\)'
         self.point_func = r'(?:\(void\))* *\( *\*( *\w+)\)\([^\n=]*\)'
+        self.point_func_head = r'(?:\(void\))* *(\( *\*(?: *\w+)\))(\([^\n=]*\))'
 
         # other regular
         # self.tab_scale = r'[;\{\)]\n {2}[^ ]'
@@ -91,8 +94,9 @@ class RegularClass:
         self.new_line = r'\n+'
         self.pointer_space = r' +\* +'
         self.new_line_space = r'\n+ *\n+'
-        self.var_class = r'\(.int\d+\)|\(boolean\)'
+        self.var_class = r'\(.int\d{1,}[\w\*]*?\)|\(boolean\)|\(float\d{2}\)|\(int\)'
         self.li_coor = r'li\[(\d+)\]'
+        self.proto_del_bracket = r'\(.+\)'
 
 class Xpath:
     def __init__(self):
@@ -104,9 +108,17 @@ class Xpath:
         self.items = r'/html/body/div[3]/div/form/div[2]/div[2]/div[2]'
         self.origin_folder = r'/html/body/div[3]/div/form/div[2]/div[2]/div[2]/ul/li/i'
         self.origin_item = r'/html/body/div[3]/div/form/div[2]/div[2]/div[2]/ul/li/a'
+
         self.object_type = r'//*[@class="propertyTable inlineEditEnabled"]/tbody[1]//td[contains(text(), "ObjectType")]/../td[2]'
-        self.req_category = r'/html/body/div[3]/div/form/div[2]/div[3]/div[2]/div/div[3]/div/div/div/div/div[1]/table/table/tbody/tr[6]/td[2]'
+        self.req_category = r'//td[contains(text(), "Req. Category:")]/../td[2]'
+        self.special_verification = r'//td[contains(text(), "Special Verification Criteria:")]/../td[2]'
+        self.verification_approach = r'//td[contains(text(), "Verification Approach:")]/../td[2]'
+
+        # self.verification_approach_select = r'//*[@class="Verification Approach:"]/tbody[1]//td[contains(text(), "Req. Category:")]/../td[2]'
+        self.special_verification_input = r'//td[contains(text(), "Special Verification Criteria:")]/../td[2]/div/div/div/div'
+        self.req_category_input = r'//td[contains(text(), "Req. Category:")]/../td[2]/table/tbody/tr/td/div/ul/li/input'
         self.object_type_select = r'//select[@class="pixelResizeEditBox"]'
+
         self.copy = r'/html/body/ul/li[20]/a'
         self.insert_new_child = r'//*[contains(text(), "Insert a new Child Item (Ctrl + Insert)")]'
         self.new_item_after = r'//*[contains(text(), "Insert a new Item after this (Ctrl + Enter)")]'
@@ -163,6 +175,7 @@ class Xpath:
 
         self.user_check_err = r'//li[text()="Invalid user credentials!"]'
         self.user_check_ok = r'//a[text()="Reports"]'
+        self.have_been_saved = r'//div[text()="Your changes have been successfully saved!"]'
 
 
 

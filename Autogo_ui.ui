@@ -570,7 +570,7 @@ QPushButton:pressed {
            <number>8</number>
           </property>
           <property name="topMargin">
-           <number>14</number>
+           <number>17</number>
           </property>
           <property name="rightMargin">
            <number>1</number>
@@ -615,6 +615,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0.523682, x2:1, y2:0.5511
 QListWidget::item{
 margin:20px;
 padding:2px 4px;
+height:35px;
 border:1px groove rgba(85, 170, 255, 80);
 border-radius:10px;
 }
@@ -2198,6 +2199,7 @@ p, li { white-space: pre-wrap; }
                  <font>
                   <family>Calibri</family>
                   <pointsize>11</pointsize>
+                  <italic>true</italic>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -2205,6 +2207,7 @@ p, li { white-space: pre-wrap; }
 background-color: rgb(248, 251, 255);
 border:1px solid rgb(176, 221, 255);
 border-radius:5px;
+color: rgb(85, 85, 127);
 padding:2px 4px;
 }</string>
                 </property>
@@ -2478,20 +2481,73 @@ background-color: rgb(238, 246, 255);
                 </layout>
                </item>
                <item>
-                <spacer name="verticalSpacer_8">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
+                <layout class="QHBoxLayout" name="horizontalLayout_33">
+                 <property name="leftMargin">
+                  <number>170</number>
                  </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Fixed</enum>
+                 <property name="topMargin">
+                  <number>3</number>
                  </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>13</height>
-                  </size>
+                 <property name="rightMargin">
+                  <number>198</number>
                  </property>
-                </spacer>
+                 <property name="bottomMargin">
+                  <number>12</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_20">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Calibri</family>
+                     <pointsize>12</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
+                     <kerning>true</kerning>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Base Folder:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="base_coor">
+                   <property name="font">
+                    <font>
+                     <family>Microsoft YaHei</family>
+                     <pointsize>10</pointsize>
+                     <weight>50</weight>
+                     <italic>false</italic>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. 23.2.1.5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QLineEdit {
+border:1px solid rgb(176, 221, 255);
+border-radius:5px;
+padding:2px 4px;
+background-color: rgb(238, 246, 255);
+}</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_32">
@@ -2532,75 +2588,6 @@ background-color: rgb(238, 246, 255);
                  </item>
                  <item>
                   <widget class="QLineEdit" name="obj_folder">
-                   <property name="font">
-                    <font>
-                     <family>Microsoft YaHei</family>
-                     <pointsize>10</pointsize>
-                     <weight>50</weight>
-                     <italic>false</italic>
-                     <bold>false</bold>
-                    </font>
-                   </property>
-                   <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. 23.2.1.5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="readOnly">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_33">
-                 <property name="leftMargin">
-                  <number>170</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>3</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>198</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>12</number>
-                 </property>
-                 <item>
-                  <widget class="QLabel" name="label_20">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Calibri</family>
-                     <pointsize>12</pointsize>
-                     <weight>50</weight>
-                     <italic>true</italic>
-                     <bold>false</bold>
-                     <kerning>true</kerning>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Base Folder:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="base_coor">
                    <property name="font">
                     <font>
                      <family>Microsoft YaHei</family>
@@ -2836,6 +2823,9 @@ padding:1px 2px;
                  <font>
                   <family>Calibri</family>
                   <pointsize>11</pointsize>
+                  <weight>50</weight>
+                  <italic>true</italic>
+                  <bold>false</bold>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -2843,6 +2833,7 @@ padding:1px 2px;
 background-color: rgb(248, 251, 255);
 border:1px solid rgb(176, 221, 255);
 border-radius:5px;
+color: rgb(85, 85, 127);
 padding:2px 4px;
 }</string>
                 </property>
@@ -3772,6 +3763,7 @@ padding:1px 2px;
                  <font>
                   <family>Calibri</family>
                   <pointsize>11</pointsize>
+                  <italic>true</italic>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -3779,6 +3771,7 @@ padding:1px 2px;
 background-color: rgb(248, 251, 255);
 border:1px solid rgb(176, 221, 255);
 border-radius:5px;
+color: rgb(85, 85, 127);
 padding:2px 4px;
 }</string>
                 </property>
