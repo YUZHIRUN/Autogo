@@ -97,6 +97,16 @@ class RegularClass:
         self.var_class = r'\(.int\d{1,}[\w\*]*?\)|\(boolean\)|\(float\d{2}\)|\(int\)'
         self.li_coor = r'li\[(\d+)\]'
         self.proto_del_bracket = r'\(.+\)'
+class graph_parse:
+    def __init__(self):
+        # draw graph
+        # self.graph_define_var = 'Define variable (\w+)'
+        self.graph_define_var_del = 'Define variable.+'
+        self.graph_if_condition = '_*IF +(?:[^{]+?)_*THEN'
+        self.graph_get_if_condition = '_*IF +([^{]+?)_*THEN'
+        self.not_equal_to = ' *not equal to *'
+        self.equal_to = ' *equal to *'
+
 
 class Xpath:
     def __init__(self):
@@ -176,7 +186,3 @@ class Xpath:
         self.user_check_err = r'//li[text()="Invalid user credentials!"]'
         self.user_check_ok = r'//a[text()="Reports"]'
         self.have_been_saved = r'//div[text()="Your changes have been successfully saved!"]'
-
-
-
-
