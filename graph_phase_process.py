@@ -12,7 +12,8 @@ def get_phase_depth(input_phase: str):
             count += 1
         else:
             break
-    return int(count / 2)
+    depth = int(count / 2) + 1
+    return depth
 
 def var_declare_proc(input_code: str):
     define_var = re.search(regular.graph_define_var_del, input_code)
@@ -44,14 +45,13 @@ def if_phase_proc(input_code: str):
         if_idx += 1
     return res_content
 
-
-
 def phase_process(input_code):
     code_content = var_declare_proc(input_code)
     code_content = if_phase_proc(code_content)
+    # print(code_content)
+    return code_content
 
-    print(code_content)
-
+#
 
 if __name__ == '__main__':
     with open('_test/test.txt', 'r') as obj:
