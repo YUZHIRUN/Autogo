@@ -94,7 +94,7 @@ def get_list_max_item(input_list: list, shape_type=rectangle):
     return res
 
 
-def get_position(draw_size, obj_info, behavior=down_position):
+def get_position(draw_size, obj_info, behavior=down_position, mode='shapes'):
     draw_width = int(draw_size[0])
     draw_height = int(draw_size[1])
     obj_position = obj_info[0]
@@ -108,10 +108,16 @@ def get_position(draw_size, obj_info, behavior=down_position):
         draw_position_x = obj_position_x - int((draw_width - obj_width) / 2)
     elif behavior == right_position:
         draw_position_x = obj_position_x + obj_width + 100
-        draw_position_y = obj_position_y - int((draw_height - obj_height) / 2)
+        if mode == 'group':
+            draw_position_y = obj_position_y
+        else:
+            draw_position_y = obj_position_y - int((draw_height - obj_height) / 2)
     elif behavior == left_position:
         draw_position_x = obj_position_x - 100 - draw_width
-        draw_position_y = obj_position_y - int((draw_height - obj_height) / 2)
+        if mode == 'group':
+            draw_position_y = obj_position_y
+        else:
+            draw_position_y = obj_position_y - int((draw_height - obj_height) / 2)
     else:
         draw_position_y = obj_position_y + obj_height + 60
         draw_position_x = obj_position_x - int((draw_width - obj_width) / 2)
@@ -201,7 +207,7 @@ def get_shapes_pack_info(shapes):
     return shapes_info
 
 
-class creat_graph:
+class create_graph:
     def __init__(self):
 
         self.module_id = 'module_1'
@@ -240,6 +246,7 @@ class creat_graph:
             coor = (self.point_middle, self.point_down)
         return coor
 
+    # region draw shapes
     def upload_new_module_id(self):
         module_id_num = int(self.module_id.split('_')[1])
         module_id_num = module_id_num + 1
@@ -250,7 +257,6 @@ class creat_graph:
         line_id_num = line_id_num + 1
         self.line_id = 'line_' + str(line_id_num)
 
-    # region draw shapes
     def draw_ellipse(self, text, rel_task=None, act=down_position):
         draw_size = get_shape_size(text)
         if rel_task is not None:
@@ -398,13 +404,13 @@ class creat_graph:
                 mx_cell = ec.SubElement(mx_cell, task_depth[module], attrib=task[module + 1])
         xml_obj = ec.ElementTree(mx_graph)
         xml_obj.write('_test/test.xml')
+
     # endregion------------------------------------------------------------------------------------------------------------------
     def get_link_node(self, input_shape, direction, text=''):
         shape_id = get_shape_id(input_shape)
         coor = self.direction_to_coor(direction)
         output = (shape_id, coor, text)
         return output
-
 
     def link_shapes(self, last_output, this_input):
         source = last_output[0]
@@ -415,17 +421,18 @@ class creat_graph:
         coor = (output_coor, input_coor)
         link_shape = self.draw_point_line(source, target, coor, text)
         return link_shape
+
     def link_shape_group(self, output_node, input_node):
         link = self.link_shapes(output_node, input_node)
         return link
+
     def connect_shape_group(self, shape_group_output, shape_group_input, act=down_position):
         output_info = get_shapes_pack_info(shape_group_output)
         input_info = get_shapes_pack_info(shape_group_input)
         input_size = input_info[1]
-        position = get_position(input_size, output_info, act)
+        position = get_position(input_size, output_info, act, mode='group')
         self.set_shape_group_position(shape_group_input, position)
         return position
-
 
     def set_shape_group_position(self, shape_group, position):
         res_group = shape_group
@@ -447,7 +454,7 @@ class creat_graph:
     #     :param input_content: input content
     #     :return: (shape_group, contents, outputs, inputs)
     #     """
-    #     graph = creat_graph()
+    #     graph = create_graph()
     #     start_shape = graph.init_shape
     #     start_output = graph.get_link_node(start_shape, 'down')
     #
@@ -469,7 +476,7 @@ class creat_graph:
 
 
 if __name__ == '__main__':
-    graph = creat_graph()
+    graph = create_graph()
     start_shape = graph.init_shape
     start_output = graph.get_link_node(start_shape, 'down')
     with open('_test/test.txt', 'r') as obj:
@@ -487,7 +494,7 @@ if __name__ == '__main__':
     for code_line in code_list:
         shape = graph.draw_rectangle(text=code_line, rel_task=last_shape_pool[0][0])
         if code_line.count('IF') != 0:
-            output_node = graph.get_link_node(shape, 'up', text='yes')
+            output_node = graph.get_link_node(shape, 'right', text='yes')
             group1_output.append(output_node)
         this_shape_input = graph.get_link_node(shape, 'up')
         this_shape_output = graph.get_link_node(shape, 'down')
@@ -513,13 +520,15 @@ if __name__ == '__main__':
             shape_group_1.append(link)
         else:
             shape = graph.draw_rectangle(text=code_line)
+            input_node = graph.get_link_node(shape, 'up')
+            group2_input.append(input_node)
             this_shape_output = graph.get_link_node(shape, 'down')
         shape_group_1.append(shape)
         last_shape_pool.append((shape, this_shape_output))
-
+    position = graph.connect_shape_group(shape_group, shape_group_1, left_position)
     link = graph.link_shape_group(group1_output[0], group2_input[0])
 
-    position = graph.connect_shape_group(shape_group, shape_group_1, right_position)
+
     shape_group.extend(shape_group_1)
     shape_group.append(link)
     graph.create_graph(shape_group)
