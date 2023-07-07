@@ -1,8 +1,8 @@
 import re
 import regular_expression
-import function_phase_proc
-import loop_phase_proc
-import other_phase_proc
+import function_phrase_proc
+import loop_phrase_proc
+import other_phrase_proc
 
 regular = regular_expression.RegularClass()
 g_tab_scale = 4
@@ -105,12 +105,12 @@ def st_en_un_del_useless(obj_list):
 
 def func_useless_del(obj_str: str):
     tab_proc = obj_str.expandtabs(tabsize=g_tab_scale)
-    phase_list = tab_proc.split('\n')
-    phase_num = len(phase_list)
-    for phase_idx in range(phase_num):
-        del_space = phase_list[phase_idx].strip()
-        phase_list[phase_idx] = del_space
-    res = '\n'.join(phase_list)
+    phrase_list = tab_proc.split('\n')
+    phrase_num = len(phrase_list)
+    for phrase_idx in range(phrase_num):
+        del_space = phrase_list[phrase_idx].strip()
+        phrase_list[phrase_idx] = del_space
+    res = '\n'.join(phrase_list)
     res = del_line_sign(res)
     return res
 
@@ -230,50 +230,50 @@ def get_global_var_types(global_var_list: list):
     return type_list
 
 
-def phase_check(input_str: str):
-    phase_property = None
+def phrase_check(input_str: str):
+    phrase_property = None
     wait_check_str = input_str.strip()
     while True:
         if wait_check_str.find('/') == 0:
             break
         if re.match(regular.break_re, wait_check_str) is not None:
-            phase_property = 'break'
+            phrase_property = 'break'
             break
         if re.match(regular.continue_re, wait_check_str) is not None:
-            phase_property = 'continue'
+            phrase_property = 'continue'
             break
         if re.match(regular.if_re, wait_check_str) is not None:
-            phase_property = 'if'
+            phrase_property = 'if'
             break
         if re.match(regular.for_re, wait_check_str) is not None:
-            phase_property = 'for'
+            phrase_property = 'for'
             break
         if re.match(regular.while_re, wait_check_str) is not None and input_str.count('}') == 0:
-            phase_property = 'while'
+            phrase_property = 'while'
             break
         if re.match(regular.do_re, wait_check_str) is not None or wait_check_str == 'do':
-            phase_property = 'do'
+            phrase_property = 'do'
             break
         if re.match(regular.switch_re, wait_check_str) is not None:
-            phase_property = 'switch'
+            phrase_property = 'switch'
             break
         if re.match(regular.return_re, wait_check_str) is not None:
-            phase_property = 'return'
+            phrase_property = 'return'
             break
         if re.match(regular.define_var_init, wait_check_str) is not None:
-            phase_property = 'define_var_init'
+            phrase_property = 'define_var_init'
             break
         if re.match(regular.set_value_re, wait_check_str) is not None:
-            phase_property = 'set_value'
+            phrase_property = 'set_value'
             break
         if re.match(regular.define_var_re, wait_check_str) is not None:
-            phase_property = 'define_var'
+            phrase_property = 'define_var'
             break
         if re.match(regular.func_re, wait_check_str) is not None:
-            phase_property = 'function'
+            phrase_property = 'function'
             break
         break
-    return phase_property
+    return phrase_property
 
 
 def pack_func_info(func_input: str):
@@ -281,10 +281,10 @@ def pack_func_info(func_input: str):
     func_list = func_input.split('\n')
     func_list = func_list[2:-1]
     for line in func_list:
-        if phase_check(line) is not None:
+        if phrase_check(line) is not None:
             depth = span_depth(line)
             line = line.strip()
-            prop = phase_check(line)
+            prop = phrase_check(line)
             content = line
             task = dict()
             task['depth'] = depth
@@ -310,43 +310,43 @@ def depth_set(input_str: str, depth):
 def property_map(task: dict):
     res = ''
     if task['prop'] == 'break':
-        res = other_phase_proc.break_phase_proc()
+        res = other_phrase_proc.break_phrase_proc()
         res = depth_set(res, task['depth'])
     if task['prop'] == 'continue':
-        res = other_phase_proc.continue_phase_proc()
+        res = other_phrase_proc.continue_phrase_proc()
         res = depth_set(res, task['depth'])
     if task['prop'] == 'if':
         res = 'if'
     if task['prop'] == 'for':
-        res = loop_phase_proc.for_phase_proc(task['content'])
+        res = loop_phrase_proc.for_phrase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'while':
-        res = loop_phase_proc.while_phase_proc(task['content'])
+        res = loop_phrase_proc.while_phrase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'do':
-        res = loop_phase_proc.do_phase_proc(task['content'])
+        res = loop_phrase_proc.do_phrase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'switch':
-        res = other_phase_proc.switch_phase_proc(task['content'])
+        res = other_phrase_proc.switch_phrase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'return':
-        res = other_phase_proc.return_phase_proc(task['content'])
+        res = other_phrase_proc.return_phrase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'define_var_init':
-        res = other_phase_proc.define_var_init_proc(task['content'])
+        res = other_phrase_proc.define_var_init_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'set_value':
-        res = other_phase_proc.set_value_phase_proc(task['content'])
+        res = other_phrase_proc.set_value_phrase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'define_var':
-        res = other_phase_proc.define_var_phase_proc(task['content'])
+        res = other_phrase_proc.define_var_phrase_proc(task['content'])
         res = depth_set(res, task['depth'])
     if task['prop'] == 'function':
-        res = function_phase_proc.func_process(task['content'])
+        res = function_phrase_proc.func_process(task['content'])
         res = depth_set(res, task['depth'])
     return res
 
 
-def if_prop_map(if_phase, task):
-    res = depth_set(if_phase, task['depth'])
+def if_prop_map(if_phrase, task):
+    res = depth_set(if_phrase, task['depth'])
     return res
