@@ -60,7 +60,9 @@ def if_phrase_proc(input_code: str):
         condition = re.sub(regular.equal_to, ' == ', condition)
         condition = condition.replace('AND', '&&')
         condition = condition.replace('OR', '||')
-        condition = condition.replace('\n', ' ')
+        condition = re.sub(regular.change_line_depth, ' ', condition)
+        condition = re.sub(regular.del_space, ' ', condition)
+        # condition = condition.replace('\n', ' ')
         res = 'IF ' + condition
         res = common.depth_set(res, depth)
         res_content = res_content.replace(if_code_list[if_idx], res)
@@ -94,27 +96,135 @@ def package_line_up(input_phrase_dict: dict):
     return code_package
 
 
-def clean_code(code: str):
-    res = code.replace('_', '')
+def del_depth_sign(input_str: str):
+    depth = get_phrase_depth(input_str)
+    sign = ''
+    for i in range(depth - 1):
+        sign = sign + '__'
+    res = input_str.replace(sign, '')
+    return res
+
+
+def func_call_process(input_str: str):
+    if input_str.count('call the function ') != 0 or input_str.count('Call the function ') != 0:
+        res = re.sub(regular.del_func_para, '', input_str)
+        res = re.sub(regular.del_func_for, '', res)
+        res = re.sub(regular.del_func_transmit, '', res)
+    else:
+        res = input_str
+    return res
+
+
+def clean_func_call(input_content: str):
+    content_list = input_content.split('\n')
+    new_list = list()
+    for content in content_list:
+        content = func_call_process(content)
+        new_list.append(content)
+    new_content = '\n'.join(new_list)
+    return new_content
+
+
+def clean_code_depth(code: str):
+    res = del_depth_sign(code)
+    res = res.strip()
+    return res
+
+def switch_clean_line(code: str):
+    res = del_depth_sign(code)
+    res = res.replace('switch ', '')
+    res = res.replace('(', '')
+    res = res.replace(')', '')
+    res = res.replace('SWITCH:', '')
+    res = res.replace('CASE:', '')
     res = res.strip()
     return res
 
 
-def check_branch(line: str):
-    if line.count('IF') == 0 and line.count('FOR') == 0 and line.count('ELSE') == 0 and line.count(
-            'WHILE') == 0 and line.count('CASE') == 0:
-        return False
+def content_clean_line(code: str):
+    res = del_depth_sign(code)
+    res = func_call_process(res)
+    res = res.strip()
+    return res
+
+
+def if_clean_line(code: str):
+    res = del_depth_sign(code)
+    res = res.replace('ELSE IF ', '', 1)
+    res = res.replace('IF', '', 1)
+    res = res.strip()
+    return res
+
+
+def while_clean_line(code: str):
+    res = del_depth_sign(code)
+    res = res.replace('WHILE', '', 1)
+    res = res.strip()
+    return res
+
+
+def do_while_clean_line(code: str):
+    res = del_depth_sign(code)
+    if res.count('DO WHILE LOOP to break') != 0:
+        res = 'FALSE TO BREAK'
     else:
+        try:
+            condition = re.search(regular.do_while_condition, res).group(1)
+        except Exception:
+            condition = 'None'
+        res = condition
+        res = res.strip()
+    return res
+
+def check_branch(line: str):
+    obj = del_depth_sign(line)
+    if obj.startswith('IF') is True or obj.startswith('FOR') is True or obj.startswith(
+            'WHILE') is True or obj.startswith(
+        'DO') is True or obj.startswith('SWITCH') is True or obj.startswith('switch') is True:
         return True
+    else:
+        return False
+
+
+def switch_case_check(line: str):
+    obj = del_depth_sign(line)
+    if obj.startswith('CASE') is True or obj.startswith('DEFAULT') is True:
+        return True
+    else:
+        return False
+
+
+def else_if_check(line: str):
+    obj = del_depth_sign(line)
+    if obj.startswith('ELSE IF') is True:
+        return True
+    else:
+        return False
+
+
+def else_check(line: str):
+    obj = del_depth_sign(line)
+    if obj.startswith('ELSE THEN') is True:
+        return True
+    else:
+        return False
 
 
 def get_phrase_type(key_index):
     content = get_content(key_index)
     content_first: str = content.split('\n')[0]
-    if content_first.count('IF') != 0:
+    content_first_obj = del_depth_sign(content_first)
+    content_first_obj = content_first_obj.strip()
+    if content_first_obj.startswith('IF') is True:
         res = 'IF'
-    elif content_first.count('FOR') != 0:
+    elif content_first_obj.startswith('FOR') is True:
         res = 'FOR'
+    elif content_first_obj.startswith('WHILE') is True:
+        res = 'WHILE'
+    elif content_first_obj.startswith('DO') is True:
+        res = 'DO_WHILE'
+    elif content_first_obj.startswith('SWITCH') is True or content_first_obj.startswith('CASE') is True or content_first_obj.startswith('switch') is True:
+        res = 'SWITCH'
     else:
         res = 'content'
     return res
@@ -146,18 +256,40 @@ def branch_pack(input_content: str):
     line_list = input_content.split('\n')
     serial_line = list()
     branch_dict = dict()
+    if_flag = False
     for depth in range(1, max_depth + 1):
         current_point = point_insert(str(depth))
         for line in line_list:
             current_depth = get_phrase_depth(line)
-            if ((check_branch(line) is True) and (depth == current_depth)) or current_depth > depth:
-                serial_line.append(line)
+            if ((check_branch(line) is True or else_if_check(line) is True or else_check(
+                    line) is True or switch_case_check(line) is True) and (
+                        depth == current_depth)) or current_depth > depth:
+                if check_branch(line) is True and depth == current_depth and if_flag is False:
+                    if_flag = True
+                    serial_line.append(line)
+                    continue
+                if if_flag is True and check_branch(line) is True and depth == current_depth:
+                    if_flag = False
+                    if line.count('DO WHILE') != 0:
+                        serial_line.append(line)
+                    else:
+                        if len(serial_line) != 0:
+                            content = '\n'.join(serial_line)
+                            branch_dict[current_point] = content
+                            current_point = point_add(current_point)
+                            serial_line.clear()
+                            serial_line.append(line)
+                            if_flag = True
+                        continue
+                else:
+                    serial_line.append(line)
             else:
                 if len(serial_line) != 0:
                     content = '\n'.join(serial_line)
                     branch_dict[current_point] = content
                     current_point = point_add(current_point)
                     serial_line.clear()
+                    if_flag = False
     return branch_dict
 
 
@@ -170,7 +302,8 @@ def content_pack(input_content: str):
         current_point = point_insert(str(depth))
         for line in line_list:
             current_depth = get_phrase_depth(line)
-            if check_branch(line) is False and current_depth == depth:
+            if (check_branch(line) is False and else_if_check(line) is False and else_check(
+                    line) is False and switch_case_check(line) is False) and current_depth == depth:
                 serial_line.append(line)
             else:
                 if len(serial_line) != 0:
@@ -200,21 +333,41 @@ def phrase_pack(input_content: str) -> list:
     line_list = input_content.split('\n')
     content_flag = 0
     branch_flag = 0
+    new_branch_flag = False
     serial_id = list()
     phrase_dict = dict()
     for depth in range(1, max_depth + 1):
         current_point = str(depth)
         for line in line_list:
             current_depth = get_phrase_depth(line)
-            if check_branch(line) is False and current_depth == depth:
+            if (check_branch(line) is False and else_if_check(line) is False and else_check(
+                    line) is False and switch_case_check(line) is False) and current_depth == depth:
                 content_flag = content_flag + 1
             else:
                 if content_flag != 0:
                     serial_id.append('content_' + content_keys[content_idx])
                     content_idx += 1
                     content_flag = 0
-            if ((check_branch(line) is True) and (depth == current_depth)) or current_depth > depth:
-                branch_flag = branch_flag + 1
+            if ((check_branch(line) is True or else_if_check(line) is True or else_check(
+                    line) is True or switch_case_check(line) is True) and (
+                        depth == current_depth)) or current_depth > depth:
+                if check_branch(line) is True and depth == current_depth and new_branch_flag is False:
+                    new_branch_flag = True
+                    branch_flag = branch_flag + 1
+                    continue
+                if new_branch_flag is True and check_branch(line) is True and depth == current_depth:
+                    new_branch_flag = False
+                    if line.count('DO WHILE') != 0:
+                        branch_flag = branch_flag + 1
+                        continue
+                    if branch_flag != 0:
+                        serial_id.append('branch_' + branch_keys[branch_idx])
+                        branch_idx += 1
+                        branch_flag = 1
+                        new_branch_flag = True
+                        continue
+                else:
+                    branch_flag = branch_flag + 1
             else:
                 if branch_flag != 0:
                     serial_id.append('branch_' + branch_keys[branch_idx])
@@ -235,6 +388,7 @@ def phrase_pack(input_content: str) -> list:
     # phrase_dict[str(max_depth - 1)] = remain_list
     code_package = package_line_up(phrase_dict)
     return code_package
+
 
 def task_merge(task_list: list):
     content = CleanContent
@@ -266,16 +420,25 @@ def task_merge(task_list: list):
                 code_pack.clear()
     return fifo
 
-def phrase_process(input_code):
-    global CleanContent
+
+def wash_code(input_code: str):
     code_content = var_declare_proc(input_code)
     code_content = if_phrase_proc(code_content)
     code_content = set_start(code_content)
+    code_content = clean_func_call(code_content)
+    code_content = re.sub(regular.del_space, ' ', code_content)
+    code_content = re.sub(regular.error_else_then, '', code_content)
+    code_content = common.del_line_sign(code_content)
+    return code_content
+
+
+def phrase_process(input_code):
+    global CleanContent
+    code_content = wash_code(input_code)
     CleanContent = code_content
     phrase_task = phrase_pack(code_content)
     fifo = task_merge(phrase_task)
     return fifo
-
 
 
 if __name__ == '__main__':

@@ -45,7 +45,7 @@ def do_phrase_proc(input_phrase: str):
         if do_condition == 'FALSE':
             res = 'DO WHILE LOOP to break'
         else:
-            res = '(LOOP) IF condition ' + str(do_condition) + ' is TRUE to continue loop ELSE break'
+            res = 'DO WHILE condition ' + str(do_condition) + ' is TRUE to continue loop ELSE break'
     else:
         res = ''
     return res

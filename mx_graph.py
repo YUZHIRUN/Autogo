@@ -29,6 +29,20 @@ shape_shape = 3
 Yes = 'Yes'
 No = 'No'
 
+def indent(elem, level=0):
+    i = "\n" + level*"\t"
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "\t"
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
 
 def get_object_type(unknown_input):
     if isinstance(unknown_input[0], tuple) is True:
@@ -135,10 +149,13 @@ def get_shape_relative_position(this_draw_size, object_shape, behavior=down_posi
     draw_position = (str(draw_position_x), str(draw_position_y))
     return draw_position
 
-def get_group_rel_info(group):
+def get_this_group_rel_info(group):
     min_y = int('0xFFFF', 16)
     rel_shape_info = None
     for shape in group:
+        shape_id = get_shape_id(shape)
+        if shape_id.count('arrow') != 0:
+            continue
         shape_position = get_object_info(shape)[0]
         shape_y = int(shape_position[1])
         if shape_y < min_y:
@@ -146,13 +163,56 @@ def get_group_rel_info(group):
             rel_shape_info = get_object_info(shape)
     return rel_shape_info
 
+def get_obj_group_rel_info(group):
+    min_x = int('0xFFFF', 16)
+    max_y = 0
+    x_position = ''
+    y_position = ''
+    shape_new_size = ('120', '60')
+    for shape in group:
+        shape_id = get_shape_id(shape)
+        shape_position = get_object_info(shape)[0]
+        shape_x = int(shape_position[0])
+        shape_y = int(shape_position[1])
+        if shape_y > max_y:
+            max_y = shape_y
+            shape_info = get_object_info(shape)
+            y_position = shape_info[0][1]
+            if shape_id.count('arrow') != 0:
+                y_position = str(int(y_position) - 0)
+        if shape_id.count('arrow') != 0 or shape_id.count('line') != 0:
+            continue
+        if shape_x < min_x:
+            min_x = shape_x
+            shape_info = get_object_info(shape)
+            shape_y = int(shape_info[0][1])
+            offset = abs(max_y - shape_y)
+            shape_size = shape_info[1]
+            shape_height = int(shape_size[1])
+            shape_height = str(shape_height + offset)
+            shape_width = shape_size[0]
+            shape_new_size = (shape_width, shape_height)
+            x_position = shape_info[0][0]
+    rel_shape_position = (x_position, y_position)
+    rel_shape_size = shape_new_size
+    rel_shape_info = (rel_shape_position, rel_shape_size)
+    return rel_shape_info
+
 def get_object_relative_potion(rel_obj, this_obj, position=down_position, put_mode=shape_shape):
-    rel_type = get_object_type(rel_obj)
-    rel_obj_info = get_object_info(rel_obj, rel_type)
     this_type = get_object_type(this_obj)
-    if position == down_position and this_type == Group:
-        this_info = get_group_rel_info(this_obj)
+    rel_type = get_object_type(rel_obj)
+    if position == down_position and this_type == Group and rel_type == Group:
+        this_info = get_this_group_rel_info(this_obj)
+        rel_obj_info = get_obj_group_rel_info(rel_obj)
+    elif position == down_position and this_type == Group:
+        this_info = get_this_group_rel_info(this_obj)
+        rel_obj_info = get_object_info(rel_obj, rel_type)
+    elif position == down_position and this_type == Shape and rel_type == Group:
+        this_info = get_object_info(this_obj)
+        rel_obj_info = get_obj_group_rel_info(rel_obj)
     else:
+        # rel_type = get_object_type(rel_obj)
+        rel_obj_info = get_object_info(rel_obj, rel_type)
         this_info = get_object_info(this_obj, this_type)
 
     this_position = this_info[0]
@@ -168,7 +228,7 @@ def get_object_relative_potion(rel_obj, this_obj, position=down_position, put_mo
     rel_x = int(rel_position[0])
     rel_y = int(rel_position[1])
     offset_y = 60
-    offset_x = 60
+    offset_x = 40
     if put_mode == shape_shape:
         if position == down_position:
             draw_position_y = rel_y + rel_height + offset_y
@@ -597,6 +657,7 @@ class create_graph:
                 for module in range(1, task_depth_len):
                     mx_cell = ec.SubElement(mx_cell, task_depth[module], attrib=task[module + 1])
         xml_obj = ec.ElementTree(mx_graph)
+        indent(root)
         xml_obj.write('_test/test.xml')
 
     # endregion------------------------------------------------------------------------------------------------------------------
@@ -628,14 +689,35 @@ class create_graph:
             link = self.draw_arrow_line(source_coor, target_coor, text=text)
         else:
             array_1_x = source_coor_x
-            array_1_y = source_coor_y + 30
+            array_1_y = source_coor_y + int((target_coor_y - source_coor_y) / 2)
             array_2_x = target_coor_x
-            array_2_y = target_coor_y - 30
+            array_2_y = array_1_y
             array_1 = (str(array_1_x), str(array_1_y))
             array_2 = (str(array_2_x), str(array_2_y))
             array = [array_1, array_2]
             link = self.draw_arrow_line(source_coor, target_coor, array, text=text)
         return link
+
+    def default_right_link(self, source_shape, target_shape, text=''):
+        source_coor = get_object_coor(source_shape, 'right')
+        target_coor = get_object_coor(target_shape, 'left')
+        source_coor_x = int(source_coor[0])
+        source_coor_y = int(source_coor[1])
+        target_coor_x = int(target_coor[0])
+        target_coor_y = int(target_coor[1])
+        if source_coor_y == target_coor_y:
+            link = self.draw_arrow_line(source_coor, target_coor, text=text)
+        else:
+            array_1_x = source_coor_x + int((target_coor_x - source_coor_x) / 2)
+            array_1_y = source_coor_y
+            array_2_x = array_1_x
+            array_2_y = target_coor_y
+            array_1 = (str(array_1_x), str(array_1_y))
+            array_2 = (str(array_2_x), str(array_2_y))
+            array = [array_1, array_2]
+            link = self.draw_arrow_line(source_coor, target_coor, array, text=text)
+        return link
+
 
     def default_down_line(self, shape, line_length=30):
         output_coor = get_object_coor(shape)
@@ -647,6 +729,16 @@ class create_graph:
         link = self.draw_arrow_line(source=output_coor, target=destination_coor, arrow_mode='None')
         return link
 
+    def default_up_line(self, shape, line_length=30, text=''):
+        output_coor = get_object_coor(shape, 'up')
+        output_coor_x = int(output_coor[0])
+        output_coor_y = int(output_coor[1])
+        des_coor_x = output_coor_x
+        des_coor_y = output_coor_y - line_length
+        des_coor = (str(des_coor_x), str(des_coor_y))
+        link = self.draw_arrow_line(source=output_coor, target=des_coor, arrow_mode='None', text=text)
+        return link
+
     def default_down_line_from_coor(self, coor, line_length=30, text=''):
         destination_coor_x = coor[0]
         destination_coor_y = str(int(coor[1]) + line_length)
@@ -655,7 +747,7 @@ class create_graph:
         return link
 
 
-    def default_down_left_or_right(self, source_shape, target_coor):
+    def default_down_left_or_right(self, source_shape, target_coor, mode='classic'):
         source_coor = get_object_coor(source_shape)
         source_coor_x = int(source_coor[0])
         source_coor_y = int(source_coor[1])
@@ -665,25 +757,7 @@ class create_graph:
         array_1_y = target_coor_y
         array_1 = (str(array_1_x), str(array_1_y))
         array = [array_1, ]
-        link = self.draw_arrow_line(source_coor, target_coor, array)
-        return link
-
-    def default_left_up_right_link(self, source_shape, target_shape, rel_x):
-        source_coor = get_object_coor(source_shape)
-        target_coor = get_object_coor(target_shape, 'left')
-        source_info = get_object_info(source_shape)[1]
-        source_width = int(source_info[0])
-        source_coor_x = int(source_coor[0])
-        source_coor_y = int(source_coor[1])
-        target_coor_y = int(target_coor[1])
-        array_1_x = rel_x - 30
-        array_1_y = source_coor_y
-        array_2_x = array_1_x
-        array_2_y = target_coor_y
-        array_1 = (str(array_1_x), str(array_1_y))
-        array_2 = (str(array_2_x), str(array_2_y))
-        array = [array_1, array_2]
-        link = self.draw_arrow_line(source_coor, target_coor, array)
+        link = self.draw_arrow_line(source_coor, target_coor, array, arrow_mode=mode)
         return link
 
     def default_right_down_link(self, source_shape, target_shape, text=''):
@@ -700,6 +774,45 @@ class create_graph:
         link = self.draw_arrow_line(source_coor, target_coor, array, text=text)
         return link
 
+    def default_left_up_right_link(self, source_shape, target_shape, rel_x):
+        source_coor = get_object_coor(source_shape)
+        target_coor = get_object_coor(target_shape, 'left')
+        source_info = get_object_info(source_shape)[1]
+        source_width = int(source_info[0])
+        source_coor_x = int(source_coor[0])
+        source_coor_y = int(source_coor[1])
+        target_coor_y = int(target_coor[1])
+        array_1_x = rel_x - 40
+        array_1_y = source_coor_y
+        array_2_x = array_1_x
+        array_2_y = target_coor_y
+        array_1 = (str(array_1_x), str(array_1_y))
+        array_2 = (str(array_2_x), str(array_2_y))
+        array = [array_1, array_2]
+        link = self.draw_arrow_line(source_coor, target_coor, array)
+        return link
+
+    def default_down_left_up_right_link(self, source_shape, target_shape, rel_x, text=''):
+        source_coor = get_object_coor(source_shape, 'down')
+        target_coor = get_object_coor(target_shape, 'left')
+        source_coor_x = int(source_coor[0])
+        source_coor_y = int(source_coor[1])
+        target_coor_x = int(target_coor[0])
+        target_coor_y = int(target_coor[1])
+
+        array_1_x = source_coor_x
+        array_1_y = source_coor_y + 30
+        array_2_x = rel_x - 40
+        array_2_y = array_1_y
+        array_3_x = array_2_x
+        array_3_y = target_coor_y
+        array_1 = (str(array_1_x), str(array_1_y))
+        array_2 = (str(array_2_x), str(array_2_y))
+        array_3 = (str(array_3_x), str(array_3_y))
+        array = [array_1, array_2, array_3]
+        link = self.draw_arrow_line(source_coor, target_coor, array, text=text)
+        return link, array_1
+
     def default_right_down_left_link(self, source_shape, target_coor, rel_x, text=''):
         source_coor = get_object_coor(source_shape, 'right')
         size = get_object_info(source_shape)[1]
@@ -708,7 +821,7 @@ class create_graph:
         source_coor_y = int(source_coor[1])
         target_coor_x = int(target_coor[0])
         target_coor_y = int(target_coor[1])
-        array_1_x = rel_x + 30
+        array_1_x = rel_x + 40
         array_1_y = source_coor_y
         array_2_x = array_1_x
         array_2_y = target_coor_y
@@ -729,7 +842,7 @@ class create_graph:
         target_coor_x = output_coor_x
         target_coor_y = output_coor_y + 60
         target_coor = (str(target_coor_x), str(target_coor_y))
-        array_1_x = rel_x + 30
+        array_1_x = rel_x + 40
         array_1_y = source_coor_y
         array_2_x = array_1_x
         array_2_y = output_coor_y + 30
@@ -739,7 +852,7 @@ class create_graph:
         array_2 = (str(array_2_x), str(array_2_y))
         array_3 = (str(array_3_x), str(array_3_y))
         array = [array_1, array_2, array_3]
-        link = self.draw_arrow_line(source_coor, target_coor, array, text=text)
+        link = self.draw_arrow_line(source_coor, target_coor, arrow_mode='None', array=array, text=text)
         return link, target_coor
 
     def put_shape_group(self, rel_obj, this_obj, act=down_position, put_mode=shape_shape):
@@ -790,15 +903,14 @@ class create_graph:
 #
 if __name__ == '__main__':
     graph = create_graph()
-    task_1 = graph.draw_rhombus(
-        text='ELSE IF (TRUE == stSysStatus.u8QRSEnable) || (stSysStatus.u8NVEMAbschaltstufe > 2)')
-
-    task_2 = graph.draw_rhombus(text='IF FALSE == boolRoutinePlay')
-    task_3 = graph.draw_rectangle(text='Call the function RCtApSwcAnimationPlayTurnOffAllLed()', rel_task=task_2)
-    link_23 = graph.default_down_link(task_2, task_3)
-    group = [task_2, task_3, link_23]
-    graph.put_shape_group(task_1, group, act=right_position, put_mode=shape_group)
-    # graph.put_shape_group(task_1, group, put_mode=shape_group)
+    group = list()
+    task_0 = graph.init_shape
+    down_line = graph.default_down_line(task_0)
+    group_0 = [task_0, down_line]
+    task_1 = graph.draw_rectangle(text='test_1')
+    graph.put_shape_group(group_0, task_1)
+    # group.append(task_0)
+    # group.append(down_line)
+    group.extend(group_0)
     group.append(task_1)
-
     graph.create_graph(group)

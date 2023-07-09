@@ -106,6 +106,14 @@ class graph_parse:
         self.graph_get_if_condition = '_*IF +([^{]+?)_*THEN'
         self.not_equal_to = ' *not equal to *'
         self.equal_to = ' *equal to *'
+        self.error_else_then = r'ELSE THEN\n(?!_)'
+        self.change_line_depth = r'\n_*'
+        self.del_space = r' +'
+        self.del_func_para = r'\(.+\)'
+        self.del_func_for = r' for.+'
+        self.del_func_transmit = r' and transmit.+'
+        self.do_while_condition = r'DO WHILE condition (.+) is TRUE to continue loop ELSE break'
+
 
 
 class Xpath:
