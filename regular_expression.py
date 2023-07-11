@@ -33,7 +33,7 @@ class RegularClass:
         self.if_re = r'if *\(.+?\)|else.*'
         self.for_re = r'for *\(.+\)'
         self.do_re = r'do *\{|\} *while *\((.+?\));'
-        self.switch_re = r'switch *\(([^\n\{}]+)\)|case +([^\n\{}]+):|default *:'
+        self.switch_re = r'switch *\(([^\n\{\}]+)\)|case +([^\n\{}]+):|default *:'
         self.while_re = r'while *\(.+?\)'
         self.set_value_re = r' *(?:[^\n,;|&=+]+?) *(?:[\^=|&+-]?=) *(?:.+?);|(\S+) *[+-]{2} *;'
         self.define_var_re = r'(?:volatile|const)* *(?:[\w\*]+) +(?:[\w, \[\]\*]+) *;'
@@ -196,3 +196,15 @@ class Xpath:
         self.user_check_err = r'//li[text()="Invalid user credentials!"]'
         self.user_check_ok = r'//a[text()="Reports"]'
         self.have_been_saved = r'//div[text()="Your changes have been successfully saved!"]'
+
+        self.diagram_iframe = r'//iframe[@class="full-screen"]'
+        self.insert_graph_select = r'//span[text()="Insert or Edit Diagram"]/../../button[5]'
+        self.insert_graph_bt = r'//span[text()="Insert from Documents"]/../../../li[1]/a'
+        self.extra_menu = r'//div[@class="geMenubarContainer"]/div/a[5]'
+        self.edit_diagram = r'//td[text()="Edit Diagram..."]'
+        self.diagram_text_area = r'//div[@class="geDialog"]/div/textarea'
+        self.graph_ok = r'//div[@class="geDialog"]/div/button[2]'
+        self.graph_save = r'//div[@class="actionBar "]/input'
+
+
+

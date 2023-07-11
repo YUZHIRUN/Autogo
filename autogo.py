@@ -1,6 +1,7 @@
 import time
 import autogo_input
 import re
+import pyperclip
 from selenium.webdriver.support.wait import WebDriverWait
 import generate_code
 import regular_expression
@@ -129,6 +130,12 @@ def open_fold_xpath(coordinate: str):
 def wait_loading():
     driver.implicitly_wait(WAIT_TIME)
 
+def switch_to_frame(xpath: str):
+    frame = driver.find_element(By.XPATH, value=xpath)
+    driver.switch_to.frame(frame)
+
+def switch_to_back():
+    driver.switch_to.parent_frame()
 
 def context_click(xpath: str):
     ActionChains(driver).context_click(driver.find_element(By.XPATH, value=xpath)).perform()
@@ -148,6 +155,9 @@ def move_to_element(xpath: str):
 
 def send_key(xpath: str, content: str):
     driver.find_element(By.XPATH, value=xpath).send_keys(content)
+
+def clear_content(xpath: str):
+    driver.find_element(By.XPATH, value=xpath).clear()
 
 def move_mouse_to(xpath: str):
     ActionChains(driver).move_to_element(to_element=driver.find_element(By.XPATH, value=xpath)).perform()
@@ -408,7 +418,7 @@ def func_item_build_process(base_position: str, func_name, func_type, current_co
                    content=('func_dynamic@' + func_info))
     flow_chart_coor = get_now_coor(dynamic_coor, 'after')
     build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
-                   content='flow_chart')
+                   content=('chart@' + func_info))
     detail_folder_coor = get_now_coor(flow_chart_coor, 'after')
     build_new_item(position=(current_coor, detail_folder_coor), title='Function Logic Description',
                    item_type=object_type[folder])
@@ -593,7 +603,9 @@ def detail_process(content: str, xpath_list):
         except Exception:
             func_content = ''
     click(g_xpath.input_content)
-    send_key(g_xpath.input_content, func_content)
+    pyperclip.copy(func_content)
+    driver.find_element(By.XPATH, value=g_xpath.input_content).send_keys(Keys.CONTROL, 'v')
+    # send_key(g_xpath.input_content, func_content)
     input_save()
     click(xpath_list[1])
     select_object_type(object_type[function])
@@ -872,6 +884,30 @@ def func_process(base_position, func_type='local'):
             func_item_build_process(base_position, func_name, func_type, obj_current_coor)
             obj_current_coor = get_now_coor(obj_current_coor, 'after')
 
+def flow_chart_process(content):
+    content_list = content.split('@')
+    func_type = content_list[1]
+    func_name = content_list[2]
+    xml_info = autogo_input.get_code_pseudo_code_to_xml(func_name, func_type)
+    click(g_xpath.input_content)
+    click(g_xpath.paint_button)
+    click(g_xpath.insert_graph_select)
+    click(g_xpath.insert_graph_bt)
+    switch_to_frame(g_xpath.diagram_iframe)
+    click(g_xpath.extra_menu)
+    click(g_xpath.edit_diagram)
+    clear_content(g_xpath.diagram_text_area)
+    pyperclip.copy(xml_info)
+    click(g_xpath.diagram_text_area)
+    driver.find_element(By.XPATH, value=g_xpath.diagram_text_area).send_keys(Keys.CONTROL, 'v')
+    click(g_xpath.graph_ok)
+    click(g_xpath.graph_save)
+    wait_loading()
+    switch_to_back()
+    wait_item_load(g_xpath.input_title)
+    time.sleep(0.5)
+
+
 
 def build_new_item(position: tuple, title: str, item_type=object_type[function], content: str = None):
     xpath = get_destination_xpath(position[0])
@@ -879,6 +915,8 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
     xpath_list = [xpath, end_xpath]
     time.sleep(0.5)
     move_to_element(xpath)
+    wait_item_load(xpath)
+    click(xpath)
     context_click(xpath)
     click(g_xpath.insert_new_child)
     input_title(title)
@@ -914,8 +952,8 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
             unit_var_item_process(content)
         elif content.startswith('func_dynamic@') is True:
             func_dynamic_item_process(content)
-        elif content == 'flow_chart':
-            pass
+        elif content.startswith('chart') is True:
+            flow_chart_process(content)
         elif content.startswith('detail@') != 0:
             detail_process(content, xpath_list)
             break
@@ -946,7 +984,7 @@ def auto_go_active(component: str, config: dict):
         open_fold_xpath(coordination)
         component_coor = g_obj_coor
 
-        # build_new_item(position=(coordination, component_coor), title=component, item_type=object_type[folder], content='test')
+        # build_new_item(position=(coordination, component_coor), title='chart', item_type=object_type[folder], content='chart@local@RCtApSwcPriAr_GlobalTriggerInfoGet')
 
         build_new_item(position=(coordination, component_coor), title=component, item_type=object_type[folder])
         c_file_fold_coor = get_now_coor(component_coor, 'inner')

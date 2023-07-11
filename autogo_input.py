@@ -1,6 +1,7 @@
 import generate_code
 import common
 import re
+import draw_graph
 import regular_expression
 
 regular = regular_expression.RegularClass()
@@ -391,8 +392,25 @@ def get_unit_var(func_name, func_type='local'):
             unit_types.append(var_type)
     return unit_types, unit_names
 
-
-# def dynamic_call_get(func_name, func_type='local'):
+def get_code_pseudo_code_to_xml(func_name, func_type = 'local'):
+    global_pseudo_code = generate_code.g_global_code_list
+    local_pseudo_code = generate_code.g_local_code_list
+    if func_type == 'local':
+        function_names = generate_code.g_local_func_names
+        try:
+            func_idx = function_names.index(func_name)
+        except Exception:
+            func_idx = 0
+        pseudo_code = local_pseudo_code[func_idx]
+    else:
+        function_names = generate_code.g_global_func_names
+        try:
+            func_idx = function_names.index(func_name)
+        except Exception:
+            func_idx = 0
+        pseudo_code = global_pseudo_code[func_idx]
+    xml_info = draw_graph.get_graph_xml(pseudo_code)
+    return xml_info
 
 
 def clear_information():

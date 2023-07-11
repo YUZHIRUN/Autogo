@@ -1,4 +1,5 @@
 import generate_code
+import draw_graph
 import common
 import regular_expression
 import re
@@ -440,18 +441,61 @@ def error_else_then_proc(input_code: str):
             code_idx += 1
     res = '\n'.join(code_list)
     return res
-    # else_then_obj = re.search(regular.error_else_then, input_code)
-    # if else_then_obj is not None:
-    #     else_then_list = re.findall(regular.error_else_then, input_code)
-    #     for e in else_then_list:
-    #         current_depth = get_phrase_depth(e)
-    #         else_then_idx = code_list.index(e)
-    #         next_depth = get_phrase_depth(code_list[else_then_idx + 1])
-    #         if next_depth <= current_depth:
-    #             code_list.remove(e)
-    # res = '\n'.join(code_list)
-    # return res
 
+def switch_depth_adjustment(input_code: str):
+    code_list =input_code.split('\n')
+    code_list_len = len(code_list)
+    idx = 0
+    switch_depth = 0
+    switch_start_flag = False
+    default_flag = True
+    while idx < code_list_len:
+        code_line = code_list[idx]
+        if del_depth_sign(code_line).startswith('SWITCH') is True or del_depth_sign(code_line).startswith('switch') is True:
+            switch_depth = get_phrase_depth(code_line)
+            default_flag = False
+            switch_start_flag = True
+            idx += 1
+            continue
+        if del_depth_sign(code_line).startswith('CASE') is True and default_flag is False and switch_start_flag is True:
+            case_depth = get_phrase_depth(code_line)
+            case = del_depth_sign(code_line)
+            case = common.depth_set(case, switch_depth)
+            code_list[idx] = case
+            idx += 1
+        elif del_depth_sign(code_line).startswith('DEFAULT') is True and default_flag is False and switch_start_flag is True:
+            default = del_depth_sign(code_line)
+            default = common.depth_set(default, switch_depth)
+            code_list[idx] = default
+            default_flag = True
+            idx += 1
+        elif default_flag is True and switch_start_flag is True:
+            current_depth = get_phrase_depth(code_line)
+            if current_depth > switch_depth + 1:
+                content = del_depth_sign(code_line)
+                content = common.depth_set(content, current_depth - 1)
+                code_list[idx] = content
+                if del_depth_sign(code_line).startswith('BREAK') is True:
+                    break
+                else:
+                    idx += 1
+            else:
+                idx += 1
+        elif switch_start_flag is True:
+            current_depth = get_phrase_depth(code_line)
+            if current_depth > switch_depth + 1:
+                content = del_depth_sign(code_line)
+                content = common.depth_set(content, current_depth - 1)
+                code_list[idx] = content
+                idx += 1
+            else:
+                idx += 1
+                continue
+        else:
+            idx += 1
+            continue
+    res = '\n'.join(code_list)
+    return res
 
 def wash_code(input_code: str):
     code_content = var_declare_proc(input_code)
@@ -460,7 +504,7 @@ def wash_code(input_code: str):
     code_content = clean_func_call(code_content)
     code_content = re.sub(regular.del_space, ' ', code_content)
     code_content = error_else_then_proc(code_content)
-    # code_content = re.sub(regular.error_else_then, '', code_content)
+    code_content = switch_depth_adjustment(code_content)
     code_content = common.del_line_sign(code_content)
     return code_content
 
@@ -473,10 +517,11 @@ def phrase_process(input_code):
     fifo = task_merge(phrase_task)
     return fifo
 
-
+#
 if __name__ == '__main__':
     with open('_test/test_1.txt', 'r') as obj:
         content = obj.read()
-        fifo = phrase_process(content)
-        print(fifo)
+        xml_info = draw_graph.get_graph_xml(content)
+        # fifo = phrase_process(content)
+        print(xml_info)
         input()

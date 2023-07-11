@@ -626,18 +626,26 @@ def task_analyze(task):
         put_item_to_stack(res_info)
 
 
-# def draw_mx_graph(code_object):
-#     fifo: list = cp.phrase_process(code_object)
-#     for task in fifo:
-#         task_analyze(task)
-#     finally_group = get_group_from_stack()
-#     graph.create_graph(finally_group)
-
-
-if __name__ == '__main__':
-    init_operate()
-    fifo: list = cp.phrase_process(g_content)
+def draw_mx_graph(code_object):
+    fifo: list = cp.phrase_process(code_object)
     for task in fifo:
         task_analyze(task)
     finally_group = get_group_from_stack()
     graph.create_graph(finally_group)
+
+
+def get_graph_xml(code_object):
+    draw_mx_graph(code_object)
+    with open('.private/_graph.xml', 'r') as xml_obj:
+        xml_content = xml_obj.read()
+    return xml_content
+
+#
+#
+# if __name__ == '__main__':
+#     init_operate()
+#     fifo: list = cp.phrase_process(g_content)
+#     for task in fifo:
+#         task_analyze(task)
+#     finally_group = get_group_from_stack()
+#     graph.create_graph(finally_group)
