@@ -42,6 +42,7 @@ class RegularClass:
         self.return_re = r'return +.+?;'
         self.break_re = r'break *;'
         self.continue_re = r'continue *;'
+        self.macro_call = r'\w+;'
 
         # get information regular
         self.get_for_info = r'for *\((.+?);(.+?);(.+?)\)'
@@ -77,7 +78,7 @@ class RegularClass:
         self.common_func = r'(?:\(void\))* *([\w]+?)\(.*?\);'
 
         # switch phase class regular
-        self.switch = r'switch *\(([\w\(\)]+)\)'
+        self.switch = r'switch *\(([^\n\{\}]+)\)'
         self.case = r'case +([\w\(\)]+):'
         self.default = r'default *:'
 
@@ -106,7 +107,8 @@ class graph_parse:
         self.graph_get_if_condition = '_*IF +([^{]+?)_*THEN'
         self.not_equal_to = ' *not equal to *'
         self.equal_to = ' *equal to *'
-        self.error_else_then = r'ELSE THEN\n(?!_)'
+        # self.error_else_then = r'ELSE THEN\n(?!_)'
+        self.error_else_then = r'_*ELSE THEN'
         self.change_line_depth = r'\n_*'
         self.del_space = r' +'
         self.del_func_para = r'\(.+\)'

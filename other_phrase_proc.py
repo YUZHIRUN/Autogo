@@ -70,7 +70,6 @@ def return_phrase_proc(input_phrase: str):
         res = input_phrase
     return res
 
-
 def switch_phrase_proc(input_phrase: str):
     switch_phrase = re.search(regular.switch, input_phrase)
     case_phrase = re.search(regular.case, input_phrase)
@@ -85,4 +84,8 @@ def switch_phrase_proc(input_phrase: str):
         res = 'DEFAULT: '
     else:
         res = input_phrase
+    return res
+
+def macro_call_proc(input_phase: str):
+    res = 'Call the macro ' + input_phase
     return res

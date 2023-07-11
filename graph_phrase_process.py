@@ -373,6 +373,7 @@ def phrase_pack(input_content: str) -> list:
                     serial_id.append('branch_' + branch_keys[branch_idx])
                     branch_idx += 1
                     branch_flag = 0
+                    new_branch_flag = False
         if content_flag != 0:
             serial_id.append('content_' + content_keys[content_idx])
             content_idx += 1
@@ -420,6 +421,37 @@ def task_merge(task_list: list):
                 code_pack.clear()
     return fifo
 
+def error_else_then_proc(input_code: str):
+    code_list = input_code.split('\n')
+    code_list_len = len(code_list)
+    code_idx = 0
+    while code_idx < code_list_len:
+        else_then_check = re.search(regular.error_else_then, code_list[code_idx])
+        if else_then_check is not None:
+            current_depth = get_phrase_depth(code_list[code_idx])
+            next_depth = get_phrase_depth(code_list[code_idx + 1])
+            if next_depth <= current_depth:
+                del code_list[code_idx]
+                code_idx = 0
+                code_list_len = len(code_list)
+            else:
+                code_idx += 1
+        else:
+            code_idx += 1
+    res = '\n'.join(code_list)
+    return res
+    # else_then_obj = re.search(regular.error_else_then, input_code)
+    # if else_then_obj is not None:
+    #     else_then_list = re.findall(regular.error_else_then, input_code)
+    #     for e in else_then_list:
+    #         current_depth = get_phrase_depth(e)
+    #         else_then_idx = code_list.index(e)
+    #         next_depth = get_phrase_depth(code_list[else_then_idx + 1])
+    #         if next_depth <= current_depth:
+    #             code_list.remove(e)
+    # res = '\n'.join(code_list)
+    # return res
+
 
 def wash_code(input_code: str):
     code_content = var_declare_proc(input_code)
@@ -427,7 +459,8 @@ def wash_code(input_code: str):
     code_content = set_start(code_content)
     code_content = clean_func_call(code_content)
     code_content = re.sub(regular.del_space, ' ', code_content)
-    code_content = re.sub(regular.error_else_then, '', code_content)
+    code_content = error_else_then_proc(code_content)
+    # code_content = re.sub(regular.error_else_then, '', code_content)
     code_content = common.del_line_sign(code_content)
     return code_content
 

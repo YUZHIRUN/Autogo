@@ -44,11 +44,18 @@ def indent(elem, level=0):
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
 
+# def get_object_type(unknown_input):
+#     if isinstance(unknown_input[0], tuple) is True:
+#         res = Group
+#     else:
+#         res = Shape
+#     return res
+
 def get_object_type(unknown_input):
-    if isinstance(unknown_input[0], tuple) is True:
-        res = Group
-    else:
+    if isinstance(unknown_input[0], dict) is True:
         res = Shape
+    else:
+        res = Group
     return res
 
 

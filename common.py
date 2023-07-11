@@ -242,7 +242,7 @@ def phrase_check(input_str: str):
         if re.match(regular.continue_re, wait_check_str) is not None:
             phrase_property = 'continue'
             break
-        if re.match(regular.if_re, wait_check_str) is not None:
+        if re.search(regular.if_re, wait_check_str) is not None:
             phrase_property = 'if'
             break
         if re.match(regular.for_re, wait_check_str) is not None:
@@ -272,6 +272,8 @@ def phrase_check(input_str: str):
         if re.match(regular.func_re, wait_check_str) is not None:
             phrase_property = 'function'
             break
+        if re.match(regular.macro_call, wait_check_str) is not None:
+            phrase_property = 'macro_call'
         break
     return phrase_property
 
@@ -343,6 +345,9 @@ def property_map(task: dict):
         res = depth_set(res, task['depth'])
     if task['prop'] == 'function':
         res = function_phrase_proc.func_process(task['content'])
+        res = depth_set(res, task['depth'])
+    if task['prop'] == 'macro_call':
+        res = other_phrase_proc.macro_call_proc(task['content'])
         res = depth_set(res, task['depth'])
     return res
 

@@ -397,10 +397,14 @@ def for_process(content_key: str):
             for_group_left_x = int(get_obj_coor(for_group, direction='left')[0])
             for_group_right_x = int(get_obj_coor(for_group, direction='right')[0])
             link = graph.default_down_link(shape, for_group_input_shape, text='YES')
-            for_link = graph.default_left_up_right_link(for_group_output_shape, shape, rel_x=for_group_left_x)
-            output_coor = mx.get_object_coor(for_group_output_shape)
+
+            output_line = graph.default_down_line(for_group_output_shape, line_length=20)
+
+            for_link = graph.default_left_up_right_link(output_line, shape, rel_x=for_group_left_x)
+            output_coor = mx.get_object_coor(output_line)
             for_else_link, target_coor = graph.default_right_down_left_down_line(shape, output_coor,
                                                                                  rel_x=for_group_right_x, text='NO')
+            shape_group.append(output_line)
             shape_group.extend(for_group)
             shape_group.append(shape)
             shape_group.append(link)
@@ -615,6 +619,7 @@ def task_analyze(task):
                 shape_group.append(link)
                 last_group = group
                 last_output_shape = get_shape_from_id(group, output_node)
+                test_create_group(shape_group)
         new_output_node = mx.get_shape_id(last_output_shape)
         res_info = (shape_group, new_input_node, new_output_node)
         test_create_group(shape_group)
