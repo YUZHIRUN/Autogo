@@ -1,12 +1,9 @@
 import sys
 import safe
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QGuiApplication
-
 import code_generate_op
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import QtCore
-
 
 if __name__ == '__main__':
     if safe.right_verification() is True:
@@ -26,11 +23,13 @@ if __name__ == '__main__':
         widget_obj.trigger_select_file()
         widget_obj.trigger_load()
         widget_obj.trigger_clear()
-
         widget_obj.trigger_auto_go()
         widget_obj.trigger_build_record()
         widget_obj.trigger_close_record()
-
+        widget_obj.trigger_convert_code()
+        widget_obj.trigger_convert_graph()
+        widget_obj.trigger_pseudo_code_clear()
+        widget_obj.trigger_graph_xml_clear()
         widget_obj.trigger_disp_func()
         widget_obj.trigger_disp_global_var()
         widget_obj.trigger_disp_macro()

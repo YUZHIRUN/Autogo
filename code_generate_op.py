@@ -8,6 +8,7 @@ import check_user
 import generate_code
 import error_code
 import threading
+import convert_item as convert
 from tkinter import filedialog
 from PyQt5.QtCore import QTimer
 
@@ -27,6 +28,7 @@ def add_user(user_info: list):
     with open('.private/_user.csv', 'a') as user_obj:
         writer = csv.writer(user_obj)
         writer.writerow(user_info)
+
 
 def user_reg(user_info: list):
     res = err.user_info_err
@@ -454,6 +456,32 @@ class gui_op(Autogo_ui.Ui_MainWindow):
         op_lock.release()
         self.load_status = 'review_over'
 
+    def event_convert_code(self):
+        origin_code = self.origin_code.toPlainText()
+        if err.void_check(origin_code) is True:
+            res_code = 'No Origin code!'
+        else:
+            res_code = convert.convert_code_to_pseudo(origin_code)
+        self.pseudo_code.clear()
+        self.pseudo_code.setPlainText(res_code)
+
+    def event_convert_graph_to_xml(self):
+        origin_code = self.graph_origin.toPlainText()
+        if err.void_check(origin_code) is True:
+            res_xml = 'No Origin Pseudo-code!'
+        else:
+            res_xml = convert.convert_graph_to_xml(origin_code)
+        self.graph.clear()
+        self.graph.setPlainText(res_xml)
+
+    def event_pseudo_code_clear(self):
+        self.origin_code.clear()
+        self.pseudo_code.clear()
+
+    def event_xml_clear(self):
+        self.graph_origin.clear()
+        self.graph.clear()
+
     # endregion event
     # threading-------------------------------------------------------------------------------
     def th_select_file(self):
@@ -535,3 +563,15 @@ class gui_op(Autogo_ui.Ui_MainWindow):
 
     def trigger_switch_tool(self):
         self.tool_item.clicked.connect(self.event_switch_tool)
+
+    def trigger_convert_code(self):
+        self.code_change_bt.clicked.connect(self.event_convert_code)
+
+    def trigger_convert_graph(self):
+        self.graph_convert_bt.clicked.connect(self.event_convert_graph_to_xml)
+
+    def trigger_pseudo_code_clear(self):
+        self.pseudo_code_clear.clicked.connect(self.event_pseudo_code_clear)
+
+    def trigger_graph_xml_clear(self):
+        self.xml_clear.clicked.connect(self.event_xml_clear)

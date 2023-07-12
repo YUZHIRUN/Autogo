@@ -1,8 +1,8 @@
 import re
 import common
 import error_code
-import function_phase_proc
-import if_phase_proc
+import function_phrase_proc
+import if_phrase_proc
 import regular_expression
 
 regular = regular_expression.RegularClass()
@@ -54,7 +54,7 @@ def load_file(file_path: str):
         with open(file_path, mode='r', encoding='utf-8') as file_obj:
             file_content = file_obj.read()
             # common.get_tab_scale(file_content)
-            file_content = common.file_useless_info_del(file_content, mode=file_type)  # delete the \n
+            file_content = common.file_info_clean(file_content, mode=file_type)  # delete the \n
             global_func = re.search(global_regular, file_content)
             local_func = re.search(local_func_regular, file_content)
             structs = re.search(struct_regular, file_content)
@@ -121,8 +121,8 @@ def local_func_proc(input_func_list, output_info_list: list, mode='local'):
             break
         for fun_idx in input_func_list:
             info_list = list()
-            if_phase_list = if_phase_proc.if_phase(fun_idx)
-            if_phase_num = len(if_phase_list)
+            if_phrase_list = if_phrase_proc.if_phrase(fun_idx)
+            if_phrase_num = len(if_phrase_list)
             if_idx = 0
             task_list = common.pack_func_info(fun_idx)  # Package valid information in a function
             for task in task_list:
@@ -131,10 +131,10 @@ def local_func_proc(input_func_list, output_info_list: list, mode='local'):
                     info_list.append(info)
                 else:
                     try:
-                        if_info = common.if_prop_map(if_phase_list[if_idx], task)
+                        if_info = common.if_prop_map(if_phrase_list[if_idx], task)
                         info_list.append(if_info)
                         if_idx = if_idx + 1
-                        if if_idx > if_phase_num:
+                        if if_idx > if_phrase_num:
                             ret = errcode.file_err
                             break
                     except IndexError:
@@ -146,7 +146,7 @@ def local_func_proc(input_func_list, output_info_list: list, mode='local'):
                         break
             if ret != errcode.ok:
                 break
-            func_code = function_phase_proc.last_func_callback_proc(info_list)
+            func_code = function_phrase_proc.last_func_callback_proc(info_list)
             output_info_list.append(func_code)
         break
     return ret

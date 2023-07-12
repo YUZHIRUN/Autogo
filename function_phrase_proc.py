@@ -9,14 +9,14 @@ regular = regular_expression.RegularClass()
 def memcpy_func(input_str: str):
     obj_name = re.search(regular.memcpy, input_str).group(1)
     origin_name = re.search(regular.memcpy, input_str).group(2)
-    res = 'Call the function memcpy for copy the values from ' + str(origin_name) + ' to ' + str(obj_name)
+    res = 'Call the memcpy function for copy the values from ' + str(origin_name) + ' to ' + str(obj_name)
     # res = 'Call the function ' + input_str + 'for copy the values from ' + str(origin_name) + ' to ' + str(obj_name)
     return res
 
 
 def memset_func(input_str: str):
     obj_name = re.search(regular.memset, input_str).group(1)
-    res = 'Call the function memset for init the variable ' + str(obj_name)
+    res = 'Call the memset function for init the variable ' + str(obj_name)
     # res = 'Call the function ' + input_str + ' for init the variable ' + str(obj_name)
     return res
 
@@ -63,26 +63,26 @@ def common_point_func(input_str: str):
     return res
 
 
-def func_process(func_phase: str):
+def func_process(func_phrase: str):
     while True:
         try:
-            if re.search(regular.memcpy, func_phase) is not None:
-                res = memcpy_func(func_phase)
+            if re.search(regular.memcpy, func_phrase) is not None:
+                res = memcpy_func(func_phrase)
                 break
-            if re.search(regular.memset, func_phase) is not None:
-                res = memset_func(func_phase)
+            if re.search(regular.memset, func_phrase) is not None:
+                res = memset_func(func_phrase)
                 break
-            if re.match(regular.func_get_value, func_phase) is not None:
-                res = get_value_func(func_phase)
+            if re.match(regular.func_get_value, func_phrase) is not None:
+                res = get_value_func(func_phrase)
                 break
-            if re.match(regular.func_trans_value, func_phase) is not None:
-                res = trans_value_func(func_phase)
+            if re.match(regular.func_trans_value, func_phrase) is not None:
+                res = trans_value_func(func_phrase)
                 break
-            if re.match(regular.common_func, func_phase) is not None:
-                res = common_func(func_phase)
+            if re.match(regular.common_func, func_phrase) is not None:
+                res = common_func(func_phrase)
                 break
-            if re.match(regular.point_func, func_phase) is not None:
-                res = common_point_func(func_phase)
+            if re.match(regular.point_func, func_phrase) is not None:
+                res = common_point_func(func_phrase)
             else:
                 res = ''
         except Exception:
@@ -116,8 +116,8 @@ def point_func_proc(func_line: list):
 def last_func_call_result(func_line: str):
     res_line = func_line
     obj_line = res_line.strip('_')
-    call_func_phase = re.search(regular.last_func, func_line)
-    if call_func_phase is not None and (
+    call_func_phrase = re.search(regular.last_func, func_line)
+    if call_func_phrase is not None and (
             obj_line.startswith('IF') is True or obj_line.startswith('Set') is True) and obj_line.count(
             'the result of') == 0:
         func_name = str(re.search(regular.get_last_func_name, obj_line).group(1))

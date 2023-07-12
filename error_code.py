@@ -2,6 +2,8 @@ class err_class:
     def __init__(self):
         self.ok = 'Autogo operate successful!'
         self.file_err = 'C file error!'
+        self.draw_error = 'Draw flow chart failure!'
+        self.convert_code_error = 'Convert Error!'
         self.waiting = 'Please waiting...'
         self.no_file = 'Please input a file!'
         self.no_record = 'Information cannot be queried.'

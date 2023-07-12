@@ -32,23 +32,24 @@ class RegularClass:
         # phase check regular
         self.if_re = r'if *\(.+?\)|else.*'
         self.for_re = r'for *\(.+\)'
-        self.do_re = r'do *\{|\} *while *\((.+?\));'
-        self.switch_re = r'switch *\(([^\n\{}]+)\)|case +([^\n\{}]+):|default *:'
+        self.do_re = r'do *\{|\} *while *\((?:[^}{]+?)\);'
+        self.switch_re = r'switch *\(([^\n\{\}]+)\)|case +([^\n\{}]+):|default *:'
         self.while_re = r'while *\(.+?\)'
         self.set_value_re = r' *(?:[^\n,;|&=+]+?) *(?:[\^=|&+-]?=) *(?:.+?);|(\S+) *[+-]{2} *;'
         self.define_var_re = r'(?:volatile|const)* *(?:[\w\*]+) +(?:[\w, \[\]\*]+) *;'
         self.define_var_init = r'(?:(?:volatile|const|\*)* *[\w\*]+) +(?:[\w\*\-<>\[\]]+) *= *(?:.+);'
         self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|(?:\(void\))* *\( *\* *\w+\)\(.*\);'
-        self.return_re = r'return +.+?;'
+        self.return_re = r'return.*;'
         self.break_re = r'break *;'
         self.continue_re = r'continue *;'
+        self.macro_call = r'\w+;'
 
         # get information regular
         self.get_for_info = r'for *\((.+?);(.+?);(.+?)\)'
         self.get_for_condition = r'([\w|\.|-|>|\[|\]|\*]+?) *[><=!]{1,2} *([\S| ]+?);'
         self.get_while_info = r'while *\((.+?)\)'
         self.get_do_info = r'do *\{*'
-        self.get_while_of_do_info = r'\} *while *\((.+?)\);'
+        self.get_while_of_do_info = r'\} *while *\(([^}{]+?)\);'
         self.get_if_info = r'[else]* *if *\(.+\) *\n* *\{|[else]* *if *\([^\{]+\n +[^\{]+\{|else[^\{\(\)\}]*\{'
         self.get_set_value_info = r' *([^\n,;|&=+]+?) *([\^=|&+-]?=) *(.+?);'
         self.get_set_special_value_info = r'(\S+) *([+-]){2} *;'
@@ -77,7 +78,7 @@ class RegularClass:
         self.common_func = r'(?:\(void\))* *([\w]+?)\(.*?\);'
 
         # switch phase class regular
-        self.switch = r'switch *\(([\w\(\)]+)\)'
+        self.switch = r'switch *\(([^\n\{\}]+)\)'
         self.case = r'case +([\w\(\)]+):'
         self.default = r'default *:'
 
@@ -97,6 +98,29 @@ class RegularClass:
         self.var_class = r'\(.int\d{1,}[\w\*]*?\)|\(boolean\)|\(float\d{2}\)|\(int\)'
         self.li_coor = r'li\[(\d+)\]'
         self.proto_del_bracket = r'\(.+\)'
+        self.do_while_del_line = r'while.+((?:\n +)(?!{|}|\n| |\w))'
+        self.del_space = r' +'
+        self.while_common = r'while *\([^{}]+\)'
+class graph_parse:
+    def __init__(self):
+        # draw graph
+        # self.graph_define_var = 'Define variable (\w+)'
+        self.graph_define_var_del = 'Define variable.+'
+        self.much_define_var_merge = r'(?:Define variables\n)+'
+        self.graph_if_condition = '_*IF +(?:[^{]+?)_*THEN'
+        self.graph_get_if_condition = '_*IF +([^{]+?)_*THEN'
+        self.not_equal_to = ' *not equal to *'
+        self.equal_to = ' *equal to *'
+        # self.error_else_then = r'ELSE THEN\n(?!_)'
+        self.error_else_then = r'_*ELSE THEN'
+        self.change_line_depth = r'\n_*'
+        self.del_space = r' +'
+        self.del_func_para = r'\(.+\)'
+        self.del_func_for = r' for.+'
+        self.del_func_transmit = r' and transmit.+'
+        self.do_while_condition = r'DO WHILE condition (.+) is TRUE to continue loop ELSE break'
+
+
 
 class Xpath:
     def __init__(self):
@@ -177,6 +201,15 @@ class Xpath:
         self.user_check_ok = r'//a[text()="Reports"]'
         self.have_been_saved = r'//div[text()="Your changes have been successfully saved!"]'
 
+        self.diagram_iframe = r'//iframe[@class="full-screen"]'
+        self.insert_graph_select = r'//span[text()="Insert or Edit Diagram"]/../../button[5]'
+        self.insert_graph_bt = r'//span[text()="Insert from Documents"]/../../../li[1]/a'
+        self.extra_menu = r'//div[@class="geMenubarContainer"]/div/a[5]'
+        self.edit_diagram = r'//td[text()="Edit Diagram..."]'
+        self.diagram_text_area = r'//div[@class="geDialog"]/div/textarea'
+        self.graph_ok = r'//div[@class="geDialog"]/div/button[2]'
+        self.graph_save = r'//div[@class="actionBar "]/input'
+        self.chart = r'//*[@class="editable new-item description-container editor-wrapper wysiwyg"]/div[2]/div/div/p/img'
 
 
 
