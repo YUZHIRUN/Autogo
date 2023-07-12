@@ -91,6 +91,7 @@ def base_coor_check(base_coor: str):
             res = False
     return res
 
+
 # ----------------------------------------------------------------------------------------------------------------------
 def get_xpath_index(fold_index: str):
     xpath_default = '/ul/li[$]'
@@ -130,12 +131,16 @@ def open_fold_xpath(coordinate: str):
 def wait_loading():
     driver.implicitly_wait(WAIT_TIME)
 
+
 def switch_to_frame(xpath: str):
     frame = driver.find_element(By.XPATH, value=xpath)
     driver.switch_to.frame(frame)
 
+
 def switch_to_back():
-    driver.switch_to.parent_frame()
+    # driver.switch_to.parent_frame()
+    driver.switch_to.default_content()
+
 
 def context_click(xpath: str):
     ActionChains(driver).context_click(driver.find_element(By.XPATH, value=xpath)).perform()
@@ -156,8 +161,10 @@ def move_to_element(xpath: str):
 def send_key(xpath: str, content: str):
     driver.find_element(By.XPATH, value=xpath).send_keys(content)
 
+
 def clear_content(xpath: str):
     driver.find_element(By.XPATH, value=xpath).clear()
+
 
 def move_mouse_to(xpath: str):
     ActionChains(driver).move_to_element(to_element=driver.find_element(By.XPATH, value=xpath)).perform()
@@ -176,9 +183,26 @@ def wait_item_load(xpath: str):
     WebDriverWait(driver, WAIT_TIME).until(ec.presence_of_element_located(locator))
 
 
+def wait_item_visible(xpath: str):
+    locator = (By.XPATH, xpath)
+    WebDriverWait(driver, WAIT_TIME).until(ec.visibility_of_element_located(locator))
+
+
+def wait_item_clickable(xpath: str):
+    locator = (By.XPATH, xpath)
+    WebDriverWait(driver, WAIT_TIME).until(ec.element_to_be_clickable(locator))
+
+def wait_element_invisible(xpath: str):
+    locator = (By.XPATH, xpath)
+    driver.implicitly_wait(0)
+    WebDriverWait(driver, WAIT_TIME).until(ec.invisibility_of_element_located(locator))
+    wait_loading()
+
+
 def input_save():
     move_to_element(g_xpath.input_title)
     driver.find_element(By.XPATH, value=g_xpath.input_title).send_keys(Keys.CONTROL, 's')
+
 
 # -----------------------------------------------browser operate--------------------------------------------------------
 
@@ -205,6 +229,7 @@ def select_object_type(item_type):
     double_click(g_xpath.object_type)
     select_item(g_xpath.object_type_select, item_type)
 
+
 def input_req_category(content):
     click(g_xpath.req_category)
     double_click(g_xpath.req_category)
@@ -214,17 +239,20 @@ def input_req_category(content):
     driver.find_element(By.XPATH, value=g_xpath.req_category_input).send_keys(Keys.ENTER)
     wait_item_load(g_xpath.have_been_saved)
 
+
 def input_special_verification(content):
     double_click(g_xpath.special_verification)
     send_key(g_xpath.special_verification_input, content)
     driver.find_element(By.XPATH, value=g_xpath.special_verification_input).send_keys(Keys.CONTROL, 's')
     wait_item_load(g_xpath.have_been_saved)
 
+
 def select_ver_approach(approach):
     wait_item_load(g_xpath.verification_approach)
     time.sleep(0.5)
     double_click(g_xpath.verification_approach)
     select_item(g_xpath.object_type_select, approach)
+
 
 def get_table_end_xpath(table_formate: str):
     start_fmt = int(table_formate.split('x')[0])
@@ -884,6 +912,7 @@ def func_process(base_position, func_type='local'):
             func_item_build_process(base_position, func_name, func_type, obj_current_coor)
             obj_current_coor = get_now_coor(obj_current_coor, 'after')
 
+
 def flow_chart_process(content):
     content_list = content.split('@')
     func_type = content_list[1]
@@ -902,11 +931,12 @@ def flow_chart_process(content):
     driver.find_element(By.XPATH, value=g_xpath.diagram_text_area).send_keys(Keys.CONTROL, 'v')
     click(g_xpath.graph_ok)
     click(g_xpath.graph_save)
-    wait_loading()
     switch_to_back()
-    wait_item_load(g_xpath.input_title)
+    wait_item_visible(g_xpath.chart)
     time.sleep(0.5)
-
+    move_to_element(g_xpath.input_title)
+    wait_item_clickable(g_xpath.input_title)
+    click(g_xpath.input_title)
 
 
 def build_new_item(position: tuple, title: str, item_type=object_type[function], content: str = None):
@@ -917,6 +947,7 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
     move_to_element(xpath)
     wait_item_load(xpath)
     click(xpath)
+    time.sleep(0.2)
     context_click(xpath)
     click(g_xpath.insert_new_child)
     input_title(title)
@@ -984,7 +1015,7 @@ def auto_go_active(component: str, config: dict):
         open_fold_xpath(coordination)
         component_coor = g_obj_coor
 
-        # build_new_item(position=(coordination, component_coor), title='chart', item_type=object_type[folder], content='chart@local@RCtApSwcPriAr_GlobalTriggerInfoGet')
+        # build_new_item(position=(coordination, component_coor), title='chart', item_type=object_type[folder], content='chart@local@RCtApSwcPriAr_RoutineAnimationProc')
 
         build_new_item(position=(coordination, component_coor), title=component, item_type=object_type[folder])
         c_file_fold_coor = get_now_coor(component_coor, 'inner')
@@ -1057,4 +1088,3 @@ def auto_go_program(config: dict):
         res = auto_go_active(component_name, config)
         break
     return res
-

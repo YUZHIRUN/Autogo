@@ -62,12 +62,8 @@ def continue_phrase_proc():
 
 
 def return_phrase_proc(input_phrase: str):
-    return_phrase = re.search(regular.get_return_info, input_phrase)
-    if return_phrase is not None:
-        return_content = return_phrase.group(1)
-        res = 'RETURN ' + str(return_content)
-    else:
-        res = input_phrase
+    res = input_phrase.replace('return', 'RETURN')
+    res = res.replace(';', '')
     return res
 
 def switch_phrase_proc(input_phrase: str):
@@ -88,4 +84,5 @@ def switch_phrase_proc(input_phrase: str):
 
 def macro_call_proc(input_phase: str):
     res = 'Call the macro ' + input_phase
+    res = res.replace(';', '')
     return res

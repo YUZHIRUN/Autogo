@@ -48,7 +48,9 @@ def get_shape_from_id(input_group, shape_id):
 
 
 def test_create_group(group):
-    graph.create_graph(group)
+    res = graph.create_graph(group)
+    with open('_test/test.xml', 'w') as obj:
+        obj.write(res)
 
 
 def put_item_to_stack(group):
@@ -561,7 +563,8 @@ def if_process(content_key: str):
                 link = graph.default_down_left_or_right(shape_obj, output_line_coor)
                 shape_group.append(link)
         if_branch_right_x = int(get_obj_coor(if_tree, direction='right')[0])
-        last_link = graph.default_right_down_left_link(branch_shape, no_else_target_coor, rel_x=if_branch_right_x,
+        branch_shape_right_x = int(get_obj_coor(branch_shape, 'right')[0])
+        last_link = graph.default_right_down_left_link(branch_shape, no_else_target_coor, rel_x=max(if_branch_right_x, branch_shape_right_x),
                                                        text='NO')
         shape_group.append(output_line)
         shape_group.append(last_link)
@@ -631,21 +634,19 @@ def draw_mx_graph(code_object):
     for task in fifo:
         task_analyze(task)
     finally_group = get_group_from_stack()
-    graph.create_graph(finally_group)
+    res = graph.create_graph(finally_group)
+    upload_group_stack()
+    return res
 
 
 def get_graph_xml(code_object):
-    draw_mx_graph(code_object)
-    with open('.private/_graph.xml', 'r') as xml_obj:
-        xml_content = xml_obj.read()
-    return xml_content
+    res = draw_mx_graph(code_object)
+    return res
 
-#
-#
-# if __name__ == '__main__':
-#     init_operate()
-#     fifo: list = cp.phrase_process(g_content)
-#     for task in fifo:
-#         task_analyze(task)
-#     finally_group = get_group_from_stack()
-#     graph.create_graph(finally_group)
+
+if __name__ == '__main__':
+    with open('_test/test.txt', mode='r') as obj:
+        content = obj.read()
+    res = get_graph_xml(content)
+    with open('_test/test.xml', 'w') as obj_xml:
+        obj_xml.write(res)

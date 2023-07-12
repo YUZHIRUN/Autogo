@@ -173,35 +173,24 @@ def get_this_group_rel_info(group):
 def get_obj_group_rel_info(group):
     min_x = int('0xFFFF', 16)
     max_y = 0
-    x_position = ''
-    y_position = ''
-    shape_new_size = ('120', '60')
+    min_x_shape_size = ('120', '60')
     for shape in group:
         shape_id = get_shape_id(shape)
         shape_position = get_object_info(shape)[0]
         shape_x = int(shape_position[0])
         shape_y = int(shape_position[1])
+        # if shape_id.count('arrow') != 0:
+        #     shape_y = int()
         if shape_y > max_y:
             max_y = shape_y
-            shape_info = get_object_info(shape)
-            y_position = shape_info[0][1]
-            if shape_id.count('arrow') != 0:
-                y_position = str(int(y_position) - 0)
         if shape_id.count('arrow') != 0 or shape_id.count('line') != 0:
             continue
         if shape_x < min_x:
             min_x = shape_x
             shape_info = get_object_info(shape)
-            shape_y = int(shape_info[0][1])
-            offset = abs(max_y - shape_y)
-            shape_size = shape_info[1]
-            shape_height = int(shape_size[1])
-            shape_height = str(shape_height + offset)
-            shape_width = shape_size[0]
-            shape_new_size = (shape_width, shape_height)
-            x_position = shape_info[0][0]
-    rel_shape_position = (x_position, y_position)
-    rel_shape_size = shape_new_size
+            min_x_shape_size = shape_info[1]
+    rel_shape_position = (str(min_x), str(max_y))
+    rel_shape_size = min_x_shape_size
     rel_shape_info = (rel_shape_position, rel_shape_size)
     return rel_shape_info
 
@@ -211,12 +200,12 @@ def get_object_relative_potion(rel_obj, this_obj, position=down_position, put_mo
     if position == down_position and this_type == Group and rel_type == Group:
         this_info = get_this_group_rel_info(this_obj)
         rel_obj_info = get_obj_group_rel_info(rel_obj)
-    elif position == down_position and this_type == Group:
-        this_info = get_this_group_rel_info(this_obj)
-        rel_obj_info = get_object_info(rel_obj, rel_type)
-    elif position == down_position and this_type == Shape and rel_type == Group:
+    elif position == down_position and rel_type == Group and this_type == Shape:
         this_info = get_object_info(this_obj)
         rel_obj_info = get_obj_group_rel_info(rel_obj)
+    elif position == down_position and rel_type == Shape and this_type == Group:
+        this_info = get_this_group_rel_info(this_obj)
+        rel_obj_info = get_object_info(rel_obj, shape_type=Shape)
     else:
         # rel_type = get_object_type(rel_obj)
         rel_obj_info = get_object_info(rel_obj, rel_type)
@@ -236,21 +225,21 @@ def get_object_relative_potion(rel_obj, this_obj, position=down_position, put_mo
     rel_y = int(rel_position[1])
     offset_y = 60
     offset_x = 40
-    if put_mode == shape_shape:
+    if rel_type == Shape and this_type == Shape:
         if position == down_position:
             draw_position_y = rel_y + rel_height + offset_y
             draw_position_x = rel_x - int((this_width - rel_width) / 2)
         else:  # right
             draw_position_x = rel_x + rel_width + offset_x
             draw_position_y = rel_y
-    elif put_mode == shape_group:
+    elif rel_type == Shape and this_type == Group:
         if position == down_position:
             draw_position_y = rel_y + rel_height + offset_y
             draw_position_x = int((rel_width + rel_x * 2) / 2) - int((this_width + this_x * 2) / 2)
         else:
             draw_position_y = rel_y
             draw_position_x = rel_x + rel_width + offset_x + abs(this_x)
-    elif put_mode == group_shape:
+    elif rel_type == Group and this_type == Shape:
         if position == down_position:
             draw_position_x = rel_x - int((this_width - rel_width) / 2)
             draw_position_y = rel_y + rel_height + offset_y
@@ -259,7 +248,7 @@ def get_object_relative_potion(rel_obj, this_obj, position=down_position, put_mo
             draw_position_y = rel_y
     else:
         if position == down_position:
-            draw_position_y = rel_y + rel_height + offset_y
+            draw_position_y = rel_y + offset_y
             draw_position_x = int((rel_width + rel_x * 2) / 2) - int((this_width + this_x * 2) / 2)
         else:
             draw_position_y = rel_y
@@ -368,7 +357,7 @@ def get_arrow_info(input_arrow):
             if source_y < min_y:
                 min_y = source_y
         size = (str(max_x - min_x), str(max_y - min_y))
-        position = (str(min_x), str(min_y))
+        position = (str(min_x), str(max_y))
     else:
         if source_x == target_x:
             size = ('40', str(abs(target_y - source_y)))
@@ -663,9 +652,9 @@ class create_graph:
                 mx_cell = ec.SubElement(root, task_depth[0], attrib=task[1])
                 for module in range(1, task_depth_len):
                     mx_cell = ec.SubElement(mx_cell, task_depth[module], attrib=task[module + 1])
-        xml_obj = ec.ElementTree(mx_graph)
-        indent(root)
-        xml_obj.write('.private/_graph.xml')
+        indent(mx_graph)
+        res = ec.tostring(mx_graph).decode()
+        return res
 
     # endregion------------------------------------------------------------------------------------------------------------------
 

@@ -36,12 +36,11 @@ def get_max_depth(input_content: str):
 def var_declare_proc(input_code: str):
     define_var = re.search(regular.graph_define_var_del, input_code)
     if define_var is not None:
-        define_phrase = 'Define variables\n'
+        res_content = re.sub(regular.graph_define_var_del, 'Define variables', input_code)
+        res_content = re.sub(regular.much_define_var_merge, 'Define variables\n', res_content)
+        res_content = common.del_line_sign(res_content)
     else:
-        define_phrase = ''
-    res_content = re.sub(regular.graph_define_var_del, '', input_code)
-    res_content = define_phrase + res_content
-    res_content = common.del_line_sign(res_content)
+        res_content = input_code
     return res_content
 
 
@@ -59,8 +58,8 @@ def if_phrase_proc(input_code: str):
         condition = str(re.search(regular.graph_get_if_condition, if_code_list[if_idx]).group(1))
         condition = re.sub(regular.not_equal_to, ' != ', condition)
         condition = re.sub(regular.equal_to, ' == ', condition)
-        condition = condition.replace('AND', '&&')
-        condition = condition.replace('OR', '||')
+        # condition = condition.replace('AND', '&&')
+        # condition = condition.replace('OR', '||')
         condition = re.sub(regular.change_line_depth, ' ', condition)
         condition = re.sub(regular.del_space, ' ', condition)
         # condition = condition.replace('\n', ' ')
@@ -264,7 +263,7 @@ def branch_pack(input_content: str):
             current_depth = get_phrase_depth(line)
             if ((check_branch(line) is True or else_if_check(line) is True or else_check(
                     line) is True or switch_case_check(line) is True) and (
-                        depth == current_depth)) or current_depth > depth:
+                        depth == current_depth)) or (current_depth > depth and if_flag is True):
                 if check_branch(line) is True and depth == current_depth and if_flag is False:
                     if_flag = True
                     serial_line.append(line)
@@ -351,7 +350,7 @@ def phrase_pack(input_content: str) -> list:
                     content_flag = 0
             if ((check_branch(line) is True or else_if_check(line) is True or else_check(
                     line) is True or switch_case_check(line) is True) and (
-                        depth == current_depth)) or current_depth > depth:
+                        depth == current_depth)) or (current_depth > depth and branch_flag > 0):
                 if check_branch(line) is True and depth == current_depth and new_branch_flag is False:
                     new_branch_flag = True
                     branch_flag = branch_flag + 1
@@ -449,15 +448,16 @@ def switch_depth_adjustment(input_code: str):
     switch_depth = 0
     switch_start_flag = False
     default_flag = True
+    last_depth = 1
     while idx < code_list_len:
         code_line = code_list[idx]
+        current_depth = get_phrase_depth(code_line)
         if del_depth_sign(code_line).startswith('SWITCH') is True or del_depth_sign(code_line).startswith('switch') is True:
             switch_depth = get_phrase_depth(code_line)
             default_flag = False
             switch_start_flag = True
             idx += 1
-            continue
-        if del_depth_sign(code_line).startswith('CASE') is True and default_flag is False and switch_start_flag is True:
+        elif del_depth_sign(code_line).startswith('CASE') is True and default_flag is False and switch_start_flag is True:
             case_depth = get_phrase_depth(code_line)
             case = del_depth_sign(code_line)
             case = common.depth_set(case, switch_depth)
@@ -470,7 +470,7 @@ def switch_depth_adjustment(input_code: str):
             default_flag = True
             idx += 1
         elif default_flag is True and switch_start_flag is True:
-            current_depth = get_phrase_depth(code_line)
+            # current_depth = get_phrase_depth(code_line)
             if current_depth > switch_depth + 1:
                 content = del_depth_sign(code_line)
                 content = common.depth_set(content, current_depth - 1)
@@ -482,18 +482,17 @@ def switch_depth_adjustment(input_code: str):
             else:
                 idx += 1
         elif switch_start_flag is True:
-            current_depth = get_phrase_depth(code_line)
-            if current_depth > switch_depth + 1:
+            # current_depth = get_phrase_depth(code_line)
+            if current_depth > last_depth + 1:
                 content = del_depth_sign(code_line)
                 content = common.depth_set(content, current_depth - 1)
                 code_list[idx] = content
                 idx += 1
             else:
                 idx += 1
-                continue
         else:
             idx += 1
-            continue
+        last_depth = current_depth
     res = '\n'.join(code_list)
     return res
 
@@ -516,12 +515,3 @@ def phrase_process(input_code):
     phrase_task = phrase_pack(code_content)
     fifo = task_merge(phrase_task)
     return fifo
-
-#
-if __name__ == '__main__':
-    with open('_test/test_1.txt', 'r') as obj:
-        content = obj.read()
-        xml_info = draw_graph.get_graph_xml(content)
-        # fifo = phrase_process(content)
-        print(xml_info)
-        input()

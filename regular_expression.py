@@ -39,7 +39,7 @@ class RegularClass:
         self.define_var_re = r'(?:volatile|const)* *(?:[\w\*]+) +(?:[\w, \[\]\*]+) *;'
         self.define_var_init = r'(?:(?:volatile|const|\*)* *[\w\*]+) +(?:[\w\*\-<>\[\]]+) *= *(?:.+);'
         self.func_re = r'[\(void\) ]*(?:[\w]+?)\(.*?\);|(?:\(void\))* *\( *\* *\w+\)\(.*\);'
-        self.return_re = r'return +.+?;'
+        self.return_re = r'return.*;'
         self.break_re = r'break *;'
         self.continue_re = r'continue *;'
         self.macro_call = r'\w+;'
@@ -103,6 +103,7 @@ class graph_parse:
         # draw graph
         # self.graph_define_var = 'Define variable (\w+)'
         self.graph_define_var_del = 'Define variable.+'
+        self.much_define_var_merge = r'(?:Define variables\n)+'
         self.graph_if_condition = '_*IF +(?:[^{]+?)_*THEN'
         self.graph_get_if_condition = '_*IF +([^{]+?)_*THEN'
         self.not_equal_to = ' *not equal to *'
@@ -205,6 +206,7 @@ class Xpath:
         self.diagram_text_area = r'//div[@class="geDialog"]/div/textarea'
         self.graph_ok = r'//div[@class="geDialog"]/div/button[2]'
         self.graph_save = r'//div[@class="actionBar "]/input'
+        self.chart = r'//*[@class="editable new-item description-container editor-wrapper wysiwyg"]/div[2]/div/div/p/img'
 
 
 
