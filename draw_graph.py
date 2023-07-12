@@ -47,11 +47,11 @@ def get_shape_from_id(input_group, shape_id):
     return res_shape
 
 
-def test_create_group(group):
-    res = graph.create_graph(group)
-    with open('_test/test.xml', 'w') as obj:
-        obj.write(res)
-
+# def test_create_group(group):
+#     res = graph.create_graph(group)
+#     with open('_test/test.xml', 'w') as obj:
+#         obj.write(res)
+#
 
 def put_item_to_stack(group):
     global group_progress_stack
@@ -275,7 +275,6 @@ def switch_process(content_key: str):
             output_id = mx.get_shape_id(default_group_output_shape)
             case_group_output_list.append(output_id)
             upload_group_stack()
-            test_create_group(shape_group)
             continue
         if case_conditions is not None:
             case_condition = case_conditions
@@ -304,7 +303,6 @@ def switch_process(content_key: str):
             output_id = mx.get_shape_id(case_group_output)
             case_group_output_list.append(output_id)
             case_conditions = None
-            test_create_group(shape_group)
             upload_group_stack()
     switch_min_height = min(case_group_height_list)
     max_height = max(case_group_height_list)
@@ -321,7 +319,6 @@ def switch_process(content_key: str):
             output_shapes = get_shape_from_id(shape_group, e)
             links = graph.default_down_left_or_right(output_shapes, output_line_coor, mode='None')
             shape_group.append(links)
-    test_create_group(shape_group)
     res_info = (shape_group, input_node, output_node)
     return res_info
 
@@ -357,7 +354,6 @@ def do_while_process(content_key: str):
             shape_group.append(link)
             shape_group.append(do_while_yes_link)
             shape_group.append(do_while_no_link)
-            test_create_group(shape_group)
             continue
         elif line.startswith('DO') is True and content_level == current_depth:
             do_while_group = get_group_from_stack()
@@ -368,7 +364,6 @@ def do_while_process(content_key: str):
             shape_group.extend(do_while_group)
             shape_group.append(do_line)
             do_while_group_output = deepcopy(get_output_shape_from_group(do_while_group))
-            test_create_group(shape_group)
             upload_group_stack()
             continue
         else:
@@ -415,7 +410,6 @@ def for_process(content_key: str):
             output_node = mx.get_shape_id(for_else_link)
             input_node = mx.get_shape_id(shape)
             upload_group_stack()
-            test_create_group(shape_group)
         else:
             continue
     res_info = (shape_group, input_node, output_node)
@@ -458,7 +452,6 @@ def while_process(content_key: str):
             output_node = mx.get_shape_id(for_else_link)
             input_node = mx.get_shape_id(shape)
             upload_group_stack()
-            test_create_group(shape_group)
         else:
             continue
     res_info = (shape_group, input_node, output_node)
@@ -498,7 +491,6 @@ def if_process(content_key: str):
             shape_group.extend(if_group)
             input_node = mx.get_shape_id(shape)
             upload_group_stack()
-            test_create_group(shape_group)
         elif line.startswith('ELSE IF') is True and content_level == current_depth:
             line = cp.if_clean_line(line)
             shape = graph.draw_rhombus(text=line)
@@ -520,7 +512,6 @@ def if_process(content_key: str):
             shape_group.extend(else_if_branch)
             shape_group.append(else_if_link)
             upload_group_stack()
-            test_create_group(shape_group)
         elif line.count('ELSE') != 0 and content_level == current_depth:
             line = cp.if_clean_line(line)
             else_flag = True
@@ -545,7 +536,6 @@ def if_process(content_key: str):
                     link = graph.default_down_left_or_right(shape_obj, output_coor)
                     shape_group.append(link)
             output_node = mx.get_shape_id(output_line)
-            test_create_group(shape_group)
         else:
             continue
     if else_flag is False:
@@ -569,7 +559,6 @@ def if_process(content_key: str):
         shape_group.append(output_line)
         shape_group.append(last_link)
         output_node = mx.get_shape_id(output_line)
-        test_create_group(shape_group)
     shape_info = (shape_group, input_node, output_node)
     return shape_info
 
@@ -602,7 +591,6 @@ def task_analyze(task):
     info_num = len(info_list)
     if info_num == 1:
         put_item_to_stack(info_list[0])
-        test_create_group(info_list[0][0])
     else:
         for idx in range(info_num):
             package = info_list[idx]
@@ -622,10 +610,8 @@ def task_analyze(task):
                 shape_group.append(link)
                 last_group = group
                 last_output_shape = get_shape_from_id(group, output_node)
-                test_create_group(shape_group)
         new_output_node = mx.get_shape_id(last_output_shape)
         res_info = (shape_group, new_input_node, new_output_node)
-        test_create_group(shape_group)
         put_item_to_stack(res_info)
 
 

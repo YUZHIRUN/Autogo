@@ -15,10 +15,10 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(992, 616)
-        MainWindow.setMinimumSize(QtCore.QSize(0, 616))
+        MainWindow.setMinimumSize(QtCore.QSize(992, 616))
         MainWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/ico/.imgs/UTools.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ico/.imgs/autogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("QMainWindow{\n"
 "background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.986, fx:0.461, fy:0.511364, stop:0 rgba(156, 212, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
@@ -341,13 +341,23 @@ class Ui_MainWindow(object):
         self.tool_item.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/ico/.imgs/autogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(":/ico/.imgs/swdd_tools.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon3)
         self.tool_item.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/ico/.imgs/review.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(":/ico/.imgs/code.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon4)
+        self.tool_item.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/ico/.imgs/chart.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        item.setIcon(icon5)
+        self.tool_item.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/ico/.imgs/review.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        item.setIcon(icon6)
         self.tool_item.addItem(item)
         self.verticalLayout_4.addWidget(self.tool_item)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
@@ -383,9 +393,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " background-color: rgba(170, 170, 255,225);\n"
 "}")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/ico/.imgs/退出.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.back_bt.setIcon(icon5)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/ico/.imgs/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.back_bt.setIcon(icon7)
         self.back_bt.setAutoDefault(False)
         self.back_bt.setDefault(False)
         self.back_bt.setFlat(False)
@@ -1514,6 +1524,388 @@ class Ui_MainWindow(object):
         self.horizontalLayout_36.addWidget(self.swdd_mention)
         self.verticalLayout_8.addLayout(self.horizontalLayout_36)
         self.stack_second.addWidget(self.SWDD_tool_page)
+        self.psedo_code_page = QtWidgets.QWidget()
+        self.psedo_code_page.setObjectName("psedo_code_page")
+        self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.psedo_code_page)
+        self.verticalLayout_21.setObjectName("verticalLayout_21")
+        self.groupBox_9 = QtWidgets.QGroupBox(self.psedo_code_page)
+        self.groupBox_9.setMinimumSize(QtCore.QSize(0, 130))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.groupBox_9.setFont(font)
+        self.groupBox_9.setStyleSheet("QGroupBox{\n"
+"border:1px solid rgb(166, 166, 166);\n"
+"border-radius:5px;\n"
+"margin:10px\n"
+"}\n"
+"QGroupBox:title {\n"
+"subcontrol-origin: margin;\n"
+"subcontrol-position:top left;\n"
+"padding-left: 10px;\n"
+"padding-right:10px;\n"
+"}\n"
+"QGroupBox:title {\n"
+"left:20;\n"
+"}\n"
+"\n"
+"\n"
+"")
+        self.groupBox_9.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.groupBox_9.setObjectName("groupBox_9")
+        self.verticalLayout_15 = QtWidgets.QVBoxLayout(self.groupBox_9)
+        self.verticalLayout_15.setObjectName("verticalLayout_15")
+        self.horizontalLayout_13 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_13.setObjectName("horizontalLayout_13")
+        spacerItem14 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_13.addItem(spacerItem14)
+        self.verticalLayout_16 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_16.setObjectName("verticalLayout_16")
+        spacerItem15 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_16.addItem(spacerItem15)
+        self.label_25 = QtWidgets.QLabel(self.groupBox_9)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.label_25.setFont(font)
+        self.label_25.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label_25.setWordWrap(True)
+        self.label_25.setObjectName("label_25")
+        self.verticalLayout_16.addWidget(self.label_25)
+        self.horizontalLayout_13.addLayout(self.verticalLayout_16)
+        spacerItem16 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_13.addItem(spacerItem16)
+        self.verticalLayout_15.addLayout(self.horizontalLayout_13)
+        self.verticalLayout_21.addWidget(self.groupBox_9)
+        self.horizontalLayout_14 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_14.setContentsMargins(13, 2, 12, -1)
+        self.horizontalLayout_14.setSpacing(4)
+        self.horizontalLayout_14.setObjectName("horizontalLayout_14")
+        self.origin_code = QtWidgets.QTextEdit(self.psedo_code_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.origin_code.sizePolicy().hasHeightForWidth())
+        self.origin_code.setSizePolicy(sizePolicy)
+        self.origin_code.setMinimumSize(QtCore.QSize(225, 0))
+        self.origin_code.setMaximumSize(QtCore.QSize(500, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.origin_code.setFont(font)
+        self.origin_code.setStyleSheet("QTextEdit {\n"
+"border:1px solid rgb(241, 248, 255);\n"
+"border-radius:10px;\n"
+"background-color: rgb(241, 248, 255);\n"
+"}")
+        self.origin_code.setFrameShape(QtWidgets.QFrame.Box)
+        self.origin_code.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.origin_code.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.origin_code.setReadOnly(False)
+        self.origin_code.setMarkdown("")
+        self.origin_code.setAcceptRichText(False)
+        self.origin_code.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.origin_code.setObjectName("origin_code")
+        self.horizontalLayout_14.addWidget(self.origin_code)
+        self.verticalLayout_17 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_17.setContentsMargins(5, 120, -1, 120)
+        self.verticalLayout_17.setSpacing(2)
+        self.verticalLayout_17.setObjectName("verticalLayout_17")
+        self.code_change_bt = QtWidgets.QPushButton(self.psedo_code_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.code_change_bt.sizePolicy().hasHeightForWidth())
+        self.code_change_bt.setSizePolicy(sizePolicy)
+        self.code_change_bt.setMinimumSize(QtCore.QSize(0, 30))
+        self.code_change_bt.setMaximumSize(QtCore.QSize(95, 27))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.code_change_bt.setFont(font)
+        self.code_change_bt.setStyleSheet("QPushButton {\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
+"padding:2px 4px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgba(170, 170, 255,80);\n"
+"}\n"
+"QPushButton:pressed {\n"
+" background-color: rgba(170, 170, 255,225);\n"
+"}")
+        self.code_change_bt.setText("")
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(":/ico/.imgs/change.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.code_change_bt.setIcon(icon8)
+        self.code_change_bt.setIconSize(QtCore.QSize(27, 18))
+        self.code_change_bt.setObjectName("code_change_bt")
+        self.verticalLayout_17.addWidget(self.code_change_bt)
+        self.pseudo_code_clear = QtWidgets.QPushButton(self.psedo_code_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pseudo_code_clear.sizePolicy().hasHeightForWidth())
+        self.pseudo_code_clear.setSizePolicy(sizePolicy)
+        self.pseudo_code_clear.setMinimumSize(QtCore.QSize(0, 30))
+        self.pseudo_code_clear.setMaximumSize(QtCore.QSize(95, 27))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.pseudo_code_clear.setFont(font)
+        self.pseudo_code_clear.setStyleSheet("QPushButton {\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
+"padding:2px 4px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgba(170, 170, 255,80);\n"
+"}\n"
+"QPushButton:pressed {\n"
+" background-color: rgba(170, 170, 255,225);\n"
+"}")
+        self.pseudo_code_clear.setText("")
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap(":/ico/.imgs/trash.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pseudo_code_clear.setIcon(icon9)
+        self.pseudo_code_clear.setIconSize(QtCore.QSize(27, 18))
+        self.pseudo_code_clear.setObjectName("pseudo_code_clear")
+        self.verticalLayout_17.addWidget(self.pseudo_code_clear)
+        self.horizontalLayout_14.addLayout(self.verticalLayout_17)
+        self.pseudo_code = QtWidgets.QTextEdit(self.psedo_code_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pseudo_code.sizePolicy().hasHeightForWidth())
+        self.pseudo_code.setSizePolicy(sizePolicy)
+        self.pseudo_code.setMinimumSize(QtCore.QSize(325, 0))
+        self.pseudo_code.setMaximumSize(QtCore.QSize(16777211, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.pseudo_code.setFont(font)
+        self.pseudo_code.setStyleSheet("QTextEdit {\n"
+"border:1px solid rgb(241, 248, 255);\n"
+"border-radius:10px;\n"
+"background-color: rgb(241, 248, 255);\n"
+"}")
+        self.pseudo_code.setFrameShape(QtWidgets.QFrame.Box)
+        self.pseudo_code.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.pseudo_code.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.pseudo_code.setReadOnly(True)
+        self.pseudo_code.setMarkdown("")
+        self.pseudo_code.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
+        self.pseudo_code.setObjectName("pseudo_code")
+        self.horizontalLayout_14.addWidget(self.pseudo_code)
+        self.verticalLayout_21.addLayout(self.horizontalLayout_14)
+        self.stack_second.addWidget(self.psedo_code_page)
+        self.draw_graph_page = QtWidgets.QWidget()
+        self.draw_graph_page.setObjectName("draw_graph_page")
+        self.verticalLayout_22 = QtWidgets.QVBoxLayout(self.draw_graph_page)
+        self.verticalLayout_22.setObjectName("verticalLayout_22")
+        self.groupBox_10 = QtWidgets.QGroupBox(self.draw_graph_page)
+        self.groupBox_10.setMinimumSize(QtCore.QSize(0, 130))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.groupBox_10.setFont(font)
+        self.groupBox_10.setStyleSheet("QGroupBox{\n"
+"border:1px solid rgb(166, 166, 166);\n"
+"border-radius:5px;\n"
+"margin:10px\n"
+"}\n"
+"QGroupBox:title {\n"
+"subcontrol-origin: margin;\n"
+"subcontrol-position:top left;\n"
+"padding-left: 10px;\n"
+"padding-right:10px;\n"
+"}\n"
+"QGroupBox:title {\n"
+"left:20;\n"
+"}\n"
+"\n"
+"\n"
+"")
+        self.groupBox_10.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.groupBox_10.setObjectName("groupBox_10")
+        self.verticalLayout_18 = QtWidgets.QVBoxLayout(self.groupBox_10)
+        self.verticalLayout_18.setObjectName("verticalLayout_18")
+        self.horizontalLayout_15 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_15.setObjectName("horizontalLayout_15")
+        spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_15.addItem(spacerItem17)
+        self.verticalLayout_19 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_19.setObjectName("verticalLayout_19")
+        spacerItem18 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_19.addItem(spacerItem18)
+        self.label_26 = QtWidgets.QLabel(self.groupBox_10)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.label_26.setFont(font)
+        self.label_26.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label_26.setWordWrap(True)
+        self.label_26.setObjectName("label_26")
+        self.verticalLayout_19.addWidget(self.label_26)
+        self.horizontalLayout_15.addLayout(self.verticalLayout_19)
+        spacerItem19 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_15.addItem(spacerItem19)
+        self.verticalLayout_18.addLayout(self.horizontalLayout_15)
+        self.verticalLayout_22.addWidget(self.groupBox_10)
+        self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_16.setContentsMargins(13, 2, 12, -1)
+        self.horizontalLayout_16.setSpacing(4)
+        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+        self.graph_origin = QtWidgets.QTextEdit(self.draw_graph_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.graph_origin.sizePolicy().hasHeightForWidth())
+        self.graph_origin.setSizePolicy(sizePolicy)
+        self.graph_origin.setMinimumSize(QtCore.QSize(225, 0))
+        self.graph_origin.setMaximumSize(QtCore.QSize(500, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.graph_origin.setFont(font)
+        self.graph_origin.setStyleSheet("QTextEdit {\n"
+"border:1px solid rgb(241, 248, 255);\n"
+"border-radius:10px;\n"
+"background-color: rgb(241, 248, 255);\n"
+"}")
+        self.graph_origin.setFrameShape(QtWidgets.QFrame.Box)
+        self.graph_origin.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.graph_origin.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.graph_origin.setReadOnly(False)
+        self.graph_origin.setMarkdown("")
+        self.graph_origin.setAcceptRichText(False)
+        self.graph_origin.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.graph_origin.setObjectName("graph_origin")
+        self.horizontalLayout_16.addWidget(self.graph_origin)
+        self.verticalLayout_20 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_20.setContentsMargins(5, 120, -1, 120)
+        self.verticalLayout_20.setSpacing(2)
+        self.verticalLayout_20.setObjectName("verticalLayout_20")
+        self.graph_convert_bt = QtWidgets.QPushButton(self.draw_graph_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.graph_convert_bt.sizePolicy().hasHeightForWidth())
+        self.graph_convert_bt.setSizePolicy(sizePolicy)
+        self.graph_convert_bt.setMinimumSize(QtCore.QSize(0, 30))
+        self.graph_convert_bt.setMaximumSize(QtCore.QSize(95, 27))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.graph_convert_bt.setFont(font)
+        self.graph_convert_bt.setStyleSheet("QPushButton {\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
+"padding:2px 4px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgba(170, 170, 255,80);\n"
+"}\n"
+"QPushButton:pressed {\n"
+" background-color: rgba(170, 170, 255,225);\n"
+"}")
+        self.graph_convert_bt.setText("")
+        self.graph_convert_bt.setIcon(icon8)
+        self.graph_convert_bt.setIconSize(QtCore.QSize(27, 18))
+        self.graph_convert_bt.setObjectName("graph_convert_bt")
+        self.verticalLayout_20.addWidget(self.graph_convert_bt)
+        self.xml_clear = QtWidgets.QPushButton(self.draw_graph_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.xml_clear.sizePolicy().hasHeightForWidth())
+        self.xml_clear.setSizePolicy(sizePolicy)
+        self.xml_clear.setMinimumSize(QtCore.QSize(0, 30))
+        self.xml_clear.setMaximumSize(QtCore.QSize(95, 27))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        self.xml_clear.setFont(font)
+        self.xml_clear.setStyleSheet("QPushButton {\n"
+"border:1px solid rgb(85, 170, 255);\n"
+"border-radius:10px;\n"
+"padding:2px 4px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color: rgba(170, 170, 255,80);\n"
+"}\n"
+"QPushButton:pressed {\n"
+" background-color: rgba(170, 170, 255,225);\n"
+"}")
+        self.xml_clear.setText("")
+        self.xml_clear.setIcon(icon9)
+        self.xml_clear.setIconSize(QtCore.QSize(27, 18))
+        self.xml_clear.setObjectName("xml_clear")
+        self.verticalLayout_20.addWidget(self.xml_clear)
+        self.horizontalLayout_16.addLayout(self.verticalLayout_20)
+        self.graph = QtWidgets.QTextEdit(self.draw_graph_page)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.graph.sizePolicy().hasHeightForWidth())
+        self.graph.setSizePolicy(sizePolicy)
+        self.graph.setMinimumSize(QtCore.QSize(325, 0))
+        self.graph.setMaximumSize(QtCore.QSize(16777211, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.graph.setFont(font)
+        self.graph.setStyleSheet("QTextEdit {\n"
+"border:1px solid rgb(241, 248, 255);\n"
+"border-radius:10px;\n"
+"background-color: rgb(241, 248, 255);\n"
+"}")
+        self.graph.setFrameShape(QtWidgets.QFrame.Box)
+        self.graph.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.graph.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.graph.setReadOnly(True)
+        self.graph.setMarkdown("")
+        self.graph.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
+        self.graph.setObjectName("graph")
+        self.horizontalLayout_16.addWidget(self.graph)
+        self.verticalLayout_22.addLayout(self.horizontalLayout_16)
+        self.stack_second.addWidget(self.draw_graph_page)
         self.Review_tool_page = QtWidgets.QWidget()
         self.Review_tool_page.setObjectName("Review_tool_page")
         self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.Review_tool_page)
@@ -1551,12 +1943,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
         self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
-        spacerItem14 = QtWidgets.QSpacerItem(12, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_11.addItem(spacerItem14)
+        spacerItem20 = QtWidgets.QSpacerItem(12, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem20)
         self.verticalLayout_14 = QtWidgets.QVBoxLayout()
         self.verticalLayout_14.setObjectName("verticalLayout_14")
-        spacerItem15 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_14.addItem(spacerItem15)
+        spacerItem21 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_14.addItem(spacerItem21)
         self.label_18 = QtWidgets.QLabel(self.groupBox_5)
         font = QtGui.QFont()
         font.setFamily("Calibri")
@@ -1570,8 +1962,8 @@ class Ui_MainWindow(object):
         self.label_18.setObjectName("label_18")
         self.verticalLayout_14.addWidget(self.label_18)
         self.horizontalLayout_11.addLayout(self.verticalLayout_14)
-        spacerItem16 = QtWidgets.QSpacerItem(15, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_11.addItem(spacerItem16)
+        spacerItem22 = QtWidgets.QSpacerItem(15, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem22)
         self.horizontalLayout_12.addLayout(self.horizontalLayout_11)
         self.verticalLayout_11.addWidget(self.groupBox_5)
         self.groupBox_6 = QtWidgets.QGroupBox(self.Review_tool_page)
@@ -1756,8 +2148,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_43 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_43.setContentsMargins(-1, -1, -1, 5)
         self.horizontalLayout_43.setObjectName("horizontalLayout_43")
-        spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_43.addItem(spacerItem17)
+        spacerItem23 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_43.addItem(spacerItem23)
         self.review_build_bt = QtWidgets.QPushButton(self.groupBox_6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -1797,8 +2189,8 @@ class Ui_MainWindow(object):
 "}")
         self.review_build_bt.setObjectName("review_build_bt")
         self.horizontalLayout_43.addWidget(self.review_build_bt)
-        spacerItem18 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_43.addItem(spacerItem18)
+        spacerItem24 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_43.addItem(spacerItem24)
         self.verticalLayout_10.addLayout(self.horizontalLayout_43)
         self.verticalLayout_11.addWidget(self.groupBox_6)
         self.groupBox_7 = QtWidgets.QGroupBox(self.Review_tool_page)
@@ -1872,8 +2264,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_44 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_44.setContentsMargins(-1, -1, -1, 7)
         self.horizontalLayout_44.setObjectName("horizontalLayout_44")
-        spacerItem19 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_44.addItem(spacerItem19)
+        spacerItem25 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_44.addItem(spacerItem25)
         self.review_close_bt = QtWidgets.QPushButton(self.groupBox_7)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -1913,8 +2305,8 @@ class Ui_MainWindow(object):
 "}")
         self.review_close_bt.setObjectName("review_close_bt")
         self.horizontalLayout_44.addWidget(self.review_close_bt)
-        spacerItem20 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_44.addItem(spacerItem20)
+        spacerItem26 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_44.addItem(spacerItem26)
         self.verticalLayout_9.addLayout(self.horizontalLayout_44)
         self.verticalLayout_11.addWidget(self.groupBox_7)
         self.horizontalLayout_42 = QtWidgets.QHBoxLayout()
@@ -2014,6 +2406,10 @@ class Ui_MainWindow(object):
         item = self.tool_item.item(1)
         item.setText(_translate("MainWindow", "SWDD Tool"))
         item = self.tool_item.item(2)
+        item.setText(_translate("MainWindow", "Pseudo-Code"))
+        item = self.tool_item.item(3)
+        item.setText(_translate("MainWindow", "Draw Chart"))
+        item = self.tool_item.item(4)
         item.setText(_translate("MainWindow", "Review Record"))
         self.tool_item.setSortingEnabled(__sortingEnabled)
         self.back_bt.setText(_translate("MainWindow", "Back"))
@@ -2080,6 +2476,38 @@ class Ui_MainWindow(object):
         self.auto_bt.setText(_translate("MainWindow", "Start"))
         self.auto_bt.setShortcut(_translate("MainWindow", "Return"))
         self.label_17.setText(_translate("MainWindow", "Prompt:"))
+        self.groupBox_9.setTitle(_translate("MainWindow", "Description"))
+        self.label_25.setText(_translate("MainWindow", "Convert the  C code to its pseudo-code pattern."))
+        self.origin_code.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+        self.code_change_bt.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
+        self.code_change_bt.setShortcut(_translate("MainWindow", "Return"))
+        self.pseudo_code_clear.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
+        self.pseudo_code_clear.setShortcut(_translate("MainWindow", "Return"))
+        self.pseudo_code.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+        self.groupBox_10.setTitle(_translate("MainWindow", "Description"))
+        self.label_26.setText(_translate("MainWindow", "Draw flowchart from the pseudo-code."))
+        self.graph_origin.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+        self.graph_convert_bt.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
+        self.graph_convert_bt.setShortcut(_translate("MainWindow", "Return"))
+        self.xml_clear.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
+        self.xml_clear.setShortcut(_translate("MainWindow", "Return"))
+        self.graph.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
         self.groupBox_5.setTitle(_translate("MainWindow", "Description"))
         self.label_18.setText(_translate("MainWindow", "       The review, which has been submitted, link filling in here will automatically generate a record, or the record link filling in here can also automatically close the record."))
         self.groupBox_6.setTitle(_translate("MainWindow", "Review Record Build"))

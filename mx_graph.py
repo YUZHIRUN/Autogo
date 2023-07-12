@@ -30,10 +30,10 @@ Yes = 'Yes'
 No = 'No'
 
 def indent(elem, level=0):
-    i = "\n" + level*"\t"
+    i = "\n" + level*"    "
     if len(elem):
         if not elem.text or not elem.text.strip():
-            elem.text = i + "\t"
+            elem.text = i + "    "
         if not elem.tail or not elem.tail.strip():
             elem.tail = i
         for elem in elem:
