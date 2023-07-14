@@ -5,6 +5,13 @@ import code_generate_op
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import QtCore
 
+
+def get_qss():
+    with open('autogo.qss', 'r') as obj:
+        qss = obj.read()
+    return qss
+
+
 if __name__ == '__main__':
     if safe.right_verification() is True:
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
@@ -12,6 +19,8 @@ if __name__ == '__main__':
 
         app = QApplication(sys.argv)
         main_window = QMainWindow()
+        qss = get_qss()
+        app.setStyleSheet(qss)
 
         widget_obj = code_generate_op.gui_op()
         widget_obj.setupUi(main_window)

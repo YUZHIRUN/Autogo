@@ -27,20 +27,15 @@
   </property>
   <property name="windowIcon">
    <iconset resource="icon.qrc">
-    <normaloff>:/ico/.ico/Autogo.ico</normaloff>:/ico/.ico/Autogo.ico</iconset>
+    <normaloff>:/ico/.ico/火箭.ico</normaloff>:/ico/.ico/火箭.ico</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow{
-background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.986, fx:0.461, fy:0.511364, stop:0 rgba(156, 212, 255, 255), stop:1 rgba(255, 255, 255, 255));
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_7">
     <item>
      <widget class="QStackedWidget" name="stack_first">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -76,23 +71,7 @@ background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.986, f
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
+           <string notr="true"/>
           </property>
           <property name="title">
            <string>About</string>
@@ -193,23 +172,7 @@ left:20;
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
+           <string notr="true"/>
           </property>
           <property name="title">
            <string>User information</string>
@@ -233,6 +196,9 @@ left:20;
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="spacing">
+              <number>12</number>
+             </property>
              <property name="leftMargin">
               <number>300</number>
              </property>
@@ -260,7 +226,7 @@ left:20;
                 <enum>Qt::PlainText</enum>
                </property>
                <property name="pixmap">
-                <pixmap resource="icon.qrc">:/ico/.imgs/user.png</pixmap>
+                <pixmap resource="icon.qrc">:/ico/.imgs/登录.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -277,12 +243,7 @@ left:20;
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string/>
@@ -309,6 +270,9 @@ background-color: rgb(238, 246, 255);
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="spacing">
+              <number>12</number>
+             </property>
              <property name="leftMargin">
               <number>300</number>
              </property>
@@ -333,7 +297,7 @@ background-color: rgb(238, 246, 255);
                 <enum>Qt::PlainText</enum>
                </property>
                <property name="pixmap">
-                <pixmap resource="icon.qrc">:/ico/.imgs/key.png</pixmap>
+                <pixmap resource="icon.qrc">:/ico/.imgs/密码.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -349,12 +313,7 @@ background-color: rgb(238, 246, 255);
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
+                <string notr="true"/>
                </property>
                <property name="echoMode">
                 <enum>QLineEdit::Password</enum>
@@ -381,6 +340,9 @@ background-color: rgb(238, 246, 255);
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>12</number>
+             </property>
              <property name="leftMargin">
               <number>305</number>
              </property>
@@ -405,7 +367,7 @@ background-color: rgb(238, 246, 255);
                 <enum>Qt::PlainText</enum>
                </property>
                <property name="pixmap">
-                <pixmap resource="icon.qrc">:/ico/.imgs/browser.png</pixmap>
+                <pixmap resource="icon.qrc">:/ico/.imgs/browser-o.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -421,22 +383,7 @@ background-color: rgb(238, 246, 255);
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">QComboBox {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}
-QComboBox::drop-down {
-border: 0px solid rgb(170, 170, 170);    
-}
-QComboBox QAbstractItemView {
-outline: 0px solid gray;
-border:0px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
+                <string notr="true"/>
                </property>
                <property name="iconSize">
                 <size>
@@ -500,17 +447,7 @@ background-color: rgb(238, 246, 255);
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string>Go on</string>
@@ -604,36 +541,6 @@ QPushButton:pressed {
               <bold>false</bold>
              </font>
             </property>
-            <property name="styleSheet">
-             <string notr="true">QListWidget {
-border:1px groove rgba(85, 170, 255, 80);
-border-radius:10px;
-outline:0px;
-background-color: qlineargradient(spread:pad, x1:0, y1:0.523682, x2:1, y2:0.551182, stop:0 rgba(204, 229, 255, 238), stop:1 rgba(255, 255, 255, 255));
-
-}
-QListWidget::item{
-margin:20px;
-padding:2px 4px;
-height:35px;
-border:1px groove rgba(85, 170, 255, 80);
-border-radius:10px;
-}
-QListWidget::item:hover{
-	background-color: rgba(190, 227, 255,200);
-}
-QListWidget::item:selected{
-	border-width:0;
-	background-color: rgba(190, 227, 255,255);
-}
-QListWidget::item::selected:active{
-	border: 0px solid gray;
-	
-}
-
-
-</string>
-            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -673,7 +580,7 @@ QListWidget::item::selected:active{
              </property>
              <property name="icon">
               <iconset resource="icon.qrc">
-               <normaloff>:/ico/.imgs/analyzer.png</normaloff>:/ico/.imgs/analyzer.png</iconset>
+               <normaloff>:/ico/.imgs/放大镜.png</normaloff>:/ico/.imgs/放大镜.png</iconset>
              </property>
             </item>
             <item>
@@ -682,7 +589,7 @@ QListWidget::item::selected:active{
              </property>
              <property name="icon">
               <iconset resource="icon.qrc">
-               <normaloff>:/ico/.imgs/swdd_tools.png</normaloff>:/ico/.imgs/swdd_tools.png</iconset>
+               <normaloff>:/ico/.imgs/light_auto.png</normaloff>:/ico/.imgs/light_auto.png</iconset>
              </property>
             </item>
             <item>
@@ -700,7 +607,7 @@ QListWidget::item::selected:active{
              </property>
              <property name="icon">
               <iconset resource="icon.qrc">
-               <normaloff>:/ico/.imgs/chart.png</normaloff>:/ico/.imgs/chart.png</iconset>
+               <normaloff>:/ico/.imgs/流程图1.png</normaloff>:/ico/.imgs/流程图1.png</iconset>
              </property>
             </item>
             <item>
@@ -709,7 +616,7 @@ QListWidget::item::selected:active{
              </property>
              <property name="icon">
               <iconset resource="icon.qrc">
-               <normaloff>:/ico/.imgs/review.png</normaloff>:/ico/.imgs/review.png</iconset>
+               <normaloff>:/ico/.imgs/记录.png</normaloff>:/ico/.imgs/记录.png</iconset>
              </property>
             </item>
            </widget>
@@ -767,20 +674,6 @@ QListWidget::item::selected:active{
               <property name="autoFillBackground">
                <bool>false</bool>
               </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-border:1px solid rgb(176, 221, 255);
-border-radius:10px;
-padding:2px 4px;
-	background-color: rgb(241, 248, 255);
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-              </property>
               <property name="text">
                <string>Back</string>
               </property>
@@ -821,19 +714,6 @@ QPushButton:pressed {
         </item>
         <item>
          <widget class="QStackedWidget" name="stack_second">
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-border:1px groove gray;
-border-radius:5px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-          </property>
           <property name="currentIndex">
            <number>0</number>
           </property>
@@ -855,25 +735,6 @@ QPushButton:pressed {
                 <italic>true</italic>
                 <bold>false</bold>
                </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
               </property>
               <property name="title">
                <string>File Information</string>
@@ -916,14 +777,6 @@ left:20;
                      <family>Calibri</family>
                      <pointsize>10</pointsize>
                     </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
                    </property>
                    <property name="text">
                     <string/>
@@ -969,20 +822,7 @@ background-color: rgb(238, 246, 255);
                     </font>
                    </property>
                    <property name="autoFillBackground">
-                    <bool>false</bool>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
+                    <bool>true</bool>
                    </property>
                    <property name="text">
                     <string>Select</string>
@@ -1028,20 +868,7 @@ QPushButton:pressed {
                     </font>
                    </property>
                    <property name="autoFillBackground">
-                    <bool>false</bool>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
+                    <bool>true</bool>
                    </property>
                    <property name="text">
                     <string>Load</string>
@@ -1087,20 +914,7 @@ QPushButton:pressed {
                     </font>
                    </property>
                    <property name="autoFillBackground">
-                    <bool>false</bool>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
+                    <bool>true</bool>
                    </property>
                    <property name="text">
                     <string>Clear</string>
@@ -1181,15 +995,6 @@ QPushButton:pressed {
                      <pointsize>11</pointsize>
                     </font>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
-border:1px solid rgb(176, 221, 255);
-background-color: rgb(241, 248, 255);
-border-radius:5px;
-padding:2px 4px;
-}
-</string>
-                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -1240,15 +1045,6 @@ padding:2px 4px;
                      <family>Calibri</family>
                      <pointsize>11</pointsize>
                     </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
-border:1px solid rgb(176, 221, 255);
-background-color: rgb(241, 248, 255);
-border-radius:5px;
-padding:2px 4px;
-}
-</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -1301,15 +1097,6 @@ padding:2px 4px;
                      <pointsize>11</pointsize>
                     </font>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
-border:1px solid rgb(176, 221, 255);
-background-color: rgb(241, 248, 255);
-border-radius:5px;
-padding:2px 4px;
-}
-</string>
-                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -1354,15 +1141,6 @@ padding:2px 4px;
                      <family>Calibri</family>
                      <pointsize>11</pointsize>
                     </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
-border:1px solid rgb(176, 221, 255);
-background-color: rgb(241, 248, 255);
-border-radius:5px;
-padding:2px 4px;
-}
-</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -1409,15 +1187,6 @@ padding:2px 4px;
                      <pointsize>11</pointsize>
                     </font>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
-border:1px solid rgb(176, 221, 255);
-background-color: rgb(241, 248, 255);
-border-radius:5px;
-padding:2px 4px;
-}
-</string>
-                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -1463,15 +1232,6 @@ padding:2px 4px;
                      <pointsize>11</pointsize>
                     </font>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
-border:1px solid rgb(176, 221, 255);
-background-color: rgb(241, 248, 255);
-border-radius:5px;
-padding:2px 4px;
-}
-</string>
-                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -1511,20 +1271,6 @@ padding:2px 4px;
               <property name="mouseTracking">
                <bool>false</bool>
               </property>
-              <property name="styleSheet">
-               <string notr="true">QTabWidget::pane{
-border:none;
-}
-QTabWidget::tab-bar{
-left:10px
-}
-QTabBar::tab{
-background-color: rgb(210, 232, 254);
-}
-QTabBar::tab:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-              </property>
               <property name="tabShape">
                <enum>QTabWidget::Triangular</enum>
               </property>
@@ -1561,13 +1307,6 @@ QTabBar::tab:pressed {
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QListWidget {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -1602,13 +1341,6 @@ background-color: rgb(241, 248, 255);
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -1628,8 +1360,8 @@ background-color: rgb(241, 248, 255);
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -1664,13 +1396,6 @@ p, li { white-space: pre-wrap; }
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QListWidget {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -1693,13 +1418,6 @@ background-color: rgb(241, 248, 255);
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -1719,8 +1437,8 @@ background-color: rgb(241, 248, 255);
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri','Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -1767,13 +1485,6 @@ p, li { white-space: pre-wrap; }
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QListWidget {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -1808,13 +1519,6 @@ background-color: rgb(241, 248, 255);
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -1834,8 +1538,8 @@ background-color: rgb(241, 248, 255);
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri','Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -1870,13 +1574,6 @@ p, li { white-space: pre-wrap; }
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QListWidget {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -1899,13 +1596,6 @@ background-color: rgb(241, 248, 255);
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -1925,8 +1615,8 @@ background-color: rgb(241, 248, 255);
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri','Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -1973,13 +1663,6 @@ p, li { white-space: pre-wrap; }
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QListWidget {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -2008,13 +1691,6 @@ background-color: rgb(241, 248, 255);
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -2034,8 +1710,8 @@ background-color: rgb(241, 248, 255);
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri','Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -2082,13 +1758,6 @@ p, li { white-space: pre-wrap; }
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QListWidget {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -2117,13 +1786,6 @@ background-color: rgb(241, 248, 255);
                       <bold>false</bold>
                      </font>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
-                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -2143,8 +1805,8 @@ background-color: rgb(241, 248, 255);
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -2163,7 +1825,7 @@ p, li { white-space: pre-wrap; }
                <number>11</number>
               </property>
               <property name="topMargin">
-               <number>6</number>
+               <number>9</number>
               </property>
               <property name="rightMargin">
                <number>8</number>
@@ -2220,15 +1882,6 @@ p, li { white-space: pre-wrap; }
                   <italic>true</italic>
                  </font>
                 </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel{
-background-color: rgb(248, 251, 255);
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-color: rgb(85, 85, 127);
-padding:2px 4px;
-}</string>
-                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -2259,25 +1912,6 @@ padding:2px 4px;
                 <italic>true</italic>
                 <bold>false</bold>
                </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
               </property>
               <property name="title">
                <string>Description</string>
@@ -2376,25 +2010,6 @@ left:20;
                 <italic>true</italic>
                </font>
               </property>
-              <property name="styleSheet">
-               <string notr="true">QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
-              </property>
               <property name="title">
                <string>Generate SWDD</string>
               </property>
@@ -2477,14 +2092,6 @@ left:20;
                      <strikeout>false</strikeout>
                     </font>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
-                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -2549,14 +2156,6 @@ background-color: rgb(238, 246, 255);
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. 23.2.1.5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
-                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -2617,14 +2216,6 @@ background-color: rgb(238, 246, 255);
                    </property>
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;e.g. 23.2.1.5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
                    </property>
                    <property name="text">
                     <string/>
@@ -2689,19 +2280,6 @@ background-color: rgb(238, 246, 255);
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Autogo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-                   </property>
                    <property name="text">
                     <string>Start</string>
                    </property>
@@ -2739,7 +2317,7 @@ QPushButton:pressed {
                  <property name="sizeHint" stdset="0">
                   <size>
                    <width>20</width>
-                   <height>117</height>
+                   <height>109</height>
                   </size>
                  </property>
                 </spacer>
@@ -2752,8 +2330,14 @@ QPushButton:pressed {
               <property name="leftMargin">
                <number>10</number>
               </property>
+              <property name="topMargin">
+               <number>8</number>
+              </property>
               <property name="rightMargin">
                <number>10</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
               </property>
               <item>
                <widget class="QProgressBar" name="swdd_progress">
@@ -2768,21 +2352,6 @@ QPushButton:pressed {
                   <width>200</width>
                   <height>27</height>
                  </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QProgressBar {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:1px 2px;
-background-color: rgb(248, 251, 255);
-}
-
-QProgressBar:chunk {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:1px 2px;
-	background-color: qlineargradient(spread:reflect, x1:0.557, y1:0.602045, x2:0.198591, y2:0.603, stop:0 rgba(94, 255, 164, 255), stop:1 rgba(255, 255, 255, 255));
-}</string>
                 </property>
                 <property name="maximum">
                  <number>100</number>
@@ -2846,15 +2415,6 @@ padding:1px 2px;
                   <bold>false</bold>
                  </font>
                 </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel{
-background-color: rgb(248, 251, 255);
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-color: rgb(85, 85, 127);
-padding:2px 4px;
-}</string>
-                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -2885,25 +2445,6 @@ padding:2px 4px;
                 <italic>true</italic>
                 <bold>false</bold>
                </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
               </property>
               <property name="title">
                <string>Description</string>
@@ -3007,6 +2548,9 @@ left:20;
               <property name="rightMargin">
                <number>12</number>
               </property>
+              <property name="bottomMargin">
+               <number>40</number>
+              </property>
               <item>
                <widget class="QTextEdit" name="origin_code">
                 <property name="sizePolicy">
@@ -3035,13 +2579,6 @@ left:20;
                   <italic>false</italic>
                   <bold>false</bold>
                  </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::Box</enum>
@@ -3122,19 +2659,6 @@ p, li { white-space: pre-wrap; }
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Autogo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3185,19 +2709,6 @@ QPushButton:pressed {
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Autogo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3246,13 +2757,6 @@ QPushButton:pressed {
                   <italic>false</italic>
                   <bold>false</bold>
                  </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::Box</enum>
@@ -3303,25 +2807,6 @@ p, li { white-space: pre-wrap; }
                 <italic>true</italic>
                 <bold>false</bold>
                </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
               </property>
               <property name="title">
                <string>Description</string>
@@ -3425,6 +2910,9 @@ left:20;
               <property name="rightMargin">
                <number>12</number>
               </property>
+              <property name="bottomMargin">
+               <number>40</number>
+              </property>
               <item>
                <widget class="QTextEdit" name="graph_origin">
                 <property name="sizePolicy">
@@ -3453,13 +2941,6 @@ left:20;
                   <italic>false</italic>
                   <bold>false</bold>
                  </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::Box</enum>
@@ -3540,19 +3021,6 @@ p, li { white-space: pre-wrap; }
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Autogo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3603,19 +3071,6 @@ QPushButton:pressed {
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Autogo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3664,13 +3119,6 @@ QPushButton:pressed {
                   <italic>false</italic>
                   <bold>false</bold>
                  </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QTextEdit {
-border:1px solid rgb(241, 248, 255);
-border-radius:10px;
-background-color: rgb(241, 248, 255);
-}</string>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::Box</enum>
@@ -3721,26 +3169,6 @@ p, li { white-space: pre-wrap; }
                 <italic>true</italic>
                 <bold>false</bold>
                </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">
-QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
               </property>
               <property name="title">
                <string>Description</string>
@@ -3839,26 +3267,6 @@ left:20;
                 <italic>true</italic>
                </font>
               </property>
-              <property name="styleSheet">
-               <string notr="true">
-QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
-              </property>
               <property name="title">
                <string>Review Record Build</string>
               </property>
@@ -3913,15 +3321,6 @@ left:20;
                      <italic>false</italic>
                      <bold>false</bold>
                     </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-	background-color: rgb(238, 246, 255);
-}
-</string>
                    </property>
                    <property name="text">
                     <string/>
@@ -3993,15 +3392,6 @@ padding:2px 4px;
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select moderator id&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-	background-color: rgb(238, 246, 255);
-}
-</string>
-                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -4062,24 +3452,6 @@ padding:2px 4px;
                    </property>
                    <property name="whatsThis">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QComboBox {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}
-QComboBox::drop-down {
-border: 0px solid rgb(170, 170, 170);    
-}
-QComboBox QAbstractItemView {
-outline: 0px solid gray;
-border:0px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-background-color: rgb(238, 246, 255);
-}</string>
                    </property>
                    <property name="maxVisibleItems">
                     <number>20</number>
@@ -4258,19 +3630,6 @@ background-color: rgb(238, 246, 255);
                    <property name="autoFillBackground">
                     <bool>false</bool>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-                   </property>
                    <property name="text">
                     <string>Start</string>
                    </property>
@@ -4305,26 +3664,6 @@ QPushButton:pressed {
                 <pointsize>11</pointsize>
                 <italic>true</italic>
                </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">
-QGroupBox{
-border:1px solid rgb(166, 166, 166);
-border-radius:5px;
-margin:10px
-}
-QGroupBox:title {
-subcontrol-origin: margin;
-subcontrol-position:top left;
-padding-left: 10px;
-padding-right:10px;
-}
-QGroupBox:title {
-left:20;
-}
-
-
-</string>
               </property>
               <property name="title">
                <string>Review Record Close</string>
@@ -4378,15 +3717,6 @@ left:20;
                      <bold>false</bold>
                     </font>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLineEdit {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:2px 4px;
-	background-color: rgb(238, 246, 255);
-}
-</string>
-                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -4402,8 +3732,11 @@ padding:2px 4px;
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_44">
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
                  <property name="bottomMargin">
-                  <number>7</number>
+                  <number>18</number>
                  </property>
                  <item>
                   <spacer name="horizontalSpacer_7">
@@ -4487,19 +3820,6 @@ padding:2px 4px;
                    <property name="autoFillBackground">
                     <bool>false</bool>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">QPushButton {
-border:1px solid rgb(85, 170, 255);
-border-radius:10px;
-padding:2px 4px;
-}
-QPushButton:hover {
-background-color: rgba(170, 170, 255,80);
-}
-QPushButton:pressed {
- background-color: rgba(170, 170, 255,225);
-}</string>
-                   </property>
                    <property name="text">
                     <string>Start</string>
                    </property>
@@ -4531,6 +3851,9 @@ QPushButton:pressed {
               <property name="leftMargin">
                <number>10</number>
               </property>
+              <property name="topMargin">
+               <number>8</number>
+              </property>
               <property name="rightMargin">
                <number>10</number>
               </property>
@@ -4547,21 +3870,6 @@ QPushButton:pressed {
                   <width>200</width>
                   <height>27</height>
                  </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QProgressBar {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:1px 2px;
-background-color: rgb(248, 251, 255);
-}
-
-QProgressBar:chunk {
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-padding:1px 2px;
-	background-color: qlineargradient(spread:reflect, x1:0.557, y1:0.602045, x2:0.198591, y2:0.603, stop:0 rgba(94, 255, 164, 255), stop:1 rgba(255, 255, 255, 255));
-}</string>
                 </property>
                 <property name="value">
                  <number>0</number>
@@ -4619,15 +3927,6 @@ padding:1px 2px;
                   <pointsize>11</pointsize>
                   <italic>true</italic>
                  </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel{
-background-color: rgb(248, 251, 255);
-border:1px solid rgb(176, 221, 255);
-border-radius:5px;
-color: rgb(85, 85, 127);
-padding:2px 4px;
-}</string>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>

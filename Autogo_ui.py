@@ -18,17 +18,14 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(992, 616))
         MainWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/ico/.ico/Autogo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ico/.ico/火箭.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet("QMainWindow{\n"
-"background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.986, fx:0.461, fy:0.511364, stop:0 rgba(156, 212, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"}")
+        MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.stack_first = QtWidgets.QStackedWidget(self.centralwidget)
-        self.stack_first.setStyleSheet("")
         self.stack_first.setObjectName("stack_first")
         self.register_page = QtWidgets.QWidget()
         self.register_page.setObjectName("register_page")
@@ -49,23 +46,7 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.groupBox.setFont(font)
-        self.groupBox.setStyleSheet("QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
+        self.groupBox.setStyleSheet("")
         self.groupBox.setFlat(False)
         self.groupBox.setObjectName("groupBox")
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.groupBox)
@@ -114,23 +95,7 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.groupBox_2.setFont(font)
-        self.groupBox_2.setStyleSheet("QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
+        self.groupBox_2.setStyleSheet("")
         self.groupBox_2.setObjectName("groupBox_2")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.groupBox_2)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -138,6 +103,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addItem(spacerItem)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setContentsMargins(300, -1, 300, -1)
+        self.horizontalLayout.setSpacing(12)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label_2 = QtWidgets.QLabel(self.groupBox_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -148,7 +114,7 @@ class Ui_MainWindow(object):
         self.label_2.setMaximumSize(QtCore.QSize(30, 30))
         self.label_2.setText("")
         self.label_2.setTextFormat(QtCore.Qt.PlainText)
-        self.label_2.setPixmap(QtGui.QPixmap(":/ico/.imgs/user.png"))
+        self.label_2.setPixmap(QtGui.QPixmap(":/ico/.imgs/登录.png"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
@@ -158,12 +124,7 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         font.setKerning(True)
         self.user_id.setFont(font)
-        self.user_id.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}")
+        self.user_id.setStyleSheet("")
         self.user_id.setText("")
         self.user_id.setObjectName("user_id")
         self.horizontalLayout.addWidget(self.user_id)
@@ -172,12 +133,13 @@ class Ui_MainWindow(object):
         self.verticalLayout.addItem(spacerItem1)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setContentsMargins(300, 0, 300, -1)
+        self.horizontalLayout_2.setSpacing(12)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label_3 = QtWidgets.QLabel(self.groupBox_2)
         self.label_3.setMaximumSize(QtCore.QSize(30, 30))
         self.label_3.setText("")
         self.label_3.setTextFormat(QtCore.Qt.PlainText)
-        self.label_3.setPixmap(QtGui.QPixmap(":/ico/.imgs/key.png"))
+        self.label_3.setPixmap(QtGui.QPixmap(":/ico/.imgs/密码.png"))
         self.label_3.setScaledContents(True)
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_2.addWidget(self.label_3)
@@ -186,12 +148,7 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(12)
         self.user_key.setFont(font)
-        self.user_key.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}")
+        self.user_key.setStyleSheet("")
         self.user_key.setEchoMode(QtWidgets.QLineEdit.Password)
         self.user_key.setObjectName("user_key")
         self.horizontalLayout_2.addWidget(self.user_key)
@@ -200,12 +157,13 @@ class Ui_MainWindow(object):
         self.verticalLayout.addItem(spacerItem2)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setContentsMargins(305, 0, 299, -1)
+        self.horizontalLayout_3.setSpacing(12)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.label_4 = QtWidgets.QLabel(self.groupBox_2)
         self.label_4.setMaximumSize(QtCore.QSize(25, 25))
         self.label_4.setText("")
         self.label_4.setTextFormat(QtCore.Qt.PlainText)
-        self.label_4.setPixmap(QtGui.QPixmap(":/ico/.imgs/browser.png"))
+        self.label_4.setPixmap(QtGui.QPixmap(":/ico/.imgs/browser-o.png"))
         self.label_4.setScaledContents(True)
         self.label_4.setObjectName("label_4")
         self.horizontalLayout_3.addWidget(self.label_4)
@@ -214,22 +172,7 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(12)
         self.browser.setFont(font)
-        self.browser.setStyleSheet("QComboBox {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}\n"
-"QComboBox::drop-down {\n"
-"border: 0px solid rgb(170, 170, 170);    \n"
-"}\n"
-"QComboBox QAbstractItemView {\n"
-"outline: 0px solid gray;\n"
-"border:0px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}")
+        self.browser.setStyleSheet("")
         self.browser.setIconSize(QtCore.QSize(0, 0))
         self.browser.setDuplicatesEnabled(False)
         self.browser.setObjectName("browser")
@@ -248,17 +191,7 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(13)
         self.log_in_bt.setFont(font)
-        self.log_in_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
+        self.log_in_bt.setStyleSheet("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/ico/.imgs/register.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.log_in_bt.setIcon(icon1)
@@ -296,34 +229,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.tool_item.setFont(font)
-        self.tool_item.setStyleSheet("QListWidget {\n"
-"border:1px groove rgba(85, 170, 255, 80);\n"
-"border-radius:10px;\n"
-"outline:0px;\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0.523682, x2:1, y2:0.551182, stop:0 rgba(204, 229, 255, 238), stop:1 rgba(255, 255, 255, 255));\n"
-"\n"
-"}\n"
-"QListWidget::item{\n"
-"margin:20px;\n"
-"padding:2px 4px;\n"
-"height:35px;\n"
-"border:1px groove rgba(85, 170, 255, 80);\n"
-"border-radius:10px;\n"
-"}\n"
-"QListWidget::item:hover{\n"
-"    background-color: rgba(190, 227, 255,200);\n"
-"}\n"
-"QListWidget::item:selected{\n"
-"    border-width:0;\n"
-"    background-color: rgba(190, 227, 255,255);\n"
-"}\n"
-"QListWidget::item::selected:active{\n"
-"    border: 0px solid gray;\n"
-"    \n"
-"}\n"
-"\n"
-"\n"
-"")
         self.tool_item.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.tool_item.setFrameShadow(QtWidgets.QFrame.Raised)
         self.tool_item.setLineWidth(0)
@@ -336,12 +241,12 @@ class Ui_MainWindow(object):
         self.tool_item.setObjectName("tool_item")
         item = QtWidgets.QListWidgetItem()
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/ico/.imgs/analyzer.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(":/ico/.imgs/放大镜.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon2)
         self.tool_item.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/ico/.imgs/swdd_tools.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(":/ico/.imgs/light_auto.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon3)
         self.tool_item.addItem(item)
         item = QtWidgets.QListWidgetItem()
@@ -351,12 +256,12 @@ class Ui_MainWindow(object):
         self.tool_item.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/ico/.imgs/chart.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap(":/ico/.imgs/流程图1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon5)
         self.tool_item.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(":/ico/.imgs/review.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6.addPixmap(QtGui.QPixmap(":/ico/.imgs/记录.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon6)
         self.tool_item.addItem(item)
         self.verticalLayout_4.addWidget(self.tool_item)
@@ -381,18 +286,6 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.back_bt.setFont(font)
         self.back_bt.setAutoFillBackground(False)
-        self.back_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"    background-color: rgb(241, 248, 255);\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(":/ico/.imgs/back.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.back_bt.setIcon(icon7)
@@ -406,17 +299,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_8.addLayout(self.verticalLayout_4)
         self.stack_second = QtWidgets.QStackedWidget(self.tool_page)
-        self.stack_second.setStyleSheet("QPushButton {\n"
-"border:1px groove gray;\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.stack_second.setObjectName("stack_second")
         self.code_analyzer_page = QtWidgets.QWidget()
         self.code_analyzer_page.setObjectName("code_analyzer_page")
@@ -435,23 +317,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.groupBox_3.setFont(font)
-        self.groupBox_3.setStyleSheet("QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
         self.groupBox_3.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.groupBox_3.setObjectName("groupBox_3")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.groupBox_3)
@@ -475,12 +340,6 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(10)
         self.file_path.setFont(font)
-        self.file_path.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}")
         self.file_path.setText("")
         self.file_path.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.file_path.setDragEnabled(True)
@@ -502,18 +361,7 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.select_bt.setFont(font)
-        self.select_bt.setAutoFillBackground(False)
-        self.select_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
+        self.select_bt.setAutoFillBackground(True)
         self.select_bt.setAutoDefault(False)
         self.select_bt.setDefault(False)
         self.select_bt.setFlat(False)
@@ -534,18 +382,7 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.load_bt.setFont(font)
-        self.load_bt.setAutoFillBackground(False)
-        self.load_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
+        self.load_bt.setAutoFillBackground(True)
         self.load_bt.setAutoDefault(False)
         self.load_bt.setDefault(False)
         self.load_bt.setFlat(False)
@@ -566,18 +403,7 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.clear_bt.setFont(font)
-        self.clear_bt.setAutoFillBackground(False)
-        self.clear_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
+        self.clear_bt.setAutoFillBackground(True)
         self.clear_bt.setAutoDefault(False)
         self.clear_bt.setDefault(False)
         self.clear_bt.setFlat(False)
@@ -616,13 +442,6 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.func_num.setFont(font)
-        self.func_num.setStyleSheet("QLabel {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"background-color: rgb(241, 248, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"")
         self.func_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.func_num.setText("")
         self.func_num.setObjectName("func_num")
@@ -654,13 +473,6 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.global_var_num.setFont(font)
-        self.global_var_num.setStyleSheet("QLabel {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"background-color: rgb(241, 248, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"")
         self.global_var_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.global_var_num.setText("")
         self.global_var_num.setObjectName("global_var_num")
@@ -692,13 +504,6 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.macro_num.setFont(font)
-        self.macro_num.setStyleSheet("QLabel {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"background-color: rgb(241, 248, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"")
         self.macro_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.macro_num.setText("")
         self.macro_num.setObjectName("macro_num")
@@ -725,13 +530,6 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.struct_num.setFont(font)
-        self.struct_num.setStyleSheet("QLabel {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"background-color: rgb(241, 248, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"")
         self.struct_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.struct_num.setText("")
         self.struct_num.setObjectName("struct_num")
@@ -758,13 +556,6 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.enum_num.setFont(font)
-        self.enum_num.setStyleSheet("QLabel {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"background-color: rgb(241, 248, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"")
         self.enum_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.enum_num.setText("")
         self.enum_num.setObjectName("enum_num")
@@ -791,13 +582,6 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         self.union_num.setFont(font)
-        self.union_num.setStyleSheet("QLabel {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"background-color: rgb(241, 248, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"")
         self.union_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.union_num.setText("")
         self.union_num.setObjectName("union_num")
@@ -815,18 +599,6 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.tabWidget.setFont(font)
         self.tabWidget.setMouseTracking(False)
-        self.tabWidget.setStyleSheet("QTabWidget::pane{\n"
-"border:none;\n"
-"}\n"
-"QTabWidget::tab-bar{\n"
-"left:10px\n"
-"}\n"
-"QTabBar::tab{\n"
-"background-color: rgb(210, 232, 254);\n"
-"}\n"
-"QTabBar::tab:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Triangular)
         self.tabWidget.setObjectName("tabWidget")
         self.Function_2 = QtWidgets.QWidget()
@@ -849,11 +621,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.func_items.setFont(font)
-        self.func_items.setStyleSheet("QListWidget {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.func_items.setFrameShape(QtWidgets.QFrame.Box)
         self.func_items.setFrameShadow(QtWidgets.QFrame.Raised)
         self.func_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -873,11 +640,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.func_disp.setFont(font)
-        self.func_disp.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.func_disp.setFrameShape(QtWidgets.QFrame.Box)
         self.func_disp.setFrameShadow(QtWidgets.QFrame.Raised)
         self.func_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -907,11 +669,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.global_items.setFont(font)
-        self.global_items.setStyleSheet("QListWidget {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.global_items.setFrameShape(QtWidgets.QFrame.Box)
         self.global_items.setFrameShadow(QtWidgets.QFrame.Raised)
         self.global_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -925,11 +682,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.gloabal_disp.setFont(font)
-        self.gloabal_disp.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.gloabal_disp.setFrameShape(QtWidgets.QFrame.Box)
         self.gloabal_disp.setFrameShadow(QtWidgets.QFrame.Raised)
         self.gloabal_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -961,11 +713,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.macro_items.setFont(font)
-        self.macro_items.setStyleSheet("QListWidget {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.macro_items.setFrameShape(QtWidgets.QFrame.Box)
         self.macro_items.setFrameShadow(QtWidgets.QFrame.Raised)
         self.macro_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -981,11 +728,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.macro_disp.setFont(font)
-        self.macro_disp.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.macro_disp.setFrameShape(QtWidgets.QFrame.Box)
         self.macro_disp.setFrameShadow(QtWidgets.QFrame.Raised)
         self.macro_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -1015,11 +757,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.struct_items.setFont(font)
-        self.struct_items.setStyleSheet("QListWidget {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.struct_items.setFrameShape(QtWidgets.QFrame.Box)
         self.struct_items.setFrameShadow(QtWidgets.QFrame.Raised)
         self.struct_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -1033,11 +770,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.struct_disp.setFont(font)
-        self.struct_disp.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.struct_disp.setFrameShape(QtWidgets.QFrame.Box)
         self.struct_disp.setFrameShadow(QtWidgets.QFrame.Raised)
         self.struct_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -1069,11 +801,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.enum_items.setFont(font)
-        self.enum_items.setStyleSheet("QListWidget {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.enum_items.setFrameShape(QtWidgets.QFrame.Box)
         self.enum_items.setFrameShadow(QtWidgets.QFrame.Raised)
         self.enum_items.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -1088,11 +815,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.enum_disp.setFont(font)
-        self.enum_disp.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.enum_disp.setFrameShape(QtWidgets.QFrame.Box)
         self.enum_disp.setFrameShadow(QtWidgets.QFrame.Raised)
         self.enum_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -1124,11 +846,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.union_item.setFont(font)
-        self.union_item.setStyleSheet("QListWidget {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.union_item.setFrameShape(QtWidgets.QFrame.Box)
         self.union_item.setFrameShadow(QtWidgets.QFrame.Raised)
         self.union_item.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -1143,11 +860,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.union_disp.setFont(font)
-        self.union_disp.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.union_disp.setFrameShape(QtWidgets.QFrame.Box)
         self.union_disp.setFrameShadow(QtWidgets.QFrame.Raised)
         self.union_disp.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -1160,7 +872,7 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tab_2, "")
         self.verticalLayout_6.addWidget(self.tabWidget)
         self.horizontalLayout_31 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_31.setContentsMargins(11, 6, 8, 5)
+        self.horizontalLayout_31.setContentsMargins(11, 9, 8, 5)
         self.horizontalLayout_31.setObjectName("horizontalLayout_31")
         self.label_14 = QtWidgets.QLabel(self.code_analyzer_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
@@ -1190,13 +902,6 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         font.setItalic(True)
         self.code_analyzer_mention.setFont(font)
-        self.code_analyzer_mention.setStyleSheet("QLabel{\n"
-"background-color: rgb(248, 251, 255);\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"color: rgb(85, 85, 127);\n"
-"padding:2px 4px;\n"
-"}")
         self.code_analyzer_mention.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.code_analyzer_mention.setText("")
         self.code_analyzer_mention.setObjectName("code_analyzer_mention")
@@ -1216,23 +921,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.groupBox_4.setFont(font)
-        self.groupBox_4.setStyleSheet("QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
         self.groupBox_4.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.groupBox_4.setObjectName("groupBox_4")
         self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.groupBox_4)
@@ -1268,23 +956,6 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         font.setItalic(True)
         self.groupBox_8.setFont(font)
-        self.groupBox_8.setStyleSheet("QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
         self.groupBox_8.setObjectName("groupBox_8")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.groupBox_8)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
@@ -1326,12 +997,6 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         font.setStrikeOut(False)
         self.swdd_url.setFont(font)
-        self.swdd_url.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}")
         self.swdd_url.setText("")
         self.swdd_url.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.swdd_url.setReadOnly(False)
@@ -1365,12 +1030,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.base_coor.setFont(font)
-        self.base_coor.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}")
         self.base_coor.setText("")
         self.base_coor.setReadOnly(False)
         self.base_coor.setObjectName("base_coor")
@@ -1403,12 +1062,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.obj_folder.setFont(font)
-        self.obj_folder.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}")
         self.obj_folder.setText("")
         self.obj_folder.setReadOnly(False)
         self.obj_folder.setObjectName("obj_folder")
@@ -1434,27 +1087,16 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.auto_bt.setFont(font)
-        self.auto_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.auto_bt.setObjectName("auto_bt")
         self.horizontalLayout_35.addWidget(self.auto_bt)
         spacerItem12 = QtWidgets.QSpacerItem(245, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_35.addItem(spacerItem12)
         self.verticalLayout_7.addLayout(self.horizontalLayout_35)
-        spacerItem13 = QtWidgets.QSpacerItem(20, 117, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 109, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_7.addItem(spacerItem13)
         self.verticalLayout_8.addWidget(self.groupBox_8)
         self.horizontalLayout_36 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_36.setContentsMargins(10, -1, 10, -1)
+        self.horizontalLayout_36.setContentsMargins(10, 8, 10, 0)
         self.horizontalLayout_36.setObjectName("horizontalLayout_36")
         self.swdd_progress = QtWidgets.QProgressBar(self.SWDD_tool_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -1463,19 +1105,6 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.swdd_progress.sizePolicy().hasHeightForWidth())
         self.swdd_progress.setSizePolicy(sizePolicy)
         self.swdd_progress.setMinimumSize(QtCore.QSize(200, 27))
-        self.swdd_progress.setStyleSheet("QProgressBar {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:1px 2px;\n"
-"background-color: rgb(248, 251, 255);\n"
-"}\n"
-"\n"
-"QProgressBar:chunk {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:1px 2px;\n"
-"    background-color: qlineargradient(spread:reflect, x1:0.557, y1:0.602045, x2:0.198591, y2:0.603, stop:0 rgba(94, 255, 164, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"}")
         self.swdd_progress.setMaximum(100)
         self.swdd_progress.setProperty("value", 0)
         self.swdd_progress.setTextVisible(False)
@@ -1511,13 +1140,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.swdd_mention.setFont(font)
-        self.swdd_mention.setStyleSheet("QLabel{\n"
-"background-color: rgb(248, 251, 255);\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"color: rgb(85, 85, 127);\n"
-"padding:2px 4px;\n"
-"}")
         self.swdd_mention.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.swdd_mention.setText("")
         self.swdd_mention.setObjectName("swdd_mention")
@@ -1537,23 +1159,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.groupBox_9.setFont(font)
-        self.groupBox_9.setStyleSheet("QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
         self.groupBox_9.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.groupBox_9.setObjectName("groupBox_9")
         self.verticalLayout_15 = QtWidgets.QVBoxLayout(self.groupBox_9)
@@ -1584,7 +1189,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_15.addLayout(self.horizontalLayout_13)
         self.verticalLayout_21.addWidget(self.groupBox_9)
         self.horizontalLayout_14 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_14.setContentsMargins(13, 2, 12, -1)
+        self.horizontalLayout_14.setContentsMargins(13, 2, 12, 40)
         self.horizontalLayout_14.setSpacing(4)
         self.horizontalLayout_14.setObjectName("horizontalLayout_14")
         self.origin_code = QtWidgets.QTextEdit(self.psedo_code_page)
@@ -1602,11 +1207,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.origin_code.setFont(font)
-        self.origin_code.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.origin_code.setFrameShape(QtWidgets.QFrame.Box)
         self.origin_code.setFrameShadow(QtWidgets.QFrame.Raised)
         self.origin_code.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -1635,17 +1235,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.code_change_bt.setFont(font)
-        self.code_change_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.code_change_bt.setText("")
         icon8 = QtGui.QIcon()
         icon8.addPixmap(QtGui.QPixmap(":/ico/.imgs/change.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -1668,17 +1257,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.pseudo_code_clear.setFont(font)
-        self.pseudo_code_clear.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.pseudo_code_clear.setText("")
         icon9 = QtGui.QIcon()
         icon9.addPixmap(QtGui.QPixmap(":/ico/.imgs/trash.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -1702,11 +1280,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.pseudo_code.setFont(font)
-        self.pseudo_code.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.pseudo_code.setFrameShape(QtWidgets.QFrame.Box)
         self.pseudo_code.setFrameShadow(QtWidgets.QFrame.Raised)
         self.pseudo_code.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -1730,23 +1303,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.groupBox_10.setFont(font)
-        self.groupBox_10.setStyleSheet("QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
         self.groupBox_10.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.groupBox_10.setObjectName("groupBox_10")
         self.verticalLayout_18 = QtWidgets.QVBoxLayout(self.groupBox_10)
@@ -1777,7 +1333,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_18.addLayout(self.horizontalLayout_15)
         self.verticalLayout_22.addWidget(self.groupBox_10)
         self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_16.setContentsMargins(13, 2, 12, -1)
+        self.horizontalLayout_16.setContentsMargins(13, 2, 12, 40)
         self.horizontalLayout_16.setSpacing(4)
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
         self.graph_origin = QtWidgets.QTextEdit(self.draw_graph_page)
@@ -1795,11 +1351,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.graph_origin.setFont(font)
-        self.graph_origin.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.graph_origin.setFrameShape(QtWidgets.QFrame.Box)
         self.graph_origin.setFrameShadow(QtWidgets.QFrame.Raised)
         self.graph_origin.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -1828,17 +1379,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.graph_convert_bt.setFont(font)
-        self.graph_convert_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.graph_convert_bt.setText("")
         self.graph_convert_bt.setIcon(icon8)
         self.graph_convert_bt.setIconSize(QtCore.QSize(27, 18))
@@ -1859,17 +1399,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.xml_clear.setFont(font)
-        self.xml_clear.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.xml_clear.setText("")
         self.xml_clear.setIcon(icon9)
         self.xml_clear.setIconSize(QtCore.QSize(27, 18))
@@ -1891,11 +1420,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.graph.setFont(font)
-        self.graph.setStyleSheet("QTextEdit {\n"
-"border:1px solid rgb(241, 248, 255);\n"
-"border-radius:10px;\n"
-"background-color: rgb(241, 248, 255);\n"
-"}")
         self.graph.setFrameShape(QtWidgets.QFrame.Box)
         self.graph.setFrameShadow(QtWidgets.QFrame.Raised)
         self.graph.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
@@ -1919,24 +1443,6 @@ class Ui_MainWindow(object):
         font.setItalic(True)
         font.setWeight(50)
         self.groupBox_5.setFont(font)
-        self.groupBox_5.setStyleSheet("\n"
-"QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
         self.groupBox_5.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.groupBox_5.setObjectName("groupBox_5")
         self.horizontalLayout_12 = QtWidgets.QHBoxLayout(self.groupBox_5)
@@ -1972,24 +1478,6 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         font.setItalic(True)
         self.groupBox_6.setFont(font)
-        self.groupBox_6.setStyleSheet("\n"
-"QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
         self.groupBox_6.setObjectName("groupBox_6")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.groupBox_6)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
@@ -2022,13 +1510,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.review_link.setFont(font)
-        self.review_link.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"    background-color: rgb(238, 246, 255);\n"
-"}\n"
-"")
         self.review_link.setText("")
         self.review_link.setFrame(True)
         self.review_link.setReadOnly(False)
@@ -2068,13 +1549,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.moderator_id.setFont(font)
-        self.moderator_id.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"    background-color: rgb(238, 246, 255);\n"
-"}\n"
-"")
         self.moderator_id.setText("")
         self.moderator_id.setFrame(True)
         self.moderator_id.setReadOnly(False)
@@ -2108,22 +1582,6 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         font.setItalic(True)
         self.review_type.setFont(font)
-        self.review_type.setStyleSheet("QComboBox {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}\n"
-"QComboBox::drop-down {\n"
-"border: 0px solid rgb(170, 170, 170);    \n"
-"}\n"
-"QComboBox QAbstractItemView {\n"
-"outline: 0px solid gray;\n"
-"border:0px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"background-color: rgb(238, 246, 255);\n"
-"}")
         self.review_type.setMaxVisibleItems(20)
         self.review_type.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToMinimumContentsLength)
         self.review_type.setObjectName("review_type")
@@ -2176,17 +1634,6 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.review_build_bt.setFont(font)
         self.review_build_bt.setAutoFillBackground(False)
-        self.review_build_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.review_build_bt.setObjectName("review_build_bt")
         self.horizontalLayout_43.addWidget(self.review_build_bt)
         spacerItem24 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -2199,24 +1646,6 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         font.setItalic(True)
         self.groupBox_7.setFont(font)
-        self.groupBox_7.setStyleSheet("\n"
-"QGroupBox{\n"
-"border:1px solid rgb(166, 166, 166);\n"
-"border-radius:5px;\n"
-"margin:10px\n"
-"}\n"
-"QGroupBox:title {\n"
-"subcontrol-origin: margin;\n"
-"subcontrol-position:top left;\n"
-"padding-left: 10px;\n"
-"padding-right:10px;\n"
-"}\n"
-"QGroupBox:title {\n"
-"left:20;\n"
-"}\n"
-"\n"
-"\n"
-"")
         self.groupBox_7.setObjectName("groupBox_7")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.groupBox_7)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
@@ -2248,13 +1677,6 @@ class Ui_MainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.close_link.setFont(font)
-        self.close_link.setStyleSheet("QLineEdit {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:2px 4px;\n"
-"    background-color: rgb(238, 246, 255);\n"
-"}\n"
-"")
         self.close_link.setText("")
         self.close_link.setFrame(True)
         self.close_link.setReadOnly(False)
@@ -2262,7 +1684,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_41.addWidget(self.close_link)
         self.verticalLayout_9.addLayout(self.horizontalLayout_41)
         self.horizontalLayout_44 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_44.setContentsMargins(-1, -1, -1, 7)
+        self.horizontalLayout_44.setContentsMargins(-1, 0, -1, 18)
         self.horizontalLayout_44.setObjectName("horizontalLayout_44")
         spacerItem25 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_44.addItem(spacerItem25)
@@ -2292,17 +1714,6 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.review_close_bt.setFont(font)
         self.review_close_bt.setAutoFillBackground(False)
-        self.review_close_bt.setStyleSheet("QPushButton {\n"
-"border:1px solid rgb(85, 170, 255);\n"
-"border-radius:10px;\n"
-"padding:2px 4px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"background-color: rgba(170, 170, 255,80);\n"
-"}\n"
-"QPushButton:pressed {\n"
-" background-color: rgba(170, 170, 255,225);\n"
-"}")
         self.review_close_bt.setObjectName("review_close_bt")
         self.horizontalLayout_44.addWidget(self.review_close_bt)
         spacerItem26 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -2310,7 +1721,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.addLayout(self.horizontalLayout_44)
         self.verticalLayout_11.addWidget(self.groupBox_7)
         self.horizontalLayout_42 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_42.setContentsMargins(10, -1, 10, -1)
+        self.horizontalLayout_42.setContentsMargins(10, 8, 10, -1)
         self.horizontalLayout_42.setObjectName("horizontalLayout_42")
         self.review_progress = QtWidgets.QProgressBar(self.Review_tool_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -2319,19 +1730,6 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.review_progress.sizePolicy().hasHeightForWidth())
         self.review_progress.setSizePolicy(sizePolicy)
         self.review_progress.setMinimumSize(QtCore.QSize(200, 27))
-        self.review_progress.setStyleSheet("QProgressBar {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:1px 2px;\n"
-"background-color: rgb(248, 251, 255);\n"
-"}\n"
-"\n"
-"QProgressBar:chunk {\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"padding:1px 2px;\n"
-"    background-color: qlineargradient(spread:reflect, x1:0.557, y1:0.602045, x2:0.198591, y2:0.603, stop:0 rgba(94, 255, 164, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"}")
         self.review_progress.setProperty("value", 0)
         self.review_progress.setTextVisible(False)
         self.review_progress.setObjectName("review_progress")
@@ -2364,13 +1762,6 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         font.setItalic(True)
         self.review_mention.setFont(font)
-        self.review_mention.setStyleSheet("QLabel{\n"
-"background-color: rgb(248, 251, 255);\n"
-"border:1px solid rgb(176, 221, 255);\n"
-"border-radius:5px;\n"
-"color: rgb(85, 85, 127);\n"
-"padding:2px 4px;\n"
-"}")
         self.review_mention.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.review_mention.setText("")
         self.review_mention.setObjectName("review_mention")
@@ -2427,38 +1818,38 @@ class Ui_MainWindow(object):
         self.func_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Function_2), _translate("MainWindow", "Function"))
         self.gloabal_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.global_variable_2), _translate("MainWindow", "Global Variable"))
         self.macro_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.macro_2), _translate("MainWindow", "Macro Definition"))
         self.struct_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.struct_3), _translate("MainWindow", "Struct"))
         self.enum_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.enum_3), _translate("MainWindow", "Enum"))
         self.union_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Union"))
         self.label_14.setText(_translate("MainWindow", "Prompt:"))
         self.groupBox_4.setTitle(_translate("MainWindow", "Description"))

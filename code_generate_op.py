@@ -126,13 +126,13 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.struct_num.setText(str(num_list[3]))
             self.enum_num.setText(str(num_list[4]))
             self.union_num.setText(str(num_list[5]))
-            if len(name_list[0]) != 0:
+            if len(name_list[0]) != 0: # global function
                 for name_idx in name_list[0]:
                     self.func_items.addItem(name_idx)
-            if len(name_list[1]) != 0:
+            if len(name_list[1]) != 0: # local function
                 for name_idx in name_list[1]:
                     self.func_items.addItem(name_idx)
-            if len(name_list[2]) != 0:
+            if len(name_list[2]) != 0: # global var
                 for name_idx in name_list[2]:
                     self.global_items.addItem(name_idx)
             if len(name_list[3]) != 0:
