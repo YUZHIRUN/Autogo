@@ -630,9 +630,9 @@ def get_graph_xml(code_object):
     return res
 
 
-if __name__ == '__main__':
-    with open('_test/test.txt', mode='r') as obj:
-        content = obj.read()
-    res = get_graph_xml(content)
-    with open('_test/test.xml', 'w') as obj_xml:
-        obj_xml.write(res)
+# if __name__ == '__main__':
+#     with open('_test/test.txt', mode='r') as obj:
+#         content = obj.read()
+#     res = get_graph_xml(content)
+#     with open('_test/test.xml', 'w') as obj_xml:
+#         obj_xml.write(res)

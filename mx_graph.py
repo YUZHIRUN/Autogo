@@ -896,17 +896,17 @@ class create_graph:
                         e['y'] = str(int(e['y']) + position_y)
 
 
-#
-if __name__ == '__main__':
-    graph = create_graph()
-    group = list()
-    task_0 = graph.init_shape
-    down_line = graph.default_down_line(task_0)
-    group_0 = [task_0, down_line]
-    task_1 = graph.draw_rectangle(text='test_1')
-    graph.put_shape_group(group_0, task_1)
-    # group.append(task_0)
-    # group.append(down_line)
-    group.extend(group_0)
-    group.append(task_1)
-    graph.create_graph(group)
+# #
+# if __name__ == '__main__':
+#     graph = create_graph()
+#     group = list()
+#     task_0 = graph.init_shape
+#     down_line = graph.default_down_line(task_0)
+#     group_0 = [task_0, down_line]
+#     task_1 = graph.draw_rectangle(text='test_1')
+#     graph.put_shape_group(group_0, task_1)
+#     # group.append(task_0)
+#     # group.append(down_line)
+#     group.extend(group_0)
+#     group.append(task_1)
+#     graph.create_graph(group)

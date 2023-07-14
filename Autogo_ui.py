@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(992, 616))
         MainWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/ico/.imgs/autogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/ico/.ico/Autogo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("QMainWindow{\n"
 "background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.986, fx:0.461, fy:0.511364, stop:0 rgba(156, 212, 255, 255), stop:1 rgba(255, 255, 255, 255));\n"
@@ -1617,7 +1617,7 @@ class Ui_MainWindow(object):
         self.origin_code.setObjectName("origin_code")
         self.horizontalLayout_14.addWidget(self.origin_code)
         self.verticalLayout_17 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_17.setContentsMargins(5, 120, -1, 120)
+        self.verticalLayout_17.setContentsMargins(5, 120, 5, 120)
         self.verticalLayout_17.setSpacing(2)
         self.verticalLayout_17.setObjectName("verticalLayout_17")
         self.code_change_bt = QtWidgets.QPushButton(self.psedo_code_page)
@@ -1810,7 +1810,7 @@ class Ui_MainWindow(object):
         self.graph_origin.setObjectName("graph_origin")
         self.horizontalLayout_16.addWidget(self.graph_origin)
         self.verticalLayout_20 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_20.setContentsMargins(5, 120, -1, 120)
+        self.verticalLayout_20.setContentsMargins(5, 120, 5, 120)
         self.verticalLayout_20.setSpacing(2)
         self.verticalLayout_20.setObjectName("verticalLayout_20")
         self.graph_convert_bt = QtWidgets.QPushButton(self.draw_graph_page)

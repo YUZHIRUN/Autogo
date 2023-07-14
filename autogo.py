@@ -951,11 +951,10 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
     xpath = get_destination_xpath(position[0])
     end_xpath = get_destination_xpath(position[1])
     xpath_list = [xpath, end_xpath]
-    time.sleep(0.5)
-    move_to_element(xpath)
     wait_item_load(xpath)
+    move_to_element(xpath)
+    time.sleep(0.3)
     click(xpath)
-    time.sleep(0.2)
     context_click(xpath)
     click(g_xpath.insert_new_child)
     input_title(title)
@@ -1021,6 +1020,7 @@ def auto_go_active(component: str, config: dict):
         driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
         wait_loading()
         open_fold_xpath(coordination)
+        time.sleep(0.5)
         component_coor = g_obj_coor
 
         # build_new_item(position=(coordination, component_coor), title='chart', item_type=object_type[folder], content='chart@local@RCtApSwcPriAr_RoutineAnimationProc')

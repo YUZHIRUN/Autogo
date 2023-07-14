@@ -23,11 +23,33 @@ g_user_id = ''
 g_user_key = ''
 g_browser = ''
 
+def del_user(user: str):
+    current_user = list()
+    with open('.private/_user.csv', 'r') as obj:
+        reader = csv.reader(obj)
+        for e in reader:
+            if len(e) != 0:
+                current_user.append(e)
+    for e in current_user:
+        for i in e:
+            if i.count(user) != 0:
+                current_user.remove(e)
+    with open('.private/_user.csv', 'w') as w_obj:
+        writer = csv.writer(w_obj)
+        writer.writerows(current_user)
 
 def add_user(user_info: list):
-    with open('.private/_user.csv', 'a') as user_obj:
-        writer = csv.writer(user_obj)
-        writer.writerow(user_info)
+    exist_check = False
+    with open('.private/_user.csv', 'r') as r_obj:
+        reader = csv.reader(r_obj)
+        for e in reader:
+            if e == user_info:
+                exist_check = True
+                break
+    if exist_check is False:
+        with open('.private/_user.csv', 'a') as user_obj:
+            writer = csv.writer(user_obj)
+            writer.writerow(user_info)
 
 
 def user_reg(user_info: list):
@@ -39,7 +61,7 @@ def user_reg(user_info: list):
                 if user[0] == user_info[0] and user[1] == user_info[1]:
                     res = err.ok
                 elif user[0] == user_info[0] and user[1] != user_info[1]:
-                    res = err.password_err
+                    del_user(user_info[0])
     return res
 
 
@@ -128,6 +150,7 @@ class gui_op(Autogo_ui.Ui_MainWindow):
         return ret
 
     def event_register(self):
+        op_lock.acquire()
         global g_user_id, g_user_key, g_browser
         if (err.void_check(self.user_id.text()) is True or err.void_check(
                 self.user_key.text()) is True) and os.path.exists('.config/user_config.json') is True:
@@ -158,6 +181,7 @@ class gui_op(Autogo_ui.Ui_MainWindow):
                     res = check_user.account_check(config)
                 if res == err.ok:
                     cfg = {'user id': g_user_id, 'user key': g_user_key, 'browser': g_browser}
+                    add_user(user)
                     with open('.config/user_config.json', mode='w') as cfg_obj:
                         json.dump(cfg, cfg_obj)
                     # check_user
@@ -169,7 +193,7 @@ class gui_op(Autogo_ui.Ui_MainWindow):
                     self.user_id.clear()
                     self.user_key.clear()
                     self.user_id.setText(res)
-
+        op_lock.release()
     def event_back(self):
         self.stack_first.setCurrentWidget(self.register_page)
 

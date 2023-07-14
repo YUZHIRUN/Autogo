@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="icon.qrc">
-    <normaloff>:/ico/.imgs/autogo.png</normaloff>:/ico/.imgs/autogo.png</iconset>
+    <normaloff>:/ico/.ico/Autogo.ico</normaloff>:/ico/.ico/Autogo.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
@@ -3084,6 +3084,9 @@ p, li { white-space: pre-wrap; }
                 <property name="topMargin">
                  <number>120</number>
                 </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
                 <property name="bottomMargin">
                  <number>120</number>
                 </property>
@@ -3498,6 +3501,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="topMargin">
                  <number>120</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
                 </property>
                 <property name="bottomMargin">
                  <number>120</number>
@@ -4646,7 +4652,6 @@ padding:2px 4px;
  </widget>
  <resources>
   <include location="icon.qrc"/>
-  <include location="C:/Users/SH2210002/.designer/backup/icon.qrc"/>
  </resources>
  <connections/>
 </ui>
