@@ -158,6 +158,8 @@ def global_func_proc(input_func_list, output_info_list):
 
 
 def fill_function_info():
+    g_global_code_list.clear()
+    g_local_code_list.clear()
     while True:
         ret = global_func_proc(g_global_func, g_global_code_list)
         if ret != errcode.ok:
