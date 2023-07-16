@@ -7,6 +7,12 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+/.config/
+/.ico/
+/.driver/
+/.imgs/
+/.private/
+*.qrc
 .Python
 _test/
 pyinstaller
