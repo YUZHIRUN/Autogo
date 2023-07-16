@@ -25,6 +25,7 @@ class err_class:
         self.password_err = 'Please check your password!'
 
         self.driver_interrupt = 'Browser interrupt!'
+        self.driver_over = 'Browser driver overdue!'
 
     def void_check(self, input_str: str):
         if input_str == '' or input_str is None:

@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.common import WebDriverException
+from selenium.common.exceptions import SessionNotCreatedException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -85,7 +86,11 @@ def account_check(config):
     g_browser = config['browser']
     user_id = config['user id']
     user_key = config['user key']
-    get_chrome_driver()
+    try:
+        get_chrome_driver()
+    except SessionNotCreatedException:
+        ret = err.driver_over
+        return ret
     driver.maximize_window()
     send_key(g_xpath.user_id, user_id)
     send_key(g_xpath.password, user_key)
