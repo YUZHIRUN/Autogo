@@ -442,58 +442,33 @@ def error_else_then_proc(input_code: str):
     return res
 
 def switch_depth_adjustment(input_code: str):
+    res = input_code
     code_list =input_code.split('\n')
-    code_list_len = len(code_list)
-    idx = 0
     switch_depth = 0
+    case_depth = 0
     switch_start_flag = False
-    default_flag = True
-    last_depth = 1
-    while idx < code_list_len:
-        code_line = code_list[idx]
-        current_depth = get_phrase_depth(code_line)
-        if del_depth_sign(code_line).startswith('SWITCH') is True or del_depth_sign(code_line).startswith('switch') is True:
-            switch_depth = get_phrase_depth(code_line)
-            default_flag = False
+    case_flag = False
+    for e in code_list:
+        if e.count('SWITCH:') != 0:
+            switch_depth = get_phrase_depth(e)
             switch_start_flag = True
-            idx += 1
-        elif del_depth_sign(code_line).startswith('CASE') is True and default_flag is False and switch_start_flag is True:
-            case_depth = get_phrase_depth(code_line)
-            case = del_depth_sign(code_line)
-            case = common.depth_set(case, switch_depth)
-            code_list[idx] = case
-            idx += 1
-        elif del_depth_sign(code_line).startswith('DEFAULT') is True and default_flag is False and switch_start_flag is True:
-            default = del_depth_sign(code_line)
-            default = common.depth_set(default, switch_depth)
-            code_list[idx] = default
-            default_flag = True
-            idx += 1
-        elif default_flag is True and switch_start_flag is True:
-            # current_depth = get_phrase_depth(code_line)
-            if current_depth > switch_depth + 1:
-                content = del_depth_sign(code_line)
-                content = common.depth_set(content, current_depth - 1)
-                code_list[idx] = content
-                if del_depth_sign(code_line).startswith('BREAK') is True:
-                    break
-                else:
-                    idx += 1
-            else:
-                idx += 1
-        elif switch_start_flag is True:
-            # current_depth = get_phrase_depth(code_line)
-            if current_depth > last_depth + 1:
-                content = del_depth_sign(code_line)
-                content = common.depth_set(content, current_depth - 1)
-                code_list[idx] = content
-                idx += 1
-            else:
-                idx += 1
-        else:
-            idx += 1
-        last_depth = current_depth
-    res = '\n'.join(code_list)
+        if e.count('CASE:') != 0:
+            case_depth = get_phrase_depth(e)
+            case_flag = True
+        if switch_start_flag is True and case_flag is True:
+            break
+    if switch_depth != case_depth:
+        reg = r'_*CASE:[^}]+?DEFAULT:[^{]+?_*BREAK'
+        case_phase = re.search(reg, input_code)
+        if case_phase is not None:
+            case_phase = str(re.findall(reg, input_code)[0]).split('\n')
+            new_phase_list = list()
+            for phase in case_phase:
+                if phase.startswith('_') is True:
+                    new_phase = phase.replace('__', '', 1)
+                    new_phase_list.append(new_phase)
+            new_case_phase = '\n'.join(new_phase_list)
+            res = re.sub(reg, new_case_phase, input_code)
     return res
 
 def wash_code(input_code: str):

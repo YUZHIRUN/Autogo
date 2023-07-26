@@ -55,7 +55,7 @@ def file_info_clean(content_str: str, mode='.c'):
 
 
 def pointer_space_proc(content_str: str):
-    res = re.sub(regular.pointer_space, ' *', content_str)
+    res = re.sub(regular.pointer_space, '* ', content_str)
     return res
 
 
@@ -86,6 +86,13 @@ def del_line_sign(obj_str: str):
     res = re.sub(regular.new_line, '\n', obj_str)
     return res
 
+def del_if_line_proc(obj_str: str):
+    res = obj_str
+    obj = re.search(regular.del_if_line, obj_str)
+    if obj is not None:
+        if_flag = str(re.search(regular.del_if_line, obj_str).group(1))
+        res = re.sub(regular.del_if_line, (if_flag + ' '), obj_str)
+    return res
 
 def clear_number_sign(input_str: str):
     res = input_str.strip()
