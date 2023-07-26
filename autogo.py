@@ -48,6 +48,8 @@ def get_chrome_driver():
         #     driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
         # else:
         option = webdriver.ChromeOptions()
+        option.add_argument('--start-maximized')  # max window
+        option.add_argument('--incognito')  # implicit mode
         option.add_argument('--ignore-certificate-errors')
         option.add_argument('--ignore-ssl-errors')
         driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
@@ -61,6 +63,7 @@ def get_chrome_driver():
         #     driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
         # else:
         option = webdriver.EdgeOptions()
+        option.add_argument('--start-maximized')
         option.add_argument('--ignore-certificate-errors')
         option.add_argument('--ignore-ssl-errors')
         driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
@@ -137,6 +140,10 @@ def switch_to_frame(xpath: str):
     driver.switch_to.frame(frame)
 
 
+def web_refresh():
+    driver.refresh()
+
+
 def switch_to_back():
     # driver.switch_to.parent_frame()
     driver.switch_to.default_content()
@@ -191,6 +198,7 @@ def wait_item_visible(xpath: str):
 def wait_item_clickable(xpath: str):
     locator = (By.XPATH, xpath)
     WebDriverWait(driver, WAIT_TIME).until(ec.element_to_be_clickable(locator))
+
 
 def wait_element_invisible(xpath: str):
     locator = (By.XPATH, xpath)
@@ -637,9 +645,12 @@ def detail_process(content: str, xpath_list):
     input_save()
     click(xpath_list[1])
     select_object_type(object_type[function])
+    time.sleep(0.5)
     input_req_category('Functional')
+    time.sleep(0.5)
     input_special_verification('Check the correctness of the logic according to the corresponding requirements.')
     wait_item_load(g_xpath.verification_approach)
+    time.sleep(0.5)
     select_ver_approach('SW Unit Test')
     wait_item_load(xpath_list[1])
     click(xpath_list[1])
@@ -929,6 +940,7 @@ def flow_chart_process(content):
         click(g_xpath.input_content)
         click(g_xpath.paint_button)
         click(g_xpath.insert_graph_select)
+        # time.sleep(0.5)
         click(g_xpath.insert_graph_bt)
         switch_to_frame(g_xpath.diagram_iframe)
         click(g_xpath.extra_menu)
@@ -937,11 +949,12 @@ def flow_chart_process(content):
         pyperclip.copy(xml_info)
         click(g_xpath.diagram_text_area)
         driver.find_element(By.XPATH, value=g_xpath.diagram_text_area).send_keys(Keys.CONTROL, 'v')
+        # time.sleep(0.3)
         click(g_xpath.graph_ok)
         click(g_xpath.graph_save)
         switch_to_back()
         wait_item_visible(g_xpath.chart)
-        time.sleep(0.5)
+        # time.sleep(0.5)
         move_to_element(g_xpath.input_title)
         wait_item_clickable(g_xpath.input_title)
         click(g_xpath.input_title)
@@ -1014,7 +1027,7 @@ def auto_go_active(component: str, config: dict):
         if res != err.ok:
             break
         # register
-        driver.maximize_window()
+        # driver.maximize_window()
         driver.find_element(By.ID, value='user').send_keys(g_user)
         driver.find_element(By.ID, value='password').send_keys(g_key)
         driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
@@ -1076,7 +1089,7 @@ def auto_go_active(component: str, config: dict):
         build_new_item(position=(sw_func_coor, global_func_coor), title='Global Functions',
                        item_type=object_type[folder])
         func_process(global_func_coor, func_type='global')
-        driver.close()
+        driver.quit()
         break
     return res
 

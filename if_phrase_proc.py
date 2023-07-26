@@ -40,6 +40,7 @@ def if_process(if_phrases: str):
         res = if_phrase_1
     res = if_condition_pro(res)
     res = common.del_line_sign(res)
+    res = common.del_if_line_proc(res)
     res = res.replace('ELSE\nTHEN', 'ELSE THEN')
     return res
 

@@ -59,7 +59,7 @@ def common_point_func(input_str: str):
                 func_res = func_name
         else:
             func_res = func_name
-    res = 'Call the function ' + str(func_res)
+    res = 'Call the function ' + str(input_str)
     return res
 
 
@@ -106,7 +106,10 @@ def point_func_proc(func_line: list):
                         func_res = proto + point_params
                     except Exception:
                         func_res = point_name
-            info = ' the result of call the function ' + str(func_res)
+            if line_idx.count('Call the function') != 0:
+                info = ' ' + str(func_res)
+            else:
+                info = ' the result of call the function ' + str(func_res)
             new_info = re.sub(regular.point_func, info, line_idx)
             index = func_line.index(line_idx)
             func_line[index] = new_info
@@ -138,5 +141,6 @@ def last_func_callback_proc(func_line_list: list):
     res = '\n'.join(func_list)
     res = res.replace('(void)', '')
     res = re.sub(regular.var_class, '', res)
+    res = re.sub(regular.del_space, ' ', res)
     res = res + '\nEND'
     return res

@@ -175,14 +175,20 @@ def content_process(content_key: str):
         code = cp.clean_code_depth(e)
         code = cp.content_clean_line(code)
         if code == 'Start':
-            shape = graph.draw_rectangle_round(text='Start')
+            shape = graph.draw_rectangle_round(text=code)
             content_progress.append(shape)
         else:
             if len(content_progress) == 0:
-                shape = graph.draw_rectangle(text=code)
+                if code == 'END':
+                    shape = graph.draw_rectangle_round(text=code)
+                else:
+                    shape = graph.draw_rectangle(text=code)
                 content_progress.append(shape)
             else:
-                shape = graph.draw_rectangle(text=code, rel_task=content_progress[0])
+                if code == 'END':
+                    shape = graph.draw_rectangle_round(text=code, rel_task=content_progress[0])
+                else:
+                    shape = graph.draw_rectangle(text=code, rel_task=content_progress[0])
                 link = graph.default_down_link(content_progress[0], shape)
                 content_progress[0] = deepcopy(shape)
                 content_group.append(link)
@@ -630,9 +636,9 @@ def get_graph_xml(code_object):
     return res
 
 
-# if __name__ == '__main__':
-#     with open('_test/test.txt', mode='r') as obj:
-#         content = obj.read()
-#     res = get_graph_xml(content)
-#     with open('_test/test.xml', 'w') as obj_xml:
-#         obj_xml.write(res)
+if __name__ == '__main__':
+    with open('_test/test.txt', mode='r') as obj:
+        content = obj.read()
+    res = get_graph_xml(content)
+    with open('_test/test.xml', 'w') as obj_xml:
+        obj_xml.write(res)

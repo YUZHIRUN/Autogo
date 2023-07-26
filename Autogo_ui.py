@@ -1785,7 +1785,7 @@ class Ui_MainWindow(object):
         self.groupBox.setTitle(_translate("MainWindow", "About"))
         self.label_8.setText(_translate("MainWindow", "            Autogo tool provides C source code to pseudocode conversion capabilities, and automatic interaction with software detailed design and review records on codebeamer."))
         self.label_9.setText(_translate("MainWindow", "Developer: Zhirun.Yu "))
-        self.label.setText(_translate("MainWindow", "Version:3.0 "))
+        self.label.setText(_translate("MainWindow", "Version:3.1 "))
         self.groupBox_2.setTitle(_translate("MainWindow", "User information"))
         self.browser.setItemText(0, _translate("MainWindow", "Chrome"))
         self.browser.setItemText(1, _translate("MainWindow", "Edge"))
