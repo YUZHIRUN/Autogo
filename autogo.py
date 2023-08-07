@@ -25,6 +25,7 @@ g_base_coor = ''
 g_obj_coor = ''
 g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'global_var': 'x4', 'union': 'x3',
                 'input': 'x4', 'output': 'x4', 'return': 'x3', 'unit_var': 'x6', 'func_dynamic': '6x5'}
+g_temp_coor = '1'
 
 err = error_code.err_class()
 WAIT_TIME = 15
@@ -83,6 +84,7 @@ def get_cfg(config):
         res = err.base_coor_err
     else:
         get_chrome_driver()
+    wait_loading()
     return res
 
 
@@ -453,8 +455,13 @@ def func_item_build_process(base_position: str, func_name, func_type, current_co
     build_new_item(position=(current_coor, dynamic_coor), title='Call Relationship', item_type=object_type[information],
                    content=('func_dynamic@' + func_info))
     flow_chart_coor = get_now_coor(dynamic_coor, 'after')
-    build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
-                   content=('chart@' + func_info))
+    try:
+        build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
+                       content=('chart@' + func_info))
+    except Exception:
+        flow_chart_error_proc()
+        build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
+                       content=('chart@' + func_info))
     detail_folder_coor = get_now_coor(flow_chart_coor, 'after')
     build_new_item(position=(current_coor, detail_folder_coor), title='Function Logic Description',
                    item_type=object_type[folder])
@@ -908,6 +915,7 @@ def func_dynamic_item_process(content):
 #     click(xpath_list[1])
 
 def func_process(base_position, func_type='local'):
+    global g_temp_coor
     fun_coor = get_now_coor(base_position, 'inner')
     if func_type == 'local':
         func_items = autogo_input.g_local_func
@@ -920,6 +928,7 @@ def func_process(base_position, func_type='local'):
     if func_num != 0:
         for func_idx in range(func_num):
             func_name = func_items[func_idx]
+            g_temp_coor = obj_current_coor
             func_item_build_process(base_position, func_name, func_type, obj_current_coor)
             obj_current_coor = get_now_coor(obj_current_coor, 'after')
 
@@ -960,6 +969,18 @@ def flow_chart_process(content):
         click(g_xpath.input_title)
 
 
+def flow_chart_error_proc():
+    driver.close()
+    time.sleep(0.5)
+    get_chrome_driver()
+    driver.find_element(By.ID, value='user').send_keys(g_user)
+    driver.find_element(By.ID, value='password').send_keys(g_key)
+    driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
+    wait_loading()
+    open_fold_xpath(g_temp_coor)
+    time.sleep(0.5)
+
+
 def build_new_item(position: tuple, title: str, item_type=object_type[function], content: str = None):
     xpath = get_destination_xpath(position[0])
     end_xpath = get_destination_xpath(position[1])
@@ -969,7 +990,14 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
     time.sleep(0.3)
     click(xpath)
     context_click(xpath)
-    click(g_xpath.insert_new_child)
+    try:
+        click(g_xpath.insert_new_child)
+    except Exception:
+        wait_item_load(xpath)
+        move_to_element(xpath)
+        time.sleep(0.5)
+        context_click(xpath)
+        click(g_xpath.insert_new_child)
     input_title(title)
     while True:
         if content is None:
