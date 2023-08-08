@@ -3,6 +3,7 @@ import json
 import os
 
 from selenium.common import WebDriverException
+from selenium.common import exceptions
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec

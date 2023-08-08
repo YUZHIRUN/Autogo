@@ -1790,6 +1790,7 @@ class Ui_MainWindow(object):
         self.browser.setItemText(0, _translate("MainWindow", "Chrome"))
         self.browser.setItemText(1, _translate("MainWindow", "Edge"))
         self.log_in_bt.setText(_translate("MainWindow", "Go on"))
+        self.log_in_bt.setShortcut(_translate("MainWindow", "Return"))
         __sortingEnabled = self.tool_item.isSortingEnabled()
         self.tool_item.setSortingEnabled(False)
         item = self.tool_item.item(0)

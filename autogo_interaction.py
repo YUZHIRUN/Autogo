@@ -1,27 +1,22 @@
 import json
 import os
 import csv
-import time
-import autogo
 import Autogo_ui
-import check_user
 import generate_code
 import error_code
-import threading
+from autogo_thread_proc import *
+from PyQt5.QtWidgets import QMainWindow
 import convert_item as convert
-from tkinter import filedialog
 from PyQt5.QtCore import QTimer
 
-import review_record
-
 err = error_code.err_class()
-op_lock = threading.Lock()
 
 g_name_list = list()
 g_content_list = list()
 g_user_id = ''
 g_user_key = ''
 g_browser = ''
+
 
 def del_user(user: str):
     current_user = list()
@@ -37,6 +32,7 @@ def del_user(user: str):
     with open('.private/_user.csv', 'w') as w_obj:
         writer = csv.writer(w_obj)
         writer.writerows(current_user)
+
 
 def add_user(user_info: list):
     exist_check = False
@@ -65,11 +61,35 @@ def user_reg(user_info: list):
     return res
 
 
-class gui_op(Autogo_ui.Ui_MainWindow):
+class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
     def __init__(self):
+        super().__init__()
+        self.setupUi(self)
         self.timer = QTimer()
         self.load_status = ''
+        self.thread = None
         self.timer.timeout.connect(self.event_timer_operate)
+
+        self.trigger_register()
+        self.trigger_back()
+        self.trigger_switch_tool()
+
+        self.trigger_select_file()
+        self.trigger_load()
+        self.trigger_clear()
+        self.trigger_auto_go()
+        self.trigger_build_record()
+        self.trigger_close_record()
+        self.trigger_convert_code()
+        self.trigger_convert_graph()
+        self.trigger_pseudo_code_clear()
+        self.trigger_graph_xml_clear()
+        self.trigger_disp_func()
+        self.trigger_disp_global_var()
+        self.trigger_disp_macro()
+        self.trigger_disp_struct()
+        self.trigger_disp_enum()
+        self.trigger_disp_union()
 
     def event_timer_operate(self):
         if self.load_status == 'swdd_start':
@@ -126,13 +146,13 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.struct_num.setText(str(num_list[3]))
             self.enum_num.setText(str(num_list[4]))
             self.union_num.setText(str(num_list[5]))
-            if len(name_list[0]) != 0: # global function
+            if len(name_list[0]) != 0:  # global function
                 for name_idx in name_list[0]:
                     self.func_items.addItem(name_idx)
-            if len(name_list[1]) != 0: # local function
+            if len(name_list[1]) != 0:  # local function
                 for name_idx in name_list[1]:
                     self.func_items.addItem(name_idx)
-            if len(name_list[2]) != 0: # global var
+            if len(name_list[2]) != 0:  # global var
                 for name_idx in name_list[2]:
                     self.global_items.addItem(name_idx)
             if len(name_list[3]) != 0:
@@ -150,7 +170,6 @@ class gui_op(Autogo_ui.Ui_MainWindow):
         return ret
 
     def event_register(self):
-        op_lock.acquire()
         global g_user_id, g_user_key, g_browser
         if (err.void_check(self.user_id.text()) is True or err.void_check(
                 self.user_key.text()) is True) and os.path.exists('.config/user_config.json') is True:
@@ -178,7 +197,9 @@ class gui_op(Autogo_ui.Ui_MainWindow):
                 user.append(g_user_key)
                 res = user_reg(user)
                 if res == err.user_info_err:
-                    res = check_user.account_check(config)
+                    self.thread = AccountCheck(user, config, self.register_ui_proc)
+                    self.thread.start()
+                    return 0
                 if res == err.ok:
                     cfg = {'user id': g_user_id, 'user key': g_user_key, 'browser': g_browser}
                     add_user(user)
@@ -193,25 +214,39 @@ class gui_op(Autogo_ui.Ui_MainWindow):
                     self.user_id.clear()
                     self.user_key.clear()
                     self.user_id.setText(res)
-        op_lock.release()
+
+    def register_ui_proc(self, res, user):
+        global g_user_id, g_user_key, g_browser
+        if res == err.ok:
+            cfg = {'user id': g_user_id, 'user key': g_user_key, 'browser': g_browser}
+            add_user(user)
+            with open('.config/user_config.json', mode='w') as cfg_obj:
+                json.dump(cfg, cfg_obj)
+            # check_user
+            self.stack_first.setCurrentWidget(self.tool_page)
+        else:
+            g_user_id = ''
+            g_user_key = ''
+            g_browser = ''
+            self.user_id.clear()
+            self.user_key.clear()
+            self.user_id.setText(res)
+
     def event_back(self):
         self.stack_first.setCurrentWidget(self.register_page)
 
     # region event
     def event_select_file(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
-        file_path = filedialog.askopenfilename(title='Please select a file...',
-                                               filetypes=(
-                                                   ('origin file', '*.c'), ('origin file', '*.C'),
-                                                   ('origin file', '*.h'),
-                                                   ('origin file', '*.H')))
+        self.thread = SelectFile(self.select_file_ui_proc)
+        self.thread.start()
+
+    def select_file_ui_proc(self, file_path):
         if err.void_check(file_path) is False:
             self.file_path.setText(file_path)
             self.code_analyzer_mention.setText(err.ok)
         else:
             self.code_analyzer_mention.setText(err.no_file)
-        op_lock.release()
 
     def event_switch_tool(self):
         item = self.tool_item.selectedIndexes()[0]
@@ -219,7 +254,7 @@ class gui_op(Autogo_ui.Ui_MainWindow):
 
     def event_load(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
+        
         file_path = self.file_path.text()
         while True:
             if err.void_check(file_path) is True:
@@ -229,11 +264,11 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             ret = self.display_info(file_path)
             self.code_analyzer_mention.setText(ret)
             break
-        op_lock.release()
+        
 
     def event_clear_info(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
+        
         while True:
             file_path = self.file_path.text()
             if err.void_check(file_path) is True:
@@ -255,11 +290,11 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.union_disp.clear()
             self.code_analyzer_mention.setText(ret)
             break
-        op_lock.release()
+        
 
     def event_disp_func(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
+        
         name = self.func_items.currentItem().text()
         while True:
             if g_name_list[0].count(name) != 0:
@@ -274,11 +309,11 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.func_disp.setPlainText(content)
             self.code_analyzer_mention.setText(err.ok)
             break
-        op_lock.release()
+        
 
     def event_disp_global_var(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
+        
         name = self.global_items.currentItem().text()
         while True:
             if g_name_list[2].count(name) != 0:
@@ -290,11 +325,11 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.gloabal_disp.setPlainText(content)
             self.code_analyzer_mention.setText(err.ok)
             break
-        op_lock.release()
+        
 
     def event_disp_macro(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
+        
         name = self.macro_items.currentItem().text()
         while True:
             if g_name_list[3].count(name) != 0:
@@ -306,11 +341,11 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.macro_disp.setPlainText(content)
             self.code_analyzer_mention.setText(err.ok)
             break
-        op_lock.release()
+        
 
     def event_disp_struct(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
+        
         name = self.struct_items.currentItem().text()
         while True:
             if g_name_list[4].count(name) != 0:
@@ -322,11 +357,11 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.struct_disp.setPlainText(content)
             self.code_analyzer_mention.setText(err.ok)
             break
-        op_lock.release()
+        
 
     def event_disp_enum(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
+        
         name = self.enum_items.currentItem().text()
         while True:
             if g_name_list[5].count(name) != 0:
@@ -338,11 +373,11 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.enum_disp.setPlainText(content)
             self.code_analyzer_mention.setText(err.ok)
             break
-        op_lock.release()
+        
 
     def event_disp_union(self):
         self.code_analyzer_mention.setText(err.waiting)
-        op_lock.acquire()
+        
         name = self.union_item.currentItem().text()
         while True:
             if g_name_list[6].count(name) != 0:
@@ -354,12 +389,12 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             self.union_disp.setPlainText(content)
             self.code_analyzer_mention.setText(err.ok)
             break
-        op_lock.release()
+        
 
     def event_auto_go(self):
         self.swdd_mention.setText(err.autogo_swdd_wait)
+        self.timer.start(100)
         self.load_status = 'swdd_start'
-        op_lock.acquire()
         while True:
             if err.void_check(g_user_id) is True:
                 self.swdd_mention.setText(err.no_id)
@@ -380,6 +415,7 @@ class gui_op(Autogo_ui.Ui_MainWindow):
                     self.obj_folder.setText(config['object folder'])
                     self.swdd_url.setText(config['link'])
                 self.swdd_mention.setText(err.ok)
+                self.load_status = 'swdd_over'
                 break
             base_coor = self.base_coor.text()
             obj_coor = self.obj_folder.text()
@@ -399,19 +435,17 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             config['user id'] = g_user_id
             config['user key'] = g_user_key
             config['browser'] = g_browser
-            start_time = time.time()
-            res = autogo.auto_go_program(config)
-            end_time = time.time()
-            time_consume = str(round(int(end_time - start_time) / 60, 1))
-            self.swdd_mention.setText(res + ' Time: ' + time_consume + '(min)')
+            self.thread = AutogoProc(config, callback=self.autogo_ui_proc)
+            self.thread.start()
             break
-        op_lock.release()
+
+    def autogo_ui_proc(self, mention):
+        self.swdd_mention.setText(mention)
         self.load_status = 'swdd_over'
 
     def event_build_record(self):
         self.review_mention.setText(err.record_build_wait)
-        self.load_status = 'review_start'
-        op_lock.acquire()
+        self.timer.start(100)
         while True:
             if err.void_check(g_user_id) is True:
                 self.review_mention.setText(err.no_id)
@@ -450,16 +484,18 @@ class gui_op(Autogo_ui.Ui_MainWindow):
             config['user key'] = g_user_key
             config['browser'] = g_browser
             config['mode'] = 'build'
-            res = review_record.review_program(config)
-            self.review_mention.setText(res)
+            self.load_status = 'review_start'
+            self.thread = BuildRecord(config, callback=self.build_record_ui_proc)
+            self.thread.start()
             break
-        op_lock.release()
+
+    def build_record_ui_proc(self, res):
+        self.review_mention.setText(res)
         self.load_status = 'review_over'
 
     def event_close_record(self):
         self.review_mention.setText(err.record_close_wait)
-        self.load_status = 'review_start'
-        op_lock.acquire()
+        self.timer.start(100)
         while True:
             if err.void_check(g_user_id) is True:
                 self.review_mention.setText(err.no_id)
@@ -474,10 +510,13 @@ class gui_op(Autogo_ui.Ui_MainWindow):
                 break
             config = {'user id': g_user_id, 'user key': g_user_key, 'browser': g_browser, 'close link': link,
                       'mode': 'close'}
-            res = review_record.review_program(config)
-            self.review_mention.setText(res)
+            self.load_status = 'review_start'
+            self.thread = CloseRecord(config, self.close_record_ui_proc)
+            self.thread.start()
             break
-        op_lock.release()
+
+    def close_record_ui_proc(self, res):
+        self.review_mention.setText(res)
         self.load_status = 'review_over'
 
     def event_convert_code(self):
@@ -507,45 +546,18 @@ class gui_op(Autogo_ui.Ui_MainWindow):
         self.graph.clear()
 
     # endregion event
-    # threading-------------------------------------------------------------------------------
-    def th_select_file(self):
-        th = threading.Thread(target=self.event_select_file)
-        th.start()
-
-    def th_load(self):
-        th = threading.Thread(target=self.event_load)
-        th.start()
-
-    #
-    def th_auto_go(self):
-        self.timer.start(100)
-        th = threading.Thread(target=self.event_auto_go)
-        th.start()
-
-    def th_build_record(self):
-        self.timer.start(100)
-        th = threading.Thread(target=self.event_build_record)
-        th.start()
-
-    def th_close_record(self):
-        self.timer.start(100)
-        th = threading.Thread(target=self.event_close_record)
-        th.start()
-
-    def th_register(self):
-        th = threading.Thread(target=self.event_register)
-        th.start()
-
-    def th_back(self):
-        th = threading.Thread(target=self.event_back)
-        th.start()
-
     #  trigger--------------------------------------------------------------------------------
+    def trigger_register(self):
+        self.log_in_bt.clicked.connect(self.event_register)
+
+    def trigger_back(self):
+        self.back_bt.clicked.connect(self.event_back)
+
     def trigger_select_file(self):
-        self.select_bt.clicked.connect(self.th_select_file)
+        self.select_bt.clicked.connect(self.event_select_file)
 
     def trigger_load(self):
-        self.load_bt.clicked.connect(self.th_load)
+        self.load_bt.clicked.connect(self.event_load)
 
     def trigger_clear(self):
         self.clear_bt.clicked.connect(self.event_clear_info)
@@ -568,26 +580,6 @@ class gui_op(Autogo_ui.Ui_MainWindow):
     def trigger_disp_union(self):
         self.union_item.clicked.connect(self.event_disp_union)
 
-    #
-    def trigger_auto_go(self):
-        self.auto_bt.clicked.connect(self.th_auto_go)
-
-    #
-    def trigger_build_record(self):
-        self.review_build_bt.clicked.connect(self.th_build_record)
-
-    def trigger_close_record(self):
-        self.review_close_bt.clicked.connect(self.th_close_record)
-
-    def trigger_register(self):
-        self.log_in_bt.clicked.connect(self.th_register)
-
-    def trigger_back(self):
-        self.back_bt.clicked.connect(self.th_back)
-
-    def trigger_switch_tool(self):
-        self.tool_item.clicked.connect(self.event_switch_tool)
-
     def trigger_convert_code(self):
         self.code_change_bt.clicked.connect(self.event_convert_code)
 
@@ -599,3 +591,19 @@ class gui_op(Autogo_ui.Ui_MainWindow):
 
     def trigger_graph_xml_clear(self):
         self.xml_clear.clicked.connect(self.event_xml_clear)
+
+    #
+    def trigger_auto_go(self):
+        self.auto_bt.clicked.connect(self.event_auto_go)
+
+    #
+    def trigger_build_record(self):
+        self.review_build_bt.clicked.connect(self.event_build_record)
+
+    def trigger_close_record(self):
+        self.review_close_bt.clicked.connect(self.event_close_record)
+
+    def trigger_switch_tool(self):
+        self.tool_item.clicked.connect(self.event_switch_tool)
+
+
