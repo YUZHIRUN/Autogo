@@ -13,7 +13,6 @@ import error_code
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common import WebDriverException
-from selenium.common import exceptions as driver_err
 
 g_xpath = regular_expression.Xpath()
 regular = regular_expression.RegularClass()
@@ -212,6 +211,14 @@ def wait_element_invisible(xpath: str):
 def input_save():
     move_to_element(g_xpath.input_title)
     driver.find_element(By.XPATH, value=g_xpath.input_title).send_keys(Keys.CONTROL, 's')
+
+
+def check_element(xpath: str) -> bool:
+    ret = False
+    elements = driver.find_elements(By.XPATH, value=xpath)
+    if len(elements) != 0:
+        ret = True
+    return ret
 
 
 # -----------------------------------------------browser operate--------------------------------------------------------
@@ -651,14 +658,33 @@ def detail_process(content: str, xpath_list):
     # send_key(g_xpath.input_content, func_content)
     input_save()
     click(xpath_list[1])
+    time.sleep(0.5)
     select_object_type(object_type[function])
     time.sleep(0.5)
-    input_req_category('Functional')
+    try:
+        input_req_category('Functional')
+    except WebDriverException:
+        if check_element(g_xpath.permission_err) is True:
+            time.sleep(0.5)
+            click(g_xpath.permission_err_pro)
+        input_req_category('Functional')
     time.sleep(0.5)
-    input_special_verification('Check the correctness of the logic according to the corresponding requirements.')
+    try:
+        input_special_verification('Check the correctness of the logic according to the corresponding requirements.')
+    except WebDriverException:
+        if check_element(g_xpath.permission_err) is True:
+            time.sleep(0.5)
+            click(g_xpath.permission_err_pro)
+        input_special_verification('Check the correctness of the logic according to the corresponding requirements.')
     wait_item_load(g_xpath.verification_approach)
     time.sleep(0.5)
-    select_ver_approach('SW Unit Test')
+    try:
+        select_ver_approach('SW Unit Test')
+    except WebDriverException:
+        if check_element(g_xpath.permission_err) is True:
+            time.sleep(0.5)
+            click(g_xpath.permission_err_pro)
+        select_ver_approach('SW Unit Test')
     wait_item_load(xpath_list[1])
     click(xpath_list[1])
 
