@@ -212,5 +212,8 @@ class Xpath:
         self.graph_save = r'//div[@class="actionBar "]/input'
         self.chart = r'//*[@class="editable new-item description-container editor-wrapper wysiwyg"]/div[2]/div/div/p/img'
 
+        self.permission_err = r'//*[text()="You have no permission to edit this field."]'
+        self.permission_err_pro = r'//*[text()="You have no permission to edit this field."]/../../div[3]/div/button'
+
 
 

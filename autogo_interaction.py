@@ -394,7 +394,6 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
     def event_auto_go(self):
         self.swdd_mention.setText(err.autogo_swdd_wait)
         self.timer.start(100)
-        self.load_status = 'swdd_start'
         while True:
             if err.void_check(g_user_id) is True:
                 self.swdd_mention.setText(err.no_id)
@@ -415,7 +414,6 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
                     self.obj_folder.setText(config['object folder'])
                     self.swdd_url.setText(config['link'])
                 self.swdd_mention.setText(err.ok)
-                self.load_status = 'swdd_over'
                 break
             base_coor = self.base_coor.text()
             obj_coor = self.obj_folder.text()
@@ -435,6 +433,7 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
             config['user id'] = g_user_id
             config['user key'] = g_user_key
             config['browser'] = g_browser
+            self.load_status = 'swdd_start'
             self.thread = AutogoProc(config, callback=self.autogo_ui_proc)
             self.thread.start()
             break
