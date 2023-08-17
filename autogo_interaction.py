@@ -61,19 +61,19 @@ def user_reg(user_info: list):
     return res
 
 
-class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
+class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.timer = QTimer()
         self.load_status = ''
         self.thread = None
+        self.mention = None
+        self.tips = None
         self.timer.timeout.connect(self.event_timer_operate)
-
         self.trigger_register()
         self.trigger_back()
         self.trigger_switch_tool()
-
         self.trigger_select_file()
         self.trigger_load()
         self.trigger_clear()
@@ -90,6 +90,22 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
         self.trigger_disp_struct()
         self.trigger_disp_enum()
         self.trigger_disp_union()
+
+    def check_load(self):
+        func_n = int(self.func_num.text())
+        g_var = int(self.global_var_num.text())
+        macro_n = int(self.macro_num.text())
+        st_n = int(self.struct_num.text())
+        enum_n = int(self.enum_num.text())
+        union_n = int(self.union_num.text())
+        if func_n == 0 and g_var == 0 and macro_n == 0 and st_n == 0 and st_n == 0 and enum_n == 0 and union_n == 0:
+            return False
+        else:
+            return True
+
+    def mention_to_user(self, content):
+        self.mention = err.Prompt(content)
+        self.mention.show()
 
     def event_timer_operate(self):
         if self.load_status == 'swdd_start':
@@ -230,49 +246,50 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
             g_browser = ''
             self.user_id.clear()
             self.user_key.clear()
-            self.user_id.setText(res)
+            self.mention_to_user(res)
+            # self.user_id.setText(res)
 
     def event_back(self):
         self.stack_first.setCurrentWidget(self.register_page)
 
     # region event
     def event_select_file(self):
-        self.code_analyzer_mention.setText(err.waiting)
         self.thread = SelectFile(self.select_file_ui_proc)
         self.thread.start()
 
     def select_file_ui_proc(self, file_path):
         if err.void_check(file_path) is False:
             self.file_path.setText(file_path)
-            self.code_analyzer_mention.setText(err.ok)
         else:
-            self.code_analyzer_mention.setText(err.no_file)
+            self.file_path.clear()
+            # self.mention_to_user(err.no_file)
 
     def event_switch_tool(self):
         item = self.tool_item.selectedIndexes()[0]
         self.stack_second.setCurrentIndex(int(item.row()))
 
     def event_load(self):
-        self.code_analyzer_mention.setText(err.waiting)
-        
         file_path = self.file_path.text()
         while True:
             if err.void_check(file_path) is True:
                 ret = err.no_file
-                self.code_analyzer_mention.setText(ret)
+                self.mention_to_user(ret)
                 break
             ret = self.display_info(file_path)
-            self.code_analyzer_mention.setText(ret)
+            another_global_vars = generate_code.g_another_global_vars
+            if len(another_global_vars) != 0:
+                self.tips = err.Tips(another_global_vars)
+                self.tips.show()
+                generate_code.g_another_global_vars.clear()
+            if ret != err.ok:
+                self.mention_to_user(ret)
             break
-        
 
     def event_clear_info(self):
-        self.code_analyzer_mention.setText(err.waiting)
-        
         while True:
             file_path = self.file_path.text()
             if err.void_check(file_path) is True:
-                self.code_analyzer_mention.setText(err.no_file)
+                self.mention_to_user(err.no_file)
                 break
             generate_code.clear_info()
             ret = self.display_info(file_path, mode_op='clear')
@@ -288,13 +305,11 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
             self.enum_disp.clear()
             self.macro_disp.clear()
             self.union_disp.clear()
-            self.code_analyzer_mention.setText(ret)
+            if ret != err.ok:
+                self.mention_to_user(ret)
             break
-        
 
     def event_disp_func(self):
-        self.code_analyzer_mention.setText(err.waiting)
-        
         name = self.func_items.currentItem().text()
         while True:
             if g_name_list[0].count(name) != 0:
@@ -304,92 +319,70 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
                 index = g_name_list[1].index(name)
                 content = g_content_list[1][index]
             else:
-                self.code_analyzer_mention.setText(err.no_record)
+                self.mention_to_user(err.no_record)
                 break
             self.func_disp.setPlainText(content)
-            self.code_analyzer_mention.setText(err.ok)
             break
-        
 
     def event_disp_global_var(self):
-        self.code_analyzer_mention.setText(err.waiting)
-        
         name = self.global_items.currentItem().text()
         while True:
             if g_name_list[2].count(name) != 0:
                 index = g_name_list[2].index(name)
                 content = g_content_list[2][index]
             else:
-                self.code_analyzer_mention.setText(err.no_record)
+                self.mention_to_user(err.no_record)
                 break
             self.gloabal_disp.setPlainText(content)
-            self.code_analyzer_mention.setText(err.ok)
             break
-        
 
     def event_disp_macro(self):
-        self.code_analyzer_mention.setText(err.waiting)
-        
         name = self.macro_items.currentItem().text()
         while True:
             if g_name_list[3].count(name) != 0:
                 index = g_name_list[3].index(name)
                 content = g_content_list[3][index]
             else:
-                self.code_analyzer_mention.setText(err.no_record)
+                self.mention_to_user(err.no_record)
                 break
             self.macro_disp.setPlainText(content)
-            self.code_analyzer_mention.setText(err.ok)
             break
-        
 
     def event_disp_struct(self):
-        self.code_analyzer_mention.setText(err.waiting)
-        
         name = self.struct_items.currentItem().text()
         while True:
             if g_name_list[4].count(name) != 0:
                 index = g_name_list[4].index(name)
                 content = g_content_list[4][index]
             else:
-                self.code_analyzer_mention.setText(err.no_record)
+                self.mention_to_user(err.no_record)
                 break
             self.struct_disp.setPlainText(content)
-            self.code_analyzer_mention.setText(err.ok)
             break
-        
 
     def event_disp_enum(self):
-        self.code_analyzer_mention.setText(err.waiting)
-        
         name = self.enum_items.currentItem().text()
         while True:
             if g_name_list[5].count(name) != 0:
                 index = g_name_list[5].index(name)
                 content = g_content_list[5][index]
             else:
-                self.code_analyzer_mention.setText(err.no_record)
+                self.mention_to_user(err.no_record)
                 break
             self.enum_disp.setPlainText(content)
-            self.code_analyzer_mention.setText(err.ok)
             break
-        
 
     def event_disp_union(self):
-        self.code_analyzer_mention.setText(err.waiting)
-        
         name = self.union_item.currentItem().text()
         while True:
             if g_name_list[6].count(name) != 0:
                 index = g_name_list[6].index(name)
                 content = g_content_list[6][index]
             else:
-                self.code_analyzer_mention.setText(err.no_record)
+                self.mention_to_user(err.no_record)
                 break
             self.union_disp.setPlainText(content)
-            self.code_analyzer_mention.setText(err.ok)
             break
-        
 
     def event_auto_go(self):
         self.swdd_mention.setText(err.autogo_swdd_wait)
@@ -433,6 +426,9 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
             config['user id'] = g_user_id
             config['user key'] = g_user_key
             config['browser'] = g_browser
+            if err.void_check(self.file_path.text()) is True or self.check_load() is False:
+                self.swdd_mention.setText(err.no_load)
+                break
             self.load_status = 'swdd_start'
             self.thread = AutogoProc(config, callback=self.autogo_ui_proc)
             self.thread.start()
@@ -604,5 +600,3 @@ class gui_op(Autogo_ui.Ui_MainWindow, QMainWindow):
 
     def trigger_switch_tool(self):
         self.tool_item.clicked.connect(self.event_switch_tool)
-
-

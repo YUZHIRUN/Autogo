@@ -19,6 +19,8 @@ g_enum_list = list()
 g_union_list = list()
 g_include_list = list()
 
+g_another_global_vars = list()
+
 # g_func_code_list = list()
 g_global_code_list = list()
 g_local_code_list = list()
@@ -78,20 +80,33 @@ def load_file(file_path: str):
             if point_funcs is not None:
                 point_funcs_declare = re.findall(regular.point_func_declare, file_content)
                 g_point_func_list.extend(point_funcs_declare)
+                file_content = re.sub(regular.point_func_declare, '', file_content)
             if structs is not None:
                 struct_list = re.findall(struct_regular, file_content)
                 struct_list = common.st_en_un_del_useless(struct_list)
                 g_struct_list.extend(struct_list)
+                file_content = re.sub(struct_regular, '', file_content)
             if enums is not None:
                 enums_list = re.findall(enum_regular, file_content)
                 enums_list = common.st_en_un_del_useless(enums_list)
                 g_enum_list.extend(enums_list)
+                file_content = re.sub(enum_regular, '', file_content)
             if macros is not None:
                 macros_list = re.findall(macro_regular, file_content)
                 g_macro_list.extend(macros_list)
+                file_content = re.sub(macro_regular, '', file_content)
             if global_var is not None:
                 global_var_list = re.findall(global_var_regular, file_content)
+                remain_content = re.sub(global_var_regular, '', file_content)
+                another_vars = re.findall(regular.define_var_init, remain_content)
+                g_another_global_vars.extend(another_vars)
                 g_global_var_list.extend(global_var_list)
+            else:
+                remain_content = file_content
+                another_vars = re.findall(regular.define_var_init, remain_content)
+                another_vars_def = re.findall(regular.define_var_re, file_content)
+                g_another_global_vars.extend(another_vars_def)
+                g_another_global_vars.extend(another_vars)
             if unions is not None:
                 union_list = re.findall(union_regular, file_content)
                 union_list = common.st_en_un_del_useless(union_list)

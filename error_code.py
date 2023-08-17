@@ -1,3 +1,7 @@
+from PyQt5.QtWidgets import QDialog, QWidget
+from Prompt import *
+from tips import *
+
 class err_class:
     def __init__(self):
         self.ok = 'Autogo operate successful!'
@@ -32,3 +36,24 @@ class err_class:
             return True
         else:
             return False
+
+    class Prompt(QDialog, Ui_Dialog):
+        def __init__(self, mention=None):
+            super().__init__()
+            self.setupUi(self)
+            self.mention = mention
+            self.mention_proc()
+
+        def mention_proc(self):
+            self.prompt.setText(self.mention)
+
+    class Tips(QWidget, Ui_Form):
+        def __init__(self, global_vars):
+            super().__init__()
+            self.setupUi(self)
+            self.global_vars = global_vars
+            self.tips_proc()
+
+        def tips_proc(self):
+            self.listWidget.addItems(self.global_vars)
+

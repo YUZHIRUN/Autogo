@@ -151,7 +151,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Version:3.2 </string>
+                <string>Version:3.3 </string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -248,6 +248,9 @@
                <property name="text">
                 <string/>
                </property>
+               <property name="placeholderText">
+                <string>Please enter your username.</string>
+               </property>
               </widget>
              </item>
             </layout>
@@ -317,6 +320,9 @@
                </property>
                <property name="echoMode">
                 <enum>QLineEdit::Password</enum>
+               </property>
+               <property name="placeholderText">
+                <string>Please enter your password.</string>
                </property>
               </widget>
              </item>
@@ -504,7 +510,7 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <property name="spacing">
-           <number>14</number>
+           <number>15</number>
           </property>
           <property name="leftMargin">
            <number>8</number>
@@ -627,7 +633,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <property name="bottomMargin">
-             <number>7</number>
+             <number>11</number>
             </property>
             <item>
              <spacer name="horizontalSpacer_4">
@@ -1825,79 +1831,6 @@ p, li { white-space: pre-wrap; }
               </widget>
              </widget>
             </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_31">
-              <property name="leftMargin">
-               <number>11</number>
-              </property>
-              <property name="topMargin">
-               <number>9</number>
-              </property>
-              <property name="rightMargin">
-               <number>8</number>
-              </property>
-              <property name="bottomMargin">
-               <number>5</number>
-              </property>
-              <item>
-               <widget class="QLabel" name="label_14">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>58</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Calibri</family>
-                  <pointsize>11</pointsize>
-                  <weight>50</weight>
-                  <italic>true</italic>
-                  <bold>false</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Prompt:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="code_analyzer_mention">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>25</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Calibri</family>
-                  <pointsize>11</pointsize>
-                  <italic>true</italic>
-                 </font>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
            </layout>
           </widget>
           <widget class="QWidget" name="SWDD_tool_page">
@@ -2323,7 +2256,7 @@ p, li { white-space: pre-wrap; }
                  <property name="sizeHint" stdset="0">
                   <size>
                    <width>20</width>
-                   <height>109</height>
+                   <height>108</height>
                   </size>
                  </property>
                 </spacer>
@@ -2337,7 +2270,7 @@ p, li { white-space: pre-wrap; }
                <number>10</number>
               </property>
               <property name="topMargin">
-               <number>8</number>
+               <number>4</number>
               </property>
               <property name="rightMargin">
                <number>10</number>
