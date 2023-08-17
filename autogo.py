@@ -486,6 +486,8 @@ def include_process():
         click(g_xpath.input_content)
         include_info = ['File Name']
         include_description = ['Description']
+        comment_list = generate_code.g_include_comment_list[0:include_num]
+        include_description.extend(comment_list)
         include_info.extend(autogo_input.g_include_item)
         tab_content = list()
         tab_content.append(include_info)
@@ -509,6 +511,7 @@ def macro_process():
         macro_vars = ['Value']
         macro_names.extend(autogo_input.g_macro[0])
         macro_vars.extend(autogo_input.g_macro[1])
+        descriptions.extend(generate_code.g_macro_comment_list)
         tab_content = list()
         tab_content.append(macro_names)
         tab_content.append(macro_vars)
@@ -534,6 +537,7 @@ def enum_item_process(enum_prop: str, xpath: list):
         descriptions = ['Description']
         enum_members.extend(autogo_input.g_enum[1][enum_idx])
         enum_vals.extend(autogo_input.g_enum[2][enum_idx])
+        descriptions.extend(generate_code.g_enum_comment_list[enum_idx])
         tab_content = list()
         tab_content.append(enum_members)
         tab_content.append(enum_vals)
@@ -562,6 +566,7 @@ def struct_item_process(struct_prop, xpath: list):
         descriptions = ['Description']
         st_members.extend(autogo_input.g_struct[2][st_idx])
         st_types.extend(autogo_input.g_struct[1][st_idx])
+        descriptions.extend(generate_code.g_struct_comment_list[st_idx])
         tab_content = list()
         tab_content.append(st_members)
         tab_content.append(st_types)
@@ -590,6 +595,7 @@ def union_item_process(union_prop, xpath: list):
         descriptions = ['Description']
         un_members.extend(autogo_input.g_union[2][un_idx])
         un_types.extend(autogo_input.g_union[1][un_idx])
+        descriptions.extend(generate_code.g_union_comment_list[un_idx])
         tab_content = list()
         tab_content.append(un_members)
         tab_content.append(un_types)
@@ -615,6 +621,7 @@ def global_var_item_process():
     des = ['Description']
     var_names.extend(autogo_input.g_global_var[0])
     var_types.extend(autogo_input.g_global_var[1])
+    des.extend(generate_code.g_global_var_comment_list)
     var_len = len(autogo_input.g_global_var[0])
     content_len = len(var_names)
     while True:

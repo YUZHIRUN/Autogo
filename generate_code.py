@@ -10,14 +10,26 @@ regular = regular_expression.RegularClass()
 g_file_name = ''
 g_global_func = list()
 g_local_func = list()
-# g_func_list = list()
+# global variable
 g_global_var_list = list()
+g_global_var_comment_list = list()
+
 g_point_func_list = list()
+# macro
 g_macro_list = list()
+g_macro_comment_list = list()
+# struct
 g_struct_list = list()
+g_struct_comment_list = list()
+# enum
 g_enum_list = list()
+g_enum_comment_list = list()
+# union
 g_union_list = list()
-g_include_list = list()
+g_union_comment_list = list()
+# include
+g_include_content_list = list()
+g_include_comment_list = list()
 
 g_another_global_vars = list()
 
@@ -82,25 +94,33 @@ def load_file(file_path: str):
                 g_point_func_list.extend(point_funcs_declare)
                 file_content = re.sub(regular.point_func_declare, '', file_content)
             if structs is not None:
-                struct_list = re.findall(struct_regular, file_content)
-                struct_list = common.st_en_un_del_useless(struct_list)
+                struct_obj_list = re.findall(struct_regular, file_content)
+                struct_obj_list = common.st_en_un_del_useless(struct_obj_list)
+                struct_list, comment_list = common.st_en_un_get_comment(struct_obj_list)
                 g_struct_list.extend(struct_list)
+                g_struct_comment_list.extend(comment_list)
                 file_content = re.sub(struct_regular, '', file_content)
             if enums is not None:
-                enums_list = re.findall(enum_regular, file_content)
-                enums_list = common.st_en_un_del_useless(enums_list)
+                enums_obj_list = re.findall(enum_regular, file_content)
+                enums_obj_list = common.st_en_un_del_useless(enums_obj_list)
+                enums_list, comment_list = common.st_en_un_get_comment(enums_obj_list)
                 g_enum_list.extend(enums_list)
+                g_enum_comment_list.extend(comment_list)
                 file_content = re.sub(enum_regular, '', file_content)
             if macros is not None:
-                macros_list = re.findall(macro_regular, file_content)
+                macros_obj_list = re.findall(macro_regular, file_content)
+                macros_list, comment_list = common.get_comment(macros_obj_list)
                 g_macro_list.extend(macros_list)
+                g_macro_comment_list.extend(comment_list)
                 file_content = re.sub(macro_regular, '', file_content)
             if global_var is not None:
-                global_var_list = re.findall(global_var_regular, file_content)
+                global_var_obj_list = re.findall(global_var_regular, file_content)
+                global_var_list, comment_list = common.get_comment(global_var_obj_list)
                 remain_content = re.sub(global_var_regular, '', file_content)
                 another_vars = re.findall(regular.define_var_init, remain_content)
                 g_another_global_vars.extend(another_vars)
                 g_global_var_list.extend(global_var_list)
+                g_global_var_comment_list.extend(comment_list)
             else:
                 remain_content = file_content
                 another_vars = re.findall(regular.define_var_init, remain_content)
@@ -108,13 +128,18 @@ def load_file(file_path: str):
                 g_another_global_vars.extend(another_vars_def)
                 g_another_global_vars.extend(another_vars)
             if unions is not None:
-                union_list = re.findall(union_regular, file_content)
-                union_list = common.st_en_un_del_useless(union_list)
+                union_obj_list = re.findall(union_regular, file_content)
+                union_obj_list = common.st_en_un_del_useless(union_obj_list)
+                union_list, comment_list = common.st_en_un_get_comment(union_obj_list)
                 g_union_list.extend(union_list)
+                g_union_comment_list.extend(comment_list)
+                file_content = re.sub(union_regular, '', file_content)
             if file_type == '.c':
                 if include_file is not None:
                     include_list = re.findall(include_regular, file_content)
-                    g_include_list.extend(include_list)
+                    content_list, comment_list = common.get_comment(include_list)
+                    g_include_content_list.extend(content_list)
+                    g_include_comment_list.extend(comment_list)
         break
     return ret
 
@@ -175,6 +200,7 @@ def global_func_proc(input_func_list, output_info_list):
 def fill_function_info():
     g_global_code_list.clear()
     g_local_code_list.clear()
+    # clear_info()
     while True:
         ret = global_func_proc(g_global_func, g_global_code_list)
         if ret != errcode.ok:
@@ -246,10 +272,16 @@ def clear_info():
     g_global_func.clear()
     g_local_func.clear()
     g_struct_list.clear()
+    g_struct_comment_list.clear()
     g_enum_list.clear()
+    g_enum_comment_list.clear()
     g_macro_list.clear()
+    g_macro_comment_list.clear()
     g_global_var_list.clear()
+    g_global_var_comment_list.clear()
     g_union_list.clear()
-    g_include_list.clear()
+    g_union_comment_list.clear()
+    g_include_content_list.clear()
+    g_include_comment_list.clear()
     g_local_func_names.clear()
     g_global_func_names.clear()
