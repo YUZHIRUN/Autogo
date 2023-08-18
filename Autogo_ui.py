@@ -1749,7 +1749,7 @@ class Ui_MainWindow(object):
         self.groupBox.setTitle(_translate("MainWindow", "About"))
         self.label_8.setText(_translate("MainWindow", "            Autogo tool provides C source code to pseudocode conversion capabilities, and automatic interaction with software detailed design and review records on codebeamer."))
         self.label_9.setText(_translate("MainWindow", "Developer: Zhirun.Yu "))
-        self.label.setText(_translate("MainWindow", "Version:3.3 "))
+        self.label.setText(_translate("MainWindow", "Version:3.3 Beta "))
         self.groupBox_2.setTitle(_translate("MainWindow", "User information"))
         self.user_id.setPlaceholderText(_translate("MainWindow", "Please enter your username."))
         self.user_key.setPlaceholderText(_translate("MainWindow", "Please enter your password."))

@@ -108,6 +108,13 @@ def load_file(file_path: str):
                 g_enum_list.extend(enums_list)
                 g_enum_comment_list.extend(comment_list)
                 file_content = re.sub(enum_regular, '', file_content)
+            if unions is not None:
+                union_obj_list = re.findall(union_regular, file_content)
+                union_obj_list = common.st_en_un_del_useless(union_obj_list)
+                union_list, comment_list = common.st_en_un_get_comment(union_obj_list)
+                g_union_list.extend(union_list)
+                g_union_comment_list.extend(comment_list)
+                file_content = re.sub(union_regular, '', file_content)
             if macros is not None:
                 macros_obj_list = re.findall(macro_regular, file_content)
                 macros_list, comment_list = common.get_comment(macros_obj_list)
@@ -130,13 +137,6 @@ def load_file(file_path: str):
                 another_vars_def = re.findall(regular.define_var_re, file_content)
                 g_another_global_vars.extend(another_vars_def)
                 g_another_global_vars.extend(another_vars)
-            if unions is not None:
-                union_obj_list = re.findall(union_regular, file_content)
-                union_obj_list = common.st_en_un_del_useless(union_obj_list)
-                union_list, comment_list = common.st_en_un_get_comment(union_obj_list)
-                g_union_list.extend(union_list)
-                g_union_comment_list.extend(comment_list)
-                file_content = re.sub(union_regular, '', file_content)
             if file_type == '.c':
                 if include_file is not None:
                     include_list = re.findall(include_regular, file_content)

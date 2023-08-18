@@ -151,7 +151,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Version:3.3 </string>
+                <string>Version:3.3 Beta </string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
