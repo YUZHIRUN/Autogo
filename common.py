@@ -409,3 +409,19 @@ def st_en_un_get_comment(obj_list):
     return content_list, comment_list
 
 
+def get_global_value(global_var_list):
+    value_list = list()
+    for var in global_var_list:
+        try:
+            val = re.search(regular.get_global_value, var).group(1)
+        except Exception:
+            val = ''
+        if val is None:
+            val = ''
+        val = re.sub(regular.var_class, '', val)
+        val = re.sub(regular.del_space, ' ', val)
+        val = del_line_sign(val)
+        val = val.strip('\n')
+        val = val.strip()
+        value_list.append(val)
+    return value_list

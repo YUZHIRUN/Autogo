@@ -145,7 +145,8 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
         self.struct_items.clear()
         self.enum_items.clear()
         self.macro_items.clear()
-        self.global_var_num.clear()
+        self.global_items.clear()
+        self.union_item.clear()
 
     #
     def display_info(self, file_path, mode_op='load'):

@@ -12,6 +12,7 @@ g_global_func = list()
 g_local_func = list()
 # global variable
 g_global_var_list = list()
+g_global_value_list = list()
 g_global_var_comment_list = list()
 
 g_point_func_list = list()
@@ -116,10 +117,12 @@ def load_file(file_path: str):
             if global_var is not None:
                 global_var_obj_list = re.findall(global_var_regular, file_content)
                 global_var_list, comment_list = common.get_comment(global_var_obj_list)
+                value_list = common.get_global_value(global_var_list)
                 remain_content = re.sub(global_var_regular, '', file_content)
                 another_vars = re.findall(regular.define_var_init, remain_content)
                 g_another_global_vars.extend(another_vars)
                 g_global_var_list.extend(global_var_list)
+                g_global_value_list.extend(value_list)
                 g_global_var_comment_list.extend(comment_list)
             else:
                 remain_content = file_content

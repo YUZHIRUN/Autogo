@@ -328,6 +328,7 @@ def set_tab_head_color(tab_fmt, col_skip=None):
                 continue
         set_tab_xpath = g_xpath.tab_content.replace('$0', str(row_idx))
         set_tab_xpath = set_tab_xpath.replace('$1', str(col_idx))
+        move_to_element(set_tab_xpath)
         click(set_tab_xpath)
         click(g_xpath.set_color_bt)
         click(g_xpath.color_gray)
@@ -417,8 +418,10 @@ def fill_tab_content(tab_content: list):
         for item in content:
             tab_input = str(row_idx) + 'x' + str(col_idx)
             input_xpath = get_tab_input_xpath(tab_input)
+            move_to_element(input_xpath)
             click(input_xpath)
-            send_key(input_xpath, item)
+            pyperclip.copy(item)
+            driver.find_element(By.XPATH, value=input_xpath).send_keys(Keys.CONTROL, 'v')
             row_idx = row_idx + 1
         col_idx = col_idx + 1
 
@@ -621,6 +624,7 @@ def global_var_item_process():
     des = ['Description']
     var_names.extend(autogo_input.g_global_var[0])
     var_types.extend(autogo_input.g_global_var[1])
+    var_init_vals.extend(generate_code.g_global_value_list)
     des.extend(generate_code.g_global_var_comment_list)
     var_len = len(autogo_input.g_global_var[0])
     content_len = len(var_names)

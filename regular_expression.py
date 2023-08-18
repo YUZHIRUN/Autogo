@@ -67,6 +67,7 @@ class RegularClass:
         self.macro_value = r'# *define +(?:.+?) +(.+)'
         self.get_param_info = r'((?:const|volatile)* *[\w\*]+) +([\w\*]+)'
         self.get_point_func_info = r'(?:static) *\w+(\( *\*\w+\)) *\(.+?\).+?&(\w+);'
+        self.get_global_value = r'(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *= *([^;]+);'
 
         # function class regular
         self.memcpy = r'memcpy *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
