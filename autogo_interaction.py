@@ -18,6 +18,12 @@ g_user_key = ''
 g_browser = ''
 
 
+def check_user_cfg() -> bool:
+    if os.path.exists('.private/_user.csv') is True:
+        return True
+    else:
+        return False
+
 def del_user(user: str):
     current_user = list()
     with open('.private/_user.csv', 'r') as obj:
@@ -50,14 +56,17 @@ def add_user(user_info: list):
 
 def user_reg(user_info: list):
     res = err.user_info_err
-    with open('.private/_user.csv', 'r') as user_obj:
-        content_list = csv.reader(user_obj)
-        for user in content_list:
-            if len(user) != 0:
-                if user[0] == user_info[0] and user[1] == user_info[1]:
-                    res = err.ok
-                elif user[0] == user_info[0] and user[1] != user_info[1]:
-                    del_user(user_info[0])
+    if check_user_cfg() is False:
+        res = err.user_cfg_err
+    else:
+        with open('.private/_user.csv', 'r') as user_obj:
+            content_list = csv.reader(user_obj)
+            for user in content_list:
+                if len(user) != 0:
+                    if user[0] == user_info[0] and user[1] == user_info[1]:
+                        res = err.ok
+                    elif user[0] == user_info[0] and user[1] != user_info[1]:
+                        del_user(user_info[0])
     return res
 
 

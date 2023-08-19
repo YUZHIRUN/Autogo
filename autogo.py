@@ -28,16 +28,18 @@ g_temp_coor = '1'
 
 err = error_code.err_class()
 WAIT_TIME = 15
-# driver = None
 # enums
 information = 0
 folder = 1
 function = 2
 object_type = ['Information', 'Heading', 'Functional']
+START_TIME = 0
+TIME_GAP = 8
+BROWSER_VERSION = ''
 
 
 def get_chrome_driver():
-    global driver
+    global driver, BROWSER_VERSION
     if g_browser == 'chrome' or g_browser == 'Chrome':
         from selenium.webdriver.chrome.service import Service
         # if g_visible is False:
@@ -53,6 +55,7 @@ def get_chrome_driver():
         option.add_argument('--ignore-certificate-errors')
         option.add_argument('--ignore-ssl-errors')
         driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
+        BROWSER_VERSION = driver.capabilities['browserVersion']
     else:
         from selenium.webdriver.edge.service import Service
         # if g_visible is False:
@@ -67,6 +70,7 @@ def get_chrome_driver():
         option.add_argument('--ignore-certificate-errors')
         option.add_argument('--ignore-ssl-errors')
         driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
+        BROWSER_VERSION = driver.capabilities['browserVersion']
     driver.get(g_link)
 
 
@@ -469,7 +473,7 @@ def func_item_build_process(base_position: str, func_name, func_type, current_co
         build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
                        content=('chart@' + func_info))
     except Exception:
-        flow_chart_error_proc()
+        timing_clear_ram_proc(g_temp_coor)
         build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
                        content=('chart@' + func_info))
     detail_folder_coor = get_now_coor(flow_chart_coor, 'after')
@@ -666,11 +670,13 @@ def detail_process(content: str, xpath_list):
     click(g_xpath.input_content)
     pyperclip.copy(func_content)
     driver.find_element(By.XPATH, value=g_xpath.input_content).send_keys(Keys.CONTROL, 'v')
-    # send_key(g_xpath.input_content, func_content)
     input_save()
     click(xpath_list[1])
     time.sleep(0.5)
-    select_object_type(object_type[function])
+    try:
+        select_object_type(object_type[function])
+    except WebDriverException:
+        select_object_type(object_type[function])
     time.sleep(0.5)
     try:
         input_req_category('Functional')
@@ -1006,19 +1012,37 @@ def flow_chart_process(content):
         click(g_xpath.input_title)
 
 
-def flow_chart_error_proc():
-    driver.close()
+# def flow_chart_error_proc():
+#     driver.quit()
+#     time.sleep(0.5)
+#     get_chrome_driver()
+#     driver.find_element(By.ID, value='user').send_keys(g_user)
+#     driver.find_element(By.ID, value='password').send_keys(g_key)
+#     driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
+#     wait_loading()
+#     open_fold_xpath(g_temp_coor)
+#     time.sleep(0.5)
+
+
+def timing_clear_ram_proc(coor):
+    driver.quit()
     time.sleep(0.5)
     get_chrome_driver()
     driver.find_element(By.ID, value='user').send_keys(g_user)
     driver.find_element(By.ID, value='password').send_keys(g_key)
     driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
     wait_loading()
-    open_fold_xpath(g_temp_coor)
+    open_fold_xpath(coor)
     time.sleep(0.5)
 
 
 def build_new_item(position: tuple, title: str, item_type=object_type[function], content: str = None):
+    global START_TIME
+    end_time = time.time()
+    if end_time - START_TIME >= 60 * TIME_GAP:
+        temp_node = position[0]
+        timing_clear_ram_proc(temp_node)
+        START_TIME = time.time()
     xpath = get_destination_xpath(position[0])
     end_xpath = get_destination_xpath(position[1])
     xpath_list = [xpath, end_xpath]
@@ -1078,7 +1102,10 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
             pass
         input_save()
         click(end_xpath)
-        select_object_type(item_type)
+        try:
+            select_object_type(item_type)
+        except (Exception, WebDriverException):
+            select_object_type(item_type)
         click(end_xpath)
         break
 
@@ -1160,6 +1187,8 @@ def auto_go_active(component: str, config: dict):
 
 
 def auto_go_program(config: dict):
+    global START_TIME
+    START_TIME = time.time()
     while True:
         component_name = generate_code.g_file_name.split('.')[0]
         if err.void_check(component_name) is True:

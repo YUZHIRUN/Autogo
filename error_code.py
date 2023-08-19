@@ -27,6 +27,7 @@ class err_class:
         self.no_load = 'Please load a file!'
         self.user_info_err = 'Please check your user id or password!'
         self.password_err = 'Please check your password!'
+        self.user_cfg_err = 'User config file error!'
 
         self.driver_interrupt = 'Browser interrupt!'
         self.driver_over = 'Browser driver overdue!'
