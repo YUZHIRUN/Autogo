@@ -1,9 +1,9 @@
 import json
-import os
 import csv
 import Autogo_ui
 import generate_code
 import error_code
+from error_code import *
 from autogo_thread_proc import *
 from PyQt5.QtWidgets import QMainWindow
 import convert_item as convert
@@ -19,14 +19,14 @@ g_browser = ''
 
 
 def check_user_cfg() -> bool:
-    if os.path.exists('.private/_user.csv') is True:
+    if os.path.exists('.private/__user.csv') is True:
         return True
     else:
         return False
 
 def del_user(user: str):
     current_user = list()
-    with open('.private/_user.csv', 'r') as obj:
+    with open('.private/__user.csv', 'r') as obj:
         reader = csv.reader(obj)
         for e in reader:
             if len(e) != 0:
@@ -35,21 +35,21 @@ def del_user(user: str):
         for i in e:
             if i.count(user) != 0:
                 current_user.remove(e)
-    with open('.private/_user.csv', 'w') as w_obj:
+    with open('.private/__user.csv', 'w') as w_obj:
         writer = csv.writer(w_obj)
         writer.writerows(current_user)
 
 
 def add_user(user_info: list):
     exist_check = False
-    with open('.private/_user.csv', 'r') as r_obj:
+    with open('.private/__user.csv', 'r') as r_obj:
         reader = csv.reader(r_obj)
         for e in reader:
             if e == user_info:
                 exist_check = True
                 break
     if exist_check is False:
-        with open('.private/_user.csv', 'a') as user_obj:
+        with open('.private/__user.csv', 'a') as user_obj:
             writer = csv.writer(user_obj)
             writer.writerow(user_info)
 
@@ -59,7 +59,7 @@ def user_reg(user_info: list):
     if check_user_cfg() is False:
         res = err.user_cfg_err
     else:
-        with open('.private/_user.csv', 'r') as user_obj:
+        with open('.private/__user.csv', 'r') as user_obj:
             content_list = csv.reader(user_obj)
             for user in content_list:
                 if len(user) != 0:
@@ -79,6 +79,7 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
         self.thread = None
         self.mention = None
         self.tips = None
+        self.browser_over = None
         self.timer.timeout.connect(self.event_timer_operate)
         self.trigger_register()
         self.trigger_back()
@@ -113,7 +114,7 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
             return True
 
     def mention_to_user(self, content):
-        self.mention = err.Prompt(content)
+        self.mention = Prompt(content)
         self.mention.show()
 
     def event_timer_operate(self):
@@ -233,6 +234,13 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
                         json.dump(cfg, cfg_obj)
                     # check_user
                     self.stack_first.setCurrentWidget(self.tool_page)
+                elif res == err.user_cfg_err:
+                    g_user_id = ''
+                    g_user_key = ''
+                    g_browser = ''
+                    self.user_id.clear()
+                    self.user_key.clear()
+                    self.mention_to_user(err.user_cfg_err)
                 else:
                     g_user_id = ''
                     g_user_key = ''
@@ -250,6 +258,14 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
                 json.dump(cfg, cfg_obj)
             # check_user
             self.stack_first.setCurrentWidget(self.tool_page)
+        elif res == err.driver_over:
+            g_user_id = ''
+            g_user_key = ''
+            g_browser = ''
+            self.user_id.clear()
+            self.user_key.clear()
+            self.browser_over = BrowserOver()
+            self.browser_over.show()
         else:
             g_user_id = ''
             g_user_key = ''
@@ -288,7 +304,7 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
             ret = self.display_info(file_path)
             another_global_vars = generate_code.g_another_global_vars
             if len(another_global_vars) != 0:
-                self.tips = err.Tips(another_global_vars)
+                self.tips = Tips(another_global_vars)
                 self.tips.show()
                 generate_code.g_another_global_vars.clear()
             if ret != err.ok:
@@ -445,7 +461,12 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
             break
 
     def autogo_ui_proc(self, mention):
-        self.swdd_mention.setText(mention)
+        if mention.count(err.driver_over) != 0:
+            self.swdd_mention.setText(mention)
+            self.browser_over = BrowserOver()
+            self.browser_over.show()
+        else:
+            self.swdd_mention.setText(mention)
         self.load_status = 'swdd_over'
 
     def event_build_record(self):

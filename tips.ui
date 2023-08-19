@@ -91,6 +91,7 @@
  </widget>
  <resources>
   <include location="icon.qrc"/>
+  <include location="C:/Users/SH2210002/.designer/backup/icon.qrc"/>
  </resources>
  <connections/>
 </ui>

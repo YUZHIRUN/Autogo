@@ -36,6 +36,12 @@
    <layout class="QHBoxLayout" name="horizontalLayout_7">
     <item>
      <widget class="QStackedWidget" name="stack_first">
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -66,7 +72,7 @@
             <family>Calibri</family>
             <pointsize>11</pointsize>
             <weight>50</weight>
-            <italic>false</italic>
+            <italic>true</italic>
             <bold>false</bold>
            </font>
           </property>
@@ -101,12 +107,12 @@
                  <family>Calibri</family>
                  <pointsize>11</pointsize>
                  <weight>50</weight>
-                 <italic>false</italic>
+                 <italic>true</italic>
                  <bold>false</bold>
                 </font>
                </property>
                <property name="text">
-                <string>            Autogo tool provides C source code to pseudocode conversion capabilities, and automatic interaction with software detailed design and review records on codebeamer.</string>
+                <string>       Autogo tool provides C source code to pseudocode conversion capabilities, and automatic interaction with software detailed design and review records on codebeamer.</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -129,7 +135,7 @@
                  <family>Calibri</family>
                  <pointsize>11</pointsize>
                  <weight>50</weight>
-                 <italic>false</italic>
+                 <italic>true</italic>
                  <bold>false</bold>
                  <kerning>true</kerning>
                 </font>
@@ -148,10 +154,13 @@
                 <font>
                  <family>Calibri</family>
                  <pointsize>11</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
-                <string>Version:3.3 Beta </string>
+                <string>Version:3.3 </string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -169,13 +178,14 @@
            <font>
             <family>Calibri</family>
             <pointsize>11</pointsize>
+            <italic>true</italic>
            </font>
           </property>
           <property name="styleSheet">
            <string notr="true"/>
           </property>
           <property name="title">
-           <string>User information</string>
+           <string>Log in</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
@@ -237,8 +247,11 @@
               <widget class="QLineEdit" name="user_id">
                <property name="font">
                 <font>
-                 <family>Calibri</family>
-                 <pointsize>12</pointsize>
+                 <family>Microsoft YaHei UI</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
                  <kerning>true</kerning>
                 </font>
                </property>
@@ -311,12 +324,18 @@
               <widget class="QLineEdit" name="user_key">
                <property name="font">
                 <font>
-                 <family>Calibri</family>
-                 <pointsize>12</pointsize>
+                 <family>Microsoft YaHei UI</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
+               </property>
+               <property name="text">
+                <string/>
                </property>
                <property name="echoMode">
                 <enum>QLineEdit::Password</enum>
@@ -384,8 +403,11 @@
               <widget class="QComboBox" name="browser">
                <property name="font">
                 <font>
-                 <family>Calibri</family>
-                 <pointsize>12</pointsize>
+                 <family>Microsoft YaHei UI</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="styleSheet">
@@ -449,7 +471,8 @@
                <property name="font">
                 <font>
                  <family>Calibri</family>
-                 <pointsize>13</pointsize>
+                 <pointsize>11</pointsize>
+                 <italic>true</italic>
                 </font>
                </property>
                <property name="styleSheet">
@@ -546,7 +569,7 @@
               <family>Calibri</family>
               <pointsize>11</pointsize>
               <weight>50</weight>
-              <italic>false</italic>
+              <italic>true</italic>
               <bold>false</bold>
              </font>
             </property>
@@ -786,8 +809,11 @@
                    </property>
                    <property name="font">
                     <font>
-                     <family>Calibri</family>
-                     <pointsize>10</pointsize>
+                     <family>Microsoft YaHei UI</family>
+                     <pointsize>9</pointsize>
+                     <weight>50</weight>
+                     <italic>false</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                    <property name="text">
@@ -1005,6 +1031,9 @@
                     <font>
                      <family>Calibri</family>
                      <pointsize>11</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                    <property name="frameShape">
@@ -1056,6 +1085,9 @@
                     <font>
                      <family>Calibri</family>
                      <pointsize>11</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                    <property name="frameShape">
@@ -1107,6 +1139,9 @@
                     <font>
                      <family>Calibri</family>
                      <pointsize>11</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                    <property name="frameShape">
@@ -1152,6 +1187,9 @@
                     <font>
                      <family>Calibri</family>
                      <pointsize>11</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                    <property name="frameShape">
@@ -1197,6 +1235,9 @@
                     <font>
                      <family>Calibri</family>
                      <pointsize>11</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                    <property name="frameShape">
@@ -1242,6 +1283,9 @@
                     <font>
                      <family>Calibri</family>
                      <pointsize>11</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                    <property name="frameShape">
@@ -1372,7 +1416,7 @@
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
@@ -1449,8 +1493,8 @@ p, li { white-space: pre-wrap; }
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri','Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -1550,8 +1594,8 @@ p, li { white-space: pre-wrap; }
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri','Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -1627,8 +1671,8 @@ p, li { white-space: pre-wrap; }
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri','Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -1722,8 +1766,8 @@ p, li { white-space: pre-wrap; }
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri','Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
                      <set>Qt::TextEditorInteraction</set>
@@ -1817,7 +1861,7 @@ p, li { white-space: pre-wrap; }
                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Calibri','Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="textInteractionFlags">
@@ -2023,7 +2067,7 @@ p, li { white-space: pre-wrap; }
                    <property name="font">
                     <font>
                      <family>Microsoft YaHei</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>9</pointsize>
                      <weight>50</weight>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -2086,7 +2130,7 @@ p, li { white-space: pre-wrap; }
                    <property name="font">
                     <font>
                      <family>Microsoft YaHei</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>9</pointsize>
                      <weight>50</weight>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -2147,7 +2191,7 @@ p, li { white-space: pre-wrap; }
                    <property name="font">
                     <font>
                      <family>Microsoft YaHei</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>9</pointsize>
                      <weight>50</weight>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -2512,8 +2556,8 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="font">
                  <font>
-                  <family>Calibri</family>
-                  <pointsize>11</pointsize>
+                  <family>Microsoft YaHei UI</family>
+                  <pointsize>9</pointsize>
                   <weight>50</weight>
                   <italic>false</italic>
                   <bold>false</bold>
@@ -2538,8 +2582,8 @@ p, li { white-space: pre-wrap; }
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI','Calibri'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="acceptRichText">
                  <bool>false</bool>
@@ -2690,8 +2734,8 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="font">
                  <font>
-                  <family>Calibri</family>
-                  <pointsize>11</pointsize>
+                  <family>Microsoft YaHei UI</family>
+                  <pointsize>9</pointsize>
                   <weight>50</weight>
                   <italic>false</italic>
                   <bold>false</bold>
@@ -2716,8 +2760,8 @@ p, li { white-space: pre-wrap; }
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI','Calibri'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="textInteractionFlags">
                  <set>Qt::TextSelectableByMouse</set>
@@ -2874,8 +2918,8 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="font">
                  <font>
-                  <family>Calibri</family>
-                  <pointsize>11</pointsize>
+                  <family>Microsoft YaHei UI</family>
+                  <pointsize>9</pointsize>
                   <weight>50</weight>
                   <italic>false</italic>
                   <bold>false</bold>
@@ -2900,8 +2944,8 @@ p, li { white-space: pre-wrap; }
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI','Calibri'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="acceptRichText">
                  <bool>false</bool>
@@ -3052,8 +3096,8 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="font">
                  <font>
-                  <family>Calibri</family>
-                  <pointsize>11</pointsize>
+                  <family>Microsoft YaHei UI</family>
+                  <pointsize>9</pointsize>
                   <weight>50</weight>
                   <italic>false</italic>
                   <bold>false</bold>
@@ -3078,8 +3122,8 @@ p, li { white-space: pre-wrap; }
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI','Calibri'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Calibri'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="textInteractionFlags">
                  <set>Qt::TextSelectableByMouse</set>
@@ -3255,7 +3299,7 @@ p, li { white-space: pre-wrap; }
                    <property name="font">
                     <font>
                      <family>Microsoft YaHei UI</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>9</pointsize>
                      <weight>50</weight>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -3322,7 +3366,7 @@ p, li { white-space: pre-wrap; }
                    <property name="font">
                     <font>
                      <family>Microsoft YaHei UI</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>9</pointsize>
                      <weight>50</weight>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -3650,7 +3694,7 @@ p, li { white-space: pre-wrap; }
                    <property name="font">
                     <font>
                      <family>Microsoft YaHei UI</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>9</pointsize>
                      <weight>50</weight>
                      <italic>false</italic>
                      <bold>false</bold>
@@ -3889,6 +3933,7 @@ p, li { white-space: pre-wrap; }
   </widget>
  </widget>
  <resources>
+  <include location="icon.qrc"/>
   <include location="icon.qrc"/>
  </resources>
  <connections/>

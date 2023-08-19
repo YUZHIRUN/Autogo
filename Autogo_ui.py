@@ -26,6 +26,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.stack_first = QtWidgets.QStackedWidget(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(9)
+        self.stack_first.setFont(font)
         self.stack_first.setObjectName("stack_first")
         self.register_page = QtWidgets.QWidget()
         self.register_page.setObjectName("register_page")
@@ -43,7 +47,7 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         font.setBold(False)
-        font.setItalic(False)
+        font.setItalic(True)
         font.setWeight(50)
         self.groupBox.setFont(font)
         self.groupBox.setStyleSheet("")
@@ -60,7 +64,7 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         font.setBold(False)
-        font.setItalic(False)
+        font.setItalic(True)
         font.setWeight(50)
         self.label_8.setFont(font)
         self.label_8.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
@@ -73,7 +77,7 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         font.setBold(False)
-        font.setItalic(False)
+        font.setItalic(True)
         font.setWeight(50)
         font.setKerning(True)
         self.label_9.setFont(font)
@@ -84,6 +88,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
@@ -94,6 +101,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
+        font.setItalic(True)
         self.groupBox_2.setFont(font)
         self.groupBox_2.setStyleSheet("")
         self.groupBox_2.setObjectName("groupBox_2")
@@ -120,8 +128,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.label_2)
         self.user_id = QtWidgets.QLineEdit(self.groupBox_2)
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         font.setKerning(True)
         self.user_id.setFont(font)
         self.user_id.setStyleSheet("")
@@ -145,10 +156,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.label_3)
         self.user_key = QtWidgets.QLineEdit(self.groupBox_2)
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.user_key.setFont(font)
         self.user_key.setStyleSheet("")
+        self.user_key.setText("")
         self.user_key.setEchoMode(QtWidgets.QLineEdit.Password)
         self.user_key.setObjectName("user_key")
         self.horizontalLayout_2.addWidget(self.user_key)
@@ -169,8 +184,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.label_4)
         self.browser = QtWidgets.QComboBox(self.groupBox_2)
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.browser.setFont(font)
         self.browser.setStyleSheet("")
         self.browser.setIconSize(QtCore.QSize(0, 0))
@@ -189,7 +207,8 @@ class Ui_MainWindow(object):
         self.log_in_bt.setMinimumSize(QtCore.QSize(0, 31))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(13)
+        font.setPointSize(11)
+        font.setItalic(True)
         self.log_in_bt.setFont(font)
         self.log_in_bt.setStyleSheet("")
         icon1 = QtGui.QIcon()
@@ -226,7 +245,7 @@ class Ui_MainWindow(object):
         font.setFamily("Calibri")
         font.setPointSize(11)
         font.setBold(False)
-        font.setItalic(False)
+        font.setItalic(True)
         font.setWeight(50)
         self.tool_item.setFont(font)
         self.tool_item.setFrameShape(QtWidgets.QFrame.NoFrame)
@@ -337,8 +356,11 @@ class Ui_MainWindow(object):
         self.file_path = QtWidgets.QLineEdit(self.groupBox_3)
         self.file_path.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
         self.file_path.setFont(font)
         self.file_path.setText("")
         self.file_path.setEchoMode(QtWidgets.QLineEdit.Normal)
@@ -441,6 +463,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
         self.func_num.setFont(font)
         self.func_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.func_num.setText("")
@@ -472,6 +497,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
         self.global_var_num.setFont(font)
         self.global_var_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.global_var_num.setText("")
@@ -503,6 +531,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
         self.macro_num.setFont(font)
         self.macro_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.macro_num.setText("")
@@ -529,6 +560,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
         self.struct_num.setFont(font)
         self.struct_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.struct_num.setText("")
@@ -555,6 +589,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
         self.enum_num.setFont(font)
         self.enum_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.enum_num.setText("")
@@ -581,6 +618,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
         self.union_num.setFont(font)
         self.union_num.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.union_num.setText("")
@@ -954,7 +994,7 @@ class Ui_MainWindow(object):
         self.swdd_url.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(False)
@@ -989,7 +1029,7 @@ class Ui_MainWindow(object):
         self.base_coor = QtWidgets.QLineEdit(self.groupBox_8)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1021,7 +1061,7 @@ class Ui_MainWindow(object):
         self.obj_folder = QtWidgets.QLineEdit(self.groupBox_8)
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1165,8 +1205,8 @@ class Ui_MainWindow(object):
         self.origin_code.setMinimumSize(QtCore.QSize(225, 0))
         self.origin_code.setMaximumSize(QtCore.QSize(500, 16777215))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1238,8 +1278,8 @@ class Ui_MainWindow(object):
         self.pseudo_code.setMinimumSize(QtCore.QSize(325, 0))
         self.pseudo_code.setMaximumSize(QtCore.QSize(16777211, 16777215))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1309,8 +1349,8 @@ class Ui_MainWindow(object):
         self.graph_origin.setMinimumSize(QtCore.QSize(225, 0))
         self.graph_origin.setMaximumSize(QtCore.QSize(500, 16777215))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1378,8 +1418,8 @@ class Ui_MainWindow(object):
         self.graph.setMinimumSize(QtCore.QSize(325, 0))
         self.graph.setMaximumSize(QtCore.QSize(16777211, 16777215))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
+        font.setFamily("Microsoft YaHei UI")
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1469,7 +1509,7 @@ class Ui_MainWindow(object):
         self.review_link.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1508,7 +1548,7 @@ class Ui_MainWindow(object):
         self.moderator_id.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1636,7 +1676,7 @@ class Ui_MainWindow(object):
         self.close_link.setMinimumSize(QtCore.QSize(0, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -1747,10 +1787,10 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Autogo"))
         self.groupBox.setTitle(_translate("MainWindow", "About"))
-        self.label_8.setText(_translate("MainWindow", "            Autogo tool provides C source code to pseudocode conversion capabilities, and automatic interaction with software detailed design and review records on codebeamer."))
+        self.label_8.setText(_translate("MainWindow", "       Autogo tool provides C source code to pseudocode conversion capabilities, and automatic interaction with software detailed design and review records on codebeamer."))
         self.label_9.setText(_translate("MainWindow", "Developer: Zhirun.Yu "))
-        self.label.setText(_translate("MainWindow", "Version:3.3 Beta "))
-        self.groupBox_2.setTitle(_translate("MainWindow", "User information"))
+        self.label.setText(_translate("MainWindow", "Version:3.3 "))
+        self.groupBox_2.setTitle(_translate("MainWindow", "Log in"))
         self.user_id.setPlaceholderText(_translate("MainWindow", "Please enter your username."))
         self.user_key.setPlaceholderText(_translate("MainWindow", "Please enter your password."))
         self.browser.setItemText(0, _translate("MainWindow", "Chrome"))
@@ -1786,37 +1826,37 @@ class Ui_MainWindow(object):
         self.func_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Function_2), _translate("MainWindow", "Function"))
         self.gloabal_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.global_variable_2), _translate("MainWindow", "Global Variable"))
         self.macro_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.macro_2), _translate("MainWindow", "Macro Definition"))
         self.struct_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.struct_3), _translate("MainWindow", "Struct"))
         self.enum_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\',\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.enum_3), _translate("MainWindow", "Enum"))
         self.union_disp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:\'Calibri\',\'Calibri\',\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Union"))
         self.groupBox_4.setTitle(_translate("MainWindow", "Description"))
@@ -1839,8 +1879,8 @@ class Ui_MainWindow(object):
         self.origin_code.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\',\'Calibri\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.code_change_bt.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
         self.code_change_bt.setShortcut(_translate("MainWindow", "Return"))
         self.pseudo_code_clear.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
@@ -1848,15 +1888,15 @@ class Ui_MainWindow(object):
         self.pseudo_code.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\',\'Calibri\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.groupBox_10.setTitle(_translate("MainWindow", "Description"))
         self.label_26.setText(_translate("MainWindow", "Draw flowchart from the pseudo-code."))
         self.graph_origin.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\',\'Calibri\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.graph_convert_bt.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
         self.graph_convert_bt.setShortcut(_translate("MainWindow", "Return"))
         self.xml_clear.setToolTip(_translate("MainWindow", "<html><head/><body><p>Autogo</p></body></html>"))
@@ -1864,8 +1904,8 @@ class Ui_MainWindow(object):
         self.graph.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Calibri\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\',\'Calibri\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Calibri\'; font-size:12pt;\"><br /></p></body></html>"))
         self.groupBox_5.setTitle(_translate("MainWindow", "Description"))
         self.label_18.setText(_translate("MainWindow", "       The review, which has been submitted, link filling in here will automatically generate a record, or the record link filling in here can also automatically close the record."))
         self.groupBox_6.setTitle(_translate("MainWindow", "Review Record Build"))
