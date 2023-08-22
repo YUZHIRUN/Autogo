@@ -28,7 +28,7 @@ folder = 1
 function = 2
 object_type = ['Information', 'Heading', 'Functional']
 START_TIME = 0
-TIME_GAP = 8
+TIME_GAP = 5
 # global driver_op, driver
 
 
