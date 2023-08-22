@@ -7,8 +7,7 @@ class RegularClass:
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.union = r'typedef +union *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.macro = r'# *define +(?:.+?) +(?:.+)'
-        # self.global_var = r'(?:static)* *(?:[\w\*]+) +(?:g_[\w\[\]\*]+).*[;{]'
-        self.global_var = r'(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *;|(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *= *[^;]+;'
+        self.global_var = r'(?:(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *;|(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *= *[^;]+;)(?: *\/\/ *: *(?:.+))*'
         # struct
         self.struct = r'typedef +struct *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.struct_head = r'(?:.|\n)+?\{ *\n'
@@ -19,7 +18,6 @@ class RegularClass:
         self.comment_2 = r'/\*.*\*/'
         self.comment_3 = r'/\*.+\n.*?\*/'
         self.comment_4 = r' */\*.*\n(.+\n)+?.*\*/'
-        # self.st_item = r'([\w\*]+) +([\w\[\]\*]+);'
         self.st_item = r'((?:struct|const|volatile| )*(?:[\w\*]+)) +([\w\[\]\*]+);'
         self.en_item = r'(\w+) *,?( *= *(\w+))*'
 
@@ -27,7 +25,7 @@ class RegularClass:
         self.global_func_name = r'FUNC *\(.+\) *(\S+?)\('
         self.local_func_name = r'[\w\*]+ +([\w\*]+) *\('
         self.global_var_type_name = r'(?:static)* *([\w\* ]+) +(g_[\w]+).*'
-        self.include_file = r'# *include +(?:.+?(?:"|>))'
+        self.include_file = r'# *include +(?:.+?(?:\"|>))(?: *\/\/ *: *(?:.+))*'
 
         # phase check regular
         self.if_re = r'if *\(.+?\)|else.*'
@@ -69,6 +67,7 @@ class RegularClass:
         self.macro_value = r'# *define +(?:.+?) +(.+)'
         self.get_param_info = r'((?:const|volatile)* *[\w\*]+) +([\w\*]+)'
         self.get_point_func_info = r'(?:static) *\w+(\( *\*\w+\)) *\(.+?\).+?&(\w+);'
+        self.get_global_value = r'(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *= *([^;]+);'
 
         # function class regular
         self.memcpy = r'memcpy *\((?:\([^\n,;]+\))* *&*(\S+?), *\n* *(?:\([^\n,;]+\))* *&*(\S+?),\n*.+\);'
@@ -102,6 +101,10 @@ class RegularClass:
         self.del_space = r' +'
         self.del_if_line = r'(OR|AND) *\n'
         self.while_common = r'while *\([^{}]+\)'
+
+        self.special_comment = r'( *\/\/ *: *(?:.+))'
+        self.clean_special_comment = r'\/\/ *:'
+        self.special_comment_sign = r'\/\/ *:'
 class graph_parse:
     def __init__(self):
         # draw graph

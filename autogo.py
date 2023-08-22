@@ -1,18 +1,13 @@
 import time
+
 import autogo_input
 import re
 import pyperclip
-from selenium.webdriver.support.wait import WebDriverWait
 import generate_code
-import regular_expression
 from selenium.webdriver import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
 import error_code
-from selenium import webdriver
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.common import WebDriverException
+from browser_active import *
+from selenium.common import WebDriverException, SessionNotCreatedException
 
 g_xpath = regular_expression.Xpath()
 regular = regular_expression.RegularClass()
@@ -23,56 +18,23 @@ g_link = ''
 g_base_coor = ''
 g_obj_coor = ''
 g_table_type = {'include': 'x2', 'macro': 'x3', 'enum': 'x3', 'struct': 'x3', 'global_var': 'x4', 'union': 'x3',
-                'input': 'x4', 'output': 'x4', 'return': 'x3', 'unit_var': 'x6', 'func_dynamic': '6x5'}
+                'input': 'x4', 'output': 'x4', 'return': 'x3', 'unit_var': 'x5', 'func_dynamic': '6x5'}
 g_temp_coor = '1'
 
 err = error_code.err_class()
-WAIT_TIME = 15
-# driver = None
 # enums
 information = 0
 folder = 1
 function = 2
 object_type = ['Information', 'Heading', 'Functional']
-
-
-def get_chrome_driver():
-    global driver
-    if g_browser == 'chrome' or g_browser == 'Chrome':
-        from selenium.webdriver.chrome.service import Service
-        # if g_visible is False:
-        #     option = webdriver.ChromeOptions()
-        #     option.add_argument('--headless')
-        #     option.add_argument('--ignore-ssl-errors')
-        #     option.add_argument('--ignore-certificate-errors')
-        #     driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
-        # else:
-        option = webdriver.ChromeOptions()
-        option.add_argument('--start-maximized')  # max window
-        option.add_argument('--incognito')  # implicit mode
-        option.add_argument('--ignore-certificate-errors')
-        option.add_argument('--ignore-ssl-errors')
-        driver = webdriver.Chrome(service=Service('.driver/chromedriver.exe'), options=option)
-    else:
-        from selenium.webdriver.edge.service import Service
-        # if g_visible is False:
-        #     option = webdriver.EdgeOptions()
-        #     option.add_argument('--headless')
-        #     option.add_argument('--ignore-ssl-errors')
-        #     option.add_argument('--ignore-certificate-errors')
-        #     driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
-        # else:
-        option = webdriver.EdgeOptions()
-        option.add_argument('--start-maximized')
-        option.add_argument('--ignore-certificate-errors')
-        option.add_argument('--ignore-ssl-errors')
-        driver = webdriver.Edge(service=Service('.driver/msedgedriver.exe'), options=option)
-    driver.get(g_link)
+START_TIME = 0
+TIME_GAP = 5
+# global driver_op, driver
 
 
 def get_cfg(config):
     res = err.ok
-    global g_user, g_key, g_browser, g_link, g_base_coor, g_obj_coor
+    global g_user, g_key, g_browser, g_link, g_base_coor, g_obj_coor, driver, driver_op
     g_user = str(config['user id'])
     g_key = str(config['user key'])
     g_browser = str(config['browser'])
@@ -82,8 +44,11 @@ def get_cfg(config):
     if base_coor_check(g_base_coor) is False:
         res = err.base_coor_err
     else:
-        get_chrome_driver()
-    wait_loading()
+        try:
+            driver_op = WebDriverOp(browser=g_browser, url=g_link)
+            driver = driver_op.driver
+        except SessionNotCreatedException:
+            res = err.driver_over
     return res
 
 
@@ -131,94 +96,13 @@ def open_fold_xpath(coordinate: str):
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-# -----------------------------------------------browser operate--------------------------------------------------------
-def wait_loading():
-    driver.implicitly_wait(WAIT_TIME)
-
-
-def switch_to_frame(xpath: str):
-    frame = driver.find_element(By.XPATH, value=xpath)
-    driver.switch_to.frame(frame)
-
-
-def web_refresh():
-    driver.refresh()
-
-
-def switch_to_back():
-    # driver.switch_to.parent_frame()
-    driver.switch_to.default_content()
-
-
-def context_click(xpath: str):
-    ActionChains(driver).context_click(driver.find_element(By.XPATH, value=xpath)).perform()
-
-
-def double_click(xpath: str):
-    ActionChains(driver).double_click(driver.find_element(By.XPATH, value=xpath)).perform()
-
-
-def click(xpath: str):
-    driver.find_element(By.XPATH, value=xpath).click()
-
-
-def move_to_element(xpath: str):
-    ActionChains(driver).scroll_to_element(driver.find_element(By.XPATH, value=xpath)).perform()
-
-
-def send_key(xpath: str, content: str):
-    driver.find_element(By.XPATH, value=xpath).send_keys(content)
-
-
-def clear_content(xpath: str):
-    driver.find_element(By.XPATH, value=xpath).clear()
-
-
-def move_mouse_to(xpath: str):
-    ActionChains(driver).move_to_element(to_element=driver.find_element(By.XPATH, value=xpath)).perform()
-
-
 def input_title(content: str):
-    send_key(g_xpath.input_title, content)
-
-
-def select_item(xpath: str, content: str):
-    Select(driver.find_element(By.XPATH, value=xpath)).select_by_visible_text(content)
-
-
-def wait_item_load(xpath: str):
-    locator = (By.XPATH, xpath)
-    WebDriverWait(driver, WAIT_TIME).until(ec.presence_of_element_located(locator))
-
-
-def wait_item_visible(xpath: str):
-    locator = (By.XPATH, xpath)
-    WebDriverWait(driver, WAIT_TIME).until(ec.visibility_of_element_located(locator))
-
-
-def wait_item_clickable(xpath: str):
-    locator = (By.XPATH, xpath)
-    WebDriverWait(driver, WAIT_TIME).until(ec.element_to_be_clickable(locator))
-
-
-def wait_element_invisible(xpath: str):
-    locator = (By.XPATH, xpath)
-    driver.implicitly_wait(0)
-    WebDriverWait(driver, WAIT_TIME).until(ec.invisibility_of_element_located(locator))
-    wait_loading()
+    driver_op.send_key(g_xpath.input_title, content)
 
 
 def input_save():
-    move_to_element(g_xpath.input_title)
+    driver_op.move_to_element(g_xpath.input_title)
     driver.find_element(By.XPATH, value=g_xpath.input_title).send_keys(Keys.CONTROL, 's')
-
-
-def check_element(xpath: str) -> bool:
-    ret = False
-    elements = driver.find_elements(By.XPATH, value=xpath)
-    if len(elements) != 0:
-        ret = True
-    return ret
 
 
 # -----------------------------------------------browser operate--------------------------------------------------------
@@ -241,34 +125,34 @@ def get_coor(xpath: str):
 
 
 def select_object_type(item_type):
-    wait_item_load(g_xpath.draft)
+    driver_op.wait_item_load(g_xpath.draft)
     time.sleep(0.5)
-    double_click(g_xpath.object_type)
-    select_item(g_xpath.object_type_select, item_type)
+    driver_op.double_click(g_xpath.object_type)
+    driver_op.select_item(g_xpath.object_type_select, item_type)
 
 
 def input_req_category(content):
-    click(g_xpath.req_category)
-    double_click(g_xpath.req_category)
-    send_key(g_xpath.req_category_input, content)
+    driver_op.click(g_xpath.req_category)
+    driver_op.double_click(g_xpath.req_category)
+    driver_op.send_key(g_xpath.req_category_input, content)
     time.sleep(0.5)
     driver.find_element(By.XPATH, value=g_xpath.req_category_input).send_keys(Keys.ENTER)
     driver.find_element(By.XPATH, value=g_xpath.req_category_input).send_keys(Keys.ENTER)
-    wait_item_load(g_xpath.have_been_saved)
+    driver_op.wait_item_load(g_xpath.have_been_saved)
 
 
 def input_special_verification(content):
-    double_click(g_xpath.special_verification)
-    send_key(g_xpath.special_verification_input, content)
+    driver_op.double_click(g_xpath.special_verification)
+    driver_op.send_key(g_xpath.special_verification_input, content)
     driver.find_element(By.XPATH, value=g_xpath.special_verification_input).send_keys(Keys.CONTROL, 's')
-    wait_item_load(g_xpath.have_been_saved)
+    driver_op.wait_item_load(g_xpath.have_been_saved)
 
 
 def select_ver_approach(approach):
-    wait_item_load(g_xpath.verification_approach)
+    driver_op.wait_item_load(g_xpath.verification_approach)
     time.sleep(0.5)
-    double_click(g_xpath.verification_approach)
-    select_item(g_xpath.object_type_select, approach)
+    driver_op.double_click(g_xpath.verification_approach)
+    driver_op.select_item(g_xpath.object_type_select, approach)
 
 
 def get_table_end_xpath(table_formate: str):
@@ -286,7 +170,7 @@ def tab_button_init(table_format: str):
     for i in range(init_count):
         init_xpath = str(init) + init_1
         init_xpath = get_table_end_xpath(init_xpath)
-        move_mouse_to(init_xpath)
+        driver_op.move_mouse_to(init_xpath)
         init = init + 1
 
 
@@ -299,11 +183,9 @@ def merge_unit_tab(start_fmt: str, end_fmt: str):
     start_xpath = start_xpath.replace('$1', str(start_col))
     end_xpath = g_xpath.tab_content.replace('$0', str(end_row))
     end_xpath = end_xpath.replace('$1', str(end_col))
-    start_ele = driver.find_element(By.XPATH, value=start_xpath)
-    end_ele = driver.find_element(By.XPATH, value=end_xpath)
-    ActionChains(driver).drag_and_drop(start_ele, end_ele).perform()
-    click(g_xpath.merge_bt)
-    click(g_xpath.select_merge)
+    driver_op.drag_element_to(start_xpath, end_xpath)
+    driver_op.click(g_xpath.merge_bt)
+    driver_op.click(g_xpath.select_merge)
 
 
 def get_tab_input_xpath(tab_fmt: str):
@@ -328,18 +210,19 @@ def set_tab_head_color(tab_fmt, col_skip=None):
                 continue
         set_tab_xpath = g_xpath.tab_content.replace('$0', str(row_idx))
         set_tab_xpath = set_tab_xpath.replace('$1', str(col_idx))
-        click(set_tab_xpath)
-        click(g_xpath.set_color_bt)
-        click(g_xpath.color_gray)
+        driver_op.move_to_element(set_tab_xpath)
+        driver_op.click(set_tab_xpath)
+        driver_op.click(g_xpath.set_color_bt)
+        driver_op.click(g_xpath.color_gray)
         col_idx = col_idx + 1
 
 
 def tab_process(table_format: str):
     tab_row = table_format.split('x')[0]
     tab_col = table_format.split('x')[1]
-    click(g_xpath.paint_button)
+    driver_op.click(g_xpath.paint_button)
     # time.sleep()
-    click(g_xpath.insert_table)
+    driver_op.click(g_xpath.insert_table)
     if int(tab_row) > 10:
         paint_row = 10
         remain_row = int(tab_row) - 10
@@ -349,40 +232,40 @@ def tab_process(table_format: str):
             paint_fmt = str(paint_row) + 'x' + str(paint_col)
             tab_button_init(paint_fmt)
             table_end_xpath = get_table_end_xpath(paint_fmt)
-            move_mouse_to(table_end_xpath)
-            click(table_end_xpath)
+            driver_op.move_mouse_to(table_end_xpath)
+            driver_op.click(table_end_xpath)
             for i in range(remain_col):
                 paint_col = 10 + i
                 last_tab_xpath = g_xpath.tab_content.replace('$0', str(paint_row))
                 last_tab_xpath = last_tab_xpath.replace('$1', str(paint_col))
-                move_to_element(last_tab_xpath)
-                click(last_tab_xpath)
-                click(g_xpath.add_col_bt)
-                click(g_xpath.add_col_select)
+                driver_op.move_to_element(last_tab_xpath)
+                driver_op.click(last_tab_xpath)
+                driver_op.click(g_xpath.add_col_bt)
+                driver_op.click(g_xpath.add_col_select)
             paint_col = paint_col + 1
             for j in range(remain_row):
                 paint_row = 10 + j
                 last_tab_xpath = g_xpath.tab_content.replace('$0', str(paint_row))
                 last_tab_xpath = last_tab_xpath.replace('$1', str(paint_col))
-                move_to_element(last_tab_xpath)
-                click(last_tab_xpath)
-                click(g_xpath.add_row_bt)
-                click(g_xpath.add_row_select)
+                driver_op.move_to_element(last_tab_xpath)
+                driver_op.click(last_tab_xpath)
+                driver_op.click(g_xpath.add_row_bt)
+                driver_op.click(g_xpath.add_row_select)
         else:
             paint_col = int(tab_col)
             paint_fmt = str(paint_row) + 'x' + str(paint_col)
             tab_button_init(paint_fmt)
             table_end_xpath = get_table_end_xpath(paint_fmt)
-            move_mouse_to(table_end_xpath)
-            click(table_end_xpath)
+            driver_op.move_mouse_to(table_end_xpath)
+            driver_op.click(table_end_xpath)
             for i in range(remain_row):
                 paint_row = 10 + i
                 last_tab_xpath = g_xpath.tab_content.replace('$0', str(paint_row))
                 last_tab_xpath = last_tab_xpath.replace('$1', str(paint_col))
-                move_to_element(last_tab_xpath)
-                click(last_tab_xpath)
-                click(g_xpath.add_row_bt)
-                click(g_xpath.add_row_select)
+                driver_op.move_to_element(last_tab_xpath)
+                driver_op.click(last_tab_xpath)
+                driver_op.click(g_xpath.add_row_bt)
+                driver_op.click(g_xpath.add_row_select)
     elif int(tab_col) > 10:
         paint_row = int(tab_row)
         paint_col = 10
@@ -390,24 +273,24 @@ def tab_process(table_format: str):
         paint_fmt = str(paint_row) + 'x' + str(paint_col)
         tab_button_init(paint_fmt)
         table_end_xpath = get_table_end_xpath(paint_fmt)
-        move_mouse_to(table_end_xpath)
-        click(table_end_xpath)
+        driver_op.move_mouse_to(table_end_xpath)
+        driver_op.click(table_end_xpath)
         for i in range(remain_col):
             paint_col = 10 + i
             last_tab_xpath = g_xpath.tab_content.replace('$0', str(paint_row))
             last_tab_xpath = last_tab_xpath.replace('$1', str(paint_col))
-            move_to_element(last_tab_xpath)
-            click(last_tab_xpath)
-            click(g_xpath.add_col_bt)
-            click(g_xpath.add_col_select)
+            driver_op.move_to_element(last_tab_xpath)
+            driver_op.click(last_tab_xpath)
+            driver_op.click(g_xpath.add_col_bt)
+            driver_op.click(g_xpath.add_col_select)
     else:
         paint_row = int(tab_row)
         paint_col = int(tab_col)
         paint_fmt = str(paint_row) + 'x' + str(paint_col)
         tab_button_init(paint_fmt)
         table_end_xpath = get_table_end_xpath(paint_fmt)
-        move_mouse_to(table_end_xpath)
-        click(table_end_xpath)
+        driver_op.move_mouse_to(table_end_xpath)
+        driver_op.click(table_end_xpath)
 
 
 def fill_tab_content(tab_content: list):
@@ -417,8 +300,15 @@ def fill_tab_content(tab_content: list):
         for item in content:
             tab_input = str(row_idx) + 'x' + str(col_idx)
             input_xpath = get_tab_input_xpath(tab_input)
-            click(input_xpath)
-            send_key(input_xpath, item)
+            driver_op.move_to_element(input_xpath)
+            driver_op.click(input_xpath)
+            if str(item).count('\n') > 4:
+                pyperclip.copy(item)
+                time.sleep(0.3)
+                pyperclip.copy(item)
+                driver.find_element(By.XPATH, value=input_xpath).send_keys(Keys.CONTROL, 'v')
+            else:
+                driver_op.send_key(input_xpath, item)
             row_idx = row_idx + 1
         col_idx = col_idx + 1
 
@@ -466,7 +356,7 @@ def func_item_build_process(base_position: str, func_name, func_type, current_co
         build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
                        content=('chart@' + func_info))
     except Exception:
-        flow_chart_error_proc()
+        timing_clear_ram_proc(g_temp_coor)
         build_new_item(position=(current_coor, flow_chart_coor), title='Flow Chart', item_type=object_type[information],
                        content=('chart@' + func_info))
     detail_folder_coor = get_now_coor(flow_chart_coor, 'after')
@@ -483,9 +373,11 @@ def include_process():
     while True:
         if include_num == 0:
             break
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         include_info = ['File Name']
         include_description = ['Description']
+        comment_list = generate_code.g_include_comment_list[0:include_num]
+        include_description.extend(comment_list)
         include_info.extend(autogo_input.g_include_item)
         tab_content = list()
         tab_content.append(include_info)
@@ -503,12 +395,13 @@ def macro_process():
     while True:
         if macro_len == 0:
             break
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         macro_names = ['Macro Name']
         descriptions = ['Description']
         macro_vars = ['Value']
         macro_names.extend(autogo_input.g_macro[0])
         macro_vars.extend(autogo_input.g_macro[1])
+        descriptions.extend(generate_code.g_macro_comment_list)
         tab_content = list()
         tab_content.append(macro_names)
         tab_content.append(macro_vars)
@@ -527,13 +420,14 @@ def enum_item_process(enum_prop: str, xpath: list):
     while True:
         if enum_len == 0:
             break
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         enum_idx = int(enum_prop.replace('enum', ''))
         enum_members = ['Member']
         enum_vals = ['Values']
         descriptions = ['Description']
         enum_members.extend(autogo_input.g_enum[1][enum_idx])
         enum_vals.extend(autogo_input.g_enum[2][enum_idx])
+        descriptions.extend(generate_code.g_enum_comment_list[enum_idx])
         tab_content = list()
         tab_content.append(enum_members)
         tab_content.append(enum_vals)
@@ -544,9 +438,9 @@ def enum_item_process(enum_prop: str, xpath: list):
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
         input_save()
-        click(xpath[1])
+        driver_op.click(xpath[1])
         select_object_type(object_type[information])
-        click(xpath[1])
+        driver_op.click(xpath[1])
         break
 
 
@@ -555,13 +449,14 @@ def struct_item_process(struct_prop, xpath: list):
     while True:
         if st_num == 0:
             break
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         st_idx = int(struct_prop.replace('struct', ''))
         st_members = ['Member']
         st_types = ['Type']
         descriptions = ['Description']
         st_members.extend(autogo_input.g_struct[2][st_idx])
         st_types.extend(autogo_input.g_struct[1][st_idx])
+        descriptions.extend(generate_code.g_struct_comment_list[st_idx])
         tab_content = list()
         tab_content.append(st_members)
         tab_content.append(st_types)
@@ -573,9 +468,9 @@ def struct_item_process(struct_prop, xpath: list):
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
         input_save()
-        click(xpath[1])
+        driver_op.click(xpath[1])
         select_object_type(object_type[information])
-        click(xpath[1])
+        driver_op.click(xpath[1])
         break
 
 
@@ -590,6 +485,7 @@ def union_item_process(union_prop, xpath: list):
         descriptions = ['Description']
         un_members.extend(autogo_input.g_union[2][un_idx])
         un_types.extend(autogo_input.g_union[1][un_idx])
+        descriptions.extend(generate_code.g_union_comment_list[un_idx])
         tab_content = list()
         tab_content.append(un_members)
         tab_content.append(un_types)
@@ -597,14 +493,14 @@ def union_item_process(union_prop, xpath: list):
         un_len = len(un_members)
         tab_fmt = str(un_len) + g_table_type['union']
         # operate
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         tab_process(tab_fmt)
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
         input_save()
-        click(xpath[1])
+        driver_op.click(xpath[1])
         select_object_type(object_type[information])
-        click(xpath[1])
+        driver_op.click(xpath[1])
         break
 
 
@@ -615,6 +511,8 @@ def global_var_item_process():
     des = ['Description']
     var_names.extend(autogo_input.g_global_var[0])
     var_types.extend(autogo_input.g_global_var[1])
+    var_init_vals.extend(generate_code.g_global_value_list)
+    des.extend(generate_code.g_global_var_comment_list)
     var_len = len(autogo_input.g_global_var[0])
     content_len = len(var_names)
     while True:
@@ -626,7 +524,7 @@ def global_var_item_process():
         tab_content.append(var_types)
         tab_content.append(var_init_vals)
         tab_content.append(des)
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         tab_process(tab_fmt)
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
@@ -652,41 +550,43 @@ def detail_process(content: str, xpath_list):
             func_content = autogo_input.detail_pro(func_type, obj_func_idx)
         except Exception:
             func_content = ''
-    click(g_xpath.input_content)
+    driver_op.click(g_xpath.input_content)
     pyperclip.copy(func_content)
     driver.find_element(By.XPATH, value=g_xpath.input_content).send_keys(Keys.CONTROL, 'v')
-    # send_key(g_xpath.input_content, func_content)
     input_save()
-    click(xpath_list[1])
+    driver_op.click(xpath_list[1])
     time.sleep(0.5)
-    select_object_type(object_type[function])
+    try:
+        select_object_type(object_type[function])
+    except WebDriverException:
+        select_object_type(object_type[function])
     time.sleep(0.5)
     try:
         input_req_category('Functional')
     except WebDriverException:
-        if check_element(g_xpath.permission_err) is True:
+        if driver_op.check_element(g_xpath.permission_err) is True:
             time.sleep(0.5)
-            click(g_xpath.permission_err_pro)
+            driver_op.click(g_xpath.permission_err_pro)
         input_req_category('Functional')
     time.sleep(0.5)
     try:
         input_special_verification('Check the correctness of the logic according to the corresponding requirements.')
     except WebDriverException:
-        if check_element(g_xpath.permission_err) is True:
+        if driver_op.check_element(g_xpath.permission_err) is True:
             time.sleep(0.5)
-            click(g_xpath.permission_err_pro)
+            driver_op.click(g_xpath.permission_err_pro)
         input_special_verification('Check the correctness of the logic according to the corresponding requirements.')
-    wait_item_load(g_xpath.verification_approach)
+    driver_op.wait_item_load(g_xpath.verification_approach)
     time.sleep(0.5)
     try:
         select_ver_approach('SW Unit Test')
     except WebDriverException:
-        if check_element(g_xpath.permission_err) is True:
+        if driver_op.check_element(g_xpath.permission_err) is True:
             time.sleep(0.5)
-            click(g_xpath.permission_err_pro)
+            driver_op.click(g_xpath.permission_err_pro)
         select_ver_approach('SW Unit Test')
-    wait_item_load(xpath_list[1])
-    click(xpath_list[1])
+    driver_op.wait_item_load(xpath_list[1])
+    driver_op.click(xpath_list[1])
 
 
 def enum_build_process(base_position: str):
@@ -754,8 +654,8 @@ def func_build_process(content: str):
             func_idx = 0
         prototype = autogo_input.g_global_func_prototype[func_idx]
     fill_info = "Prototype: " + prototype
-    click(g_xpath.input_content)
-    send_key(g_xpath.input_content, fill_info)
+    driver_op.click(g_xpath.input_content)
+    driver_op.send_key(g_xpath.input_content, fill_info)
 
 
 def input_process(content: str):
@@ -787,13 +687,13 @@ def input_process(content: str):
         tab_content.append(scope_list)
         tab_content.append(description)
         tab_fmt = str(len(name_list)) + g_table_type['input']
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         tab_process(tab_fmt)
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
     else:
-        click(g_xpath.input_content)
-        send_key(g_xpath.input_content, 'None')
+        driver_op.click(g_xpath.input_content)
+        driver_op.send_key(g_xpath.input_content, 'None')
 
 
 def output_process(content: str):
@@ -825,13 +725,13 @@ def output_process(content: str):
         tab_content.append(scope_list)
         tab_content.append(description)
         tab_fmt = str(len(name_list)) + g_table_type['output']
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         tab_process(tab_fmt)
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
     else:
-        click(g_xpath.input_content)
-        send_key(g_xpath.input_content, 'None')
+        driver_op.click(g_xpath.input_content)
+        driver_op.send_key(g_xpath.input_content, 'None')
 
 
 def return_item_process(content: str):
@@ -852,13 +752,13 @@ def return_item_process(content: str):
         tab_content.append(return_types)
         tab_content.append(return_des)
         tab_fmt = '2' + g_table_type['return']
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         tab_process(tab_fmt)
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
     else:
-        click(g_xpath.input_content)
-        send_key(g_xpath.input_content, 'None')
+        driver_op.click(g_xpath.input_content)
+        driver_op.send_key(g_xpath.input_content, 'None')
 
 
 def unit_var_item_process(content: str):
@@ -871,7 +771,7 @@ def unit_var_item_process(content: str):
         unit_names = ['Variable Name']
         unit_types = ['Variable Type']
         unit_ranges = ['Range']
-        unit_init = ['Initial Value']
+        # unit_init = ['Initial Value']
         des = ['Description']
         unit_source = ['Source']
         unit_names.extend(unit_name_info)
@@ -881,16 +781,16 @@ def unit_var_item_process(content: str):
         tab_content.append(unit_names)
         tab_content.append(unit_types)
         tab_content.append(unit_ranges)
-        tab_content.append(unit_init)
+        # tab_content.append(unit_init)
         tab_content.append(des)
         tab_content.append(unit_source)
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
         tab_process(tab_fmt)
         fill_tab_content(tab_content)
         set_tab_head_color(tab_fmt)
     else:
-        click(g_xpath.input_content)
-        send_key(g_xpath.input_content, 'None')
+        driver_op.click(g_xpath.input_content)
+        driver_op.send_key(g_xpath.input_content, 'None')
 
 
 def func_dynamic_item_process(content):
@@ -914,7 +814,7 @@ def func_dynamic_item_process(content):
     # tab_content.append(black_1)
     tab_content.append(calling_items)
     tab_content.append(calling_sources)
-    click(g_xpath.input_content)
+    driver_op.click(g_xpath.input_content)
     tab_process(tab_fmt)
     fill_tab_content(tab_content)
     set_tab_head_color(tab_fmt)
@@ -968,62 +868,69 @@ def flow_chart_process(content):
     except Exception:
         xml_info = 'None'
     if xml_info == 'None':
-        click(g_xpath.input_content)
-        send_key(g_xpath.input_content, xml_info)
-        click(g_xpath.input_content)
+        driver_op.click(g_xpath.input_content)
+        driver_op.send_key(g_xpath.input_content, xml_info)
+        driver_op.click(g_xpath.input_content)
     else:
-        click(g_xpath.input_content)
-        click(g_xpath.paint_button)
-        click(g_xpath.insert_graph_select)
+        driver_op.click(g_xpath.input_content)
+        driver_op.click(g_xpath.paint_button)
+        driver_op.click(g_xpath.insert_graph_select)
         # time.sleep(0.5)
-        click(g_xpath.insert_graph_bt)
-        switch_to_frame(g_xpath.diagram_iframe)
-        click(g_xpath.extra_menu)
-        click(g_xpath.edit_diagram)
-        clear_content(g_xpath.diagram_text_area)
+        driver_op.click(g_xpath.insert_graph_bt)
+        driver_op.switch_to_frame(g_xpath.diagram_iframe)
+        driver_op.click(g_xpath.extra_menu)
+        driver_op.click(g_xpath.edit_diagram)
+        driver_op.clear_content(g_xpath.diagram_text_area)
         pyperclip.copy(xml_info)
-        click(g_xpath.diagram_text_area)
+        driver_op.click(g_xpath.diagram_text_area)
         driver.find_element(By.XPATH, value=g_xpath.diagram_text_area).send_keys(Keys.CONTROL, 'v')
         # time.sleep(0.3)
-        click(g_xpath.graph_ok)
-        click(g_xpath.graph_save)
-        switch_to_back()
-        wait_item_visible(g_xpath.chart)
+        driver_op.click(g_xpath.graph_ok)
+        driver_op.click(g_xpath.graph_save)
+        driver_op.switch_to_back()
+        driver_op.wait_item_visible(g_xpath.chart)
         # time.sleep(0.5)
-        move_to_element(g_xpath.input_title)
-        wait_item_clickable(g_xpath.input_title)
-        click(g_xpath.input_title)
+        driver_op.move_to_element(g_xpath.input_title)
+        driver_op.wait_item_clickable(g_xpath.input_title)
+        driver_op.click(g_xpath.input_title)
 
-
-def flow_chart_error_proc():
-    driver.close()
+def timing_clear_ram_proc(coor):
+    global driver_op, driver
+    driver.quit()
     time.sleep(0.5)
-    get_chrome_driver()
+    driver_op = WebDriverOp(browser=g_browser, url=g_link)
+    driver = driver_op.driver
     driver.find_element(By.ID, value='user').send_keys(g_user)
     driver.find_element(By.ID, value='password').send_keys(g_key)
     driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
-    wait_loading()
-    open_fold_xpath(g_temp_coor)
+    open_fold_xpath(coor)
     time.sleep(0.5)
 
 
 def build_new_item(position: tuple, title: str, item_type=object_type[function], content: str = None):
+    global START_TIME
+    end_time = time.time()
+    if end_time - START_TIME >= 60 * TIME_GAP:
+        temp_node = position[0]
+        timing_clear_ram_proc(temp_node)
+        START_TIME = time.time()
     xpath = get_destination_xpath(position[0])
     end_xpath = get_destination_xpath(position[1])
     xpath_list = [xpath, end_xpath]
-    wait_item_load(xpath)
-    move_to_element(xpath)
+    driver_op.wait_item_load(xpath)
+    driver_op.move_to_element(xpath)
     time.sleep(0.3)
-    click(xpath)
-    context_click(xpath)
+    driver_op.click(xpath)
+    driver_op.context_click(xpath)
     try:
-        click(g_xpath.insert_new_child)
+        driver_op.click(g_xpath.insert_new_child)
     except Exception:
-        wait_item_load(xpath)
-        move_to_element(xpath)
+        driver_op.wait_item_load(xpath)
+        driver_op.move_to_element(xpath)
         time.sleep(0.5)
-        context_click(xpath)
-        click(g_xpath.insert_new_child)
+        driver_op.click(xpath)
+        driver_op.context_click(xpath)
+        driver_op.click(g_xpath.insert_new_child)
     input_title(title)
     while True:
         if content is None:
@@ -1066,9 +973,12 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
             # autogo_test(xpath_list)
             pass
         input_save()
-        click(end_xpath)
-        select_object_type(item_type)
-        click(end_xpath)
+        driver_op.click(end_xpath)
+        try:
+            select_object_type(item_type)
+        except (Exception, WebDriverException):
+            select_object_type(item_type)
+        driver_op.click(end_xpath)
         break
 
 
@@ -1080,12 +990,7 @@ def auto_go_active(component: str, config: dict):
     while True:
         if res != err.ok:
             break
-        # register
-        # driver.maximize_window()
-        driver.find_element(By.ID, value='user').send_keys(g_user)
-        driver.find_element(By.ID, value='password').send_keys(g_key)
-        driver.find_element(By.XPATH, value='//*[@id="loginForm"]/div/div[2]/input').submit()
-        wait_loading()
+        driver_op.register_code_beamer(g_user, g_key)
         open_fold_xpath(coordination)
         time.sleep(0.5)
         component_coor = g_obj_coor
@@ -1149,6 +1054,8 @@ def auto_go_active(component: str, config: dict):
 
 
 def auto_go_program(config: dict):
+    global START_TIME
+    START_TIME = time.time()
     while True:
         component_name = generate_code.g_file_name.split('.')[0]
         if err.void_check(component_name) is True:

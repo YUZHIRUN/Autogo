@@ -1,7 +1,7 @@
 import sys
-import safe
+import safe_lic
 from PyQt5.QtCore import Qt
-import autogo_interaction
+from autogo_interaction import *
 from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtCore
 
@@ -13,7 +13,7 @@ def get_qss():
 
 
 if __name__ == '__main__':
-    if safe.right_verification() is True:
+    if safe_lic.right_verification() is True:
         QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
         QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
 
@@ -21,8 +21,8 @@ if __name__ == '__main__':
         qss = get_qss()
         app.setStyleSheet(qss)
 
-        widget_obj = autogo_interaction.gui_op()
-        widget_obj.show()
+        main_window = MainWindow()
+        main_window.show()
         sys.exit(app.exec_())
     else:
         pass

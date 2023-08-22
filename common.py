@@ -36,6 +36,7 @@ def while_phrase_line_proc(content: str):
 def file_info_clean(content_str: str, mode='.c'):
     res = del_line_sign(content_str)
     res = res.expandtabs(tabsize=g_tab_scale)
+    res = re.sub(regular.special_comment_sign, '//:', res)
     if re.search(regular.comment_1, res) is not None:
         res = re.sub(regular.comment_1, '', res)
     if re.search(regular.comment_2, res) is not None:
@@ -375,3 +376,52 @@ def property_map(task: dict):
 def if_prop_map(if_phrase, task):
     res = depth_set(if_phrase, task['depth'])
     return res
+
+def get_comment(obj_list):
+    content_list = list()
+    comment_list = list()
+    for obj in obj_list:
+        comment_obj = re.search(regular.special_comment, obj)
+        if comment_obj is not None:
+            comment = str(comment_obj.group(1))
+            content = obj.replace(comment, '')
+            content = content.strip()
+            comment = re.sub(regular.clean_special_comment, '', comment)
+            comment = comment.strip()
+        else:
+            comment = ''
+            content = obj
+        comment_list.append(comment)
+        content_list.append(content)
+    return content_list, comment_list
+
+def st_en_un_get_comment(obj_list):
+    content_list = list()
+    comment_list = list()
+    for obj in obj_list:
+        item = re.sub(regular.struct_head, '', obj)
+        item = re.sub(regular.struct_tail, '', item)
+        items = item.split('\n')
+        contents, comments = get_comment(items)
+        comment_list.append(comments)
+        item_content = re.sub(regular.special_comment, '', obj)
+        content_list.append(item_content)
+    return content_list, comment_list
+
+
+def get_global_value(global_var_list):
+    value_list = list()
+    for var in global_var_list:
+        try:
+            val = re.search(regular.get_global_value, var).group(1)
+        except Exception:
+            val = ''
+        if val is None:
+            val = ''
+        val = re.sub(regular.var_class, '', val)
+        val = re.sub(regular.del_space, ' ', val)
+        val = del_line_sign(val)
+        val = val.strip('\n')
+        val = val.strip()
+        value_list.append(val)
+    return value_list

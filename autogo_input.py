@@ -62,7 +62,7 @@ def detail_pro(func_type='local', func_idx=0):
 
 def include_pro():
     global g_include_item
-    for include_item in generate_code.g_include_list:
+    for include_item in generate_code.g_include_content_list:
         include_obj = re.search(regular.get_include_file, include_item)
         if include_obj is not None:
             include_file = include_obj.group(1)
