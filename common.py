@@ -386,7 +386,7 @@ def get_comment(obj_list):
             comment = str(comment_obj.group(1))
             content = obj.replace(comment, '')
             content = content.strip()
-            comment = re.sub(regular.clean_special_comment, '', comment)
+            comment = re.search(regular.clean_special_comment, comment).group(1)
             comment = comment.strip()
         else:
             comment = ''
