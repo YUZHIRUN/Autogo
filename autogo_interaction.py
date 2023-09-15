@@ -11,12 +11,12 @@ from PyQt5.QtCore import QTimer
 
 err = error_code.err_class()
 
+VERSION = 'Version:3.5 '
 g_name_list = list()
 g_content_list = list()
 g_user_id = ''
 g_user_key = ''
 g_browser = ''
-
 
 def check_user_cfg() -> bool:
     if os.path.exists('.private/__user.csv') is True:
@@ -81,6 +81,7 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
         self.tips = None
         self.browser_over = None
         self.timer.timeout.connect(self.event_timer_operate)
+        self.set_version()
         self.trigger_register()
         self.trigger_back()
         self.trigger_switch_tool()
@@ -570,6 +571,10 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
     def event_xml_clear(self):
         self.graph_origin.clear()
         self.graph.clear()
+
+    def set_version(self):
+        self.version.setText(VERSION)
+
 
     # endregion event
     #  trigger--------------------------------------------------------------------------------

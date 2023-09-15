@@ -329,7 +329,11 @@ def get_global_func_prototype():
                     params.append('void')
                     break
                 elif re.search(regular.global_func_params_1, param) is not None:
-                    param_type = re.search(regular.global_func_params_1, param).group(1)
+                    param_type = str(re.search(regular.global_func_params_1, param).group(1))
+                    if param.count('P2VAR') != 0:
+                        param_type = param_type + '*'
+                    elif param.count('P2CONST') != 0:
+                        param_type = 'const ' + param_type + '*'
                     param_var = re.search(regular.global_func_params_1, param).group(2)
                     res = str(param_type) + ' ' + str(param_var)
                     params.append(res)

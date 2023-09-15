@@ -149,7 +149,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="version">
                <property name="font">
                 <font>
                  <family>Calibri</family>
@@ -160,7 +160,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Version:3.4 </string>
+                <string>Version:3.5 </string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
