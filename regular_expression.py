@@ -100,7 +100,7 @@ class RegularClass:
         self.do_while_del_line = r'while.+((?:\n +)(?!{|}|\n| |\w))'
         self.del_space = r' +'
         self.del_if_line = r'(OR|AND) *\n'
-        self.while_common = r'while *\([^{}]+\)'
+        self.while_common = r'while *\([^;{}]+\)'
 
         self.special_comment = r'( *\/\* *! *<.+?>\*\/)'
         self.clean_special_comment = r' *\/\* *! *<(.+?)>\*\/'
