@@ -11,7 +11,7 @@ from PyQt5.QtCore import QTimer
 
 err = error_code.err_class()
 
-VERSION = 'Version:3.5 '
+VERSION = 'Version:3.7 '
 g_name_list = list()
 g_content_list = list()
 g_user_id = ''

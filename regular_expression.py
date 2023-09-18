@@ -7,7 +7,7 @@ class RegularClass:
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.union = r'typedef +union *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.macro = r'# *define +(?:.+?) +(?:.+)'
-        self.global_var = r'(?:(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *;|(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *= *[^;]+;)(?: *\/\* *! *<.+?>\*\/)*'
+        self.global_var = r'(?:(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *;|(?:static)* *(?:[\w\* ]+) +(?:g_[\w\[\]]+) *= *[^;]+;)(?: *\/\* *! *<.+?> *\*\/)*'
         # struct
         self.struct = r'typedef +struct *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.struct_head = r'(?:.|\n)+?\{ *\n'
@@ -25,7 +25,7 @@ class RegularClass:
         self.global_func_name = r'FUNC *\(.+\) *(\S+?)\('
         self.local_func_name = r'[\w\*]+ +([\w\*]+) *\('
         self.global_var_type_name = r'(?:static)* *([\w\* ]+) +(g_[\w]+).*'
-        self.include_file = r'# *include +(?:.+?(?:\"|>))(?: *\/\* *! *<.+?>\*\/)*'
+        self.include_file = r'# *include +(?:.+?(?:\"|>))(?: *\/\* *! *<.+?> *\*\/)*'
 
         # phase check regular
         self.if_re = r'if *\(.+?\)|else.*'
@@ -100,10 +100,10 @@ class RegularClass:
         self.do_while_del_line = r'while.+((?:\n +)(?!{|}|\n| |\w))'
         self.del_space = r' +'
         self.del_if_line = r'(OR|AND) *\n'
-        self.while_common = r'while *\([^{}]+\)'
+        self.while_common = r'while *\([^;{}]+\)'
 
-        self.special_comment = r'( *\/\* *! *<.+?>\*\/)'
-        self.clean_special_comment = r' *\/\* *! *<(.+?)>\*\/'
+        self.special_comment = r'( *\/\* *! *<.+?> *\*\/)'
+        self.clean_special_comment = r' *\/\* *! *<(.+?)> *\*\/'
         self.special_comment_sign = r'\/\/ *:'
 class graph_parse:
     def __init__(self):

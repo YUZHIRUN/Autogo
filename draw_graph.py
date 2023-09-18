@@ -62,6 +62,13 @@ def upload_group_stack():
     global group_progress_stack
     del group_progress_stack[0]
 
+def clean_group_stack():
+    global group_progress_stack, graph
+    group_progress_stack.clear()
+    graph = mx.create_graph()
+    # graph.module_id = 'module_1'
+    # graph.line_id = 'line_1'
+    # graph.arrow_id = 'arrow_1'
 
 def get_group_from_stack() -> list:
     global group_progress_stack
@@ -633,6 +640,7 @@ def draw_mx_graph(code_object):
 
 def get_graph_xml(code_object):
     res = draw_mx_graph(code_object)
+    clean_group_stack()
     return res
 
 
