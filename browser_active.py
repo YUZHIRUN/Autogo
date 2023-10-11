@@ -91,6 +91,11 @@ class WebDriverOp:
     def select_item(self, xpath: str, content: str):
         Select(self.driver.find_element(By.XPATH, value=xpath)).select_by_visible_text(content)
 
+    def get_options(self, xpath: str):
+        res = Select(self.driver.find_element(By.XPATH, value=xpath)).options
+        res = list(res)
+        return res
+
     def wait_item_load(self, xpath: str):
         locator = (By.XPATH, xpath)
         WebDriverWait(self.driver, self.wait_time).until(ec.presence_of_element_located(locator))
@@ -113,6 +118,10 @@ class WebDriverOp:
         if len(elements) != 0:
             ret = True
         return ret
+
+    def get_text(self, xpath: str):
+        res = self.driver.find_element(By.XPATH, value=xpath).text
+        return res
 
     def register_code_beamer(self, user, key):
         self.send_key(self.xpath.user_id, user)

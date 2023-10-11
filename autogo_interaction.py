@@ -517,7 +517,12 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
             break
 
     def build_record_ui_proc(self, res):
-        self.review_mention.setText(res)
+        if res.count(err.driver_over) != 0:
+            self.swdd_mention.setText(res)
+            self.browser_over = BrowserOver()
+            self.browser_over.show()
+        else:
+            self.swdd_mention.setText(res)
         self.load_status = 'review_over'
 
     def event_close_record(self):
@@ -543,7 +548,12 @@ class MainWindow(Autogo_ui.Ui_MainWindow, QMainWindow):
             break
 
     def close_record_ui_proc(self, res):
-        self.review_mention.setText(res)
+        if res.count(err.driver_over) != 0:
+            self.swdd_mention.setText(res)
+            self.browser_over = BrowserOver()
+            self.browser_over.show()
+        else:
+            self.swdd_mention.setText(res)
         self.load_status = 'review_over'
 
     def event_convert_code(self):

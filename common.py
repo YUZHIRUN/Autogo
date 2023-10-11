@@ -89,10 +89,14 @@ def del_line_sign(obj_str: str):
 
 def del_if_line_proc(obj_str: str):
     res = obj_str
-    obj = re.search(regular.del_if_line, obj_str)
-    if obj is not None:
-        if_flag = str(re.search(regular.del_if_line, obj_str).group(1))
-        res = re.sub(regular.del_if_line, (if_flag + ' '), obj_str)
+    or_obj = re.search(regular.del_or_line, obj_str)
+    and_obj = re.search(regular.del_and_line, obj_str)
+    if or_obj is not None:
+        or_flag = str(re.search(regular.del_or_line, obj_str).group(1))
+        res = re.sub(regular.del_or_line, (or_flag + ' '), obj_str)
+    if and_obj is not None:
+        and_flag = str(re.search(regular.del_and_line, obj_str).group(1))
+        res = re.sub(regular.del_and_line, (and_flag + ' '), res)
     return res
 
 def clear_number_sign(input_str: str):
