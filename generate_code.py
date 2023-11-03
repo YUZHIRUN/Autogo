@@ -87,7 +87,7 @@ def load_file(file_path: str):
                 func_list = re.findall(local_func_regular, file_content)
                 for func_idx in func_list:
                     func_head = func_idx.split('\n')[0]
-                    if func_head.count('FUNC') == 0:
+                    if func_head.startswith('FUNC') == 0:
                         g_local_func.append(func_idx)
                 file_content = re.sub(local_func_regular, '', file_content)
             if point_funcs is not None:
@@ -126,17 +126,25 @@ def load_file(file_path: str):
                 global_var_list, comment_list = common.get_comment(global_var_obj_list)
                 value_list = common.get_global_value(global_var_list)
                 remain_content = re.sub(global_var_regular, '', file_content)
-                another_vars = re.findall(regular.define_var_init, remain_content)
-                g_another_global_vars.extend(another_vars)
+                if file_type == '.c':
+                    another_vars = re.findall(regular.define_var_init, remain_content)
+                    for e in another_vars:
+                        var = e.strip()
+                        g_another_global_vars.append(var)
                 g_global_var_list.extend(global_var_list)
                 g_global_value_list.extend(value_list)
                 g_global_var_comment_list.extend(comment_list)
             else:
-                remain_content = file_content
-                another_vars = re.findall(regular.define_var_init, remain_content)
-                another_vars_def = re.findall(regular.define_var_re, file_content)
-                g_another_global_vars.extend(another_vars_def)
-                g_another_global_vars.extend(another_vars)
+                if file_type == '.c':
+                    remain_content = file_content
+                    another_vars = re.findall(regular.define_var_init, remain_content)
+                    another_vars_def = re.findall(regular.define_var_re, file_content)
+                    for e in another_vars:
+                        var = e.strip()
+                        g_another_global_vars.append(var)
+                    for e in another_vars_def:
+                        var = e.strip()
+                        g_another_global_vars.append(var)
             if file_type == '.c':
                 if include_file is not None:
                     include_list = re.findall(include_regular, file_content)

@@ -372,6 +372,8 @@ def include_process():
     include_num = len(autogo_input.g_include_item)
     while True:
         if include_num == 0:
+            driver_op.click(g_xpath.input_content)
+            driver_op.send_key(g_xpath.input_content, 'NA')
             break
         driver_op.click(g_xpath.input_content)
         include_info = ['File Name']
@@ -394,6 +396,8 @@ def macro_process():
     macro_len = len(autogo_input.g_macro[0])
     while True:
         if macro_len == 0:
+            driver_op.click(g_xpath.input_content)
+            driver_op.send_key(g_xpath.input_content, 'NA')
             break
         driver_op.click(g_xpath.input_content)
         macro_names = ['Macro Name']
@@ -419,6 +423,8 @@ def enum_item_process(enum_prop: str, xpath: list):
     enum_len = len(autogo_input.g_enum[0])
     while True:
         if enum_len == 0:
+            driver_op.click(g_xpath.input_content)
+            driver_op.send_key(g_xpath.input_content, 'NA')
             break
         driver_op.click(g_xpath.input_content)
         enum_idx = int(enum_prop.replace('enum', ''))
@@ -448,6 +454,8 @@ def struct_item_process(struct_prop, xpath: list):
     st_num = len(autogo_input.g_struct[0])
     while True:
         if st_num == 0:
+            driver_op.click(g_xpath.input_content)
+            driver_op.send_key(g_xpath.input_content, 'NA')
             break
         driver_op.click(g_xpath.input_content)
         st_idx = int(struct_prop.replace('struct', ''))
@@ -478,6 +486,8 @@ def union_item_process(union_prop, xpath: list):
     un_num = len(autogo_input.g_union[0])
     while True:
         if un_num == 0:
+            driver_op.click(g_xpath.input_content)
+            driver_op.send_key(g_xpath.input_content, 'NA')
             break
         un_idx = int(union_prop.replace('union', ''))
         un_members = ['Member']
@@ -517,6 +527,8 @@ def global_var_item_process():
     content_len = len(var_names)
     while True:
         if var_len == 0:
+            driver_op.click(g_xpath.input_content)
+            driver_op.send_key(g_xpath.input_content, 'NA')
             break
         tab_fmt = str(content_len) + g_table_type['global_var']
         tab_content = list()
@@ -653,7 +665,7 @@ def func_build_process(content: str):
         except Exception:
             func_idx = 0
         prototype = autogo_input.g_global_func_prototype[func_idx]
-    fill_info = "Prototype: " + prototype
+    fill_info = "Prototype: " + prototype + '\nDescription: '
     driver_op.click(g_xpath.input_content)
     driver_op.send_key(g_xpath.input_content, fill_info)
 
@@ -693,7 +705,7 @@ def input_process(content: str):
         set_tab_head_color(tab_fmt)
     else:
         driver_op.click(g_xpath.input_content)
-        driver_op.send_key(g_xpath.input_content, 'None')
+        driver_op.send_key(g_xpath.input_content, 'NA')
 
 
 def output_process(content: str):
@@ -731,7 +743,7 @@ def output_process(content: str):
         set_tab_head_color(tab_fmt)
     else:
         driver_op.click(g_xpath.input_content)
-        driver_op.send_key(g_xpath.input_content, 'None')
+        driver_op.send_key(g_xpath.input_content, 'NA')
 
 
 def return_item_process(content: str):
@@ -758,7 +770,7 @@ def return_item_process(content: str):
         set_tab_head_color(tab_fmt)
     else:
         driver_op.click(g_xpath.input_content)
-        driver_op.send_key(g_xpath.input_content, 'None')
+        driver_op.send_key(g_xpath.input_content, 'NA')
 
 
 def unit_var_item_process(content: str):
@@ -790,7 +802,7 @@ def unit_var_item_process(content: str):
         set_tab_head_color(tab_fmt)
     else:
         driver_op.click(g_xpath.input_content)
-        driver_op.send_key(g_xpath.input_content, 'None')
+        driver_op.send_key(g_xpath.input_content, 'NA')
 
 
 def func_dynamic_item_process(content):
@@ -932,6 +944,8 @@ def build_new_item(position: tuple, title: str, item_type=object_type[function],
         driver_op.context_click(xpath)
         driver_op.click(g_xpath.insert_new_child)
     input_title(title)
+    time.sleep(0.3)
+    driver_op.click(g_xpath.input_content)
     while True:
         if content is None:
             pass

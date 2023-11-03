@@ -3,7 +3,7 @@ class RegularClass:
         # function regular
         self.point_func_declare = r'(?:static) *\w+(?:\( *\*\w+\)) *\(.+?\).+?&(?:\w+);'
         self.global_func = r'FUNC *\(.+\n *\{ *\n(?: +.*\n)+ *\}|FUNC *\(.+\n *\{ *\n *\}'
-        self.local_func = r'[\w\*]+ +[\*\w]+ *\([^{};\#]+\n\{ *\n(?: .*\n)+\}'
+        self.local_func = r'[\w\*]+ +[\*\w]+ *\([^{}(;\#]+\n\{ *\n(?: .*\n)+\}'
         self.enum = r'typedef +enum *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.union = r'typedef +union *\w* *\n* *\{ *\n(?: .*?\n)+?\} *\S+'
         self.macro = r'# *define +(?:.+?) +(?:.+)'
@@ -18,7 +18,7 @@ class RegularClass:
         self.comment_2 = r'\/\*(?!.*!<|.*! <).*\*\/'
         self.comment_3 = r'/\*(?!.*!<).+(?<!\*/)\n.*?\*/'
         self.comment_4 = r' */\*(?!.*!<).+(?<!\*/)\n(?:.+\n)+?.*\*/'
-        self.st_item = r'((?:struct|const|volatile| )*(?:[\w\*]+)) +([\w\[\]\*]+);'
+        self.st_item = r'((?:struct|const|volatile| )*(?:[\w\*]+)) +([\w\[\]\*]+(?: *: *\d)*);'
         self.en_item = r'(\w+) *,?( *= *(\w+))*'
 
         # get names regular
@@ -100,6 +100,9 @@ class RegularClass:
         self.do_while_del_line = r'while.+((?:\n +)(?!{|}|\n| |\w))'
         self.del_space = r' +'
         self.del_if_line = r'(OR|AND) *\n'
+
+        self.del_or_line = r'(OR) *\n'
+        self.del_and_line = r'(AND) *\n'
         self.while_common = r'while *\([^;{}]+\)'
 
         self.special_comment = r'( *\/\* *! *<.+?> *\*\/)'
@@ -217,6 +220,8 @@ class Xpath:
 
         self.permission_err = r'//*[text()="You have no permission to edit this field."]'
         self.permission_err_pro = r'//*[text()="You have no permission to edit this field."]/../../div[3]/div/button'
+
+        self.chose_moderator_frame = r'//iframe[@id="inlinedPopupIframe"]'
 
 
 

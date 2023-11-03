@@ -96,9 +96,14 @@ def point_func_proc(func_line: list):
         point_func = re.search(regular.point_func, line_idx)
         if point_func is not None:
             point_name = point_func.group(1)
-            func_res = point_name
+            func_res = str(point_name)
             for e in generate_code.g_point_func_list:
-                if e.count(point_name) != 0:
+                point_proto = str(re.search(regular.get_point_func_info, e).group(1))
+                point_proto = point_proto.replace('(', '')
+                point_proto = point_proto.replace(')', '')
+                point_proto = point_proto.replace('*', '')
+                point_proto = point_proto.strip()
+                if func_res == point_proto:
                     try:
                         # point_head = re.search(regular.point_func_head, line_idx).group(1)
                         point_params = re.search(regular.point_func_head, line_idx).group(2)
