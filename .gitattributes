@@ -1,3 +1,2 @@
-resource/* filter=lfs diff=lfs merge=lfs -text
 resource/autogo.qss filter=lfs diff=lfs merge=lfs -text
 resource/ filter=lfs diff=lfs merge=lfs -text
