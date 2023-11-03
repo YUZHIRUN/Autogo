@@ -1,2 +1,8 @@
 resource/autogo.qss filter=lfs diff=lfs merge=lfs -text
 resource/ filter=lfs diff=lfs merge=lfs -text
+resource/* filter=lfs diff=lfs merge=lfs -text
+resource/.config/* filter=lfs diff=lfs merge=lfs -text
+resource/.driver/* filter=lfs diff=lfs merge=lfs -text
+resource/.ico/* filter=lfs diff=lfs merge=lfs -text
+resource/.imgs/* filter=lfs diff=lfs merge=lfs -text
+resource/.private/* filter=lfs diff=lfs merge=lfs -text
