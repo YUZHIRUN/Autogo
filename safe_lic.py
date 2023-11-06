@@ -6,11 +6,13 @@ KEY_PATH = r'.private/__cryptograpy/__uncptgph.cy'
 LIC_PATH = r'.private/__cryptograpy/__cptgpy.cy'
 DeadLine = ''
 
+
 def check_cryptograpy_file():
     if os.path.exists(KEY_PATH) is False or os.path.exists(LIC_PATH) is False:
         return False
     else:
         return True
+
 
 def verification():
     global DeadLine
@@ -26,6 +28,7 @@ def verification():
             deadline = cipher_suite.decrypt(content).decode()
             DeadLine = deadline
     return ret
+
 
 def right_verification() -> bool:
     """
